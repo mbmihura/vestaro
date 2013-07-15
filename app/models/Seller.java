@@ -23,4 +23,7 @@ public class Seller extends Model {
     public SellerPoint activeSellerPoint;
     @OneToMany
     public List<Collection> collections = new ArrayList<>();
+
+    public static Finder<Long,Seller> find = new Finder(Long.class,Seller.class);
+
 }
