@@ -1,6 +1,6 @@
 package models;
 
-import org.junit.Test;
+import org.junit.*;
 import play.mvc.Content;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -13,19 +13,14 @@ import static play.test.Helpers.contentType;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class ApplicationTest {
+public class SellerTest {
+    @Before
+    public void setUp(){
 
-    @Test 
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
     }
-    
+
     @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render();
-        assertThat(contentType(html)).isEqualTo("text/html");
+    public void ItemHasOwner(){
+
     }
-  
-   
 }
