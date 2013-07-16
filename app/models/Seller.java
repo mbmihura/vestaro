@@ -1,12 +1,13 @@
 package models;
 
-import java.util.*;
 import javax.persistence.*;
 
 import org.joda.time.DateTime;
+
 import play.data.format.Formats;
 import play.db.ebean.Model;
 
+@SuppressWarnings("serial")
 @Entity
 public class Seller extends Model {
     @Id
@@ -16,14 +17,10 @@ public class Seller extends Model {
     public Long merchantId;
     public String logoUrl;
     public String webpageUrl;
-    @Formats.DateTime(pattern="yyyy/MM/dd HH:mm:SS")
+    @Formats.DateTime(pattern="yyyy-MM-dd HH:mm:SS")
     public DateTime insertDate;
-    @OneToMany
-    public List<SellerPoint> sellerPoints = new ArrayList<>();
     public SellerPoint activeSellerPoint;
-    @OneToMany
-    public List<Collection> collections = new ArrayList<>();
 
-    public static Finder<Long,Seller> find = new Finder(Long.class,Seller.class);
+    public static Finder<Long,Seller> find = new Finder<Long,Seller>(Long.class,Seller.class);
 
 }

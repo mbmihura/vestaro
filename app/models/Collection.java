@@ -20,8 +20,5 @@ public class Collection extends Model {
     @OneToOne
     public Seller owner;
 
-    @OneToMany
-    public List<Item> items = new ArrayList<>();
-
-    public static Finder<Long,Collection> find = new Finder(Long.class,Collection.class);
+    public static Finder<Long,Collection> find = new Finder<Long,Collection>(Long.class,Collection.class);
 }

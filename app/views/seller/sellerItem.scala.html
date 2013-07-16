@@ -1,7 +1,11 @@
-@(seller: Seller)
+@(seller: Seller, items: List[Item])
 
 <!-- Creates an unordered list of the Seller Items -->
-
-<ul>
-
+<h1>@seller.name</h1>
+<ul class="items">
+	@items.map { item =>
+		<li>
+			@item.title
+		</li>
+	}
 </ul>
