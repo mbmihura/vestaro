@@ -3,9 +3,10 @@
 <!-- Creates an unordered list of the Seller Items -->
 <h1>@seller.name</h1>
 <ul class="items">
+	<h2>Items</h2>
 	@items.map { item =>
 		<li>
-			@item.title
+			@views.html.item.item(item)
 		</li>
 	}
 </ul>

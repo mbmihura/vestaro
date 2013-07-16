@@ -4,12 +4,12 @@ import models.Item;
 import models.Seller;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.seller.sellerItem;
+import views.html.seller.sellerItems;
 
 public class Items extends Controller {
   
     public static Result index(Long sellerId) {
-        return ok(sellerItem.render(
+        return ok(sellerItems.render(
         	Seller.find.ref(sellerId),
         	Item.findItemsOwnedBy(sellerId)
         ));

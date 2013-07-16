@@ -14,7 +14,4 @@ dist
 /RUNNING_PID
 /.settings
 /.target
-<<<<<<< HEAD
 /.cache
-=======
->>>>>>> Adds Items controller and preloads mock data.
