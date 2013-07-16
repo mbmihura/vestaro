@@ -4,7 +4,7 @@ import models.Item;
 import models.Seller;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.seller.sellerItems;
+import views.html.sellers.*;
 
 public class Sellers extends Controller {
   
