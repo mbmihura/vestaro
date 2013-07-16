@@ -1,11 +1,14 @@
 package models;
 
-import java.util.*;
+import java.util.List;
+
 import javax.persistence.*;
+
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+@SuppressWarnings("serial")
 @Entity
 public class Item extends Model {
     @Id
@@ -31,7 +34,7 @@ public class Item extends Model {
     @OneToOne
     public Collection collection;
 
-    public static Finder<String,Item> find = new Finder(String.class, Item.class);
+    public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
         return Item.find.where()
