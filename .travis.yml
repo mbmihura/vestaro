@@ -3,7 +3,7 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
-  env:
+env:
   - PLAY_VERSION=2.1-RC2 # Latest 2.1.x
 before_script: 
   - wget http://download.playframework.org/releases/play-${PLAY_VERSION}.zip
