@@ -8,7 +8,7 @@ import views.html.sellers.*;
 
 public class Sellers extends Controller {
   
-    public static Result index(Long sellerId) {
+    public static Result listItems(Long sellerId) {
         return ok(sellerItems.render(
         	Seller.find.ref(sellerId),
         	Item.findItemsOwnedBy(sellerId)

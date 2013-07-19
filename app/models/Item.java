@@ -14,7 +14,7 @@ public class Item extends Model {
     @Id
     @Constraints.Required
     @Formats.NonEmpty
-    //TODO @Constraints.Pattern(value = "\\d{1,6}")
+    @Constraints.Pattern(value = "[a-zA-Z0-9]{2,10}")
     public String id;
 
     @Constraints.Required
