@@ -1,16 +1,28 @@
 package controllers;
 
 import models.Item;
-import models.Seller;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.items.*;;
+import views.html.items.*;
 
 public class Items extends Controller {
     
-    public static Result create() {
-    	//TODO
-    	return null;
+	static Form<Item> itemForm = Form.form(Item.class);
+	
+	public static Result form() {
+		return ok(form.render(itemForm));
+	}
+	
+    public static Result submit() {
+    	Form<Item> itemFilledForm = itemForm.bindFromRequest();
+    	if(itemFilledForm.hasErrors()) {
+            return badRequest();
+        } else {
+            return ok(
+                item.render(Item.submit(itemFilledForm.get()))
+            );
+        }
     }
     
     public static Result read(String itemId) {
