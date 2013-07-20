@@ -13,7 +13,7 @@ public class SellerPoint extends Model {
     public Long id;
     @OneToOne
     public Seller seller;
-    @Formats.DateTime(pattern="yyyy-MM-dd HH:mm:SS")
+    @Formats.DateTime(pattern="yyyy-MM-dd hh:mm:ss")
     public DateTime insertDate;
     public BigDecimal pointsValue;
     public Integer itemCount;
