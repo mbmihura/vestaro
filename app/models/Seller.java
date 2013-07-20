@@ -18,7 +18,7 @@ public class Seller extends Model {
     public String logoUrl;
     public String webpageUrl;
     @Formats.DateTime(pattern="yyyy-MM-dd hh:mm:ss")
-    public DateTime insertDate;
+    public DateTime insertDate = new DateTime();
     public SellerPoint activeSellerPoint;
 
     public static Finder<Long,Seller> find = new Finder<Long,Seller>(Long.class,Seller.class);
