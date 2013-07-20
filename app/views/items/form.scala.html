@@ -7,10 +7,10 @@
 
 @helper.form(action = routes.Items.submit(), 'id -> "userForm", 'class -> "container") {
     
-    @helper.inputText(formItem("id"), '_label -> "CÛdigo de Prenda")
+    @helper.inputText(formItem("id"), '_label -> "C√≥digo de Prenda")
     @helper.inputText(formItem("title"), '_label -> "Nombre")
-    @helper.inputText(formItem("description"), '_label -> "DescripciÛn")
-    @helper.inputText(formItem("imgUrl"), '_label -> "Im·gen (URL)")
+    @helper.inputText(formItem("description"), '_label -> "Descripci√≥n")
+    @helper.inputText(formItem("imgUrl"), '_label -> "Im√°gen (URL)")
     
     <button type="create" class="btn btn-primary">Crear</button>
     
