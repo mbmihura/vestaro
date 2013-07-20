@@ -57,7 +57,7 @@ public class Item extends Model {
 
     public static Item submit(Item item) {
     	item.save();
-    	return null;
+    	return item;
     }
     
     public String toString() {
