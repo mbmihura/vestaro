@@ -17,7 +17,7 @@ public class Seller extends Model {
     public Long merchantId;
     public String logoUrl;
     public String webpageUrl;
-    @Formats.DateTime(pattern="yyyy-MM-dd HH:mm:SS")
+    @Formats.DateTime(pattern="yyyy-MM-dd hh:mm:ss")
     public DateTime insertDate;
     public SellerPoint activeSellerPoint;
 
