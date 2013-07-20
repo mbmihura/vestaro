@@ -17,7 +17,7 @@ public class Items extends Controller {
     public static Result submit() {
     	Form<Item> itemFilledForm = itemForm.bindFromRequest();
     	if(itemFilledForm.hasErrors()) {
-            return badRequest();
+            return badRequest(form.render(itemForm));
         } else {
             return ok(
                 item.render(Item.submit(itemFilledForm.get()))
