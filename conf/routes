@@ -10,7 +10,8 @@ GET        /                    controllers.Application.index()
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
 
 # Item
-POST	/item					controllers.Items.create()
+GET		/item					controllers.Items.form()
+POST	/item					controllers.Items.submit()
 GET		/item/:itemId			controllers.Items.read(itemId: String)
 PUT		/item/:itemId			controllers.Items.update(itemId: String)
 POST	/item/:itemId			controllers.Items.delete(itemId: String)

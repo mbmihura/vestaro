@@ -55,6 +55,11 @@ public class Item extends Model {
         return item;
     }
 
+    public static Item submit(Item item) {
+    	item.save();
+    	return null;
+    }
+    
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Item [id=")
@@ -66,4 +71,5 @@ public class Item extends Model {
                 .append("]");
         return builder.toString();
     }
+
 }
