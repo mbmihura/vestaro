@@ -5,16 +5,15 @@
 
 @main("Item Form") {
 
-@helper.form(action = routes.Items.submit(), 'id -> "userForm") {
+@helper.form(action = routes.Items.submit(), 'id -> "userForm", 'class -> "container") {
     
-    @helper.inputText(formItem("id"))
-    @helper.inputText(formItem("title"))
-    @helper.inputText(formItem("description"))
-    @helper.inputText(formItem("imgUrl"))
+    @helper.inputText(formItem("id"), '_label -> "Código de Prenda")
+    @helper.inputText(formItem("title"), '_label -> "Nombre")
+    @helper.inputText(formItem("description"), '_label -> "Descripción")
+    @helper.inputText(formItem("imgUrl"), '_label -> "Imágen (URL)")
     
     <button type="create" class="btn btn-primary">Crear</button>
     
 }
-
 
 }
