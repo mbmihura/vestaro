@@ -1,19 +1,20 @@
 @(formItem: Form[Item])
 
 @import helper._
-@import helper.twitterBootstrap._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
 
 @main("Item Form") {
+	
+	<h1>Alta Prenda</h1>
 
-@helper.form(action = routes.Items.submit(), 'id -> "userForm", 'class -> "container") {
-    
-    @helper.inputText(formItem("id"), '_label -> "Código de Prenda")
-    @helper.inputText(formItem("title"), '_label -> "Nombre")
-    @helper.inputText(formItem("description"), '_label -> "Descripción")
-    @helper.inputText(formItem("imgUrl"), '_label -> "Imágen (URL)")
-    
-    <button type="create" class="btn btn-primary">Crear</button>
-    
-}
+	@helper.form(action = routes.Items.submit, 'id -> "userForm", 'class -> "form-horizontal") {
+	    @inputText(formItem("id"), '_label -> "Código de Prenda")
+	    @inputText(formItem("title"), '_label -> "Nombre")
+	    @inputText(formItem("description"), '_label -> "Descripción")
+	    @inputText(formItem("imgUrl"), '_label -> "Imágen (URL)")
+	    
+	    <button type="create" class="btn btn-primary">Crear</button>
+	    
+	}
 
 }
