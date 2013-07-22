@@ -18,6 +18,12 @@
 			   margin: 20px 0;
 			}
 		</style>
+		
+		<script>
+			var tenantId = "Vestaro";
+			var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
+		</script>
+		
     </head>
     <body>
         @content
@@ -41,7 +47,11 @@
 		      <label class="checkbox">
 		        <input type="checkbox"> Remember me
 		      </label>
-		      <button type="submit" class="btn" onclick="easyrec_buy({userId='1', itemId:'6', itemUrl:'http://example.com/item/1222', itemDescription:'Easyrec Fan Poster', itemImageUrl:'http://example.com/pics/poster.png'})">Sign in</button>
+		      <button type="submit" class="btn" onclick="easyrec_buy({userId:'1',
+											                    itemId:'6',
+											                    itemUrl:'http://example.com/item/1222',
+											                    itemDescription:'Easyrec Fan Poster',
+											                    itemImageUrl:'http://example.com/pics/poster.png'});">Sign in</button>
 		    </div>
 		  </div>
 		</form>
