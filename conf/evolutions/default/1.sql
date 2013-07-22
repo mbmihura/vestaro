@@ -38,7 +38,6 @@ create sequence item_seq;
 
 create sequence seller_seq;
 
-
 alter table collection add constraint fk_collection_owner_1 foreign key (owner_id) references seller (id) on delete restrict on update restrict;
 create index ix_collection_owner_1 on collection (owner_id);
 alter table item add constraint fk_item_owner_2 foreign key (owner_id) references seller (id) on delete restrict on update restrict;
