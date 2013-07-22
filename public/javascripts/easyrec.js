@@ -1,4 +1,4 @@
-var easyrecApiUrl="http://localhost:8081/api/1.0/json/";
+var easyrecApiUrl="http://localhost:8080/easyrec-web/api/1.0/json/";
 /*
  * Copyright 2011 Research Studios Austria Forschungsgesellschaft mBH
  *
@@ -37,10 +37,6 @@ var defaults = {
     clusterId:null,
     basedOnActionType:"VIEW"
 };
-
-// VARIABLES DEFINIDAS POR NOSOTROS
-var tenantId = "Vestaro";
-var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// Item Actions ////////////////////////////////////////
