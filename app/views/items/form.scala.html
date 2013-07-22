@@ -7,7 +7,7 @@
 	
 	<h1>Alta Prenda</h1>
 
-	@helper.form(action = routes.Items.submit, 'id -> "userForm", 'class -> "form-horizontal") {
+	@helper.form(action = routes.Items.submit, 'id -> "userForm") {
 	    @inputText(formItem("id"), '_label -> "Código de Prenda")
 	    @inputText(formItem("title"), '_label -> "Nombre")
 	    @inputText(formItem("description"), '_label -> "Descripción")
