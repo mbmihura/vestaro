@@ -6,4 +6,6 @@ import play.db.ebean.Model;
 
 @Entity
 public class Seller extends Model {
+	@Id
+	public Long id;
 }
