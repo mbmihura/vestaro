@@ -1,0 +1,17 @@
+language: java
+
+jdk:
+  - oraclejdk7
+
+services:
+  - mongodb
+  - memcache
+
+env:
+  - PLAY_VERSION=2.0.2
+
+before_script:
+  - wget http://download.playframework.org/releases/play-${PLAY_VERSION}.zip
+  - unzip -q play-${PLAY_VERSION}.zip
+script:
+  -  sbt test
