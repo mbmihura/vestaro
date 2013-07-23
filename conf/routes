@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+GET     /aboutplay                  controllers.Application.aboutPlay()
 GET     /                           controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
