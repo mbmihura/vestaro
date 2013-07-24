@@ -28,36 +28,40 @@
     <body>
         @content
 
-        <!-- Just an example! -->
 	    <form class="form-horizontal">
 		  <div class="control-group">
 		    <div>
 		      Pruebas
 		    </div>
-		    <div>
-		      ============
-		    </div>
-		      <button type="submit" class="btn" onclick="easyrec_buy({userId:'1',
+		   	<hl>
+		      <button type="submit" class="btn" onclick="easyrec_buy({userId:'2',
 											                    itemId:'25',
 											                    itemUrl:'http://url.ejemplo.com.ar',
 											                    itemDescription:'Remera Bazzinga v2',
 											                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
 	          Simular compra
 	          </button>
-	          <button type="submit" class="btn" onclick="easyrec_view({userId:'1',
-											                    itemId:'27',
+	          <button type="submit" class="btn" onclick="easyrec_view({userId:'2',
+											                    itemId:'25',
 											                    itemUrl:'http://url.ejemplo.com.ar',
 											                    itemDescription:'Remera Boca Juniors',
 											                    itemImageUrl:'http://url.ejemplo/boca.png'});">
 		   
 	          Simular vista
 	          </button>
-	          <button type="submit" class="btn" onclick="easyrec_rate({userId:'1',
-											                    itemId:'27',
+	          <button type="submit" class="btn" onclick="easyrec_rate({userId:'2',
+											                    itemId:'25',
 											                    itemUrl:'http://url.ejemplo.com.ar',
 											                    itemDescription:'Buzo Hola',
 											                    itemImageUrl:'http://url.ejemplo/hola.png'});">
 	          Simular puntuación
+	          </button>
+	          <button type="submit" class="btn" onclick="easyrec_otherUsersAlsoViewed({
+													       userId:"2",
+													       itemId:"25",
+													       drawingCallback:"[drawbackname]"
+													       });">
+	          Simular Recomendación
 	          </button>
 		    </div>
 		  </div>
