@@ -1,0 +1,10 @@
+@font-face {
+                font-family: ClaireHand;
+                src: url('http://rrhh.monits.com/fonts/clairehandregular-webfont.eot');
+                src: url('http://rrhh.monits.com/fonts/clairehandregular-webfont.eot?#iefix') format('embedded-opentype'),
+                url('http://rrhh.monits.com/fonts/clairehandregular-webfont.woff') format('woff'),
+                url('http://rrhh.monits.com/fonts/clairehandregular-webfont.ttf') format('truetype'),
+                url('http://rrhh.monits.com/fonts/clairehandregular-webfont.svg#claire_handregular') format('svg');
+                font-weight: normal;
+                font-style: normal
+            }
