@@ -34,9 +34,9 @@
           // Additional JS functions here
           window.fbAsyncInit = function() {
             FB.init({
-              appId      : '578879162134484', // App ID
+              appId      : '578879162134484', // App id
               channelUrl : '//localhost:9000/assets/channel.html', // Channel File
-              status     : true, // check login status
+              status     : false, // check login status. HACK: Disable to avoid double login when user is logged into fb and app authorized.
               cookie     : true, // enable cookies to allow the server to access the session
               xfbml      : true  // parse XFBML
             });
@@ -88,7 +88,21 @@
                 }
               });
 
-                
+                console.log('getLoginStatus...');
+                // As check login status was set to false, initial login check has to be manually triggered.
+                // In case user is logged, no action has to be taken as it would be automatically triggered becuase sdk subscribed to auth.authResponseChange JavaScript event.
+                FB.getLoginStatus(function(response) {
+                         if (response.status === 'connected') {
+                             console.log('getLoginStatus answered already logged as user ' + response.authResponse.userID + ':');
+                         }else{
+                            console.log('getLoginStatus answered not logged. Performing login...');
+                             FB.login();
+                         }
+                         
+                    },function(error){
+                        console.log('FB login error: ' + error);
+                    });
+
           };
 
           // Load the SDK asynchronously
@@ -154,7 +168,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-<!-- Delete if not necesary
+        <!-- Delete if not necesary
         <script src="../assets/js/bootstrap-transition.js"></script>
         <script src="../assets/js/bootstrap-alert.js"></script>
         <script src="../assets/js/bootstrap-modal.js"></script>
