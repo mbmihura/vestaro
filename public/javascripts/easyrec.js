@@ -1,4 +1,4 @@
-var easyrecApiUrl="http://localhost:8080/easyrec-web/api/1.0/json/";
+var easyrecApiUrl="http://vestaro.kd.io:8080/easyrec-web/api/1.0/json/";
 /*
  * Copyright 2011 Research Studios Austria Forschungsgesellschaft mBH
  *
