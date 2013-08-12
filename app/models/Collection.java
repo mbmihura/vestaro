@@ -1,11 +1,14 @@
 package models;
 
 import java.util.*;
+
 import javax.persistence.*;
+
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+@SuppressWarnings("serial")
 @Entity
 public class Collection extends Model {
     @Id

@@ -12,10 +12,7 @@ import play.db.ebean.Model;
 @Entity
 public class Item extends Model {
     @Id
-    @Constraints.Required
-    @Formats.NonEmpty
-    @Constraints.Pattern(value = "[a-zA-Z0-9]{2,10}")
-    public String id;
+    public Long id;
 
     @Constraints.Required
     @Constraints.MaxLength(30)
@@ -27,6 +24,9 @@ public class Item extends Model {
 
     @Constraints.Required
     public String imgUrl;
+    
+    @Constraints.Required
+    public Long price;
 
     @OneToOne
     public Seller owner;
@@ -34,7 +34,7 @@ public class Item extends Model {
     @OneToOne
     public Collection collection;
 
-    public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
+    public static Finder<Long,Item> find = new Finder<Long,Item>(Long.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
         return Item.find.where()
@@ -42,7 +42,7 @@ public class Item extends Model {
                 .findList();
     }
 
-    public static boolean isOwner(String itemId, Long sellerId){
+    public static boolean isOwner(Long itemId, Long sellerId){
         return Item.find.where()
                 .eq("id", itemId)
                 .eq("owner.id", sellerId)
