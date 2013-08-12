@@ -34,3 +34,25 @@ function drawingCallbackExampleToDiv(json, div)
 		}
 	}
 }
+
+function setItemSamples(json)
+{
+	setItemSamples(json, "options");
+}
+
+function setItemSamples(json, ul)
+{
+	if(Ebean.find(Item.class).findRowCount() > 0) {
+		
+		listString = "<ul>";
+		
+    	for(x = 0; x < Ebean.find(Item.class).findRowCount(); x++)
+    	{
+    		item = Ebean.find(Item.class).findList().get(x);
+    		
+			listString += "<li><a tabindex='0' href='#' onClick='$('#selected_item').text('" + item.description + "')>" + item.description + "</a>" + "</li>";
+		}
+    		
+    	document.getElementById(ul).innerHTML += listString + "</ul>";
+	}
+}

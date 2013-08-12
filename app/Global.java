@@ -18,8 +18,8 @@ public class Global extends GlobalSettings {
         @SuppressWarnings("unchecked")
 		public static void insert() {
             if(Ebean.find(Seller.class).findRowCount() == 0) {
-
-                Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
+            	
+            	Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 
                 // Insert sellers first
                 Ebean.save(all.get("sellers"));

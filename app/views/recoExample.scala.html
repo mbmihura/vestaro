@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
@@ -12,7 +12,7 @@
         
         <style type="text/css">
 			form {
-			   margin: 20px 0;
+			    padding-left: 90px;
 			}
 		</style>
 		
@@ -23,48 +23,53 @@
 		
     </head>
     <body>
-        @content
-
 	    <form class="form-horizontal">
-		  <div class="control-group">
-		    <div>
-		      Pruebas
-		    </div>
-		   	<hl>
-		      <button type="submit" class="btn" onclick="easyrec_buy({userId:'2',
-											                    itemId:'25',
-											                    itemUrl:'http://url.ejemplo.com.ar',
-											                    itemDescription:'Remera Bazzinga v2',
-											                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
-	          Simular compra
-	          </button>
-	          <button type="submit" class="btn" onclick="easyrec_view({userId:'2',
-											                    itemId:'24',
-											                    itemUrl:'http://url.ejemplo.com.ar',
-											                    itemDescription:'Remera Boca Juniors',
-											                    itemImageUrl:'http://url.ejemplo/boca.png'});">
-		   
-	          Simular vista
-	          </button>
-	          <button type="submit" class="btn" onclick="easyrec_rate({userId:'2',
-	          													ratingValue:'8',
-											                    itemId:'25',
-											                    itemUrl:'http://url.ejemplo.com.ar',
-											                    itemDescription:'Remera Bazzinga v2',
-											                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
-	          Simular puntuación
-	          </button>
-	          <button type="submit" class="btn" onclick="easyrec_mostViewedItems({
-													       numberOfResults:10,
-													       timeRange:'ALL',
-													       drawingCallback:'drawingCallbackExample'
-													       });">
-	          Simular Ranking
-	          </button>
-	          
-	          <div id="resultados">&nbsp;</div>
-		    </div>
-		  </div>
+	   <!--	<div class="control-group">
+	    		<div class="btn-group">
+				  <button id="selected_item" onClick="setItemSamples()" class="btn" value="#{bean.find(Item.class).findList().get(1)}">Item Sample</button>
+				  <button class="btn dropdown-toggle" data-toggle="dropdown">
+				    <span class="caret"></span>
+				  </button>
+				  <ul id="options" class="dropdown-menu">
+				  </ul>
+				</div>
+	    	</div> -->
+		  	<div class="control-group">
+			   	<hl>
+				      <button type="submit" class="btn" onclick="easyrec_buy({userId:'2',
+													                    itemId:'25',
+													                    itemUrl:'http://url.ejemplo.com.ar',
+													                    itemDescription:'Remera Bazzinga v2',
+													                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
+			          Simular compra
+			          </button>
+			          <button type="submit" class="btn" onclick="easyrec_view({userId:'2',
+													                    itemId:'25',
+													                    itemUrl:'http://url.ejemplo.com.ar',
+													                    itemDescription:'Remera Boca Juniors',
+													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
+				   
+			          Simular vista
+			          </button>
+			          <button type="submit" class="btn" onclick="easyrec_rate({userId:'2',
+			          													ratingValue:'8',
+													                    itemId:'25',
+													                    itemUrl:'http://url.ejemplo.com.ar',
+													                    itemDescription:'Remera Bazzinga v2',
+													                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
+			          Simular puntuación
+			          </button>
+			          <button type="submit" class="btn" onclick="easyrec_mostViewedItems({
+															       numberOfResults:10,
+															       timeRange:'ALL',
+															       drawingCallback:'drawingCallbackExample'
+															       });">
+			          Simular Ranking
+			          </button>
+		          
+	          		<div id="resultados">&nbsp;</div>
+		    	</hl>
+			</div>
 		</form>
     </body>
 </html>
