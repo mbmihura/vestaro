@@ -25,7 +25,7 @@ public class Items extends Controller {
         }
     }
     
-    public static Result read(Long itemId) {
+    public static Result read(String itemId) {
         return ok(item.render(
         	Item.find.ref(itemId)
         ));

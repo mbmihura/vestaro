@@ -16,6 +16,7 @@ create table item (
   title                     varchar(255),
   description               varchar(255),
   img_url                   varchar(255),
+  price                     bigint,
   owner_id                  bigint,
   collection_id             bigint,
   constraint pk_item primary key (id))

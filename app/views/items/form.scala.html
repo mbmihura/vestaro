@@ -3,11 +3,10 @@
 @import helper._
 
 @main("Item Form") {
-	
-	<h1>Alta Prenda</h1>
 
+	<form class="form-horizontal">
+	
 	@helper.form(action = routes.Items.submit, 'id -> "userForm") {
-	    <form class="form-horizontal">
 		<fieldset>
 	
 		<!-- Form Name -->
@@ -69,7 +68,7 @@
 		
 		<!-- Multiple Checkboxes -->
 		<div class="control-group">
-		  <label class="control-label" for="size">Talles</label>
+		  <label class="control-label" for="size">Talles y Stock</label>
 		  <div class="controls">
 		    <label class="checkbox" for="size-0">
 		      <input type="checkbox" name="size" id="size-0" value="XS">
@@ -100,6 +99,29 @@
 		      Único
 		    </label>
 		  </div>
+		  <div class="controls">
+		    <label class="text">
+		      <input type="number" name="stock" id="size-0">
+		    </label>
+		    <label class="text">
+		      <input type="number" name="stock" id="size-1">
+		    </label>
+		    <label class="text">
+		      <input type="number" name="stock" id="size-2">
+		    </label>
+		    <label class="text">
+		      <input type="number" name="stock" id="size-3">
+		    </label>
+		    <label class="text">
+		      <input type="number" name="stock" id="size-4">
+		    </label>
+		    <label class="text">
+		      <input type="number" name="stock" id="size-5">
+		    </label>
+		    <label class="text">
+		      <input type="number" name="stock" id="size-6">
+		    </label>
+		  </div>
 		</div>
 		
 		<!-- Select Multiple -->
@@ -118,8 +140,8 @@
 	    <button id="create" name="create" class="btn btn-primary btn-large">Crear</button>
 	
 	</fieldset>
-	</form>
 	    
 	}
+	</form>
 
 }
