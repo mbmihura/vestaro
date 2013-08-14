@@ -26,6 +26,8 @@
 
         <!-- Fav icons -->
         <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     </head>
     <body>
         <div id="fb-root"></div>
@@ -66,6 +68,10 @@
                     });
                     $('.navbar .connectingWithFbLabel').hide();
                     $('.navbar .loggedUserOptions').fadeIn();
+
+                    $.ajax({url:'/dashboard',type: 'GET', success: function( response ) {
+                      $('#content').html(response);
+                    }})
 
                 //If app is not allow, aparently callbackfunction is never call. 
                 //} else if (response.status === 'not_authorized') {
@@ -125,7 +131,8 @@
               <a class="brand" href="#" style="font-family: 'ClaireHand'; font-weight: bold;font-size: 26px;color: #3375b2;letter-spacing: 3px;">Vestaro</a>
               <div class="nav-collapse collapse">
                 <ul class="nav">
-                  <li ><a href="#"><i class="icon-home"></i> Inicio</a></li>
+                  <li ><a href="#"><i class="icon-th-list"></i> Estadisticas</a></li>
+                  <li ><a href="#"><i class="icon-tags"></i> Productos</a></li>
                   <form class="navbar-form pull-right" style="height: 35px;">
                       <div class="input-append">
                           <input class="span4" id="appendedInput" type="text" placeholder="Buscar...">
@@ -160,7 +167,7 @@
           </div>
         </div>
         <!-- /container -->
-        <div class="container">
+        <div class="container" id="content">
           @content
         </div> 
         <!-- Le javascript

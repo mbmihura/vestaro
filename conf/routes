@@ -5,6 +5,7 @@
 # Home page
 GET        /aboutplay           controllers.Application.aboutPlay()
 GET        /                    controllers.Application.index()
+GET        /dashboard			controllers.Dashboards.index()
 
 # Seller
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
