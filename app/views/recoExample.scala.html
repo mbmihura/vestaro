@@ -41,7 +41,7 @@
 													                    itemUrl:'http://url.ejemplo.com.ar',
 													                    itemDescription:'Remera Bazzinga v2',
 													                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
-			          Simular compra
+			          Simular Compra
 			          </button>
 			          <button type="submit" class="btn" onclick="easyrec_view({userId:'2',
 													                    itemId:'25',
@@ -49,15 +49,29 @@
 													                    itemDescription:'Remera Boca Juniors',
 													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
 				   
-			          Simular vista
+			          Simular Vista
 			          </button>
-			          <button type="submit" class="btn" onclick="easyrec_rate({userId:'2',
+			          <button type="submit" class="btn" onclick="easyrec_sendAction({userId:'2',
 			          													ratingValue:'8',
 													                    itemId:'25',
 													                    itemUrl:'http://url.ejemplo.com.ar',
 													                    itemDescription:'Remera Bazzinga v2',
 													                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
-			          Simular puntuación
+			          Simular Puntuación
+			          </button>
+			          <button type="submit" class="btn" onclick="easyrec_sendAction('LIKE', {userId:'2',
+													                    itemId:'25',
+													                    itemUrl:'http://url.ejemplo.com.ar',
+													                    itemDescription:'Remera Boca Juniors',
+													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
+			          Simular Like
+			          </button>
+			          <button type="submit" class="btn" onclick="easyrec_sendAction('SHARE', {userId:'2',
+													                    itemId:'25',
+													                    itemUrl:'http://url.ejemplo.com.ar',
+													                    itemDescription:'Remera Boca Juniors',
+													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
+			          Simular Share
 			          </button>
 			          <button type="submit" class="btn" onclick="easyrec_mostViewedItems({
 															       numberOfResults:10,
