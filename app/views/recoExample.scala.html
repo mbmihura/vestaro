@@ -24,65 +24,55 @@
     </head>
     <body>
 	    <form class="form-horizontal">
-	   <!--	<div class="control-group">
-	    		<div class="btn-group">
-				  <button id="selected_item" onClick="setItemSamples()" class="btn" value="#{bean.find(Item.class).findList().get(1)}">Item Sample</button>
-				  <button class="btn dropdown-toggle" data-toggle="dropdown">
-				    <span class="caret"></span>
-				  </button>
-				  <ul id="options" class="dropdown-menu">
-				  </ul>
-				</div>
-	    	</div> -->
+	    	<br>
 		  	<div class="control-group">
+		  		ID Usuario:
+		  		<br>
+		  		<input id="userId"/>
+		  		<br>
+		  		<br>
+		  		<hl>
+		  			ID Item:
+		  			<br>
+		  			<input id="itemId"/>
+		  			<br>
+		  			<br>
+		  			Descripción Item:
+		  			<br>
+		  			<input id="itemDescription"/>
+		  		</hl>
+			   	<br>
+			   	<br>
+			   	Cantidad de Eventos:
+			   	<br>
+			   	<input id="count"/>
+				<br>
+				<br>
 			   	<hl>
-				      <button type="submit" class="btn" onclick="easyrec_buy({userId:'2',
-													                    itemId:'25',
-													                    itemUrl:'http://url.ejemplo.com.ar',
-													                    itemDescription:'Remera Bazzinga v2',
-													                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
-			          Simular Compra
-			          </button>
-			          <button type="submit" class="btn" onclick="easyrec_view({userId:'2',
-													                    itemId:'25',
-													                    itemUrl:'http://url.ejemplo.com.ar',
-													                    itemDescription:'Remera Boca Juniors',
-													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
-				   
-			          Simular Vista
-			          </button>
-			          <button type="submit" class="btn" onclick="easyrec_sendAction({userId:'2',
-			          													ratingValue:'8',
-													                    itemId:'25',
-													                    itemUrl:'http://url.ejemplo.com.ar',
-													                    itemDescription:'Remera Bazzinga v2',
-													                    itemImageUrl:'http://url.ejemplo/bazzinga.png'});">
-			          Simular Puntuación
-			          </button>
-			          <button type="submit" class="btn" onclick="easyrec_sendAction('LIKE', {userId:'2',
-													                    itemId:'25',
-													                    itemUrl:'http://url.ejemplo.com.ar',
-													                    itemDescription:'Remera Boca Juniors',
-													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
-			          Simular Like
-			          </button>
-			          <button type="submit" class="btn" onclick="easyrec_sendAction('SHARE', {userId:'2',
-													                    itemId:'25',
-													                    itemUrl:'http://url.ejemplo.com.ar',
-													                    itemDescription:'Remera Boca Juniors',
-													                    itemImageUrl:'http://url.ejemplo/boca.png'});">
-			          Simular Share
-			          </button>
-			          <button type="submit" class="btn" onclick="easyrec_mostViewedItems({
-															       numberOfResults:10,
-															       timeRange:'ALL',
-															       drawingCallback:'drawingCallbackExample'
-															       });">
-			          Simular Ranking
-			          </button>
-		          
-	          		<div id="resultados">&nbsp;</div>
+			      	<button type="submit" class="btn" onclick="sendActionExample('buy')">
+		          	Simular Compra
+		          	</button>
+		          	<button type="submit" class="btn" onclick="sendActionExample('view')">
+		          	Simular Vista
+		          	</button>
+		          	<button type="submit" class="btn" onclick="sendActionExample('rate')">
+		          	Simular Puntuación
+		          	</button>
+		          	<button type="submit" class="btn" onclick="sendActionExample('LIKE')">
+		          	Simular Like
+		          	</button>
+		          	<button type="submit" class="btn" onclick="sendActionExample('SHARE')">
+		         	Simular Share
+		         	</button>
 		    	</hl>
+	          	<button type="submit" class="btn" onclick="easyrec_mostViewedItems({
+													       numberOfResults:10,
+													       timeRange:'ALL',
+													       drawingCallback:'drawingCallbackExample'
+													       });">
+	          	Simular Ranking
+	          	</button>
+        		<div id="resultados">&nbsp;</div>
 			</div>
 		</form>
     </body>

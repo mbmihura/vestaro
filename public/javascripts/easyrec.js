@@ -329,3 +329,41 @@ function easyrec_getSessionId() {
     }
     return easyrec_createSessionId();
 }
+
+/* ======================================================================== */
+
+function sendActionExample(actionType)
+{	
+	var i = 0;
+	
+	for(x = 0; x < document.getElementById("count").value; x++)
+	{
+		i += 1;
+		
+		if(actionType != "rate")
+		{
+			easyrec_sendAction(actionType,
+					   {
+					 	userId: document.getElementById("userId").value,
+				        itemId: document.getElementById("itemId").value,
+				        itemUrl: "http://url.ejemplo.com.ar",
+				        itemDescription: document.getElementById("itemDescription").value,
+				        itemImageUrl: "http://url.ejemplo/ejemplo.png"
+				       })			
+		}
+		else
+		{
+			easyrec_sendAction(actionType,
+					   {
+					 	userId: document.getElementById("userId").value,
+					 	ratingValue: Math.floor(Math.random() * 10),
+				        itemId: document.getElementById("itemId").value,
+				        itemUrl: "http://url.ejemplo.com.ar",
+				        itemDescription: document.getElementById("itemDescription").value,
+				        itemImageUrl: "http://url.ejemplo/ejemplo.png"
+				       })
+		}
+	}
+
+	document.getElementById("resultados").innerHTML += i + " \"" + actionType + "\"" + " actions sent.<br>";
+}
