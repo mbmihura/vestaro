@@ -8,7 +8,7 @@ import views.html.shared.*;
 public class Dashboards extends Controller {
   
     public static Result index() {
-        return ok(itemListHorizontal.render());
+        return ok(customer.render());
     }
 
     
