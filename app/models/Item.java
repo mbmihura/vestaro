@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.*;
@@ -7,6 +8,8 @@ import javax.persistence.*;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+
+import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @SuppressWarnings("serial")
 @Entity
@@ -33,6 +36,12 @@ public class Item extends Model {
 
     @OneToOne
     public Collection collection;
+    
+    @CreatedTimestamp
+    Timestamp create_time;
+
+    @Version
+    Timestamp update_time;
 
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
