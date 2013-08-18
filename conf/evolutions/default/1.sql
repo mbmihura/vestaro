@@ -17,8 +17,11 @@ create table item (
   description               varchar(255),
   img_url                   varchar(255),
   price                     bigint,
+  sex                       varchar(255),
   owner_id                  bigint,
   collection_id             bigint,
+  create_time               timestamp not null,
+  update_time               timestamp not null,
   constraint pk_item primary key (id))
 ;
 

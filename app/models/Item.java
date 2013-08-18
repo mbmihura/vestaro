@@ -30,6 +30,10 @@ public class Item extends Model {
     
     @Constraints.Required
     public Long price;
+    
+    //@Constraints.Required
+    @Constraints.MaxLength(10)
+    public String sex;
 
     @OneToOne
     public Seller owner;

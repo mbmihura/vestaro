@@ -2,6 +2,7 @@ package controllers;
 
 import models.Item;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.items.*;
@@ -12,6 +13,10 @@ public class Items extends Controller {
 	
 	public static Result form() {
 		return ok(form.render(itemForm));
+	}
+	
+	public static Result itemAjax() {
+		return ok(itemAjax.render());
 	}
 	
     public static Result submit() {
@@ -26,9 +31,13 @@ public class Items extends Controller {
     }
     
     public static Result read(String itemId) {
-        return ok(item.render(
-        	Item.find.ref(itemId)
-        ));
+    	Item item = Item.find.ref(itemId);
+    	if(item != null) {
+    		return ok(Json.toJson(item));
+    	} else {
+    		return badRequest();
+    	}
+    	
     }
     
     public static Result update(String itemId) {
