@@ -1,8 +1,6 @@
 @(formItem: Form[Item])
 
 @import helper._
-
-@main("Item Form") {
 	
 	@helper.form(action = routes.Items.submit, 'id -> "itemForm", 'class -> "form-horizontal", 'role -> "form") {
 		<fieldset>
@@ -91,5 +89,3 @@
 	    </div>
 	    
 	}
-	
-}

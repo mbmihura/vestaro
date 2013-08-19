@@ -26,6 +26,7 @@ public class Application extends Controller {
                 //controllers.routes.javascript.Collections.add(), 
                 
                 // Routes for Items
+            	controllers.routes.javascript.Items.form(),
                 controllers.routes.javascript.Items.submit(), 
                 controllers.routes.javascript.Items.read(),
                 controllers.routes.javascript.Items.update(),
