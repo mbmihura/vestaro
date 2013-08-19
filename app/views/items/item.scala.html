@@ -1,6 +1,11 @@
 @(item: Item)
-
-<h3 class="title">@item.title</h3>
-<p class="description">@item.description</p>
-<img class="image" src=@item.imgUrl>
-	
+<div class="col-lg-4">
+  <div class="thumbnail">
+    <img src="@item.imgUrl" alt="@item.title" class="img-responsive" style="height: 200px;">
+    <div class="caption">
+      <h3>@item.title</h3>
+      <p>@item.description</p>
+      <p><a href="#" class="btn btn-primary">Comprar</a> <a href="#" class="btn btn-default">Agregar a Wishlist</a></p>
+    </div>
+  </div>
+</div>

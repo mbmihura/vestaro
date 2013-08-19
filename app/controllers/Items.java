@@ -15,10 +15,6 @@ public class Items extends Controller {
 		return ok(form.render(itemForm));
 	}
 	
-	public static Result itemAjax() {
-		return ok(itemAjax.render());
-	}
-	
     public static Result submit() {
     	Form<Item> itemFilledForm = itemForm.bindFromRequest();
     	if(itemFilledForm.hasErrors()) {
@@ -33,7 +29,7 @@ public class Items extends Controller {
     public static Result read(String itemId) {
     	Item item = Item.find.ref(itemId);
     	if(item != null) {
-    		return ok(Json.toJson(item));
+    		return ok(views.html.items.item.render(item));
     	} else {
     		return badRequest();
     	}

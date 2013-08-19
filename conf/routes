@@ -15,7 +15,6 @@ POST	/item					controllers.Items.submit()
 GET		/item/:itemId			controllers.Items.read(itemId: String)
 PUT		/item/:itemId			controllers.Items.update(itemId: String)
 POST	/item/:itemId			controllers.Items.delete(itemId: String)
-GET		/itemAjax				controllers.Items.itemAjax()
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
