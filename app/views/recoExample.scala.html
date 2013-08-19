@@ -64,7 +64,17 @@
 																			       timeRange:'ALL',
 																			       drawingCallback:'drawingCallbackExample'})
 																				});">
-		          	Simular Ranking
+		          	Simular Ranking Most Viewed
+		          	</button>
+		          	<button type="submit" class="btn" onclick="$(document).ready(function()
+		          																{
+		          																   easyrec_relatedItems({
+		          																   userId: 100,
+																			       itemId: 200,
+																			       drawingCallback:'drawingCallbackExample',
+																			       numberOfResults:10})
+																				});">
+		          	Simular Related Items
 		          	</button>
 	        		<div id="resultados">&nbsp;</div>
 				</div>

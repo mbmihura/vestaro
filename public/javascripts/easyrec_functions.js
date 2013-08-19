@@ -5,7 +5,7 @@ function drawingCallbackExample(json)
 		try{
 			var items = json.recommendeditems.item;
 		} catch(e) {
-			console.log("Error");
+			console.log(e.message);
 			return;
 		}
 		
