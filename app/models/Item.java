@@ -36,7 +36,6 @@ public class Item extends Model {
     @Constraints.MaxLength(10)
     public String sex;
     
-    @Valid
     public List<Stock> stocks;
 
     @OneToOne
@@ -55,14 +54,14 @@ public class Item extends Model {
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
         return Item.find.where()
-                .eq("owner.id", sellerId)
+                .eq("seller.id", sellerId)
                 .findList();
     }
 
     public static boolean isOwner(String itemId, Long sellerId){
         return Item.find.where()
                 .eq("id", itemId)
-                .eq("owner.id", sellerId)
+                .eq("seller.id", sellerId)
                 .findRowCount() > 0;
     }
 
