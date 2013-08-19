@@ -8,6 +8,7 @@ GET        /                    controllers.Application.index()
 
 # Seller
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
+GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
 
 # Item
 GET		/item					controllers.Items.form()
