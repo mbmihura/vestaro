@@ -28,7 +28,7 @@ public class Item extends Model {
     @Constraints.Required
     public String imgUrl;
     
-    @Constraints.Required
+    //@Constraints.Required
     public Long price;
     
     //@Constraints.Required

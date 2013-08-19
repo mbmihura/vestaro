@@ -33,6 +33,7 @@ items:
         title:        Camisa Negra
         description:  Camisa Negra Manga Larga de Seda
         imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
+		price:		  200
         owner:        !!models.Seller
                         id: 1
         collection:   !!models.Collection

@@ -11,6 +11,7 @@ GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long
 GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
 
 # Item
+GET		/items					controllers.Items.index()
 GET		/item					controllers.Items.form()
 POST	/item					controllers.Items.submit()
 GET		/item/:itemId			controllers.Items.read(itemId: String)

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Item;
+import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -34,6 +35,10 @@ public class Items extends Controller {
     		return badRequest();
     	}
     	
+    }
+    
+    public static Result index() {
+    	return ok(Item.find.all().toString());
     }
     
     public static Result update(String itemId) {

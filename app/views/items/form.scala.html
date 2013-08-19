@@ -1,54 +1,47 @@
 @(formItem: Form[Item])
 
 @import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
 
 @main("Item Form") {
-
-	<form class="form-horizontal">
 	
-	@helper.form(action = routes.Items.submit, 'id -> "userForm") {
-		<fieldset>
-	
-		<!-- Form Name -->
-		<legend>Nueva Prenda</legend>
+	@helper.form(action = routes.Items.submit, 'id -> "userForm", 'class -> "form-horizontal", 'role -> "form") {
 		
 		<!-- Text input-->
-		<div class="control-group">
+		<div class="form-group">
 		  <label class="control-label" for="title">Nombre</label>
 		  <div class="controls">
-		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="input-large" required="">
-		    
+		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="">
 		  </div>
 		</div>
 		
 		<!-- Textarea -->
-		<div class="control-group">
+		<div class="form-group">
 		  <label class="control-label" for="description">Descripción</label>
 		  <div class="controls">                     
-		    <textarea id="description" name="description">Descripción de prenda...</textarea>
+		    <textarea id="description" name="description" class="form-control">Descripción de prenda...</textarea>
 		  </div>
 		</div>
 		
 		<!-- Text input-->
-		<div class="control-group">
+		<div class="form-group">
 		  <label class="control-label" for="imgUrl">URL de Imágen</label>
 		  <div class="controls">
-		    <input id="imgUrl" name="imgUrl" type="text" placeholder="www.img-hosting.com/img.jpg" class="input-xlarge" required="">
-		    
+		    <input id="imgUrl" name="imgUrl" type="text" placeholder="www.img-hosting.com/img.jpg" class="form-control" required="">		    
 		  </div>
 		</div>
 		
 		<!-- Text input-->
-		<div class="control-group">
+		<div class="form-group">
 		  <label class="control-label" for="price">Precio</label>
 		  <div class="controls">
-		    <input id="price" name="price" type="text" placeholder="100" class="input-small" required="">
+		    <input id="price" name="price" type="number" placeholder="100" class="form-control" required="">
 		    
 		  </div>
 		</div>
 		
 		<!-- Multiple Checkboxes (inline) -->
-		<div class="control-group">
+		<!--<div class="form-group">
 		  <label class="control-label" for="sex">Sexo</label>
 		  <div class="controls">
 		    <label class="checkbox inline" for="sex-0">
@@ -64,14 +57,11 @@
 		      Unisex
 		    </label>
 		  </div>
-		</div>
+		</div>-->
 		
 		<!-- Button -->
-	    <button id="create" name="create" class="btn btn-primary btn-large">Crear</button>
-	
-	</fieldset>
+	    <button type="submit" class="btn btn-primary">Crear</button>
 	    
 	}
-	</form>
 	
 }
