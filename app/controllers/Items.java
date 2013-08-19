@@ -42,12 +42,10 @@ public class Items extends Controller {
     }
     
     public static Result update(String itemId) {
-    	//TODO
-    	return null;
+    	return TODO;
     }
     
     public static Result delete(String itemId) {
-    	//TODO
-    	return null;
+    	return TODO;
     }
 }

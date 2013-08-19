@@ -21,7 +21,7 @@ public class Collection extends Model {
     public String description;
 
     @OneToOne
-    public Seller owner;
+    public Seller seller;
 
     public static Finder<Long,Collection> find = new Finder<Long,Collection>(Long.class,Collection.class);
 }

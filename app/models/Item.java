@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -28,15 +29,18 @@ public class Item extends Model {
     @Constraints.Required
     public String imgUrl;
     
-    //@Constraints.Required
+    @Constraints.Required
     public Long price;
     
-    //@Constraints.Required
+    @Constraints.Required
     @Constraints.MaxLength(10)
     public String sex;
+    
+    @Valid
+    public List<Stock> stocks;
 
     @OneToOne
-    public Seller owner;
+    public Seller seller;
 
     @OneToOne
     public Collection collection;
@@ -63,12 +67,15 @@ public class Item extends Model {
     }
 
     public static Item create(Item item, Long ownerId) {
-        item.owner = Seller.find.ref(ownerId);
+        item.seller = Seller.find.ref(ownerId);
         item.save();
         return item;
     }
 
     public static Item submit(Item item) {
+    	if(item.seller == null){
+    		item.seller = Seller.find.byId((long)1);
+    	}
     	item.save();
     	return item;
     }
@@ -80,7 +87,15 @@ public class Item extends Model {
                 .append(", title=")
                 .append(title)
                 .append(", owner=")
-                .append(owner.name)
+                .append(seller.name)
+                .append(", price=")
+                .append(price)
+                .append(", sex=")
+                .append(sex)
+                .append(", create_time=")
+                .append(create_time)
+                .append(", update_time=")
+                .append(update_time)
                 .append("]");
         return builder.toString();
     }
