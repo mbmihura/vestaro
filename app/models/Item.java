@@ -36,7 +36,8 @@ public class Item extends Model {
     @Constraints.MaxLength(10)
     public String sex;
     
-    public List<Stock> stocks;
+    //TODO Change Object type to Stock
+    public List<String> stocks;
 
     @OneToOne
     public Seller seller;

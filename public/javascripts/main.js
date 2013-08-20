@@ -6,8 +6,8 @@ $(document).ready(function(){
 				console.log(data);
 				$('#items').append(data);
 			},
-			error: function(data){
-				console.log(data);
+			error: function(xhr, status, error) {
+			  alert(status);
 			}
 		});
 	});
@@ -17,8 +17,8 @@ $(document).ready(function(){
 			success: function(data){
 				$('#main').empty().append(data);
 			},
-			error: function(data){
-				console.log(data);
+			error: function(xhr, status, error) {
+			  alert(status);
 			}
 		});
 	});

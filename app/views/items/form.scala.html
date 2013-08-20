@@ -11,7 +11,7 @@
 		<div class="form-group">
 		  <label class="control-label" for="title">Nombre</label>
 		  <div class="controls">
-		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="">
+		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="" value="@formItem("title").value">
 		  </div>
 		</div>
 		
@@ -19,7 +19,7 @@
 		<div class="form-group">
 		  <label class="control-label" for="description">Descripción</label>
 		  <div class="controls">                     
-		    <textarea id="description" name="description" class="form-control">Descripción de prenda...</textarea>
+		    <textarea id="description" name="description" class="form-control" required="" value="@formItem("description").value"></textarea>
 		  </div>
 		</div>
 		
@@ -27,7 +27,7 @@
 		<div class="form-group">
 		  <label class="control-label" for="imgUrl">URL de Imágen</label>
 		  <div class="controls">
-		    <input id="imgUrl" name="imgUrl" type="text" placeholder="www.img-hosting.com/img.jpg" class="form-control" required="">		    
+		    <input id="imgUrl" name="imgUrl" type="text" placeholder="www.img-hosting.com/img.jpg" class="form-control" required="" value="@formItem("urlImg").value">		    
 		  </div>
 		</div>
 		
@@ -35,7 +35,7 @@
 		<div class="form-group">
 		  <label class="control-label" for="price">Precio</label>
 		  <div class="controls">
-		    <input id="price" name="price" type="number" placeholder="100" class="form-control" required="">
+		    <input id="price" name="price" type="number" placeholder="100" class="form-control" required="" value="@formItem("price").value">
 		  </div>
 		</div>
 
@@ -58,6 +58,11 @@
 			</div>
 		</div>
 		</fieldset>
+		@repeat(formItem("stocks"), min = 1) { stock =>
+		    
+		    @inputText(stock)
+		    
+		}
 		<!--<fieldset>		
 		<div class="form-group">
 			<label class="control-label" for="size">Stock</label>

@@ -1,11 +1,11 @@
 @(item: Item)
-<div class="col-lg-4 item">
+<div class="col-lg-4 item" data-id="@item.id">
   <div class="thumbnail">
     <img src="@item.imgUrl" alt="@item.title" class="img-responsive" style="height: 200px;">
     <div class="caption">
       <h3>@item.title</h3>
       <p>@item.description</p>
-      <p><a href="#" class="btn btn-primary">Comprar</a> <a href="#" class="btn btn-default">Agregar a Wishlist</a></p>
+      <p><a href="#" class="btn btn-primary" data-price="@item.price">Comprar</a> <a href="#" class="btn btn-default">Agregar a Wishlist</a></p>
     </div>
   </div>
 </div>

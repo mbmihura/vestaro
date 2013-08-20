@@ -19,7 +19,7 @@ public class Items extends Controller {
     public static Result submit() {
     	Form<Item> itemFilledForm = itemForm.bindFromRequest();
     	if(itemFilledForm.hasErrors()) {
-            return badRequest(form.render(itemForm));
+            return badRequest(form.render(itemFilledForm));
         } else {
             return ok(
                 item.render(Item.submit(itemFilledForm.get()))
@@ -28,8 +28,13 @@ public class Items extends Controller {
     }
     
     public static Result read(String itemId) {
-    	Item item = Item.find.ref(itemId);
+    	Item item = Item.find.byId(itemId);
     	if(item != null) {
+    		/*
+    		 * TODO It would be better (RESTfull) if the server returned a json,
+    		 * giving the client the power to handle the object the way it wants.
+    		 */
+    		
     		return ok(views.html.items.item.render(item));
     	} else {
     		return badRequest();
