@@ -3,14 +3,13 @@ package controllers;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.aboutPlay;
-import views.html.index;
 import views.html.detail;
-import views.html.list;
+import views.html.shared.*;
 
 public class Application extends Controller {
   
     public static Result index() {
-        return ok(index.render());
+        return ok(itemList.render());
     }
 
     public static Result detail() {
@@ -18,7 +17,7 @@ public class Application extends Controller {
     }
 
     public static Result list() {
-        return ok(list.render());
+        return ok(itemListVertical.render());
     }
 
     public static Result aboutPlay() {

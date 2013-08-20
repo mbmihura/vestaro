@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="es" ng-app="project">
+<html lang="es">
     <head>
         <title>@title</title>
         <meta content="text/html; charset=utf-8">
@@ -75,9 +75,7 @@
                     $('.navbar .connectingWithFbLabel').hide();
                     $('.navbar .loggedUserOptions').fadeIn();
 
-                    $.ajax({url:'/dashboard',type: 'GET', success: function( response ) {
-                      $('#content').html(response);
-                    }})
+                    
 
                 //If app is not allow, aparently callbackfunction is never call. 
                 //} else if (response.status === 'not_authorized') {
@@ -173,7 +171,7 @@
           </div>
         </div>
         <!-- /container -->
-        <div ng-view class="container"  id="content">
+        <div class="container"  id="content">
           @content
         </div> 
         <!-- Le javascript

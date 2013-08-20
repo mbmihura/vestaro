@@ -15,6 +15,12 @@ angular.module('project', ['firebase']).
  
 function ListCtrl($scope, Projects) {
   $scope.projects = Projects;
+  $scope.projects.range = function() {
+      var range = [];
+      for( var i = 0; i < $scope.projects.length; i = i + 3 )
+          range.push(i);
+      return range;
+  }
 }
  
 function CreateCtrl($scope, $location, $timeout, Projects) {
