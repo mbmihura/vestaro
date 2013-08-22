@@ -1,20 +1,96 @@
 @(formItem: Form[Item])
 
 @import helper._
-@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
-
-@main("Item Form") {
 	
-	<h1>Alta Prenda</h1>
+	@helper.form(action = routes.Items.submit, 'id -> "itemForm", 'class -> "form-horizontal", 'role -> "form") {
+		<fieldset>
+		
+		<legend>Nueva Prenda</legend>
+		
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="control-label" for="title">Nombre</label>
+		  <div class="controls">
+		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="" value="@formItem("title").value">
+		  </div>
+		</div>
+		
+		<!-- Textarea -->
+		<div class="form-group">
+		  <label class="control-label" for="description">Descripción</label>
+		  <div class="controls">                     
+		    <textarea id="description" name="description" class="form-control" required="" value="@formItem("description").value"></textarea>
+		  </div>
+		</div>
+		
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="control-label" for="imgUrl">URL de Imágen</label>
+		  <div class="controls">
+		    <input id="imgUrl" name="imgUrl" type="text" placeholder="www.img-hosting.com/img.jpg" class="form-control" required="" value="@formItem("urlImg").value">		    
+		  </div>
+		</div>
+		
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="control-label" for="price">Precio</label>
+		  <div class="controls">
+		    <input id="price" name="price" type="number" placeholder="100" class="form-control" required="" value="@formItem("price").value">
+		  </div>
+		</div>
 
-	@helper.form(action = routes.Items.submit, 'id -> "userForm") {
-	    @inputText(formItem("id"), '_label -> "Código de Prenda")
-	    @inputText(formItem("title"), '_label -> "Nombre")
-	    @inputText(formItem("description"), '_label -> "Descripción")
-	    @inputText(formItem("imgUrl"), '_label -> "Imágen (URL)")
-	    
-	    <button type="create" class="btn btn-primary">Crear</button>
+		<!-- Multiple Radios (inline) -->
+		<div class="form-group">
+			<label class="control-label" for="sex">Sexo</label>
+			<div id="sex">
+			  <label class="radio-inline">
+			    <input type="radio" name="sex" id="femenino" value="f" checked>
+			    Femenino
+			  </label>
+			  <label class="radio-inline">
+			    <input type="radio" name="sex" id="masculino" value="m">
+			    Masculino
+			  </label>
+			  <label class="radio-inline">
+			    <input type="radio" name="sex" id="unisex" value="u">
+			    Unisex
+			  </label>
+			</div>
+		</div>
+		</fieldset>
+		@repeat(formItem("stocks"), min = 1) { stock =>
+		    
+		    @inputText(stock)
+		    
+		}
+		<!--<fieldset>		
+		<div class="form-group">
+			<label class="control-label" for="size">Stock</label>
+			<div id="size">
+				<div class="input-group">
+			      <span class="input-group-addon">
+			        <input type="checkbox"> S
+			      </span>
+			      <input type="number" class="form-control">
+			    </div>
+			    <div class="input-group">
+			      <span class="input-group-addon">
+			        <input type="checkbox"> M
+			      </span>
+			      <input type="number" class="form-control">
+			    </div>
+			    <div class="input-group">
+			      <span class="input-group-addon">
+			        <input type="checkbox"> L
+			      </span>
+			      <input type="number" class="form-control">
+			    </div>
+			</div>
+		</div>
+		</fieldset>-->
+		<!-- Button -->
+		<div class="form-group">
+	    	<button type="submit" class="btn btn-primary">Crear</button>
+	    </div>
 	    
 	}
-
-}

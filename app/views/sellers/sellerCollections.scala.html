@@ -9,7 +9,9 @@
 <h2>Items</h2>
 <div id="items" class="row">
 	@for(item <- items) {
+		<li class="item">
 			@views.html.items.item(item)
+		</li>
 	}
 </div>
 

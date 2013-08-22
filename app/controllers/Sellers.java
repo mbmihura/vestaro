@@ -14,5 +14,8 @@ public class Sellers extends Controller {
         	Item.findItemsOwnedBy(sellerId)
         ));
     }
-  
+    
+    public static Result listCollections(Long sellerId) {
+    	return ok();
+    }
 }

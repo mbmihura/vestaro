@@ -1,20 +1,21 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+import com.avaje.ebean.annotation.CreatedTimestamp;
+
 @SuppressWarnings("serial")
 @Entity
 public class Item extends Model {
     @Id
-    @Constraints.Required
-    @Formats.NonEmpty
-    @Constraints.Pattern(value = "[a-zA-Z0-9]{2,10}")
     public String id;
 
     @Constraints.Required
@@ -27,35 +28,54 @@ public class Item extends Model {
 
     @Constraints.Required
     public String imgUrl;
+    
+    @Constraints.Required
+    public Long price;
+    
+    @Constraints.Required
+    @Constraints.MaxLength(10)
+    public String sex;
+    
+    //TODO Change Object type to Stock
+    public List<String> stocks;
 
     @OneToOne
-    public Seller owner;
+    public Seller seller;
 
     @OneToOne
     public Collection collection;
+    
+    @CreatedTimestamp
+    Timestamp create_time;
+
+    @Version
+    Timestamp update_time;
 
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
         return Item.find.where()
-                .eq("owner.id", sellerId)
+                .eq("seller.id", sellerId)
                 .findList();
     }
 
     public static boolean isOwner(String itemId, Long sellerId){
         return Item.find.where()
                 .eq("id", itemId)
-                .eq("owner.id", sellerId)
+                .eq("seller.id", sellerId)
                 .findRowCount() > 0;
     }
 
     public static Item create(Item item, Long ownerId) {
-        item.owner = Seller.find.ref(ownerId);
+        item.seller = Seller.find.ref(ownerId);
         item.save();
         return item;
     }
 
     public static Item submit(Item item) {
+    	if(item.seller == null){
+    		item.seller = Seller.find.byId((long)1);
+    	}
     	item.save();
     	return item;
     }
@@ -67,7 +87,15 @@ public class Item extends Model {
                 .append(", title=")
                 .append(title)
                 .append(", owner=")
-                .append(owner.name)
+                .append(seller.name)
+                .append(", price=")
+                .append(price)
+                .append(", sex=")
+                .append(sex)
+                .append(", create_time=")
+                .append(create_time)
+                .append(", update_time=")
+                .append(update_time)
                 .append("]");
         return builder.toString();
     }
