@@ -16,6 +16,10 @@ public class Application extends Controller {
         return ok(aboutPlay.render("Your new application is ready."));
     }
     
+    public static Result facebookPlugins(){
+    	return ok(views.html.facebookPlugins.render());
+    }
+    
     // -- Javascript routing
     public static Result javascriptRoutes() {
         response().setContentType("text/javascript");
