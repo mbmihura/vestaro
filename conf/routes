@@ -3,21 +3,24 @@
 # ~~~~
 
 # Home page
-GET        /aboutplay           controllers.Application.aboutPlay()
-GET        /                    controllers.Application.index()
+GET		/aboutplay           				controllers.Application.aboutPlay()
+GET		/                    				controllers.Application.index()
 
 # Authentication & Authorization
-POST		/authentication/login	controllers.Authentication.login()
+POST	/authentication/login 				controllers.Authentication.login()
+
+#TODO: check if really necesarry as we will be using fbLogin
+POST	/authentication/logout      		controllers.Authentication.logout() 
 
 # Seller
-GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
+GET    	/seller/:sellerId/items     		controllers.Sellers.listItems(sellerId: Long)
 
 # Item
-GET		/item					controllers.Items.form()
-POST	/item					controllers.Items.submit()
-GET		/item/:itemId			controllers.Items.read(itemId: String)
-PUT		/item/:itemId			controllers.Items.update(itemId: String)
-POST	/item/:itemId			controllers.Items.delete(itemId: String)
+GET		/item								controllers.Items.form()
+POST	/item								controllers.Items.submit()
+GET		/item/:itemId						controllers.Items.read(itemId: String)
+PUT		/item/:itemId						controllers.Items.update(itemId: String)
+POST	/item/:itemId						controllers.Items.delete(itemId: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET		/assets/*file        				controllers.Assets.at(path="/public", file)
