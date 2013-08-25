@@ -6,6 +6,9 @@
 GET        /aboutplay           controllers.Application.aboutPlay()
 GET        /                    controllers.Application.index()
 
+# Authentication & Authorization
+POST		/authentication/login	controllers.Authentication.login()
+
 # Seller
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
 
