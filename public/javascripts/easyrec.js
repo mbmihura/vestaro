@@ -1,4 +1,6 @@
 var easyrecApiUrl="http://vestaro.kd.io:8080/easyrec-web/api/1.0/json/";
+var tenantId = "Vestaro";
+var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
 /*
  * Copyright 2011 Research Studios Austria Forschungsgesellschaft mBH
  *
