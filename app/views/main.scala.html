@@ -15,6 +15,11 @@
         <script src="@routes.Assets.at("javascripts/bootstrap3.min.js")" type="text/javascript"></script>
         <script src='@routes.Application.javascriptRoutes()' type="text/javascript"></script>
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/easyrec.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/easyrec_functions.js")" type="text/javascript"></script>
+		
         <!-- Le styles -->
         <style>
             body {
@@ -40,7 +45,7 @@
               cookie     : true, // enable cookies to allow the server to access the session
               xfbml      : true  // parse XFBML
             });
-
+            
             // Additional init code here
 
             // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
@@ -161,8 +166,7 @@
         <div id="main" class="container">
           @content
         </div> 
-        <!-- Le javascript
-        ================================================== -->
+        <!-- Le javascript -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src='@routes.Assets.at("javascripts/main.js")' type="text/javascript"></script>
         <!-- Delete if not necesary

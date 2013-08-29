@@ -11,7 +11,7 @@ public class Application extends Controller {
     public static Result index() {
         return ok(index.render());
     }
-
+    
     public static Result aboutPlay() {
         return ok(aboutPlay.render("Your new application is ready."));
     }
