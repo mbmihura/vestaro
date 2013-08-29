@@ -1,4 +1,76 @@
-function drawingCallbackExample(json)
+$(document).ready(function(){
+
+	$('.btn-view-item').click(function(){
+		easyrec_view({
+			itemId: $('#itemId').val(),
+			userId: $('#userId').val(),
+			itemUrl: "http://url.ejemplo.com.ar",
+			itemDescription: $('#itemDescription').val(),
+			itemImageUrl: "http://url.ejemplo/ejemplo.png"
+		});
+	});
+	
+	$('.btn-buy-item').click(function(){
+		easyrec_buy({
+			itemId: $('#itemId').val(),
+			userId: $('#userId').val(),
+			itemUrl: "http://url.ejemplo.com.ar",
+			itemDescription: $('#itemDescription').val(),
+			itemImageUrl: "http://url.ejemplo/ejemplo.png"
+		});
+	});
+	
+	$('.btn-like-item').click(function(){
+		easyrec_sendAction('like', {
+			itemId: $('#itemId').val(),
+			userId: $('#userId').val(),
+			itemUrl: "http://url.ejemplo.com.ar",
+			itemDescription: $('#itemDescription').val(),
+			itemImageUrl: "http://url.ejemplo/ejemplo.png"
+		});
+	});
+	
+	$('.btn-share-item').click(function(){
+		easyrec_sendAction('share', {
+			itemId: $('#itemId').val(),
+			userId: $('#userId').val(),
+			itemUrl: "http://url.ejemplo.com.ar",
+			itemDescription: $('#itemDescription').val(),
+			itemImageUrl: "http://url.ejemplo/ejemplo.png"
+		});
+	});
+	
+	$('.btn-rate-item').click(function(){
+		easyrec_rate({
+			itemId: $('#itemId').val(),
+			userId: $('#userId').val(),
+			ratingValue: Math.floor(Math.random() * 10),
+			itemUrl: "http://url.ejemplo.com.ar",
+			itemDescription: $('#itemDescription').val(),
+			itemImageUrl: "http://url.ejemplo/ejemplo.png"
+		});
+	});
+	
+	$('.btn-ranking-items').click(function(){
+		easyrec_mostViewedItems({
+			numberOfResults:10,
+			timeRange:'ALL',
+			drawingCallback:'drawingCallback'
+		});
+	});
+	
+	$('.btn-related-items').click(function(){
+		 easyrec_relatedItems({
+		   userId: 100,
+	       itemId: 200,
+	       drawingCallback:'drawingCallback',
+	       numberOfResults:10
+	     });
+	});
+	
+});
+
+function drawingCallback(json)
 {
 	if("undefined" == typeof(json.error))
 	{
@@ -15,50 +87,19 @@ function drawingCallbackExample(json)
 		}
 		
 		if(items.length > 0)
-		{
-			listString = "<ul>";
+		{	
+			var elements = "Resultados: ";
 			
 			for(x = 0; x < items.length; x++)
 			{
-				listString += "<li><a href='" + items[x].url + "'>" + items[x].description + "</a>" + "</li>";
+				elements += items[x].description + ", ";
 			}
+			
+			elements += "Total: " + items.length;
 			
 			console.log(items.length);
 			
-			document.getElementById("resultados").innerHTML += listString + "</ul>";
+			$("#resultados").text(elements);
 		}
 	}
-}
-
-function sendActionExample(actionType)
-{	
-	for(x = 0; x < document.getElementById("count").value; x++)
-	{		
-		if(actionType != "rate")
-		{
-			easyrec_sendAction(actionType,
-					   {
-					 	userId: document.getElementById("userId").value,
-				        itemId: document.getElementById("itemId").value,
-				        itemUrl: "http://url.ejemplo.com.ar",
-				        itemDescription: document.getElementById("itemDescription").value,
-				        itemImageUrl: "http://url.ejemplo/ejemplo.png"
-				       })
-		}
-		else
-		{
-			easyrec_sendAction(actionType,
-					   {
-					 	userId: document.getElementById("userId").value,
-					 	ratingValue: Math.floor(Math.random() * 10),
-				        itemId: document.getElementById("itemId").value,
-				        itemUrl: "http://url.ejemplo.com.ar",
-				        itemDescription: document.getElementById("itemDescription").value,
-				        itemImageUrl: "http://url.ejemplo/ejemplo.png"
-				       })
-		}
-		
-	}
-
-	document.getElementById("resultados").innerHTML += document.getElementById("count").value + " \"" + actionType + "\"" + " actions sent.<br>";
 }
