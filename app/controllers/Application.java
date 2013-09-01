@@ -37,7 +37,7 @@ public class Application extends Controller {
                 controllers.routes.javascript.Items.delete(),
                 
                 // Routes for Dashboard
-                controllers.routes.javascript.Dashboard.dashboardTest()
+                controllers.routes.javascript.Dashboard.mostBuyedItems()
                 
             )
         );
