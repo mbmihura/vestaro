@@ -34,7 +34,10 @@ public class Application extends Controller {
                 controllers.routes.javascript.Items.submit(), 
                 controllers.routes.javascript.Items.read(),
                 controllers.routes.javascript.Items.update(),
-                controllers.routes.javascript.Items.delete()
+                controllers.routes.javascript.Items.delete(),
+                
+                // Routes for Dashboard
+                controllers.routes.javascript.Dashboard.mostBuyedItems()
                 
             )
         );

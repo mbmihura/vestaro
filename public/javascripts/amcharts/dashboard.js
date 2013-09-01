@@ -37,7 +37,7 @@ AmCharts.ready(function () {
     chart.dataProvider = chartData;
     chart.titleField = "country";
     chart.valueField = "visits";
-    chart.sequencedAnimation = true;
+    chart.sequencedAnimation = false;
     chart.startEffect = "elastic";
     chart.innerRadius = "30%";
     chart.startDuration = 2;
