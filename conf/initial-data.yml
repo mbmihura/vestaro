@@ -39,9 +39,30 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 1
-                        
     - !!models.Item
         id:           CB1
+        title:        Camisa Blanca
+        description:  Camisa Blanca Manga Larga de Seda
+        imgUrl:       http://queconque.com.mx/wp-content/uploads/2012/08/1.jpg
+        price:        100
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 1
+    - !!models.Item
+        id:           CN2
+        title:        Camisa Negra
+        description:  Camisa Negra Manga Larga de Seda
+        imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
+        price:        200
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 1
+    - !!models.Item
+        id:           CB2
         title:        Camisa Blanca
         description:  Camisa Blanca Manga Larga de Seda
         imgUrl:       http://queconque.com.mx/wp-content/uploads/2012/08/1.jpg

@@ -7,12 +7,43 @@
 	<h1>@seller.name</h1>
 </header>
 <h2>Items</h2>
-<div id="items" class="row">
+<div id="items" style="height: 80%;">
 	@for(item <- items) {
 			@views.html.items.item(item)
 	}
 </div>
 
+
+
 <script src="@routes.Assets.at("javascripts/jquery.isotope.min.js")" type="text/javascript"></script>
+<script>
+$(window).load(function(){
+    var $container = $('#items');
+    $container.isotope({
+        filter: '*',
+        animationOptions: {
+            duration: 750,
+            easing: 'linear',
+            queue: false
+        }
+    });
+ 
+    $('#postsFilter a').click(function(){
+        $('#postsFilter .current').removeClass('current');
+        $(this).addClass('current');
+ 
+        var selector = $(this).attr('data-filter');
+        $container.isotope({
+            filter: selector,
+            animationOptions: {
+                duration: 750,
+                easing: 'linear',
+                queue: false
+            }
+         });
+         return false;
+    }); 
+});
+</script>
 
 }
