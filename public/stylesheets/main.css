@@ -71,3 +71,23 @@
        -o-transition: none;
           transition: none;
 }
+
+/* photo style */
+.photos .photo {
+width: 250px;
+margin: 5px;
+float: left;
+}
+
+.photos .photo img {
+display: block;
+width: 100%;
+}
+
+.photo:hover {
+cursor: pointer;
+}
+
+.photo.large {
+width: 500px;	
+}
