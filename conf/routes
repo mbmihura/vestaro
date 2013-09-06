@@ -9,6 +9,7 @@ GET        /                    controllers.Application.index()
 # Dashboard
 GET		/dashboardTest			controllers.Dashboard.dashboardTest()
 GET		/mostBuyedItems/:sellerId			controllers.Dashboard.mostBuyedItems(sellerId: Long)
+GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
 
 # Seller
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)

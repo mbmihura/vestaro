@@ -23,6 +23,27 @@ collections:
         description:    Camisas para Hombre
         seller:  !!models.Seller
                     id: 1
+                    
+    - !!models.Collection
+        id:             2
+        title:          Camisas Manga Corta
+        description:    Camisas para Hombre
+        seller:  !!models.Seller
+                    id: 1
+                    
+    - !!models.Collection
+        id:             3
+        title:          Remeras
+        description:    Remeras para Hombre
+        seller:  !!models.Seller
+                    id: 1
+                    
+    - !!models.Collection
+        id:             4
+        title:          Buzos
+        description:    Buzos para Hombre
+        seller:  !!models.Seller
+                    id: 1
 
 # Items
 
@@ -51,3 +72,86 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 1
+    - !!models.Item
+        id:           CN2
+        title:        Camisa Negra
+        description:  Camisa Negra Manga Corta de Seda
+        imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
+        price:        120
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 2
+
+    - !!models.Item
+        id:           CB2
+        title:        Camisa Blanca
+        description:  Camisa Blanca Corta Larga de Seda
+        imgUrl:       http://queconque.com.mx/wp-content/uploads/2012/08/1.jpg
+        price:        160
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 2
+                        
+    - !!models.Item
+        id:           RN3
+        title:        Remera Negra
+        description:  Remera Negra Manga Larga de Seda
+        imgUrl:       http://www.remerasya.com/Resource/fotos%5CRemera%20Negra%20Manga%20Larga.jpg
+        price:        70
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 3
+                        
+    - !!models.Item
+        id:           BN4
+        title:        Buzo Negro
+        description:  Buzo Negro Manga Larga
+        imgUrl:       http://www.fademy.com.ar/imagenes/Modelos%20de%20Ropa/Buzo/Buzo%20negro%20espalda.jpg
+        price:        240
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 4
+                        
+    - !!models.Item
+        id:           BB4
+        title:        Buzo Blanco
+        description:  Buzo Blanco Manga Larga
+        imgUrl:       http://www.impresosmar.com.ar/imagenes/productos/502_K001.jpg
+        price:        300
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 4
+                        
+    - !!models.Item
+        id:           BA4
+        title:        Buzo Azul
+        description:  Buzo Azul Manga Larga
+        imgUrl:       http://www.todoarbitros.com/catalog/images/athix_buzo_azul.jpg
+        price:        310
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 4
+                        
+    - !!models.Item
+        id:           BV4
+        title:        Buzo Verde 
+        description:  Buzo Verde Manga Larga
+        imgUrl:       http://www.1-uniformes.com.ar/images/Canguro%20verde.jpg
+        price:        250
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 4
