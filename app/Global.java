@@ -21,9 +21,7 @@ public class Global extends GlobalSettings {
             // If test user isn't set, create it.
             if (User.find.findRowCount() == 0)
             {
-                User user = new User();
-                user.userId = 1L;
-                user.name = "testUser";
+                User user = new User(1L,"testUser");
 
                 user.save();
                 //Ebean.saveManyToManyAssociations(user,"roles");
