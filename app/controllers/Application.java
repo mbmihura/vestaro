@@ -4,6 +4,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.aboutPlay;
 import views.html.index;
+import security.RestrictTo;
+import security.Roles;
+import security.SubjectPresent;
 
 public class Application extends Controller {
   
@@ -11,6 +14,7 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
+    @SubjectPresent
     public static Result aboutPlay() {
         return ok(aboutPlay.render("Your new application is ready."));
     }

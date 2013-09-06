@@ -17,6 +17,19 @@ public class Global extends GlobalSettings {
 
         @SuppressWarnings("unchecked")
 		public static void insert() {
+
+            // If test user isn't set, create it.
+            if (User.find.findRowCount() == 0)
+            {
+                User user = new User();
+                user.userId = 1L;
+                user.name = "testUser";
+
+                user.save();
+                //Ebean.saveManyToManyAssociations(user,"roles");
+                //Ebean.saveManyToManyAssociations(user,"permissions");
+            }
+
             if(Ebean.find(Seller.class).findRowCount() == 0) {
 
                 Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
