@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import play.db.ebean.*;
 import com.avaje.ebean.*;
+import security.Roles;
 
 @Entity
 public class User extends Model {
@@ -30,5 +31,11 @@ public class User extends Model {
       User newUser = new User(userId, name);
       newUser.save();
       return newUser;
+    }
+
+    public Roles[] getRoles()
+    {
+      Roles[] myIntArray = {Roles.buyer};
+      return myIntArray;
     }
 }
