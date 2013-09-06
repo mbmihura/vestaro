@@ -6,6 +6,7 @@ import views.html.aboutPlay;
 import views.html.index;
 import security.RestrictTo;
 import security.Roles;
+import security.SubjectPresent;
 
 public class Application extends Controller {
   
@@ -13,7 +14,7 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
-    @RestrictTo(Roles.buyer)
+    @SubjectPresent
     public static Result aboutPlay() {
         return ok(aboutPlay.render("Your new application is ready."));
     }

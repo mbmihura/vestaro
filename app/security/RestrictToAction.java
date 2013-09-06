@@ -1,5 +1,6 @@
 package security;
 
+import play.Logger;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -14,6 +15,7 @@ public class RestrictToAction extends Action<RestrictTo>
     @Override
     public Result call(Http.Context context) throws Throwable
     {
+        // TODO: get current user
         Result result;
         User current = User.authenticate(1L);
         Roles[] roles = current.getRoles();
@@ -27,6 +29,7 @@ public class RestrictToAction extends Action<RestrictTo>
                 return delegate.call(context);
             }
         }
+        Logger.warn(String.format("Authorazation Module: Not enough roles to access [%s]",context.request().uri()));
         return forbidden();
     }
 }
