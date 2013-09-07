@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Http.Context;
@@ -8,7 +9,6 @@ import play.libs.Json;
 import models.FbAuthResponse;
 import models.User;
 import utils.Crypto;
-import views.html.index;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +18,8 @@ import java.io.UnsupportedEncodingException;
 
 public class Authentication extends Controller {
   
-	private final String currentUserIdKey = "currentUserId";
+	private static final String currentUserIdKey = "currentUserId";
+	private static final String appSecretFbKey = Play.application().configuration().getString("fb.appSecretKey");
 	
     public static Result login() {
         Form<FbAuthResponse> fbAuthResponseForm = Form.form(FbAuthResponse.class);
@@ -33,7 +34,7 @@ public class Authentication extends Controller {
             String payload = signedRequests[1];
 
             String signature = Crypto.getBase64UrlDecode(urlBase64EncodedSignature);
-            String expectedSignature = Crypto.getHashHmacSHA256(payload,"4f544dfc621106bd86c30f2ce14d2575");
+            String expectedSignature = Crypto.getHashHmacSHA256(payload,appSecretFbKey);
 
             //Verified that computed signature and recieved one matches.
             if(expectedSignature.equals(signature)) {
@@ -42,7 +43,7 @@ public class Authentication extends Controller {
                 // Retrieve userId and create a session for it.
                 String userId = Json.parse(signedData).get("user_id").toString();
                 session().clear();
-                session("userId", userId);
+                session(currentUserIdKey, userId);
             
                 return ok(Json.parse(signedData));
             } else {
@@ -62,7 +63,7 @@ public class Authentication extends Controller {
     }
     
     public static Long currentUserId() {
-        String userId = session("userId");;
+        String userId = session(currentUserIdKey);;
         return userId != null? Long.parseLong(userId) : null;
    }
     
