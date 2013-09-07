@@ -1,5 +1,6 @@
 package security;
 
+import controllers.Authentication;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Action;
@@ -16,13 +17,17 @@ public class SubjectPresentAction extends Action<SubjectPresent>
      @Override
     public Result call(Http.Context context) throws Throwable
     {
-        // TODO: get current user
-        if (false)
+    	 Long userId = Authentication.currentUserId();
+         // HACK: Save current userId in context.args.put("currentUserId", userId); so the controller can fetch it form context and avoids another search in db.
+
+        if (userId != null)
         {
+        	//If user is logged, continue execution.
             return delegate.call(context);
         }
         else
         {
+        	// User not logged, return unauthorized code and log situation.
             Logger.warn(String.format("Authorazation Module: User must be loggedIn to access [%s]",context.request().uri()));
             return unauthorized();
         }

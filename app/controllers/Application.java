@@ -1,5 +1,7 @@
 package controllers;
 
+import javax.management.relation.Role;
+
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.aboutPlay;
@@ -14,7 +16,7 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
-    @SubjectPresent
+    @RestrictTo(Roles.seller)
     public static Result aboutPlay() {
         return ok(aboutPlay.render("Your new application is ready."));
     }

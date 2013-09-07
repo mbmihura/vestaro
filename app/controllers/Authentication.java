@@ -41,7 +41,7 @@ public class Authentication extends Controller {
                 String signedData = Crypto.getBase64UrlDecode(payload);
 
                 // Retrieve userId and create a session for it.
-                String userId = Json.parse(signedData).get("user_id").toString();
+                String userId = Json.parse(signedData).get("user_id").getTextValue();
                 session().clear();
                 session(currentUserIdKey, userId);
             
@@ -63,7 +63,7 @@ public class Authentication extends Controller {
     }
     
     public static Long currentUserId() {
-        String userId = session(currentUserIdKey);;
+        String userId = session(currentUserIdKey);
         return userId != null? Long.parseLong(userId) : null;
    }
     

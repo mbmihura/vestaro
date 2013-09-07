@@ -35,7 +35,7 @@ public class User extends Model {
 
     public Roles[] getRoles()
     {
-      Roles[] myIntArray = {Roles.buyer};
+      Roles[] myIntArray = {Roles.seller};
       return myIntArray;
     }
 }
