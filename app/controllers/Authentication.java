@@ -2,9 +2,11 @@ package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Http.Context;
 import play.data.Form;
 import play.libs.Json;
 import models.FbAuthResponse;
+import models.User;
 import utils.Crypto;
 import views.html.index;
 
@@ -16,6 +18,8 @@ import java.io.UnsupportedEncodingException;
 
 public class Authentication extends Controller {
   
+	private final String currentUserIdKey = "currentUserId";
+	
     public static Result login() {
         Form<FbAuthResponse> fbAuthResponseForm = Form.form(FbAuthResponse.class);
         FbAuthResponse fbAuth = fbAuthResponseForm.bindFromRequest().get();
@@ -55,5 +59,14 @@ public class Authentication extends Controller {
         return redirect(
             routes.Application.index()
         );
+    }
+    
+    public static Long currentUserId() {
+        String userId = session("userId");;
+        return userId != null? Long.parseLong(userId) : null;
+   }
+    
+    public static User currentUser() {
+        return User.authenticate(Authentication.currentUserId());
     }
 }
