@@ -40,11 +40,11 @@
 }
 
 .isotope .isotope-item {
-  -webkit-transition-property: -webkit-transform, opacity;
-     -moz-transition-property:    -moz-transform, opacity;
-      -ms-transition-property:     -ms-transform, opacity;
-       -o-transition-property:      -o-transform, opacity;
-          transition-property:         transform, opacity;
+  -webkit-transition-property: -webkit-transform, opacity, box-shadow;
+     -moz-transition-property:    -moz-transform, opacity, box-shadow;
+      -ms-transition-property:     -ms-transform, opacity, box-shadow;
+       -o-transition-property:      -o-transform, opacity, box-shadow;
+          transition-property:         transform, opacity, box-shadow;
 }
 
 /**** disabling Isotope CSS3 transitions ****/
@@ -73,21 +73,39 @@
 }
 
 /* photo style */
-.photos .photo {
+.items .item {
 width: 250px;
 margin: 5px;
 float: left;
 }
 
-.photos .photo img {
+.items .item img {
 display: block;
 width: 100%;
+-webkit-border-top-right-radius: 15px;
+-moz-border-radius-topright: 15px;
+border-top-right-radius: 15px;
 }
 
-.photo:hover {
+.item .itemInformation {
+position: absolute;
+bottom: 0px;
+background-color: #FFF;
+opacity: .8;
+margin: 5px;
+padding: 5px;
+display: none;
+}
+
+.item img:hover {
 cursor: pointer;
+opacity: 0.8;
+box-shadow: 3px 3px 2px #000;
 }
 
-.photo.large {
-width: 500px;	
+.item.large {
+width: 500px;
+-webkit-border-top-right-radius: 30px;
+-moz-border-radius-topright: 30px;
+border-top-right-radius: 30px;
 }
