@@ -1,15 +1,90 @@
 var chart;
 
 AmCharts.ready(function () {
+	// SERIAL CHART
+	var chartData = [{
+	    year: 9,
+	    comission: 150,
+	    motorcycles: 650,
+	    bicycles: 121}]
+	
+	chart = new AmCharts.AmSerialChart();
+    chart.autoMarginOffset = 3;
+    chart.marginRight = 0;
+    chart.zoomOutButton = {
+        backgroundColor: "#000000",
+        backgroundAlpha: 0.15
+    };
+    chart.dataProvider = chartData;
+    chart.categoryField = "month";
+
+    chart.addTitle("Comisión", 15);
+
+    // AXES
+    // Category
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.gridAlpha = 0.07;
+    categoryAxis.axisColor = "#DADADA";
+    categoryAxis.showLastLabel = false;
+    categoryAxis.startOnAxis = true;
+
+    // Value
+    var valueAxis = new AmCharts.ValueAxis();
+    valueAxis.title = "percent"; // this line makes the chart "stacked"
+    valueAxis.stackType = "100%";
+    valueAxis.gridAlpha = 0.07;
+    chart.addValueAxis(valueAxis);
+
+    // GRAPHS
+    // first graph
+    var graph = new AmCharts.AmGraph();
+    graph.type = "line"; // it's simple line graph
+    graph.title = "Comisión";
+    graph.valueField = "comission";
+    graph.balloonText = "[[value]] ([[percents]]%)";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.6; // setting fillAlphas to > 0 value makes it area graph 
+    chart.addGraph(graph);
+
+    // second graph
+    graph = new AmCharts.AmGraph();
+    graph.type = "line";
+    graph.title = "Motorcycles";
+    graph.valueField = "motorcycles";
+    graph.balloonText = "[[value]] ([[percents]]%)";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.6;
+    chart.addGraph(graph);
+
+    // third graph
+    graph = new AmCharts.AmGraph();
+    graph.type = "line";
+    graph.title = "Bicycles";
+    graph.valueField = "bicycles";
+    graph.balloonText = "[[value]] ([[percents]]%)";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.6;
+    chart.addGraph(graph);
+
+    // LEGEND
+    var legend = new AmCharts.AmLegend();
+    legend.align = "center";
+    chart.addLegend(legend);
+
+    // CURSOR
+    var chartCursor = new AmCharts.ChartCursor();
+    chartCursor.zoomable = false; // as the chart displayes not too many values, we disabled zooming
+    chartCursor.cursorAlpha = 0;
+    chart.addChartCursor(chartCursor);
+
+    // WRITE
+    chart.write("chartdiv");
+    
     jsRoutes.controllers.Dashboard.mostBuyedItems(1).ajax({success: 
     			function(json)
     			{
     				// PIE CHART
     			    chart = new AmCharts.AmPieChart();
-
-    			    // title of the chart
-    			    chart.addTitle("Prendas del Vendedor", 16);
-
     			    chart.sequencedAnimation = false;
     			    chart.startEffect = "elastic";
     			    chart.innerRadius = "30%";
@@ -21,8 +96,9 @@ AmCharts.ready(function () {
     			    chart.angle = 15;
     				
     				chart.dataProvider = json;
-    			    chart.titleField = "description";
+    			    chart.titleField = "id";
     			    chart.valueField = "price";
+    			    chart.balloonText = "[[id]]: [[price]]";
 
     			    // WRITE                                 
     			    chart.write("chartdiv");
@@ -60,7 +136,7 @@ AmCharts.ready(function () {
         var graph = new AmCharts.AmGraph();
         graph.valueField = "items";
         graph.colorField = "color";
-        graph.balloonText = "[[title]]: [[items]]";
+        graph.balloonText = "Cantidad de prendas: [[items]]";
         graph.type = "column";
         graph.lineAlpha = 0;
         graph.fillAlphas = 1;
