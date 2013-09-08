@@ -45,12 +45,16 @@
 
 <div id="itemsContainer" class="items isotope row">
     
-	<div class="item camisa" data-category='camisa'>
+	<div class="item camisa" data-category='camisa' data-item-id='1'>
 	  <img src="http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg" alt="Stanley">
 	  <div class="itemInformation">
 	  	<h2 class='title'>Stanley</h2>
-	  	<h3 class='description'>Descripción muy descriptiva.</h3>
+	  	<h3 class='description'>Descripción muy descriptiva.</h3><span class='sellerName'>by Krea</span>
 	  	<p class='price'>$200</p>
+	  	<div class='itemControls btn-group'>
+		  	<button type='button' class='buy btn btn-primary'>Comprar</button>
+		  	<button type='button' class='buy btn btn-default'>Wishlist</button>
+		</div>
 	  </div>
 	</div>
 	
@@ -165,8 +169,9 @@ $(document).ready(function(){
 	$container.isotope('reLayout');
   });
   
-  $('.item').mouseenter(function(){$(this).find('.itemInformation').show();});
-  $('.item').mouseleave(function(){$(this).find('.itemInformation').hide();});
+  // toggle display of item information
+  $('.item').mouseenter(function(e){e.preventDefault();$(this).find('.itemInformation').show();});
+  $('.item').mouseleave(function(e){e.preventDefault();$(this).find('.itemInformation').hide();});
   
 });
 </script>
