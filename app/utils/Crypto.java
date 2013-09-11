@@ -66,7 +66,17 @@ public class Crypto {
             sha256_HMAC.init(secretKey);
             byte[] hash = sha256_HMAC.doFinal(data.getBytes("UTF-8"));
             return new String(hash,"UTF-8");
-        } catch (final NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException e)
+        } 
+        // HACK: Java 6 doesn't allow several inline exception catch.
+        catch (final NoSuchAlgorithmException e)
+        {
+            throw new RuntimeException(e);
+        } 
+        catch ( final InvalidKeyException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (final UnsupportedEncodingException e)
         {
             throw new RuntimeException(e);
         }
