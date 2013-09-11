@@ -1,5 +1,6 @@
 import play.*;
 import play.libs.*;
+import security.Roles;
 
 import java.util.*;
 
@@ -18,6 +19,16 @@ public class Global extends GlobalSettings {
         @SuppressWarnings("unchecked")
 		public static void insert() {
 
+        	if (SecurityRole.find.findRowCount() == 0)
+            {
+                for (Roles roleEnum : Roles.values())
+                {
+                    SecurityRole role = new SecurityRole();
+                    role.name = roleEnum.getName();
+                    role.save();
+                }
+            }
+        	
             // If test user isn't set, create it.
             if (User.find.findRowCount() == 0)
             {
@@ -27,7 +38,7 @@ public class Global extends GlobalSettings {
                 //Ebean.saveManyToManyAssociations(user,"roles");
                 //Ebean.saveManyToManyAssociations(user,"permissions");
             }
-
+            
             if(Ebean.find(Seller.class).findRowCount() == 0) {
 
                 Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");

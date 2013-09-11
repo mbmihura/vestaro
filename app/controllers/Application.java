@@ -16,7 +16,7 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
-    @RestrictTo(Roles.seller)
+    @RestrictTo(Roles.SELLER)
     public static Result aboutPlay() {
         return ok(aboutPlay.render("Your new application is ready."));
     }

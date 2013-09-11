@@ -1,8 +1,10 @@
 package models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 import play.db.ebean.*;
-import com.avaje.ebean.*;
 import security.Roles;
 
 @Entity
@@ -11,10 +13,17 @@ public class User extends Model {
     @Id
     public Long userId;
     public String name;
+    @ManyToMany
+    public Set<SecurityRole> roles;
     
     public User(Long userId, String name) {
       this.userId = userId;
       this.name = name;
+      // TODO: Delete this, only for play-framework testing propose.
+      //String[] rolesString = new String[myIntArray.length];
+      this.roles = new HashSet<SecurityRole>();
+      this.roles.add(SecurityRole.findByName(Roles.BUYER));
+      //this.roles = myIntArray;
     }
 
     public static Finder<Long,User> find = new Finder<Long,User>(
@@ -34,8 +43,9 @@ public class User extends Model {
     }
 
     public Roles[] getRoles()
-    {
-      Roles[] myIntArray = {Roles.seller};
+    {      
+    	Roles[] myIntArray = {Roles.SELLER};
+       
       return myIntArray;
     }
 }
