@@ -4,9 +4,9 @@ import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Http.Context;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import models.FbAuthResponse;
 import models.User;
 import utils.Crypto;
 
@@ -22,10 +22,13 @@ public class Authentication extends Controller {
 	private static final String appSecretFbKey = Play.application().configuration().getString("fb.appSecretKey");
 	
     public static Result login() {
-        Form<FbAuthResponse> fbAuthResponseForm = Form.form(FbAuthResponse.class);
-        FbAuthResponse fbAuth = fbAuthResponseForm.bindFromRequest().get();
+    	DynamicForm data = Form.form().bindFromRequest();
+        String signedRequest = data.get("signedRequest");
+        
+        //Form<FbAuthResponse> fbAuthResponseForm = Form.form(FbAuthResponse.class);
+        //FbAuthResponse fbAuth = fbAuthResponseForm.bindFromRequest().get();
 
-        String signedRequest = fbAuth.signedRequest;
+        //String signedRequest = fbAuth.signedRequest;
 
         if (signedRequest != null && !signedRequest.isEmpty())
         { 
