@@ -25,6 +25,6 @@ public class SellerTest extends BaseModelTest {
     	seller.save();
     	
     	assertThat(seller.id).isNotNull();
-    	assertThat(seller.name).isEqualTo("RopaCool");
+    	assertThat(Seller.find.byId((long)3).name).isEqualTo("RopaCool");
     }
 }
