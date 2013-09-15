@@ -14,8 +14,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.io.UnsupportedEncodingException;
 
-
-
 public class Authentication extends Controller {
   
 	private static final String currentUserIdKey = "currentUserId";
@@ -25,11 +23,6 @@ public class Authentication extends Controller {
     	DynamicForm data = Form.form().bindFromRequest();
         String signedRequest = data.get("signedRequest");
         
-        //Form<FbAuthResponse> fbAuthResponseForm = Form.form(FbAuthResponse.class);
-        //FbAuthResponse fbAuth = fbAuthResponseForm.bindFromRequest().get();
-
-        //String signedRequest = fbAuth.signedRequest;
-
         if (signedRequest != null && !signedRequest.isEmpty())
         { 
             String[] signedRequests = signedRequest.split("\\.", 2);
@@ -71,6 +64,6 @@ public class Authentication extends Controller {
    }
     
     public static User currentUser() {
-        return User.authenticate(Authentication.currentUserId());
+        return User.findById(Authentication.currentUserId());
     }
 }

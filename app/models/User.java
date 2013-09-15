@@ -14,38 +14,35 @@ public class User extends Model {
     public Long userId;
     public String name;
     @ManyToMany
-    public Set<SecurityRole> roles;
+    public Set<Rol> roles;
     
-    public User(Long userId, String name) {
+    public User(Long userId, String name, Set<Rol> roles) {
       this.userId = userId;
       this.name = name;
-      // TODO: Delete this, only for play-framework testing propose.
-      //String[] rolesString = new String[myIntArray.length];
-      this.roles = new HashSet<SecurityRole>();
-      this.roles.add(SecurityRole.findByName(Roles.BUYER));
-      //this.roles = myIntArray;
+      this.roles = roles;
     }
 
-    public static Finder<Long,User> find = new Finder<Long,User>(
-        Long.class, User.class
-    ); 
+    public Set<Rol> getRoles()
+    {      
+      return roles;
+    }
+    
+    // Static:
+    public static Finder<Long,User> find = new Finder<Long,User>(Long.class, User.class); 
 
-    public static User authenticate(Long userId) {
-        return find.where().eq("userId", userId)
-            .findUnique();
+    public static User findById(Long userId) {
+    	return find
+    			.where()
+    			.eq("userId", userId)
+                .findUnique();
     }
 
     public static User create(Long userId, String name)
     {
-      User newUser = new User(userId, name);
-      newUser.save();
-      return newUser;
-    }
-
-    public Roles[] getRoles()
-    {      
-    	Roles[] myIntArray = {Roles.SELLER};
-       
-      return myIntArray;
+    	HashSet<Rol> rol = new HashSet<Rol>();
+    	rol.add(Rol.findByName(Roles.BUYER));
+    	User newUser = new User(userId, name, rol);
+    	newUser.save();
+    	return newUser;
     }
 }

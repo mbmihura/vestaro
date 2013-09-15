@@ -19,11 +19,11 @@ public class Global extends GlobalSettings {
         @SuppressWarnings("unchecked")
 		public static void insert() {
 
-        	if (SecurityRole.find.findRowCount() == 0)
+        	if (Rol.find.findRowCount() == 0)
             {
                 for (Roles roleEnum : Roles.values())
                 {
-                    SecurityRole role = new SecurityRole();
+                    Rol role = new Rol();
                     role.name = roleEnum.getName();
                     role.save();
                 }
@@ -32,11 +32,20 @@ public class Global extends GlobalSettings {
             // If test user isn't set, create it.
             if (User.find.findRowCount() == 0)
             {
-                User user = new User(563729055L,"testUser");
-
+            	HashSet<Rol> rol = new HashSet<Rol>();
+            	
+            	rol.add(Rol.findByName(Roles.BUYER));
+                User user = new User(563729055L,"testUserKurt", rol);
                 user.save();
-                //Ebean.saveManyToManyAssociations(user,"roles");
-                //Ebean.saveManyToManyAssociations(user,"permissions");
+                
+                user = new User(1406678834L,"testUserNaty", rol);
+                user.save();
+                
+                user = new User(100000262980862L,"testUserAlan", rol);
+                user.save();   
+                
+                user = new User(1335414847L,"testUserKurt", rol);
+                user.save();
             }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {
