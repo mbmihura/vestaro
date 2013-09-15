@@ -20,7 +20,8 @@ public class Application extends BaseController {
     		// No user logged
     	}else
     	{
-    		if (user.getRoles().contains(Rol.SELLER))
+    		// Solve Ebean issue and implement a singleton such as Rol.SELLER, and avoid going every time to de db.
+    		if (user.getRoles().contains(Rol.findByName(Roles.SELLER)))
     		{
     			// Seller
     			
