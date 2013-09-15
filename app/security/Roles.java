@@ -1,7 +1,5 @@
 package security;
 
-import models.Rol;
-
 public enum Roles
 {
 	SELLER,
