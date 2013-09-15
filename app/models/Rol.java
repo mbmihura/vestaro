@@ -20,6 +20,8 @@ public class Rol extends Model
    
     // Statics
     public static final Finder<Long, Rol> find = new Finder<Long, Rol>(Long.class,Rol.class);
+	public static final Rol SELLER = findByName(Roles.SELLER);
+	public static final Rol BUYER = findByName(Roles.BUYER);
 
     public static Rol findByName(Roles role)
     {

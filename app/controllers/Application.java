@@ -8,10 +8,27 @@ import views.html.index;
 import security.RestrictTo;
 import security.Roles;
 import security.SubjectPresent;
+import models.Rol;
+import models.User; 
 
-public class Application extends Controller {
+public class Application extends BaseController {
   
     public static Result index() {
+    	User user = currentUser();
+    	if (user == null)
+    	{
+    		// No user logged
+    	}else
+    	{
+    		if (user.getRoles().contains(Rol.SELLER))
+    		{
+    			// Seller
+    			
+    		}else
+    		{
+    			// buyyer
+    		}
+    	}
         return ok(index.render());
     }
 
