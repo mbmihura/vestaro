@@ -1,8 +1,7 @@
 package security;
 
-import com.avaje.ebean.annotation.EnumMapping;
+import models.Rol;
 
-@EnumMapping(nameValuePairs="SELLER=S, BUYER=B, ADMIN=A")
 public enum Roles
 {
 	SELLER,
