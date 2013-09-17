@@ -64,13 +64,15 @@
                     }).error(function () {
                         console.log("user's profile image could not be loaded.");
                     }).attr('src','http://graph.facebook.com/'+response.authResponse.userID+'/picture')
-                  console.log('Connected event detectec. Fetching your information.... ');
+                  console.log('Event detected: User connected & app accepted. Fetching your information.... ');
                     FB.api('/me', function(response) {
                         $('.navbar .nav .currentUsername').text(response.name).show();
                       console.log('Good to see you, ' + response.name + '.');
                     });
+                    $('#fbSignIn').hide();
                     $('.navbar .connectingWithFbLabel').hide();
                     $('.navbar .loggedUserOptions').fadeIn();
+                    
 
                 //If app is not allow, aparently callbackfunction is never call. 
                 //} else if (response.status === 'not_authorized') {
@@ -81,15 +83,14 @@
                 //  // (1) JavaScript created popup windows are blocked by most browsers unless they 
                 //  // result from direct interaction from people using the app (such as a mouse click)
                 //  // (2) it is a bad experience to be continually prompted to login upon page load.
-                //  console.log('not_authorized event detectec. Performing login... ');
-                //  FB.login();
+                //  console.log('not_authorized event detectec.');
                 } else {
                   // In this case, the person is not logged into Facebook, so we call the login() 
                   // function to prompt them to do so. Note that at this stage there is no indication
                   // of whether they are logged into the app. If they aren't then they'll see the Login
                   // dialog right after they log in to Facebook. 
                   // The same caveats as above apply to the FB.login() call here.
-                  console.log('user not logged to FB event detectec. Performing login... ');
+                  console.log('Event detected: User not logged to FB.');
                 }
               });
 
@@ -98,10 +99,12 @@
                 // In case user is logged, no action has to be taken as it would be automatically triggered becuase sdk subscribed to auth.authResponseChange JavaScript event.
                 FB.getLoginStatus(function(response) {
                          if (response.status === 'connected') {
-                             console.log('getLoginStatus answered already logged as user ' + response.authResponse.userID + ':');
+                             console.log('getLoginStatus answered already logged as user ' + response.authResponse.userID + '.');
                          }else{
-                            console.log('getLoginStatus answered not logged. Performing login...');
-                             FB.login();
+                            console.log('getLoginStatus answered not logged. Loading logIn optionsd...');
+                            // FB.login();
+                            // Show Ui to log in.
+                            $('#fbSignIn').show();
                          }
                          
                     },function(error){
@@ -120,7 +123,9 @@
            }(document));
         </script>
        
-		<nav class="navbar navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-fixed-top" role="navigation" style="
+    min-height: 0px;
+">
 		  <!-- Brand and toggle get grouped for better mobile display -->
 		  <div class="navbar-header">
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -129,18 +134,33 @@
 		      <span class="icon-bar"></span>
 		      <span class="icon-bar"></span>
 		    </button>
-		    <a class="navbar-brand" href="#" style="font-family: 'vivaldi'; font-size: 36px;color: #2974B9;letter-spacing: 3px;">Vestaro</a>
+		    <a class="navbar-brand" href="#" style="padding-bottom: 0px; padding-top: 8px; font-family: 'vivaldi'; font-size: 36px;color: #2974B9;letter-spacing: 3px;">Vestaro</a>
 		  </div>
 		
 		  <!-- Collect the nav links, forms, and other content for toggling -->
 		  <div class="collapse navbar-collapse navbar-ex1-collapse">
 		    <ul class="nav navbar-nav">
-                  <li class="active"><a href="@routes.Application.index"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-                  <li><a href="@routes.Application.index"><span class="glyphicon glyphicon-star"></span> Wishlist</a></li>
-                  <li><a href="@routes.Application.index"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-                  <li class='items-btn'><a href="#item"><span class="glyphicon glyphicon-th"></span> Prendas</a></li>
+                  <li class="active"><a style="
+    padding-bottom: 10px;
+    padding-top: 10px;
+" href="@routes.Application.index"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+                  <li><a style="
+    padding-bottom: 10px;
+    padding-top: 10px;
+" href="@routes.Application.index"><span class="glyphicon glyphicon-star"></span> Wishlist</a></li>
+                  <li><a style="
+    padding-bottom: 10px;
+    padding-top: 10px;
+" href="@routes.Application.index"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+                  <li class='items-btn'><a style="
+    padding-bottom: 10px;
+    padding-top: 10px;
+" href="#item"><span class="glyphicon glyphicon-th"></span> Prendas</a></li>
             </ul>
-		    <form class="navbar-form navbar-left" role="search">
+		    <form class="navbar-form navbar-left" role="search" style="
+    margin-bottom: 3px;
+    margin-top: 3px;
+">
 		      <div class="form-group">
 		        <input type="text" class="form-control search-input" placeholder="Codigo de prenda...">
 		      </div>
@@ -148,9 +168,12 @@
 		    </form>
 			<ul class="nav navbar-nav navbar-right loggedUserOptions" style="display:none;">
                 <li><a href="#" style="padding: 9px 15px 6px;"><img src="" class="currentUserImg" style="display:none;height:23px; width:23px;border: 1px solid #ccc;"> <span class="currentUsername" style="display:none;"></span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comprador <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
+                <li class="dropdown" >
+                    <a style="
+    padding-bottom: 10px;
+    padding-top: 10px;
+" href="#" class="dropdown-toggle" data-toggle="dropdown">Comprador <b class="caret"></b></a>
+                    <ul class="dropdown-menu" >
                         <li class="dropdown-header">Usar Vestaro como:</li>
                         <li class="divider"></li>
                         <li><a href="#"><span class="glyphicon glyphicon-ok pull-right"></span>Comprador</a></li>
@@ -159,6 +182,9 @@
                         <li><a href="#" onclick="FB.logout(function(response) {$('.navbar .loggedUserOptions').fadeOut();});"@* This shouldn be done. TODO: Move function when general js file is defined. *@>Salir</a></li>
                     </ul>
                 </li>
+            </ul>
+            <ul id="fbSignIn" class="nav navbar-nav navbar-right" style="display:none;">
+                <li><a onclick="FB.login();" style="background-attachment: scroll; background-clip: border-box; background-color: rgb(59, 89, 152); background-image: -webkit-linear-gradient(top, rgb(98, 122, 173), rgb(59, 89, 152)); background-origin: padding-box; background-position: 0% 0%; background-repeat: repeat-x; background-size: auto; border-bottom-color: rgba(0, 0, 0, 0.247059); border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate; border-image-outset: 0px; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: rgba(0, 0, 0, 0.0980392); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.0980392); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.0980392); border-top-left-radius: 0px; border-top-right-radius: 0px; border-top-style: solid; border-top-width: 1px; bottom: auto; box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px 0px; box-sizing: content-box; caption-side: top; clear: none; clip: auto; color: rgb(255, 255, 255); cursor: pointer; direction: ltr; display: inline-block; empty-cells: show; float: none; font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: bold; height: 15px; image-rendering: auto; left: auto; letter-spacing: normal; line-height: normal; list-style-image: none; list-style-position: outside; list-style-type: disc; margin-bottom: 0px; margin-left: 7px; margin-right: 10px; margin-top: 2px; max-height: none; max-width: none; min-height: 0px; min-width: 0px; opacity: 1; orphans: auto; outline-color: rgb(255, 255, 255); outline-offset: 0px; outline-style: none; outline-width: 0px; overflow-wrap: normal; overflow-x: visible; overflow-y: visible; padding-bottom: 9px; padding-left: 14px; padding-right: 14px; padding-top: 9px; page-break-after: auto; page-break-before: auto; page-break-inside: auto; pointer-events: auto; position: static; resize: none; right: auto; speak: normal; table-layout: auto; tab-size: 8; text-align: start; text-decoration: none; text-indent: 0px; text-rendering: auto; text-shadow: none; text-overflow: clip; text-transform: none; top: auto; transition-delay: 0s; transition-duration: 0.1s; transition-property: all; transition-timing-function: linear; unicode-bidi: normal; vertical-align: baseline; visibility: visible; white-space: normal; widows: auto; /* width: 153px; */ word-break: normal; word-spacing: 0px; word-wrap: normal; z-index: auto; zoom: 1; -webkit-animation-delay: 0s; -webkit-animation-direction: normal; -webkit-animation-duration: 0s; -webkit-animation-fill-mode: none; -webkit-animation-iteration-count: 1; -webkit-animation-name: none; -webkit-animation-play-state: running; -webkit-animation-timing-function: ease; -webkit-appearance: none; -webkit-backface-visibility: visible; -webkit-background-clip: border-box; -webkit-background-composite: source-over; -webkit-background-origin: padding-box; -webkit-background-size: auto; -webkit-border-fit: border; -webkit-border-horizontal-spacing: 0px; -webkit-border-image: none; -webkit-border-vertical-spacing: 0px; -webkit-box-align: stretch; -webkit-box-decoration-break: slice; -webkit-box-direction: normal; -webkit-box-flex: 0; -webkit-box-flex-group: 1; -webkit-box-lines: single; -webkit-box-ordinal-group: 1; -webkit-box-orient: horizontal; -webkit-box-pack: start; -webkit-box-reflect: none; -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px 0px; -webkit-clip-path: none; -webkit-column-break-after: auto; -webkit-column-break-before: auto; -webkit-column-break-inside: auto; -webkit-column-axis: auto; -webkit-column-count: auto; -webkit-column-gap: normal; -webkit-column-progression: normal; -webkit-column-rule-color: rgb(255, 255, 255); -webkit-column-rule-style: none; -webkit-column-rule-width: 0px; -webkit-column-span: none; -webkit-column-width: auto; -webkit-filter: none; align-content: stretch; align-items: stretch; align-self: stretch; flex-basis: auto; flex-grow: 0; flex-shrink: 1; flex-direction: row; flex-wrap: nowrap; justify-content: flex-start; -webkit-font-kerning: auto; -webkit-font-smoothing: auto; -webkit-font-variant-ligatures: normal; -webkit-highlight: none; -webkit-hyphenate-character: auto; -webkit-hyphenate-limit-after: auto; -webkit-hyphenate-limit-before: auto; -webkit-hyphenate-limit-lines: no-limit; -webkit-hyphens: manual; -webkit-line-align: none; -webkit-line-box-contain: block inline replaced; -webkit-line-break: auto; -webkit-line-clamp: none; -webkit-line-grid: none; -webkit-line-snap: none; -webkit-locale: en; -webkit-margin-before-collapse: collapse; -webkit-margin-after-collapse: collapse; -webkit-marquee-direction: auto; -webkit-marquee-increment: 6px; -webkit-marquee-repetition: infinite; -webkit-marquee-style: scroll; -webkit-mask-box-image: none; -webkit-mask-box-image-outset: 0px; -webkit-mask-box-image-repeat: stretch; -webkit-mask-box-image-slice: 0 fill; -webkit-mask-box-image-source: none; -webkit-mask-box-image-width: auto; -webkit-mask-clip: border-box; -webkit-mask-composite: source-over; -webkit-mask-image: none; -webkit-mask-origin: border-box; -webkit-mask-position: 0% 0%; -webkit-mask-repeat: repeat; -webkit-mask-size: auto; order: 0; -webkit-perspective: none; -webkit-perspective-origin: 91.5px 17.5px; -webkit-print-color-adjust: economy; -webkit-rtl-ordering: logical; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.180392); -webkit-text-combine: none; -webkit-text-decorations-in-effect: none; -webkit-text-emphasis-color: rgb(255, 255, 255); -webkit-text-emphasis-position: over; -webkit-text-emphasis-style: none; -webkit-text-fill-color: rgb(255, 255, 255); -webkit-text-orientation: vertical-right; -webkit-text-security: none; -webkit-text-stroke-color: rgb(255, 255, 255); -webkit-text-stroke-width: 0px; -webkit-transform: none; -webkit-transform-origin: 91.5px 17.5px; -webkit-transform-style: flat; -webkit-transition-delay: 0s; -webkit-transition-duration: 0.1s; -webkit-transition-property: all; -webkit-transition-timing-function: linear; -webkit-user-drag: auto; -webkit-user-modify: read-only; -webkit-user-select: text; -webkit-writing-mode: horizontal-tb; -webkit-app-region: no-drag; buffered-rendering: auto; clip-path: none; clip-rule: nonzero; mask: none; filter: none; flood-color: rgb(0, 0, 0); flood-opacity: 1; lighting-color: rgb(255, 255, 255); stop-color: rgb(0, 0, 0); stop-opacity: 1; color-interpolation: srgb; color-interpolation-filters: linearrgb; color-rendering: auto; fill: #000000; fill-opacity: 1; fill-rule: nonzero; marker-end: none; marker-mid: none; marker-start: none; mask-type: luminance; shape-rendering: auto; stroke: none; stroke-dasharray: none; stroke-dashoffset: 0; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 1; alignment-baseline: auto; baseline-shift: baseline; dominant-baseline: auto; kerning: 0; text-anchor: start; writing-mode: lr-tb; glyph-orientation-horizontal: 0deg; glyph-orientation-vertical: auto; -webkit-svg-shadow: none; vector-effect: none;">Log In</a></li>
             </ul>
 		  </div><!-- /.navbar-collapse -->
 		</nav>
