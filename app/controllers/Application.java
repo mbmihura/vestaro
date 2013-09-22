@@ -3,6 +3,8 @@ package controllers;
 import play.Routes;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.RestrictTo;
+import security.Roles;
 import views.html.aboutPlay;
 import views.html.index;
 
@@ -11,7 +13,8 @@ public class Application extends Controller {
     public static Result index() {
         return ok(index.render());
     }
-    
+
+    @RestrictTo(Roles.SELLER)
     public static Result aboutPlay() {
         return ok(aboutPlay.render("Your new application is ready."));
     }

@@ -3,8 +3,14 @@
 # ~~~~
 
 # Home page
-GET        /aboutplay           controllers.Application.aboutPlay()
-GET        /                    controllers.Application.index()
+GET		/aboutplay           				controllers.Application.aboutPlay()
+GET		/                    				controllers.Application.index()
+
+# Authentication & Authorization
+POST	/authentication/login 				controllers.Authentication.login()
+
+#TODO: check if really necesarry as we will be using fbLogin
+POST	/authentication/logout      		controllers.Authentication.logout() 
 
 # Dashboard
 GET		/dashboardTest			controllers.Dashboard.dashboardTest()
@@ -12,6 +18,7 @@ GET		/mostBuyedItems/:sellerId			controllers.Dashboard.mostBuyedItems(sellerId: 
 GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
 
 # Seller
+
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
 GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
 
