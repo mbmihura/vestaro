@@ -14,7 +14,7 @@ POST	/authentication/logout      		controllers.Authentication.logout()
 
 # Dashboard
 GET		/dashboardTest			controllers.Dashboard.dashboardTest()
-GET		/mostBuyedItems/:sellerId			controllers.Dashboard.mostBuyedItems(sellerId: Long)
+GET		/littleItemsStock/:sellerId		controllers.Dashboard.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
 
 # Seller

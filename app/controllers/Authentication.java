@@ -1,18 +1,13 @@
 package controllers;
 
+import models.User;
 import play.Play;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Http.Context;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import models.User;
+import play.mvc.Controller;
+import play.mvc.Result;
 import utils.Crypto;
-
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.io.UnsupportedEncodingException;
 
 public class Authentication extends Controller {
   

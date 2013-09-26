@@ -60,7 +60,10 @@ public class Global extends GlobalSettings {
 
                 // Insert items
                 Ebean.save(all.get("items"));
-
+                
+                // Insert stocks
+                Ebean.save(all.get("stocks"));
+                
                 // Insert the collections relations
 //                for(Object collection: all.get("collections")) {
 //                    Ebean.saveAssociation(collection,"owner");

@@ -103,3 +103,69 @@ function drawingCallback(json)
 		}
 	}
 }
+
+function drawMonthlyChart(json)
+{
+	try{
+		var items = json.recommendeditems.item;
+	} catch(e) {
+		console.log(e.message);
+		return;
+	}
+	
+	if("undefined" == typeof(json.error))
+	{
+		// PIE CHART
+	    chart = new AmCharts.AmPieChart();
+	    chart.sequencedAnimation = false;
+	    chart.startEffect = "elastic";
+	    chart.innerRadius = "30%";
+	    chart.startDuration = 2;
+	    chart.labelRadius = 15;
+
+	    // the following two lines makes the chart 3D
+	    chart.depth3D = 10;
+	    chart.angle = 15;
+		
+		chart.dataProvider = items;
+	    chart.titleField = "description";
+	    chart.valueField = "value";
+	    chart.balloonText = "[[value]] unidades";
+
+	    // WRITE
+	    chart.write("chartdiv2");
+	}
+}
+
+function drawChart(json)
+{
+	try{
+		var items = json.recommendeditems.item;
+	} catch(e) {
+		console.log(e.message);
+		return;
+	}
+	
+	if("undefined" == typeof(json.error))
+	{
+		// PIE CHART
+	    chart = new AmCharts.AmPieChart();
+	    chart.sequencedAnimation = false;
+	    chart.startEffect = "elastic";
+	    chart.innerRadius = "30%";
+	    chart.startDuration = 2;
+	    chart.labelRadius = 15;
+
+	    // the following two lines makes the chart 3D
+	    chart.depth3D = 10;
+	    chart.angle = 15;
+		
+		chart.dataProvider = items;
+	    chart.titleField = "description";
+	    chart.valueField = "value";
+	    chart.balloonText = "[[value]] unidades";
+
+	    // WRITE
+	    chart.write("chartdiv");
+	}
+}

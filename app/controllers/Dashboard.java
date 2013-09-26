@@ -1,9 +1,11 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Collection;
 import models.Item;
+import models.Stock;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -14,12 +16,7 @@ public class Dashboard extends Controller {
     public static Result dashboardTest() {
         return ok(dashboardTest.render());
     }
-    
-    public static Result mostBuyedItems(Long sellerId){    	
-    	List<Item> items = Item.findItemsOwnedBy(sellerId);
-		return ok(Json.toJson(items));
-    }
-    
+        
     public static Result biggestCollections(Long sellerId){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
     	
@@ -29,4 +26,20 @@ public class Dashboard extends Controller {
     	
     	return ok(Json.toJson(collections));
     }
+    
+    public static Result littleItemsStock(Long sellerId){
+    	List<Stock> lowStockItems = new ArrayList<Stock>();
+    	List<Item> items = Item.findItemsOwnedBy(sellerId);
+    	
+		for(Item item : items){
+			for(Stock stock : Stock.findStockOfItem(item.id)){
+				if(stock.stock <= 5)
+					lowStockItems.add(stock);
+			}
+		}
+    	
+    	return ok(Json.toJson(lowStockItems));
+    }
+    
+    
 }
