@@ -10,6 +10,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.dashboard.dashboardTest;
+import views.html.dashboard.dashboard;
 
 public class Dashboard extends Controller {
   
@@ -41,5 +42,7 @@ public class Dashboard extends Controller {
     	return ok(Json.toJson(lowStockItems));
     }
     
-    
+    public static Result dashboard() {
+        return ok(dashboard.render());
+ }
 }

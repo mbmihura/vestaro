@@ -128,12 +128,12 @@ function drawMonthlyChart(json)
 	    chart.angle = 15;
 		
 		chart.dataProvider = items;
-	    chart.titleField = "description";
+	    chart.titleField = "id";
 	    chart.valueField = "value";
-	    chart.balloonText = "[[value]] unidades";
+	    chart.balloonText = "[[description]]: [[value]] unidades";
 
 	    // WRITE
-	    chart.write("chartdiv2");
+	    chart.write("chartdiv");
 	}
 }
 
@@ -148,24 +148,30 @@ function drawChart(json)
 	
 	if("undefined" == typeof(json.error))
 	{
-		// PIE CHART
-	    chart = new AmCharts.AmPieChart();
-	    chart.sequencedAnimation = false;
-	    chart.startEffect = "elastic";
-	    chart.innerRadius = "30%";
-	    chart.startDuration = 2;
-	    chart.labelRadius = 15;
-
-	    // the following two lines makes the chart 3D
-	    chart.depth3D = 10;
-	    chart.angle = 15;
-		
-		chart.dataProvider = items;
-	    chart.titleField = "description";
-	    chart.valueField = "value";
-	    chart.balloonText = "[[value]] unidades";
-
-	    // WRITE
+		var chart = new AmCharts.AmSerialChart();
+	    chart.dataProvider = items;
+	    chart.categoryField = "description";                
+	    chart.rotate = true;
+	    chart.depth3D = 20;
+	    chart.angle = 30;
+	    var categoryAxis = chart.categoryAxis;
+	    categoryAxis.gridPosition = "start";
+	    categoryAxis.axisColor = "#DADADA";
+	    categoryAxis.fillAlpha = 1;
+	    categoryAxis.gridAlpha = 0;
+	    categoryAxis.fillColor = "#FAFAFA";
+	    var valueAxis = new AmCharts.ValueAxis();
+	    valueAxis.axisColor = "#DADADA";
+	    valueAxis.gridAlpha = 0.1;
+	    chart.addValueAxis(valueAxis);
+	    var graph = new AmCharts.AmGraph();
+	    graph.valueField = "value";
+	    graph.type = "column";
+	    graph.balloonText = "Unidades vendidas: [[value]]";
+	    graph.lineAlpha = 0;
+	    graph.fillColors = "#ADFF2F";
+	    graph.fillAlphas = 1;
+	    chart.addGraph(graph);
 	    chart.write("chartdiv");
 	}
 }

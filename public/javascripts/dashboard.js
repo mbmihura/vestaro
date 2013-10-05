@@ -1,22 +1,5 @@
-var chart;
-
-var chartData = [
-    {
-        "category": "Comisión",
-        "excelent": 6,
-        "good": 6,
-        "average": 6,
-        "poor": 6,
-        "bad": 6,
-        "limit": 78,
-        "full": 30,
-        "bullet": (new Date()).getDate(),
-        "remainingTime": 30 - (new Date()).getDate()
-    }
-];
-
 AmCharts.ready(function () {
-	
+		
 	// Monthly boughts	
 //	easyrec_mostBoughtItems({
 //		numberOfResults:5,
@@ -31,43 +14,58 @@ AmCharts.ready(function () {
 		drawingCallback:'drawChart'
 	});
 	
-	// Commission
-	chart = new AmCharts.AmSerialChart();
+	// Commission	
+	var chart;
+	var date = new Date();
+	var remainingTime = (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate() - date.getDate();
+	var chartData = [{
+	    "commission": "",
+	        "max": (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate(),
+	        "min": 0,
+	        "value": date.getDate()
+	}];
+
+    chart = new AmCharts.AmSerialChart();
     chart.dataProvider = chartData;
-    chart.categoryField = "category";
-    chart.rotate = true; // if you want vertical bullet chart, set rotate to false
-    chart.columnWidth = 1;
+    chart.categoryField = "commission";
     chart.startDuration = 1;
-    categoryAxis = chart.categoryAxis;
-    categoryAxis.gridAlpha = 0;
-    valueAxis = new AmCharts.ValueAxis();
-    valueAxis.maximum = 30;
-    valueAxis.minimum = 0;
-    valueAxis.axisAlpha = 1;
-    valueAxis.gridAlpha = 0;
+    chart.columnWidth = 0.5;
+    chart.rotate = true;
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.gridPosition = "start";
+    categoryAxis.axisColor = "#000000";
+    categoryAxis.dashLength = 3;
+    var valueAxis = new AmCharts.ValueAxis();
+    valueAxis.dashLength = 3;
+    valueAxis.axisAlpha = 0.2;
+    valueAxis.position = "top";
+    valueAxis.minorGridEnabled = true;
+    valueAxis.minorGridAlpha = 0.08;
+    valueAxis.gridAlpha = 0.15;
     chart.addValueAxis(valueAxis);
-    graph = new AmCharts.AmGraph();
-    graph.valueField = "bullet";
-    graph.lineColor = "#000000";
-    graph.type = "column";
-    graph.balloonText = "[[remainingTime]] días restantes";
-    graph.lineAlpha = 1;
-    graph.fillAlphas = 1;
-    graph.columnWidth = 0.3; // this makes it narrower than color graph
-    graph.clustered = false; // this makes the trick - one column above another
-    chart.addGraph(graph);	    
-    graph = new AmCharts.AmGraph();
-    graph.valueField = "full";
-    graph.showBalloon = true;
-    graph.balloonText = "[[remainingTime]] días restantes";
-    graph.type = "column";
-    graph.lineAlpha = 0;
-    graph.fillAlphas = 0.8;
-    graph.fillColors = ["#19d228", "#f6d32b", "#fb2316"];
-    graph.gradientOrientation = "horizontal";
-    chart.addGraph(graph);   
-	chart.write("chartdiv3");
-    
+    var graph1 = new AmCharts.AmGraph();
+    graph1.type = "column";
+    graph1.valueField = "max";
+    graph1.lineAlpha = 0;
+    graph1.balloonText = "Días restantes: " + remainingTime;
+    graph1.fillColors = "#000000";
+    graph1.fillAlphas = 0.8;
+    chart.addGraph(graph1);
+    var graph2 = new AmCharts.AmGraph();
+    graph2.type = "line";
+    graph2.lineColor = "#000000";
+    graph2.bulletColor = "#FFFF00";
+    graph2.bulletBorderColor = "#FFFF00";
+    graph2.bulletBorderThickness = 2;
+    graph2.bulletBorderAlpha = 1;
+    graph2.valueField = "value";
+    graph2.lineThickness = 2;
+    graph2.bullet = "round";
+    graph2.fillAlphas = 0;
+    graph2.balloonText = "Días restantes: " + remainingTime;
+    chart.addGraph(graph2);
+    chart.write("chartdiv3");
+	    
 //    jsRoutes.controllers.Dashboard.biggestCollections(1).ajax({success: 
 //		function(json)
 //		{
@@ -142,6 +140,8 @@ AmCharts.ready(function () {
 		        graph.balloonText = "Stock disponible del talle [[size]]: [[stock]]";
 		        graph.type = "column";
 		        graph.lineAlpha = 0;
+			    graph.fillColors = "#FFD700";
+		        graph.lineColor = "#000000";
 		        graph.fillAlphas = 1;
 		        chart.addGraph(graph);
 		

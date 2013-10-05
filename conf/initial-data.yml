@@ -161,35 +161,35 @@ items:
 stocks:
     
     - !!models.Stock
-        id:          Stock Camisa Negra L
+        id:          SCNL
         size:        L
         stock:       5
         item:        !!models.Item
                         id: CN1
                         
     - !!models.Stock
-        id:          Stock Camisa Negra M
+        id:          SCNM
         size:        M
         stock:       4
         item:        !!models.Item
                         id: CN1
 
     - !!models.Stock
-        id:          Stock Camisa Blanca S
+        id:          SCBS
         size:        S
         stock:       1
         item:        !!models.Item
                         id: CB1
 
     - !!models.Stock
-        id:          Stock Buzo Azul M
+        id:          SBAM
         size:        M
         stock:       0
         item:        !!models.Item
                         id: BA4
 
     - !!models.Stock
-        id:          Stock Buzo Azul L
+        id:          SBAL
         size:        L
         stock:       7
         item:        !!models.Item
