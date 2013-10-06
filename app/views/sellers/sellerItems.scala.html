@@ -42,11 +42,13 @@
       <li class='btn btn-default'><a href="#sortAscending=false" data-option-value="false">sort descending</a></li>
     </ul>
 </nav>
-<ul class="unstyled">
-        <li ng-repeat="item in items">
-          <p>{{item.itemId}}</p>
-        </li>
-      </ul>
+
+<ul>
+  <li ng-repeat="item in items">
+    <p>{{item.id}}</p>
+  </li>
+</ul>
+
 <div id="itemsContainer" class="items isotope row">
     
 	<div class="item camisa" data-category='camisa' data-item-id='1'>
@@ -101,21 +103,16 @@
 <script src="@routes.Assets.at("javascripts/jquery.isotope.min.js")" type="text/javascript"></script>
 <script>
 function searchClothesCtrl($scope){
-	$scope.items=[{itemId: 1, title: 'Camisa Negra'},
-		{itemId: 2, title: 'Camisa Blanca'}];
+ 	$scope.items=[];
 	
+	jsRoutes.controllers.Sellers.itemsOwnedBy(1).ajax({
+		success: function(json){
+			$scope.items = json.slice();}
+	});
 	
+	console.log($scope.items);
 }
-
 $(document).ready(function(){
-  var items = [];
-  items.push({
-	  title:'Camisa Negra',
-	  description:'Camisa de seda',
-	  imgUrl:'',
-	  price:'100',
-	  sellerName:'RopaCool'
-  });
   
   var $container = $('#itemsContainer');
   

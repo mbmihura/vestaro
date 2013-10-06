@@ -1,18 +1,16 @@
 package controllers;
 
 import play.Routes;
-import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.aboutPlay;
 import views.html.index;
 import security.RestrictTo;
 import security.Roles;
-import security.SubjectPresent;
 import models.Rol;
 import models.User; 
 
 public class Application extends BaseController {
-  
+	
     public static Result index() {
     	User user = currentUser();
     	if (user == null)
@@ -56,7 +54,10 @@ public class Application extends BaseController {
                 controllers.routes.javascript.Items.submit(), 
                 controllers.routes.javascript.Items.read(),
                 controllers.routes.javascript.Items.update(),
-                controllers.routes.javascript.Items.delete()
+                controllers.routes.javascript.Items.delete(),
+                
+                // Routes for Sellers
+                controllers.routes.javascript.Sellers.itemsOwnedBy()
                 
             )
         );
