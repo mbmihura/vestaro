@@ -1,12 +1,17 @@
 package controllers;
 
+import models.BuyOrder;
+import models.Buyer;
 import models.Item;
-import play.Logger;
+import models.PaymentManager;
+
+import org.codehaus.jettison.json.JSONException;
+
 import play.data.Form;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.items.*;
+import views.html.items.form;
+import views.html.items.item;
 
 public class Items extends Controller {
     
@@ -52,5 +57,19 @@ public class Items extends Controller {
     
     public static Result delete(String itemId) {
     	return TODO;
+    }
+    
+    public static Result buy(String itemId) throws Exception{
+    	Item item = Item.find.byId(itemId);
+    	//TODO: how to get buyer
+    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer());
+
+    	PaymentManager manager = new PaymentManager();
+    	
+		try {
+			return ok(views.html.paymentProcess.render(manager.checkout(buyOrder)));
+		} catch (JSONException e) {
+			return badRequest();//TODO: think what to do when it fails
+		}
     }
 }

@@ -120,7 +120,7 @@
            }(document));
         </script>
        
-		<nav class="navbar navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-fixed-top" role="navigation" style="z-index: 149;"> <!--Changed z-index because it was over MP Modal, it may cause future problems -->
 		  <!-- Brand and toggle get grouped for better mobile display -->
 		  <div class="navbar-header">
 		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -165,6 +165,7 @@
         <!-- /container -->
         <div id="main" class="container">
           @content
+        
         </div> 
         <!-- Le javascript
         ================================================== -->
@@ -183,5 +184,6 @@
         <script src="../assets/js/bootstrap-collapse.js"></script>
         <script src="../assets/js/bootstrap-carousel.js"></script>
         <script src="../assets/js/bootstrap-typeahead.js"></script> -->
+        <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
     </body>
 </html>
