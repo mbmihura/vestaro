@@ -3,10 +3,11 @@ package models;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.*;
-import javax.validation.Valid;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -51,11 +52,19 @@ public class Item extends Model {
     @Version
     Timestamp update_time;
 
+	public Long views = 5L;
+	
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
         return Item.find.where()
                 .eq("seller.id", sellerId)
+                .findList();
+    }
+    
+    public static List<Item> findItemsFromCollection(Long collectionId){
+    	return Item.find.where()
+                .eq("collection.id", collectionId)
                 .findList();
     }
 

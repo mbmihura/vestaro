@@ -12,6 +12,14 @@ POST	/authentication/login 				controllers.Authentication.login()
 #TODO: check if really necesarry as we will be using fbLogin
 POST	/authentication/logout      		controllers.Authentication.logout() 
 
+# Dashboard
+GET		/dashboardTest			controllers.Dashboard.dashboardTest()
+GET		/dashboard				controllers.Dashboard.dashboard()
+
+GET		/allItemsFromAlbums/:sellerId		controllers.Dashboard.allItemsFromAlbums(sellerId: Long)
+GET		/littleItemsStock/:sellerId			controllers.Dashboard.littleItemsStock(sellerId: Long)
+GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
+
 # Seller
 
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
@@ -27,6 +35,9 @@ POST	/item/:itemId			controllers.Items.delete(itemId: String)
 
 # Other
 GET		/facebookPlugins		controllers.Application.facebookPlugins()
+
+# Recommendations
+GET        /reco	           controllers.RecommendationEngine.recoExample()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        	controllers.Assets.at(path="/public", file)
