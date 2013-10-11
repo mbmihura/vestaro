@@ -4,24 +4,22 @@ $(document).ready(function(){
 		$(this).parent().addClass("active");
 		$('#btn_album').parent().removeClass("active");
 		$('#btn_all').parent().removeClass("active");
-		$('#album').hide();
-		$('#prenda').show();
+		$('#album').fadeOut(function(){$('#prenda').show();});
 	});
 	
 	$('#btn_album').click(function(){
 		$('#btn_item').parent().removeClass("active");
 		$(this).parent().addClass("active");
 		$('#btn_all').parent().removeClass("active");
-		$('#prenda').hide();
-		$('#album').show();
+		$('#prenda').fadeOut(function(){$('#album').show();});
 	});
 	
 	$('#btn_all').click(function(){
 		$('#btn_item').parent().removeClass("active");
 		$('#btn_album').parent().removeClass("active");
 		$(this).parent().addClass("active");
-		$('#prenda').show();
-		$('#album').show();
+		$('#prenda').fadeIn();
+		$('#album').fadeIn();
 	});
 	
 });
