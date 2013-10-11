@@ -72,7 +72,7 @@
                   // have logged in to the app.
                   $.post("@routes.Authentication.login()", response.authResponse)
                     .done(function(data) {
-                      alert("Data Loaded: " + data);
+                      console.log("Data Loaded: " + data);
                     });
 
                   $('.navbar .nav .currentUserImg').load(function () {
@@ -84,7 +84,7 @@
                     FB.api('/me', function(response) {
                         $('.navbar .nav .currentUsername').text(response.name).show();
                       console.log('Good to see you, ' + response.name + '.');
-                    });
+                    });                    
                     $('#fbSignIn').hide();
                     $('.navbar .connectingWithFbLabel').hide();
                     $('.navbar .loggedUserOptions').fadeIn();
