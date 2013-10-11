@@ -104,18 +104,6 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 2
-
-    - !!models.Item
-        id:           CB2
-        title:        Camisa Blanca
-        description:  Camisa Blanca Corta Larga de Seda
-        imgUrl:       http://queconque.com.mx/wp-content/uploads/2012/08/1.jpg
-        price:        160
-        sex:        m
-        seller:        !!models.Seller
-                        id: 1
-        collection:   !!models.Collection
-                        id: 2
                         
     - !!models.Item
         id:           RN3
