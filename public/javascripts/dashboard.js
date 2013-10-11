@@ -22,131 +22,134 @@ $(document).ready(function(){
 		$('#album').fadeIn();
 	});
 	
-});
-
-AmCharts.ready(function () {
+//	function generateRandomColor(){
+//		return '#'+Math.floor(Math.random()*16777215).toString(16);
+//	}
+	
+	AmCharts.ready(function () {
 		
-	// Monthly boughts	
-	easyrec_mostBoughtItems({
-		numberOfResults:5,
-		timeRange:'MONTH',
-		drawingCallback:'drawChartMonthlyBoughtItems'
-	});
-	
-	// All time boughts
-	easyrec_mostBoughtItems({
-		numberOfResults:5,
-		timeRange:'ALL',
-		drawingCallback:'drawChartAllTimeBoughtItems'
-	});
-	
-	// Monthly views	
-	easyrec_mostViewedItems({
-		numberOfResults:5,
-		timeRange:'MONTH',
-		drawingCallback:'drawChartMonthlyViewedItems'
-	});
-	
-	// All time views
-	easyrec_mostViewedItems({
-		numberOfResults:5,
-		timeRange:'ALL',
-		drawingCallback:'drawChartAllTimeViewedItems'
-	});
-	
-	// Biggest collections
-	jsRoutes.controllers.Dashboard.biggestCollections(1).ajax({success: 
-		function(json)
-		{
-	        chart = new AmCharts.AmSerialChart();
-	        chart.dataProvider = json;
-	        chart.categoryField = "title";
-	        chart.marginRight = 0;
-	        chart.marginTop = 0;
-	        chart.autoMarginOffset = 0;
-	        chart.depth3D = 20;
-	        chart.angle = 30;
-	        var categoryAxis = chart.categoryAxis;
-	        categoryAxis.labelRotation = 90;
-	        categoryAxis.dashLength = 5;
-	        categoryAxis.gridPosition = "start";
-	        var valueAxis = new AmCharts.ValueAxis();
-	        valueAxis.title = "Albums";
-	        valueAxis.dashLength = 5;
-	        chart.addValueAxis(valueAxis);
-	        var graph = new AmCharts.AmGraph();
-	        graph.valueField = "items";
-	        graph.colorField = "color";
-	        graph.balloonText = "Cantidad de prendas: [[items]]";
-	        graph.type = "column";
-	        graph.lineAlpha = 0;
-	        graph.fillAlphas = 1;
-	        chart.addGraph(graph);
-	        chart.write("chartdiv_biggestAlbums");
-		}
-	});
-	
-	// All items from albums
-	jsRoutes.controllers.Dashboard.allItemsFromAlbums(1).ajax({success:
-		function(json)
-		{
-			var selected;
-			
-			function generateChartData(){
-				var chartData = [];
+		// Monthly boughts	
+		easyrec_mostBoughtItems({
+			numberOfResults:5,
+			timeRange:'MONTH',
+			drawingCallback:'drawChartMonthlyBoughtItems'
+		});
+		
+		// All time boughts
+		easyrec_mostBoughtItems({
+			numberOfResults:5,
+			timeRange:'ALL',
+			drawingCallback:'drawChartAllTimeBoughtItems'
+		});
+		
+		// Monthly views	
+		easyrec_mostViewedItems({
+			numberOfResults:5,
+			timeRange:'MONTH',
+			drawingCallback:'drawChartMonthlyViewedItems'
+		});
+		
+		// All time views
+		easyrec_mostViewedItems({
+			numberOfResults:5,
+			timeRange:'ALL',
+			drawingCallback:'drawChartAllTimeViewedItems'
+		});
+		
+		// Biggest collections
+		jsRoutes.controllers.Dashboard.biggestCollections(1).ajax({success: 
+			function(json)
+			{
+		        chart = new AmCharts.AmSerialChart();
+		        chart.dataProvider = json;
+		        chart.categoryField = "title";
+		        chart.marginRight = 0;
+		        chart.marginTop = 0;
+		        chart.autoMarginOffset = 0;
+		        chart.depth3D = 20;
+		        chart.angle = 30;
+		        var categoryAxis = chart.categoryAxis;
+		        categoryAxis.labelRotation = 90;
+		        categoryAxis.dashLength = 5;
+		        categoryAxis.gridPosition = "start";
+		        var valueAxis = new AmCharts.ValueAxis();
+		        valueAxis.title = "Albums";
+		        valueAxis.dashLength = 5;
+		        chart.addValueAxis(valueAxis);
+		        var graph = new AmCharts.AmGraph();
+		        graph.valueField = "items";
+		        graph.colorField = generateRandomColor();
+		        graph.balloonText = "Cantidad de prendas: [[items]]";
+		        graph.type = "column";
+		        graph.lineAlpha = 0;
+		        graph.fillAlphas = 1;
+			    graph.fillColors = generateRandomColor();
+		        chart.addGraph(graph);
+		        chart.write("chartdiv_biggestAlbums");
+			}
+		});
+		
+		// All items from albums
+		jsRoutes.controllers.Dashboard.allItemsFromAlbums(1).ajax({success:
+			function(json)
+			{
+				var selected;
 				
-				for (var i = 0; i < json.length; i++) {
-			        if (json[i].id == selected) {
-			            for (var x = 0; x < json[i].items.length; x++) {
-			                chartData.push({
-			                    title: json[i].items[x].title,
-				                views: json[i].items[x].views,
-			                    description: json[i].items[x].description,
-			                    pulled: true
-			                });
-			            }
+				function generateChartData(){
+					var chartData = [];
+					
+					for (var i = 0; i < json.length; i++) {
+				        if (json[i].id == selected) {
+				            for (var x = 0; x < json[i].items.length; x++) {
+				                chartData.push({
+				                    title: json[i].items[x].title,
+					                views: json[i].items[x].views,
+				                    description: json[i].items[x].description,
+				                    pulled: true
+				                });
+				            }
+				        }
+				        else {
+				        	var views = 0;
+				        	for (var x = 0; x < json[i].items.length; x++) {
+				                views = views + json[i].items[x].views; 
+				            }
+				        	
+				            chartData.push({
+				                title: json[i].title,
+				                views: views,
+				                description: json[i].description,
+				                id: json[i].id
+				            });
+				        }
+					}
+			        
+			        return chartData;
+				}
+					
+				var chart = new AmCharts.AmPieChart();
+			    chart.dataProvider = generateChartData();
+			    chart.titleField = "title";
+			    chart.valueField = "views";
+			    chart.outlineColor = "#FFFFFF";
+			    chart.outlineAlpha = 0.8;
+			    chart.outlineThickness = 2;
+			    chart.pulledField = "pulled";
+			    chart.balloonText = "Cantidad de vistas: [[views]]";
+			    chart.addListener("clickSlice", function (event) {
+			        if (event.dataItem.dataContext.id != undefined) {
+			        	selected = event.dataItem.dataContext.id;
 			        }
 			        else {
-			        	var views = 0;
-			        	for (var x = 0; x < json[i].items.length; x++) {
-			                views = views + json[i].items[x].views; 
-			            }
-			        	
-			            chartData.push({
-			                title: json[i].title,
-			                views: views,
-			                description: json[i].description,
-			                id: json[i].id
-			            });
+			            selected = undefined;
 			        }
-				}
-		        
-		        return chartData;
+			        chart.dataProvider = generateChartData();
+			        chart.validateData();
+			    });
+			    
+		        chart.write("chartdiv_mostViewedAlbums");
 			}
-				
-			var chart = new AmCharts.AmPieChart();
-		    chart.dataProvider = generateChartData();
-		    chart.titleField = "title";
-		    chart.valueField = "views";
-		    chart.outlineColor = "#FFFFFF";
-		    chart.outlineAlpha = 0.8;
-		    chart.outlineThickness = 2;
-		    chart.pulledField = "pulled";
-		    chart.balloonText = "Cantidad de vistas: [[views]]";
-		    chart.addListener("clickSlice", function (event) {
-		        if (event.dataItem.dataContext.id != undefined) {
-		        	selected = event.dataItem.dataContext.id;
-		        }
-		        else {
-		            selected = undefined;
-		        }
-		        chart.dataProvider = generateChartData();
-		        chart.validateData();
-		    });
-		    
-	        chart.write("chartdiv_mostViewedAlbums");
-		}
+		});
 	});
+	
 });
-
-

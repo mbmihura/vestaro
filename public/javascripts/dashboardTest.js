@@ -124,7 +124,7 @@ AmCharts.ready(function () {
 		        graph.balloonText = "Stock disponible del talle [[size]]: [[stock]]";
 		        graph.type = "column";
 		        graph.lineAlpha = 0;
-			    graph.fillColors = "#FFD700";
+			    graph.fillColors = generateRandomColor();
 		        graph.lineColor = "#000000";
 		        graph.fillAlphas = 1;
 		        chart.addGraph(graph);
