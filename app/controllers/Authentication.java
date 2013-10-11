@@ -1,13 +1,14 @@
 package controllers;
 
-import models.User;
 import play.Play;
+import play.mvc.Controller;
+import play.mvc.Result;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Result;
+import models.User;
 import utils.Crypto;
+
 
 public class Authentication extends Controller {
   

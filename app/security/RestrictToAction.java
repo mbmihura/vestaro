@@ -9,9 +9,6 @@ import models.Rol;
 import models.User;
 import controllers.Authentication;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class RestrictToAction extends Action<RestrictTo>
@@ -36,8 +33,7 @@ public class RestrictToAction extends Action<RestrictTo>
 	            for (Rol userRole : userRoles)
 	            {
 	            	//User is authorized, continue execution.
-	            	// TODO: implements rol.equals()
-	                if (userRole.getName().equals(rol.getName()))
+	                if (userRole.is(rol))
 	                	return delegate.call(context);
 	            }
 	        }
