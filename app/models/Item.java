@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Version;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @SuppressWarnings("serial")
@@ -38,7 +40,7 @@ public class Item extends Model {
     public String sex;
     
     //TODO Change Object type to Stock
-    public List<String> stocks;
+//    public List<String> stocks = new ArrayList<>();
 
     @OneToOne
     public Seller seller;
@@ -57,8 +59,11 @@ public class Item extends Model {
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
-        return Item.find.where()
-                .eq("seller.id", sellerId)
+        return Item.find
+        		.select("id, title, description, imgUrl, price")//, sex")
+        		.fetch("collection", "id, title, description")
+        		.where()
+                	.eq("seller.id", sellerId)
                 .findList();
     }
     

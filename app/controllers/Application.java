@@ -6,11 +6,13 @@ import play.Routes;
 import play.mvc.Result;
 import security.RestrictTo;
 import security.Roles;
+import models.Rol;
+import models.User; 
 import views.html.aboutPlay;
 import views.html.index;
 
 public class Application extends BaseController {
-  
+	
     public static Result index() {
     	User user = currentUser();
     	if (user == null)
@@ -55,6 +57,9 @@ public class Application extends BaseController {
                 controllers.routes.javascript.Items.read(),
                 controllers.routes.javascript.Items.update(),
                 controllers.routes.javascript.Items.delete(),
+                
+                // Routes for Sellers
+                controllers.routes.javascript.Sellers.itemsOwnedBy(),
                                 
                 // Routes for Dashboard
                 controllers.routes.javascript.Dashboard.biggestCollections(),
