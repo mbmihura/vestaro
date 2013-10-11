@@ -8,10 +8,28 @@ import views.html.index;
 import security.RestrictTo;
 import security.Roles;
 import security.SubjectPresent;
+import models.Rol;
+import models.User; 
 
-public class Application extends Controller {
+public class Application extends BaseController {
   
     public static Result index() {
+    	User user = currentUser();
+    	if (user == null)
+    	{
+    		// No user logged
+    	}else
+    	{
+    		// Solve Ebean issue and implement a singleton such as Rol.SELLER, and avoid going every time to de db.
+    		if (user.getRoles().contains(Rol.findByName(Roles.SELLER)))
+    		{
+    			// Seller
+    			
+    		}else
+    		{
+    			// buyyer
+    		}
+    	}
         return ok(index.render());
     }
 
