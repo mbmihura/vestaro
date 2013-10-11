@@ -41,7 +41,8 @@ public class Application extends Controller {
                                 
                 // Routes for Dashboard
                 controllers.routes.javascript.Dashboard.biggestCollections(),
-                controllers.routes.javascript.Dashboard.littleItemsStock()
+                controllers.routes.javascript.Dashboard.littleItemsStock(),
+                controllers.routes.javascript.Dashboard.allItemsFromAlbums()
                 
             )
         );

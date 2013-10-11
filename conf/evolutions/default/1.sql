@@ -21,6 +21,7 @@ create table item (
   sex                       varchar(255),
   seller_id                 bigint,
   collection_id             bigint,
+  views                     bigint,
   create_time               timestamp not null,
   update_time               timestamp not null,
   constraint pk_item primary key (id))

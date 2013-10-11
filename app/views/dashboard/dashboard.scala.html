@@ -1,47 +1,73 @@
 @main("Dashboard"){
-	<html>
-		<head/>
-	    <body>
-			<div class="container-fluid">
-					<div class="well sidebar-nav">
-						<h1>Dashboard</h1>
-						<p>Estadísticas detalladas de los últimos movimientos</p>
-					</div>
-	  			    <div class="span3" style="width:300px;">
-			            <h1>Prendas</h1>
-			            <br>
-			            <h3>Más compradas en el mes</h3>
-			            <div id="chartdiv4" style="width: 200px; height: 130px;"></div>
-			            <br>
-			            <h3>Más compradas</h3>
-						<div id="chartdiv5" style="width: 200px; height: 130px;"></div>
-					</div>
-			        <div class="well sidebar-nav" style="width:300px; height:575px;">
-			        	<div class="well sidebar-nav" style="height:575px;">
-			            <br>
-			            <br>
-			            <h3>Más vistas en el mes</h3>
-			            <div id="chartdiv6" style="width: 200px; height: 130px;"></div>
-			            <br>
-			            <h3>Más vistas</h3>
-						<div id="chartdiv7" style="width: 200px; height: 130px;"></div>
-					</div>
-			        </div>
-					<div class="well sidebar-nav" style="height:575px;">
-			            <br>
-			            <br>
-			            <h3>Más vistas en el mes</h3>
-			            <div id="chartdiv6" style="width: 200px; height: 130px;"></div>
-			            <br>
-			            <h3>Más vistas</h3>
-						<div id="chartdiv7" style="width: 200px; height: 130px;"></div>
-					</div>
-			        
-		      </div>
-		
-		    <hr>
-			<script src="@routes.Assets.at("javascripts/amcharts/amcharts.js")" type="text/javascript"></script>
-			<script src="@routes.Assets.at("javascripts/dashboard.js")" type="text/javascript"></script>
-    </body>
-</html>
+  <div class="well container-fluid">
+  	<h1>Dashboard</h1>
+    <p>Estadísticas detalladas de los movimientos</p>
+  </div>
+  <nav class="navbar navbar-default" role="navigation">
+	  <div class="navbar-header">
+	    <a class="navbar-brand">Filtrar por</a>
+	  </div>
+	  <div class="collapse navbar-collapse navbar-ex1-collapse">
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="#" id="btn_all">Todo</a></li>
+	      <li><a href="#" id="btn_item">Prenda</a></li>
+	      <li><a href="#" id="btn_album">Album</a></li>
+	    </ul>
+	  </div>
+  </nav>
+  <div id="prenda" class="well container-fluid">
+  	<div class="row-fluid">
+	  	<h1>Prendas</h1>
+	    <p>Estadísticas agrupadas por prenda</p>
+	    <br>
+	    <div class="col-md-6">
+	      	<h3>Prendas más vendidas en el último mes</h3>
+			<div id="chartdiv_mostMonthlyBoughtItems" class="col-md-6" style="width:450px; height:300px;"></div>
+	    </div>
+	    <div class="col-md-6">
+	      	<h3>Prendas más vistas en el último mes</h3>
+			<div id="chartdiv_mostMonthlyViewedtItems" class="col-md-6" style="width:450px; height:300px;"></div>
+	    </div>
+	    <div class="col-md-6">
+	      	<h3>Prendas más vendidas</h3>
+			<div id="chartdiv_mostAllTimeBoughtItems" class="col-md-6" style="width:450px; height:300px;"></div>
+	    </div>
+	    <div class="col-md-6">
+	      	<h3>Prendas más vistas</h3>
+			<div id="chartdiv_mostAllTimeViewedItems" class="col-md-6" style="width:450px; height:300px;"></div>
+	    </div>
+	    <div class="col-md-6">
+	      	<h3>Prendas menos vendidas</h3>
+			<div id="chartdiv_lessBoughtItems" class="col-md-6" style="width:450px; height:300px;"></div>
+	    </div>
+	    <div class="col-md-6">
+	      	<h3>Prendas menos vistas</h3>
+			<div id="chartdiv_lessViewedItems" class="col-md-6" style="width:450px; height:300px;"></div>
+	    </div>
+	</div>
+  </div>
+  <div id="album" class="well container-fluid">
+  	<div class="row-fluid">
+	    <h1>Albumes</h1>
+	    <p>Estadísticas agrupadas por álbum</p>
+	    <br>
+		<div class="col-md-5">
+	    	<h3>Cantidad de prendas por Album</h3>
+	    	<br>
+		    <br>
+		    <br>
+			<div id="chartdiv_biggestAlbums" class="col-md-5" style="width:350px; height:300px;"></div>
+		</div>
+		<div class="col-md-7">
+	      	<h3>Albumes más vistos</h3>
+			<div id="chartdiv_mostViewedAlbums" class="col-md-7" style="width:700px; height:300px;"></div>
+	    </div>
+	</div>
+  </div>
+  <div style="padding-left: 300px" class="col-md-15" align="right">
+	<p><a href="dashboardTest" style="text-indent: 0cm;" class="btn btn-primary btn-large">Volver »</a></p>
+  </div>
+  
+  <script src="@routes.Assets.at("javascripts/amcharts/amcharts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/dashboard.js")" type="text/javascript"></script>
 }

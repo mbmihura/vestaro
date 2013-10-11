@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.ArrayList;
@@ -5,6 +6,7 @@ import java.util.List;
 
 import models.Collection;
 import models.Item;
+import models.ItemFromCollection;
 import models.Stock;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -26,6 +28,20 @@ public class Dashboard extends Controller {
 		}
     	
     	return ok(Json.toJson(collections));
+    }
+    
+    public static Result allItemsFromAlbums(Long sellerId){
+    	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
+    	List<ItemFromCollection> items = new ArrayList<ItemFromCollection>();
+    	
+    	for(Collection collection : collections){    		
+    		ItemFromCollection item = new ItemFromCollection(collection);
+    		item.items = Item.findItemsFromCollection(collection.id);
+    		items.add(item);
+    		
+    	}
+    	
+    	return ok(Json.toJson(items));
     }
     
     public static Result littleItemsStock(Long sellerId){

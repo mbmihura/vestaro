@@ -52,6 +52,8 @@ public class Item extends Model {
     @Version
     Timestamp update_time;
 
+	public Long views = 5L;
+	
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
