@@ -49,8 +49,8 @@ public class Global extends GlobalSettings {
             }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {
-
-                Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
+            	
+            	Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 
                 // Insert sellers first
                 Ebean.save(all.get("sellers"));
@@ -60,7 +60,10 @@ public class Global extends GlobalSettings {
 
                 // Insert items
                 Ebean.save(all.get("items"));
-
+                
+                // Insert stocks
+                Ebean.save(all.get("stocks"));
+                
                 // Insert the collections relations
 //                for(Object collection: all.get("collections")) {
 //                    Ebean.saveAssociation(collection,"owner");
