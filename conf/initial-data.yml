@@ -32,7 +32,7 @@ items:
         id:           CN1
         title:        Camisa Negra
         description:  Camisa Negra Manga Larga de Seda
-        imgUrl:       http://i00.i.aliimg.com/img/pb/637/598/641/641598637_977.jpg
+        imgUrl:       http://localhost:9000/assets/img/camisa_a_cuadros_blanca.jpg
         price:        200
         sex:        m
         seller:        !!models.Seller
@@ -43,7 +43,7 @@ items:
         id:           CB1
         title:        Camisa Blanca
         description:  Camisa Blanca Manga Larga de Seda
-        imgUrl:       http://img.alibaba.com/img/pb/298/974/510/510974298_454.jpg
+        imgUrl:       http://localhost:9000/assets/img/camisa_lisa_blanca.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -54,7 +54,7 @@ items:
         id:           CG1
         title:        Camisa Gris
         description:  Camisa Gris Manga Larga de Seda
-        imgUrl:       http://img01.cp.aliimg.com/bao/uploaded/i2/281657165/T2huSIXaFaXXXXXXXX_!!281657165.jpg
+        imgUrl:       http://localhost:9000/assets/img/camisa_lisa_gris.jpg
         price:        150
         sex:        m
         seller:        !!models.Seller
@@ -65,7 +65,7 @@ items:
         id:           CB2
         title:        Camisa Azul y Blanca
         description:  Camisa Azul y Blanca a cuadros Manga Larga de Seda
-        imgUrl:       http://i01.i.aliimg.com/img/pb/267/131/640/640131267_209.jpg
+        imgUrl:       http://localhost:9000/assets/img/camisa_a_cuadros_azul.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller

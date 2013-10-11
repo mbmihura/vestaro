@@ -105,7 +105,7 @@ box-shadow: 3px 3px 2px #000;
 }
 
 .item.large {
-width: 500px;
+width: 400px;
 -webkit-border-top-right-radius: 30px;
 -moz-border-radius-topright: 30px;
 border-top-right-radius: 30px;

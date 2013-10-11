@@ -34,6 +34,11 @@
 </nav>
 
 <div class="col-xs-14 col-md-10">
+	<ul id="itemsContainer" class="items isotope row">
+		@for(item <- items) {
+			@views.html.items.itemIsotope(item)
+		}
+	</ul>
 	<ul class="items isotope row">
 	  <li ng-repeat="item in items" class="item camisa" data-item-id={{item.id}} ng-mouseover="visible = 'visible'">
 		  <img src={{item.imgUrl}} alt={{item.title}}>
@@ -47,11 +52,6 @@
 			</div>
 		  </div>
 	  </li>
-	</ul>
-	<ul id="itemsContainer" class="items isotope row">
-		@for(item <- items) {
-			@views.html.items.itemIsotope(item)
-		}
 	</ul>
 </div>
 
