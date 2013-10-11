@@ -32,7 +32,7 @@ items:
         id:           CN1
         title:        Camisa Negra
         description:  Camisa Negra Manga Larga de Seda
-        imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
+        imgUrl:       http://i00.i.aliimg.com/img/pb/637/598/641/641598637_977.jpg
         price:        200
         sex:        m
         seller:        !!models.Seller
@@ -43,7 +43,7 @@ items:
         id:           CB1
         title:        Camisa Blanca
         description:  Camisa Blanca Manga Larga de Seda
-        imgUrl:       http://queconque.com.mx/wp-content/uploads/2012/08/1.jpg
+        imgUrl:       http://img.alibaba.com/img/pb/298/974/510/510974298_454.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -51,11 +51,11 @@ items:
         collection:   !!models.Collection
                         id: 1
     - !!models.Item
-        id:           CN2
-        title:        Camisa Negra
-        description:  Camisa Negra Manga Larga de Seda
-        imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
-        price:        200
+        id:           CG1
+        title:        Camisa Gris
+        description:  Camisa Gris Manga Larga de Seda
+        imgUrl:       http://img01.cp.aliimg.com/bao/uploaded/i2/281657165/T2huSIXaFaXXXXXXXX_!!281657165.jpg
+        price:        150
         sex:        m
         seller:        !!models.Seller
                         id: 1
@@ -63,9 +63,9 @@ items:
                         id: 1
     - !!models.Item
         id:           CB2
-        title:        Camisa Blanca
-        description:  Camisa Blanca Manga Larga de Seda
-        imgUrl:       http://queconque.com.mx/wp-content/uploads/2012/08/1.jpg
+        title:        Camisa Azul y Blanca
+        description:  Camisa Azul y Blanca a cuadros Manga Larga de Seda
+        imgUrl:       http://i01.i.aliimg.com/img/pb/267/131/640/640131267_209.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller

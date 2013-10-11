@@ -3,10 +3,10 @@
 @main(title="Prendas @seller.name") {
 
 <div ng-controller='searchClothesCtrl' class='row'>
-<nav id='itemsControls' class='col-xs-6 col-md-4'>
+<nav id='itemsControls nav nav-stacked' class='col-xs-4 col-md-2'>
 	<h3>Filters</h3>
 
-    <ul id="filters" class="option-set btn-group" data-option-key="filter"> <!--Filters by class-->
+    <ul id="filters" class="option-set btn-group-vertical" data-option-key="filter"> <!--Filters by class-->
       <li class='btn btn-default'><a href="#filter" data-option-value="*" class="selected active">show all</a></li>
       <li class='btn btn-default'><a href="#filter" data-option-value=".camisa">camisa</a></li>
       <li class='btn btn-default'><a href="#filter" data-option-value=".abrigo">abrigo</a></li>
@@ -17,9 +17,9 @@
   
     <h3>Sort</h3>
 
-    <ul id="sort-by" class="option-set btn-group" data-option-key="sortBy">
+    <ul id="sort-by" class="option-set btn-group-vertical" data-option-key="sortBy">
       <li class='btn btn-default'><a href="#sortBy=original-order" data-option-value="original-order" class="selected" data="">original-order</a></li>
-      <li class='btn btn-default'><a href="#sortBy=title" data-option-value="title">título</a></li>
+      <li class='btn btn-default'><a href="#sortBy=title" data-option-value="title">tÃ­tulo</a></li>
       <li class='btn btn-default'><a href="#sortBy=price" data-option-value="price">precio</a></li>
       <li class='btn btn-default'><a href="#sortBy=type" data-option-value="type">tipo</a></li>
       <li class='btn btn-default'><a href="#sortBy=random" data-option-value="random">random</a></li>
@@ -27,26 +27,33 @@
 
     <h3>Sort direction</h3>
 
-    <ul id="sort-direction" class="option-set btn-group" data-option-key="sortAscending">
+    <ul id="sort-direction" class="option-set btn-group-vertical" data-option-key="sortAscending">
       <li class='btn btn-default'><a href="#sortAscending=true" data-option-value="true" class="selected">sort ascending</a></li>
       <li class='btn btn-default'><a href="#sortAscending=false" data-option-value="false">sort descending</a></li>
     </ul>
 </nav>
 
-<ul class="items isotope row col-xs-12 col-md-8">
-  <li ng-repeat="item in items" class="item camisa" data-item-id={{item.id}} ng-mouseover="visible = 'visible'">
-	  <img src={{item.imgUrl}} alt={{item.title}}>
-	  <div class="itemInformation">
-	  	<h2 class='title'>{{item.title}}</h2>
-	  	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span>
-	  	<p class='price'>${{item.price}}</p>
-	  	<div class='itemControls btn-group' style='visibility: {{visible}};'>
-		  	<button type='button' class='buy btn btn-primary'>Comprar</button>
-		  	<button type='button' class='buy btn btn-default'>Wishlist</button>
-		</div>
-	  </div>
-  </li>
-</ul>
+<div class="col-xs-14 col-md-10">
+	<ul class="items isotope row">
+	  <li ng-repeat="item in items" class="item camisa" data-item-id={{item.id}} ng-mouseover="visible = 'visible'">
+		  <img src={{item.imgUrl}} alt={{item.title}}>
+		  <div class="itemInformation">
+		  	<h2 class='title'>{{item.title}}</h2>
+		  	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span>
+		  	<p class='price'>${{item.price}}</p>
+		  	<div class='itemControls btn-group' style='visibility: {{visible}};'>
+			  	<button type='button' class='buy btn btn-primary'>Comprar</button>
+			  	<button type='button' class='buy btn btn-default'>Wishlist</button>
+			</div>
+		  </div>
+	  </li>
+	</ul>
+	<ul id="itemsContainer" class="items isotope row">
+		@for(item <- items) {
+			@views.html.items.itemIsotope(item)
+		}
+	</ul>
+</div>
 
 </div>
 
