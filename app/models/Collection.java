@@ -1,8 +1,10 @@
 package models;
 
-import java.util.*;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -19,9 +21,17 @@ public class Collection extends Model {
     public String title;
 
     public String description;
+    
+    public Integer items;
 
     @OneToOne
     public Seller seller;
 
     public static Finder<Long,Collection> find = new Finder<Long,Collection>(Long.class,Collection.class);
+    
+    public static List<Collection> findCollectionsOwnedBy(Long sellerId){
+        return Collection.find.where()
+                .eq("seller.id", sellerId)
+                .findList();
+    }
 }

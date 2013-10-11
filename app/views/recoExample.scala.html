@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+@()
+@main("Recommendations") {
+	<html>
+		<head>
+		    <style type="text/css">
+				form {
+				    padding-left: 90px;
+				}
+			</style>
+	    </head>
+	    <body>
+		    <form class="form-horizontal">
+		    	<br>
+			  	<div class="control-group">
+			  		ID Usuario:
+			  		<br>
+			  		<input id="userId"/>
+			  		<br>
+			  		<br>
+			  		<hl>
+			  			ID Item:
+			  			<br>
+			  			<input id="itemId"/>
+			  			<br>
+			  			<br>
+			  			Descripción Item:
+			  			<br>
+			  			<input id="itemDescription"/>
+			  		</hl>
+					<br>
+					<br>
+				   	<hl>
+				   		<button type="button" class="btn btn-view-item">
+			          		Simular Vista
+			          	</button>
+				      	<button type="button" class="btn btn-buy-item">
+			          		Simular Compra
+			          	</button>
+			          	<button type="button" class="btn btn-rate-item">
+			          		Simular Puntuación
+			          	</button>
+			          	<button type="button" class="btn btn-like-item">
+			          		Simular Like
+			          	</button>
+			          	<button type="button" class="btn btn-share-item">
+			         		Simular Share
+			         	</button>
+			    	</hl>
+					<br>
+					<br>
+		          	<button type="button" class="btn btn-ranking-items">
+		          		Simular Ranking Most Viewed
+		          	</button>
+		          	<button type="button" class="btn btn-related-items">
+		          		Simular Related Items
+		          	</button>
+					<br>
+					<br>
+	        		<div id="resultados">&nbsp;</div>
+				</div>
+			</form>
+	    </body>
+	</html>
+}

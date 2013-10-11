@@ -1,15 +1,13 @@
 package controllers;
 
+import models.Rol;
+import models.User;
 import play.Routes;
-import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.aboutPlay;
-import views.html.index;
 import security.RestrictTo;
 import security.Roles;
-import security.SubjectPresent;
-import models.Rol;
-import models.User; 
+import views.html.aboutPlay;
+import views.html.index;
 
 public class Application extends BaseController {
   
@@ -56,7 +54,12 @@ public class Application extends BaseController {
                 controllers.routes.javascript.Items.submit(), 
                 controllers.routes.javascript.Items.read(),
                 controllers.routes.javascript.Items.update(),
-                controllers.routes.javascript.Items.delete()
+                controllers.routes.javascript.Items.delete(),
+                                
+                // Routes for Dashboard
+                controllers.routes.javascript.Dashboard.biggestCollections(),
+                controllers.routes.javascript.Dashboard.littleItemsStock(),
+                controllers.routes.javascript.Dashboard.allItemsFromAlbums()
                 
             )
         );
