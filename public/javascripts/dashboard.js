@@ -77,7 +77,7 @@ AmCharts.ready(function () {
 	        var graph = new AmCharts.AmGraph();
 	        graph.valueField = "itemsCount";
 	        graph.colorField = "color";
-	        graph.balloonText = "Cantidad de prendas: [[items]]";
+	        graph.balloonText = "Cantidad de prendas: [[itemsCount]]";
 	        graph.type = "column";
 	        graph.lineAlpha = 0;
 	        graph.fillAlphas = 1;

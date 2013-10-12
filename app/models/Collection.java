@@ -22,12 +22,9 @@ public class Collection extends Model {
     @Formats.NonEmpty
     public String title;
 
+    @Constraints.Required
+    @Formats.NonEmpty
     public String description;
-    
-    @OneToMany
-    public List<Item> items = new ArrayList<Item>();
-    
-    public Integer itemsCount;
 
     @OneToOne
     public Seller seller;

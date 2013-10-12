@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Collection;
+import models.CollectionDashboard;
 import models.Item;
 import models.Stock;
 import play.libs.Json;
@@ -21,23 +22,30 @@ public class DashboardController extends BaseController {
         
     public static Result biggestCollections(Long sellerId){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
+    	List<CollectionDashboard> collectionsDash = new ArrayList<>();
     	
 		for(Collection collection : collections){
-			collection.itemsCount = collection.items.size();
+			CollectionDashboard colDash = new CollectionDashboard(collection);
+			colDash.items = Item.findItemsFromCollection(colDash.id);
+			colDash.itemsCount = colDash.items.size();
+			collectionsDash.add(colDash);
 		}
     	
-    	return ok(Json.toJson(collections));
+    	return ok(Json.toJson(collectionsDash));
     }
     
     public static Result allItemsFromAlbums(Long sellerId){
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
-    	List<Item> allItems = new ArrayList<Item>();
+    	List<CollectionDashboard> collectionsDash = new ArrayList<CollectionDashboard>();
     	
     	for(Collection collection : collections){    		
-    		allItems.addAll(collection.items);
+    		CollectionDashboard colDash = new CollectionDashboard(collection);
+			colDash.items = Item.findItemsFromCollection(colDash.id);
+			colDash.itemsCount = colDash.items.size();
+			collectionsDash.add(colDash);
     	}
     	
-    	return ok(Json.toJson(allItems));
+    	return ok(Json.toJson(collectionsDash));
     }
     
     public static Result littleItemsStock(Long sellerId){
@@ -56,5 +64,6 @@ public class DashboardController extends BaseController {
     
     public static Result dashboard() {
         return ok(dashboard.render());
- }
+    }
 }
+
