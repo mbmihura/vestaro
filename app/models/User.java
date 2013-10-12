@@ -7,6 +7,7 @@ import javax.persistence.*;
 import play.db.ebean.*;
 import security.Roles;
 
+@SuppressWarnings("serial")
 @Entity
 public class User extends Model {
 

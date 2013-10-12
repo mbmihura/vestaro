@@ -13,10 +13,9 @@ POST	/authentication/login 				controllers.Authentication.login()
 POST	/authentication/logout      		controllers.Authentication.logout() 
 
 # Dashboard
-GET		/dashboardTest			controllers.Dashboard.dashboardTest()
-GET		/dashboard				controllers.Dashboard.dashboard()
+GET		/dashboard			controllers.Dashboard.dashboardTest()
+GET		/dashboardFull				controllers.Dashboard.dashboard()
 
-GET		/allItemsFromAlbums/:sellerId		controllers.Dashboard.allItemsFromAlbums(sellerId: Long)
 GET		/littleItemsStock/:sellerId			controllers.Dashboard.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
 

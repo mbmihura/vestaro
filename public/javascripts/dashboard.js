@@ -21,11 +21,7 @@ $(document).ready(function(){
 		$('#prenda').fadeIn();
 		$('#album').fadeIn();
 	});
-	
-//	function generateRandomColor(){
-//		return '#'+Math.floor(Math.random()*16777215).toString(16);
-//	}
-	
+		
 	AmCharts.ready(function () {
 		
 		// Monthly boughts	
@@ -77,9 +73,9 @@ $(document).ready(function(){
 		        valueAxis.dashLength = 5;
 		        chart.addValueAxis(valueAxis);
 		        var graph = new AmCharts.AmGraph();
-		        graph.valueField = "items";
+		        graph.valueField = "item_count";
 		        graph.colorField = generateRandomColor();
-		        graph.balloonText = "Cantidad de prendas: [[items]]";
+		        graph.balloonText = "Cantidad de prendas: [[item_count]]";
 		        graph.type = "column";
 		        graph.lineAlpha = 0;
 		        graph.fillAlphas = 1;
@@ -90,7 +86,7 @@ $(document).ready(function(){
 		});
 		
 		// All items from albums
-		jsRoutes.controllers.Dashboard.allItemsFromAlbums(1).ajax({success:
+		jsRoutes.controllers.Dashboard.biggestCollections(1).ajax({success:
 			function(json)
 			{
 				var selected;
@@ -112,7 +108,7 @@ $(document).ready(function(){
 				        else {
 				        	var views = 0;
 				        	for (var x = 0; x < json[i].items.length; x++) {
-				                views = views + json[i].items[x].views; 
+				                views = views + json[i].items[x].views;
 				            }
 				        	
 				            chartData.push({
@@ -151,5 +147,4 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
 });
