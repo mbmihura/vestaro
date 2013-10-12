@@ -6,7 +6,6 @@ import java.util.List;
 
 import models.Collection;
 import models.Item;
-import models.ItemFromCollection;
 import models.Stock;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -14,7 +13,7 @@ import play.mvc.Result;
 import views.html.dashboard.dashboardTest;
 import views.html.dashboard.dashboard;
 
-public class Dashboard extends Controller {
+public class DashboardController extends BaseController {
   
     public static Result dashboardTest() {
         return ok(dashboardTest.render());
@@ -24,7 +23,7 @@ public class Dashboard extends Controller {
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
     	
 		for(Collection collection : collections){
-			collection.items = Item.findItemsFromCollection(collection.id).size();
+			collection.itemsCount = collection.items.size();
 		}
     	
     	return ok(Json.toJson(collections));
@@ -32,16 +31,13 @@ public class Dashboard extends Controller {
     
     public static Result allItemsFromAlbums(Long sellerId){
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
-    	List<ItemFromCollection> items = new ArrayList<ItemFromCollection>();
+    	List<Item> allItems = new ArrayList<Item>();
     	
     	for(Collection collection : collections){    		
-    		ItemFromCollection item = new ItemFromCollection(collection);
-    		item.items = Item.findItemsFromCollection(collection.id);
-    		items.add(item);
-    		
+    		allItems.addAll(collection.items);
     	}
     	
-    	return ok(Json.toJson(items));
+    	return ok(Json.toJson(allItems));
     }
     
     public static Result littleItemsStock(Long sellerId){

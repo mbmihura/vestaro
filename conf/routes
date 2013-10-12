@@ -6,40 +6,51 @@
 GET		/aboutplay           				controllers.Application.aboutPlay()
 GET		/                    				controllers.Application.index()
 
-# Authentication & Authorization
+## Authentication & Authorization ##
 POST	/authentication/login 				controllers.Authentication.login()
-
 #TODO: check if really necesarry as we will be using fbLogin
 POST	/authentication/logout      		controllers.Authentication.logout() 
 
+## Seller ##
 # Dashboard
-GET		/dashboardTest			controllers.Dashboard.dashboardTest()
-GET		/dashboard				controllers.Dashboard.dashboard()
+GET		/dashboardTest						controllers.DashboardController.dashboardTest()
+GET		/dashboard							controllers.DashboardController.dashboard()
+GET		/allItemsFromAlbums/:sellerId		controllers.DashboardController.allItemsFromAlbums(sellerId: Long)
+GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
+GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
 
-GET		/allItemsFromAlbums/:sellerId		controllers.Dashboard.allItemsFromAlbums(sellerId: Long)
-GET		/littleItemsStock/:sellerId			controllers.Dashboard.littleItemsStock(sellerId: Long)
-GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
+# Seller Profile
 
-# Seller
+# Album & Item Management
 
-GET     /seller/:sellerId/itemsJson     controllers.Sellers.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
-GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
+
+## Buyer ##
+# Home
+
+# Search
+
+# Wishlist
+
+# Buyer Profile
+
+
+## Commons ##
+# Collection
+GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
+GET     /seller/:sellerId/items     		controllers.SellerController.listItems(sellerId: Long)
+GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 
 # Item
-GET		/items					controllers.Items.index()
-GET		/item					controllers.Items.form()
-POST	/item					controllers.Items.submit()
-GET		/item/:itemId			controllers.Items.read(itemId: String)
-PUT		/item/:itemId			controllers.Items.update(itemId: String)
-POST	/item/:itemId			controllers.Items.delete(itemId: String)
-
-# Other
-GET		/facebookPlugins		controllers.Application.facebookPlugins()
+GET		/items								controllers.ItemController.index()
+GET		/item								controllers.ItemController.form()
+GET		/item/:itemId						controllers.ItemController.read(itemId: String)
+POST	/item								controllers.ItemController.submit()
+POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
+PUT		/item/:itemId						controllers.ItemController.update(itemId: String)
 
 # Recommendations
-GET        /reco	           controllers.RecommendationEngine.recoExample()
+GET        /reco	           				controllers.RecommendationEngine.recoExample()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file        	controllers.Assets.at(path="/public", file)
-GET		/javascriptRoutes     	controllers.Application.javascriptRoutes
+GET     /assets/*file        				controllers.Assets.at(path="/public", file)
+GET		/javascriptRoutes     				controllers.Application.javascriptRoutes

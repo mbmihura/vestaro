@@ -9,7 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.sellers.*;
 
-public class Sellers extends Controller {
+public class SellerController extends BaseController {
   
     public static Result listItems(Long sellerId) {
         return ok(sellerItems.render(

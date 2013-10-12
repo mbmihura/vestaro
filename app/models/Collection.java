@@ -1,9 +1,11 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import play.data.format.Formats;
@@ -22,7 +24,10 @@ public class Collection extends Model {
 
     public String description;
     
-    public Integer items;
+    @OneToMany
+    public List<Item> items = new ArrayList<Item>();
+    
+    public Integer itemsCount;
 
     @OneToOne
     public Seller seller;
