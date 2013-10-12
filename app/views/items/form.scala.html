@@ -9,40 +9,40 @@
 		
 		<!-- Text input-->
 		<div class="form-group">
-		  <label class="control-label" for="title">Nombre</label>
-		  <div class="controls">
+		  <label class="control-label col-md-2" for="title">Nombre</label>
+		  <div class="controls col-md-6">
 		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="" value="@formItem("title").value">
 		  </div>
 		</div>
 		
 		<!-- Textarea -->
 		<div class="form-group">
-		  <label class="control-label" for="description">Descripción</label>
-		  <div class="controls">                     
+		  <label class="control-label col-md-2" for="description">Descripción</label>
+		  <div class="controls col-md-6">                     
 		    <textarea id="description" name="description" class="form-control" required="" value="@formItem("description").value"></textarea>
 		  </div>
 		</div>
 		
 		<!-- Text input-->
-		<div class="form-group">
-		  <label class="control-label" for="imgUrl">URL de Imágen</label>
-		  <div class="controls">
+		<div class="form-group ">
+		  <label class="control-label col-md-2" for="imgUrl">URL de Imágen</label>
+		  <div class="controls col-md-6">
 		    <input id="imgUrl" name="imgUrl" type="text" placeholder="www.img-hosting.com/img.jpg" class="form-control" required="" value="@formItem("urlImg").value">		    
 		  </div>
 		</div>
 		
 		<!-- Text input-->
 		<div class="form-group">
-		  <label class="control-label" for="price">Precio</label>
-		  <div class="controls">
+		  <label class="control-label col-md-2" for="price">Precio</label>
+		  <div class="controls col-md-6">
 		    <input id="price" name="price" type="number" placeholder="100" class="form-control" required="" value="@formItem("price").value">
 		  </div>
 		</div>
 
 		<!-- Multiple Radios (inline) -->
 		<div class="form-group">
-			<label class="control-label" for="sex">Sexo</label>
-			<div id="sex">
+			<label class="control-label col-md-2" for="sex">Sexo</label>
+			<div id="sex" class="controls col-md-6">
 			  <label class="radio-inline">
 			    <input type="radio" name="sex" id="femenino" value="f" checked>
 			    Femenino
@@ -58,6 +58,7 @@
 			</div>
 		</div>
 		</fieldset>
+	
 		@repeat(formItem("stocks"), min = 1) { stock =>
 		    
 		    @inputText(stock)
