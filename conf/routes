@@ -22,6 +22,7 @@ GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sel
 
 # Seller
 
+GET     /seller/:sellerId/itemsJson     controllers.Sellers.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
 GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
 

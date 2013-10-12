@@ -1,7 +1,10 @@
 package controllers;
 
+import java.util.List;
+
 import models.Item;
 import models.Seller;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.sellers.*;
@@ -15,7 +18,12 @@ public class Sellers extends Controller {
         ));
     }
     
+	public static Result itemsOwnedBy(Long sellerId){
+		List<Item> items = Item.findItemsOwnedBy(sellerId);
+		return ok(Json.toJson(items));
+	}
+    
     public static Result listCollections(Long sellerId) {
-    	return ok();
+    	return TODO;
     }
 }
