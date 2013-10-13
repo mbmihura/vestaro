@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import models.Item;
 import play.data.Form;
 import play.mvc.Controller;
@@ -51,5 +53,15 @@ public class ItemController extends BaseController {
     
     public static Result delete(String itemId) {
     	return TODO;
+    }
+    
+    public static Result itemSearchView() {
+    	List<Item> items = Item.find.all();
+    	return ok(views.html.items.itemSearch.render(items));
+    }
+    
+    public static Result itemSearch() {
+    	List<Item> items = Item.find.all();
+    	return ok(views.html.items.itemSearch.render(items));
     }
 }

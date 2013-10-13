@@ -89,6 +89,7 @@ border-top-right-radius: 15px;
 }
 
 .item .itemInformation {
+cursor: pointer;
 position: absolute;
 bottom: 0px;
 background-color: #FFF;
@@ -96,12 +97,17 @@ opacity: .8;
 margin: 5px;
 padding: 5px;
 display: none;
+-webkit-border-top-left-radius: 10px;
+-moz-border-radius-topleft: 10px;
+border-top-left-radius: 10px;
 }
 
-.item img:hover {
+.item .itemControls {
+	opacity: 1;
+}
+
+.item img:hover{
 cursor: pointer;
-opacity: 0.8;
-box-shadow: 3px 3px 2px #000;
 }
 
 .item.large {
