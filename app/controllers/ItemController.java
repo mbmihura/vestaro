@@ -7,7 +7,7 @@ import play.mvc.Result;
 import views.html.items.form;
 import views.html.items.item;
 
-public class Items extends Controller {
+public class ItemController extends BaseController {
     
 	static Form<Item> itemForm = Form.form(Item.class);
 	

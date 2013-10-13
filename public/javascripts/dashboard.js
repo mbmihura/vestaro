@@ -55,7 +55,7 @@ AmCharts.ready(function () {
 	});
 	
 	// Biggest collections
-	jsRoutes.controllers.Dashboard.biggestCollections(1).ajax({success: 
+	jsRoutes.controllers.DashboardController.biggestCollections(1).ajax({success: 
 		function(json)
 		{
 	        chart = new AmCharts.AmSerialChart();
@@ -75,9 +75,9 @@ AmCharts.ready(function () {
 	        valueAxis.dashLength = 5;
 	        chart.addValueAxis(valueAxis);
 	        var graph = new AmCharts.AmGraph();
-	        graph.valueField = "items";
+	        graph.valueField = "itemsCount";
 	        graph.colorField = "color";
-	        graph.balloonText = "Cantidad de prendas: [[items]]";
+	        graph.balloonText = "Cantidad de prendas: [[itemsCount]]";
 	        graph.type = "column";
 	        graph.lineAlpha = 0;
 	        graph.fillAlphas = 1;
@@ -87,7 +87,7 @@ AmCharts.ready(function () {
 	});
 	
 	// All items from albums
-	jsRoutes.controllers.Dashboard.allItemsFromAlbums(1).ajax({success:
+	jsRoutes.controllers.DashboardController.allItemsFromAlbums(1).ajax({success:
 		function(json)
 		{
 			var selected;

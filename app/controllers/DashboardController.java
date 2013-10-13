@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Collection;
+import models.CollectionDashboard;
 import models.Item;
-import models.ItemFromCollection;
 import models.Stock;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -14,7 +14,7 @@ import play.mvc.Result;
 import views.html.dashboard.dashboardTest;
 import views.html.dashboard.dashboard;
 
-public class Dashboard extends Controller {
+public class DashboardController extends BaseController {
   
     public static Result dashboardTest() {
         return ok(dashboardTest.render());
@@ -22,26 +22,26 @@ public class Dashboard extends Controller {
         
     public static Result biggestCollections(Long sellerId){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
+    	List<CollectionDashboard> collectionsDash = new ArrayList<>();
     	
 		for(Collection collection : collections){
-			collection.items = Item.findItemsFromCollection(collection.id).size();
+			CollectionDashboard colDash = new CollectionDashboard(collection);
+			collectionsDash.add(colDash);
 		}
     	
-    	return ok(Json.toJson(collections));
+    	return ok(Json.toJson(collectionsDash));
     }
     
     public static Result allItemsFromAlbums(Long sellerId){
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
-    	List<ItemFromCollection> items = new ArrayList<ItemFromCollection>();
+    	List<CollectionDashboard> collectionsDash = new ArrayList<CollectionDashboard>();
     	
     	for(Collection collection : collections){    		
-    		ItemFromCollection item = new ItemFromCollection(collection);
-    		item.items = Item.findItemsFromCollection(collection.id);
-    		items.add(item);
-    		
+    		CollectionDashboard colDash = new CollectionDashboard(collection);
+			collectionsDash.add(colDash);
     	}
     	
-    	return ok(Json.toJson(items));
+    	return ok(Json.toJson(collectionsDash));
     }
     
     public static Result littleItemsStock(Long sellerId){
@@ -60,5 +60,6 @@ public class Dashboard extends Controller {
     
     public static Result dashboard() {
         return ok(dashboard.render());
- }
+    }
 }
+

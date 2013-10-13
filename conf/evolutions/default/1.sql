@@ -7,7 +7,6 @@ create table collection (
   id                        bigint not null,
   title                     varchar(255),
   description               varchar(255),
-  items                     integer,
   seller_id                 bigint,
   constraint pk_collection primary key (id))
 ;

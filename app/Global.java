@@ -66,7 +66,7 @@ public class Global extends GlobalSettings {
                 
                 // Insert the collections relations
 //                for(Object collection: all.get("collections")) {
-//                    Ebean.saveAssociation(collection,"owner");
+//                    Ebean.saveAssociation(collection,"items");
 //                }
 //
 //                // Insert the items relations
