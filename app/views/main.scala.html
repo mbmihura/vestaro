@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="es" ng-app>
+<html lang="es" ng-app="vestaroMain">
     <head>
         <title>@title</title>
         <meta content="text/html; charset=utf-8">
@@ -26,6 +26,9 @@
         <script src="@routes.Assets.at("js/angularjs/1.0.8/angular-resource.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("js/firebase/v0/firebase.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("js/firebase/angularFire.js")" type="text/javascript"></script>
+        
+        <script src="@routes.Assets.at("js/routingNnavigation.js")" type="text/javascript"></script>
+        
         <!-- Online scrits in content delivery networks version -->
         <!--
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
@@ -33,7 +36,6 @@
         <script src="https://cdn.firebase.com/v0/firebase.js"></script>
         <script src="http://firebase.github.io/angularFire/angularFire.js"></script> -->
         
-        <script src="@routes.Assets.at("js/projects.js")"></script>
         
         <!-- Le styles -->
         <style>
@@ -207,7 +209,7 @@
 		</nav>
         <!-- /container -->
         <div id="main" class="container">
-          @content
+          <div ng-view></div>
         </div> 
               
         <!-- Le javascript -->
