@@ -26,8 +26,6 @@ public class DashboardController extends BaseController {
     	
 		for(Collection collection : collections){
 			CollectionDashboard colDash = new CollectionDashboard(collection);
-			colDash.items = Item.findItemsFromCollection(colDash.id);
-			colDash.itemsCount = colDash.items.size();
 			collectionsDash.add(colDash);
 		}
     	
@@ -40,8 +38,6 @@ public class DashboardController extends BaseController {
     	
     	for(Collection collection : collections){    		
     		CollectionDashboard colDash = new CollectionDashboard(collection);
-			colDash.items = Item.findItemsFromCollection(colDash.id);
-			colDash.itemsCount = colDash.items.size();
 			collectionsDash.add(colDash);
     	}
     	

@@ -16,5 +16,6 @@ public class CollectionDashboard {
 		this.title = collection.title;
 		this.description = collection.description;
 		this.items = Item.findItemsFromCollection(collection.id);
+		this.itemsCount = this.items.size();
 	}
 }
