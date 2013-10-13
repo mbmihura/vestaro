@@ -4,7 +4,9 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Action;
 import models.Collection;
+import models.CollectionItems;
 import models.Item;
 import models.Stock;
 import play.libs.Json;
@@ -23,11 +25,28 @@ public class Dashboard extends Controller {
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
     	
 		for(Collection collection : collections){
-			collection.items = Item.findItemsFromCollection(collection.id);
-			collection.item_count = collection.items.size();
+			collection.item_count = Item.findItemsFromCollection(collection.id).size();
 		}
     	
     	return ok(Json.toJson(collections));
+    }
+    
+    public static Result itemsViewedFromCollections(Long sellerId, Long actionDateBegin, Long actionDateEnd){    	
+    	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
+    	List<CollectionItems> items = new ArrayList<CollectionItems>();
+    	
+		for(Collection collection : collections){
+			CollectionItems collectionItems = new CollectionItems(collection.id, collection.title, collection.description);
+			collectionItems.items = Item.findItemsFromCollection(collection.id);
+			
+			for(Item item : collectionItems.items){
+				item.views = Action.findActionsFrom("VIEW", actionDateBegin, actionDateEnd, item.id).size();
+			}
+			
+			items.add(collectionItems);
+		}
+    	
+    	return ok(Json.toJson(items));
     }
     
     public static Result littleItemsStock(Long sellerId){
@@ -46,5 +65,5 @@ public class Dashboard extends Controller {
     
     public static Result dashboard() {
         return ok(dashboard.render());
- }
+	}
 }

@@ -1,5 +1,15 @@
 AmCharts.ready(function () {
-		
+
+	Number.prototype.padLeft =
+	function(base, chr){
+	   var len = (String(base || 10).length - String(this).length) + 1;
+	   return len > 0 ? new Array(len).join(chr || '0') + this : this;
+	}
+	
+	function formatDate(date){
+	    return date.getFullYear() + (date.getMonth() + 1).padLeft() + date.getDate().padLeft();
+	}
+	
 	// ==================== Commission ====================
 	var chart;
 	var date = new Date();
@@ -84,9 +94,34 @@ AmCharts.ready(function () {
 	});
     
     // ==================== Monthly boughts ====================
-	easyrec_mostBoughtItems({
-		numberOfResults:5,
-		timeRange:'MONTH',
-		drawingCallback:'drawChartMonthlyBoughtItems'
+    jsRoutes.controllers.Actions.actionsFrom(1, 1, formatDate(new Date(date.getFullYear(), date.getMonth(), 1)), formatDate(new Date(date.getFullYear(), date.getMonth() + 1, 0)), "BUY").ajax({success: 
+		function(json)
+		{
+			var chart = new AmCharts.AmSerialChart();
+		    chart.dataProvider = json;
+		    chart.categoryField = "id";                
+		    chart.rotate = true;
+		    chart.depth3D = 20;
+		    chart.angle = 30;
+		    var categoryAxis = chart.categoryAxis;
+		    categoryAxis.gridPosition = "start";
+		    categoryAxis.axisColor = "#DADADA";
+		    categoryAxis.fillAlpha = 1;
+		    categoryAxis.gridAlpha = 0;
+		    categoryAxis.fillColor = "#FAFAFA";
+		    var valueAxis = new AmCharts.ValueAxis();
+		    valueAxis.axisColor = "#DADADA";
+		    valueAxis.gridAlpha = 0.1;
+		    chart.addValueAxis(valueAxis);
+		    var graph = new AmCharts.AmGraph();
+		    graph.valueField = "purchases";
+		    graph.type = "column";
+		    graph.balloonText = "[[description]]: [[purchases]] unidades vendidas";
+		    graph.lineAlpha = 0;
+		    graph.fillColors = generateRandomColor();
+		    graph.fillAlphas = 1;
+		    chart.addGraph(graph);
+		    chart.write("chartdiv_mostMonthlyBoughtItems");
+		}
 	});
 });

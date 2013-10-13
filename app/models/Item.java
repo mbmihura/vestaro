@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -52,13 +53,14 @@ public class Item extends Model {
     @Version
     Timestamp update_time;
 
-	public Long views = 5L;
+	public Integer views;
+	public Integer purchases;
 	
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
         return Item.find
-        		.select("id, title, description, imgUrl, price")//, sex")
+        		.select("id, title, description, imgUrl, price, views, purchases")
         		.fetch("collection", "id, title, description")
         		.where()
                 	.eq("seller.id", sellerId)
@@ -110,6 +112,37 @@ public class Item extends Model {
                 .append(update_time)
                 .append("]");
         return builder.toString();
+    }
+    
+    public static class Comparators {
+
+        public static Comparator<Item> mostPurchases = new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o2.purchases.compareTo(o1.purchases);
+            }
+        };
+        
+        public static Comparator<Item> mostViews = new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o2.views.compareTo(o1.views);
+            }
+        };
+        
+        public static Comparator<Item> lessPurchases = new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o1.purchases.compareTo(o2.purchases);
+            }
+        };
+        
+        public static Comparator<Item> lessViews = new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o1.views.compareTo(o2.views);
+            }
+        };
     }
 
 }

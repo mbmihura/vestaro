@@ -144,7 +144,6 @@ function drawChartMonthlyBoughtItems(json)
 	    graph.fillAlphas = 1;
 	    chart.addGraph(graph);
 	    chart.write("chartdiv_mostMonthlyBoughtItems");
-	    
 	}
 }
 
