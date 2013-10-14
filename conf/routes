@@ -28,7 +28,6 @@ GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestColle
 # Home
 
 # Search
-GET		/itemSearchView						controllers.ItemController.itemSearchView()
 GET		/itemSearch							controllers.ItemController.itemSearch()
 
 # Wishlist

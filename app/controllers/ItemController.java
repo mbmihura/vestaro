@@ -45,7 +45,7 @@ public class ItemController extends BaseController {
     }
     
     public static Result index() {
-    	return ok(Item.find.all().toString());
+    	return ok(Json.toJson(Item.find.all()));
     }
     
     public static Result update(String itemId) {
@@ -56,11 +56,6 @@ public class ItemController extends BaseController {
     	return TODO;
     }
     
-    public static Result itemSearchView() {
-    	List<Item> items = Item.find.all();
-    	return ok(views.html.items.itemSearch.render(items));
-    }
-    
     public static Result itemSearch() {
     	DynamicForm form = Form.form().bindFromRequest();
     	String textSearch = form.get("textSearch");
@@ -69,7 +64,7 @@ public class ItemController extends BaseController {
     	
     	List<Item> items = Item.find
     			.where()
-    				.like("title", "%" + textSearch + "%")
+    				.ilike("title", "%" + textSearch + "%")
     			.findList();
     	return ok(Json.toJson(items));
     }

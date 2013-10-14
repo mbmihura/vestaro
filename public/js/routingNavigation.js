@@ -27,8 +27,11 @@ vestaroMain.config(function($routeProvider) {
     
 }]);
 
-function BuyerHomeCtrl($scope) {
+function BuyerHomeCtrl($scope, $http) {
   $scope.projects = [{name: "a", description: "desc"}, {name:"b", description:"desc 2"}];
+  $http.get('/items').success(function(data){
+	  $scope.items = data;
+  });
 }
  
 function SellerDashboardCtrl($scope) {
