@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="es" ng-app>
+<html lang="es" ng-app="vestaroMain">
     <head>
         <title>@title</title>
         <meta content="text/html; charset=utf-8">
@@ -22,10 +22,11 @@
 
         <!-- AngularJS & fireBase SDKs -->
         <!-- Local in server version -->
-        <script src="@routes.Assets.at("js/angularjs/1.0.7/angular.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("js/angularjs/1.0.7/angular-resource.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("js/firebase/v0/firebase.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("js/firebase/angularFire.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/angularjs/1.0.8/angular.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/angularjs/1.0.8/angular-resource.js")" type="text/javascript"></script>
+        
+        <script src="@routes.Assets.at("js/routingNnavigation.js")" type="text/javascript"></script>
+        
         <!-- Online scrits in content delivery networks version -->
         <!--
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
@@ -33,7 +34,6 @@
         <script src="https://cdn.firebase.com/v0/firebase.js"></script>
         <script src="http://firebase.github.io/angularFire/angularFire.js"></script> -->
         
-        <script src="@routes.Assets.at("js/projects.js")"></script>
         
         <!-- Le styles -->
         <style>
@@ -155,16 +155,24 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<ul id="buyer-nav" class="nav navbar-nav">
-				<li data-url="" class="nav-btn active"><a style="padding-bottom: 10px; padding-top: 10px;" href="#home"><span
+			<ul class="nav navbar-nav">
+				<li class="active"><a style="padding-bottom: 10px; padding-top: 10px;" href="#/"><span
 						class="glyphicon glyphicon-home"></span> Inicio</a></li>
-				<li data-url="wishlist" class="nav-btn"><a style="padding-bottom: 10px; padding-top: 10px;" href="#wishlist"><span
+				<li><a style="padding-bottom: 10px; padding-top: 10px;" href="#/wishlist"><span
 						class="glyphicon glyphicon-star"></span> Wishlist</a></li>
-				<li data-url="profile" class="nav-btn"><a style="padding-bottom: 10px; padding-top: 10px;" href="#profile"><span
+				<li><a style="padding-bottom: 10px; padding-top: 10px;" href="#/buyerProfile"><span
 						class="glyphicon glyphicon-user"></span> Perfil</a></li>
-				<li data-url="@routes.Controllers.ItemController.itemSearchView()" class="nav-btn"><a style="padding-bottom: 10px; padding-top: 10px;" href="#itemSearch"><span
+				<li class='items-btn'><a style="padding-bottom: 10px; padding-top: 10px;" href="#/itemSearch"><span
 						class="glyphicon glyphicon-th"></span> Prendas</a></li>
 			</ul>
+			<form class="navbar-form navbar-left" role="search" style="margin-bottom: 3px; margin-top: 3px;">
+				<div class="form-group">
+					<input type="text" class="form-control search-input" placeholder="Codigo de prenda...">
+				</div>
+				<button type="button" class="btn btn-default search-btn">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</form>
 			<ul class="nav navbar-nav navbar-right loggedUserOptions" style="display: none;">
 				<li><a href="#" style="padding: 9px 15px 6px;"><img src="" class="currentUserImg"
 						style="display: none; height: 23px; width: 23px; border: 1px solid #ccc;"> <span class="currentUsername"
@@ -178,36 +186,20 @@
 						<li><a href="#">Vendedor</a></li>
 						<li class="divider"></li>
 						<li><a href="#" onclick="FB.logout(function(response) {$('.navbar .loggedUserOptions').fadeOut();});" @* This
-							shouldn be done. TODO: Move function when general js file isdefined. *@>Salir</a></li>
+							shouldn be done. TODO: Move function when general js fileisdefined. *@>Salir</a></li>
 					</ul></li>
 			</ul>
 			<div ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
 		</div>
 		<!-- /.navbar-collapse -->
-	</nav>
-	<!-- /container -->
-	<div id="main" class="container">@content</div>
-
-	<!-- Le javascript -->
+		</nav>
+        <!-- /container -->
+        <div id="main" class="container">
+          <div ng-view></div>
+        </div> 
+              
+        <!-- Le javascript -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script type="text/javascript">
-			$(document).ready(function() {
-				
-				$('.nav-btn').bind({click: function(e){
-						e.preventDefault();
-						$('.nav-btn.active').removeClass('active');
-						$(this).addClass('active');
-						var url = $(this).data("url");
-						$.get(url).success(function(data){
-							$("#main").empty(function(data){
-								$(this).html(data);
-							});
-						});
-					}
-				});
-				
-			});
-		</script>
         <!-- Delete if not necesary
         <script src="../assets/js/bootstrap-transition.js"></script>
         <script src="../assets/js/bootstrap-alert.js"></script>
