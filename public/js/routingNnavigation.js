@@ -1,4 +1,4 @@
-angular.module('vestaroMain', ['firebase']).
+angular.module('vestaroMain', []).
   config(function($routeProvider) {
 	  
 	  var template = '<div ng-include="templateUrl">Loading...</div>';
