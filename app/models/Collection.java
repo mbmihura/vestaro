@@ -22,7 +22,6 @@ public class Collection extends Model {
 
     public String description;
     
-    //public List<Item> items;
     public Integer item_count;
 
     @OneToOne
