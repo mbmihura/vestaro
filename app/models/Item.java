@@ -1,7 +1,6 @@
 package models;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.Version;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @SuppressWarnings("serial")

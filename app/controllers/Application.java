@@ -6,8 +6,6 @@ import play.Routes;
 import play.mvc.Result;
 import security.RestrictTo;
 import security.Roles;
-import models.Rol;
-import models.User; 
 import views.html.aboutPlay;
 import views.html.index;
 
@@ -48,6 +46,8 @@ public class Application extends BaseController {
                 //controllers.routes.javascript.CollectionController.add(), 
                 
                 // Routes for Items
+            	controllers.routes.javascript.ItemController.itemSearchView(),
+            	controllers.routes.javascript.ItemController.itemSearch(),
             	controllers.routes.javascript.ItemController.form(),
                 controllers.routes.javascript.ItemController.submit(), 
                 controllers.routes.javascript.ItemController.read(),

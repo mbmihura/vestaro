@@ -39,8 +39,6 @@ GET		/itemSearch							controllers.ItemController.itemSearch()
 ## Commons ##
 # Collection
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/items     		controllers.SellerController.listItems(sellerId: Long)
-GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 
 # Item
 GET		/items								controllers.ItemController.index()
