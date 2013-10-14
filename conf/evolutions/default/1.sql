@@ -3,11 +3,20 @@
 
 # --- !Ups
 
+create table action (
+  id                        bigint not null,
+  action_type               varchar(255),
+  user_id                   bigint,
+  item_id                   varchar(255),
+  date                      bigint,
+  constraint pk_action primary key (id))
+;
+
 create table collection (
   id                        bigint not null,
   title                     varchar(255),
   description               varchar(255),
-  items                     integer,
+  item_count                integer,
   seller_id                 bigint,
   constraint pk_collection primary key (id))
 ;
@@ -21,7 +30,8 @@ create table item (
   sex                       varchar(255),
   seller_id                 bigint,
   collection_id             bigint,
-  views                     bigint,
+  views                     integer,
+  purchases                 integer,
   create_time               timestamp not null,
   update_time               timestamp not null,
   constraint pk_item primary key (id))
@@ -66,6 +76,8 @@ create table user_rol (
   rol_id                         bigint not null,
   constraint pk_user_rol primary key (user_user_id, rol_id))
 ;
+create sequence action_seq;
+
 create sequence collection_seq;
 
 create sequence item_seq;
@@ -97,6 +109,8 @@ alter table user_rol add constraint fk_user_rol_rol_02 foreign key (rol_id) refe
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists action;
+
 drop table if exists collection;
 
 drop table if exists item;
@@ -112,6 +126,8 @@ drop table if exists user;
 drop table if exists user_rol;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists action_seq;
 
 drop sequence if exists collection_seq;
 

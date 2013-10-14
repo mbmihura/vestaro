@@ -1,13 +1,16 @@
 package models;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import org.joda.time.DateTime;
+
 import play.data.format.Formats;
 import play.db.ebean.Model;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
-
+@SuppressWarnings("serial")
 public class SellerPoint extends Model {
     @Id
     public Long id;

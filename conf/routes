@@ -13,15 +13,16 @@ POST	/authentication/login 				controllers.Authentication.login()
 POST	/authentication/logout      		controllers.Authentication.logout() 
 
 # Dashboard
-GET		/dashboardTest			controllers.Dashboard.dashboardTest()
-GET		/dashboard				controllers.Dashboard.dashboard()
-
-GET		/allItemsFromAlbums/:sellerId		controllers.Dashboard.allItemsFromAlbums(sellerId: Long)
+GET		/dashboard			controllers.Dashboard.dashboardTest()
+GET		/dashboardFull				controllers.Dashboard.dashboard()
 GET		/littleItemsStock/:sellerId			controllers.Dashboard.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.Dashboard.biggestCollections(sellerId: Long)
+GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		controllers.Dashboard.itemsViewedFromCollections(sellerId: Long, actionDateBegin: Long, actionDateEnd: Long)
+
+# Actions
+GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType			controllers.Actions.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
 # Seller
-
 GET     /seller/:sellerId/itemsJson     controllers.Sellers.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
 GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
