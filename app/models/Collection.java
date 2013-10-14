@@ -22,7 +22,7 @@ public class Collection extends Model {
 
     public String description;
     
-    public Integer items;
+    public Integer item_count;
 
     @OneToOne
     public Seller seller;

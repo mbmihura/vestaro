@@ -1,13 +1,16 @@
 AmCharts.ready(function () {
-		
-	// Monthly boughts	
-	easyrec_mostBoughtItems({
-		numberOfResults:5,
-		timeRange:'MONTH',
-		drawingCallback:'drawChartMonthlyBoughtItems'
-	});
+
+	Number.prototype.padLeft =
+	function(base, chr){
+	   var len = (String(base || 10).length - String(this).length) + 1;
+	   return len > 0 ? new Array(len).join(chr || '0') + this : this;
+	}
 	
-	// Commission	
+	function formatDate(date){
+	    return date.getFullYear() + (date.getMonth() + 1).padLeft() + date.getDate().padLeft();
+	}
+	
+	// ==================== Commission ====================
 	var chart;
 	var date = new Date();
 	var remainingTime = (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate() - date.getDate();
@@ -17,7 +20,6 @@ AmCharts.ready(function () {
 	        "min": 0,
 	        "value": date.getDate()
 	}];
-
     chart = new AmCharts.AmSerialChart();
     chart.dataProvider = chartData;
     chart.categoryField = "commission";
@@ -58,80 +60,68 @@ AmCharts.ready(function () {
     graph2.balloonText = "Días restantes: " + remainingTime;
     chart.addGraph(graph2);
     chart.write("chartdiv_commission");
-	    
-//    jsRoutes.controllers.Dashboard.biggestCollections(1).ajax({success: 
-//		function(json)
-//		{
-//	    	// SERIAL CHART
-//	        chart = new AmCharts.AmSerialChart();
-//	        chart.dataProvider = json;
-//	        chart.categoryField = "title";
-//	        chart.marginRight = 0;
-//	        chart.marginTop = 0;
-//	        chart.autoMarginOffset = 0;
-//	        // the following two lines makes chart 3D
-//	        chart.depth3D = 20;
-//	        chart.angle = 30;
-//	
-//	        // AXES
-//	        // category
-//	        var categoryAxis = chart.categoryAxis;
-//	        categoryAxis.labelRotation = 90;
-//	        categoryAxis.dashLength = 5;
-//	        categoryAxis.gridPosition = "start";
-//	
-//	        // value
-//	        var valueAxis = new AmCharts.ValueAxis();
-//	        valueAxis.title = "Albums";
-//	        valueAxis.dashLength = 5;
-//	        chart.addValueAxis(valueAxis);
-//	
-//	        // GRAPH            
-//	        var graph = new AmCharts.AmGraph();
-//	        graph.valueField = "items";
-//	        graph.colorField = "color";
-//	        graph.balloonText = "Cantidad de prendas: [[items]]";
-//	        graph.type = "column";
-//	        graph.lineAlpha = 0;
-//	        graph.fillAlphas = 1;
-//	        chart.addGraph(graph);
-//	
-//	        // WRITE
-//	        chart.write("chartdiv2");
-//		}
-//	});
 	
-	  jsRoutes.controllers.Dashboard.littleItemsStock(1).ajax({success: 
-			function(json)
-			{
-		        chart = new AmCharts.AmSerialChart();
-		        chart.dataProvider = json;
-		        chart.categoryField = "id";
-		        chart.marginRight = 0;
-		        chart.marginTop = 0;
-		        chart.autoMarginOffset = 0;
-		        chart.depth3D = 20;
-		        chart.angle = 30;
-		        var categoryAxis = chart.categoryAxis;
-		        categoryAxis.labelRotation = 90;
-		        categoryAxis.dashLength = 5;
-		        categoryAxis.gridPosition = "start";
-		        var valueAxis = new AmCharts.ValueAxis();
-		        valueAxis.dashLength = 5;
-		        chart.addValueAxis(valueAxis);
-		        var graph = new AmCharts.AmGraph();
-		        graph.valueField = "stock";
-		        graph.balloonText = "Stock disponible del talle [[size]]: [[stock]]";
-		        graph.type = "column";
-		        graph.lineAlpha = 0;
-			    graph.fillColors = "#FFD700";
-		        graph.lineColor = "#000000";
-		        graph.fillAlphas = 1;
-		        chart.addGraph(graph);
-		        chart.write("chartdiv_stock");
-			}
-		});
-	
+    // ==================== Stock ====================
+    jsRoutes.controllers.Dashboard.littleItemsStock(1).ajax({success: 
+		function(json)
+		{
+			chart = new AmCharts.AmSerialChart();
+			chart.dataProvider = json;
+			chart.categoryField = "id";
+			chart.marginRight = 0;
+			chart.marginTop = 0;
+			chart.autoMarginOffset = 0;
+			chart.depth3D = 20;
+			chart.angle = 30;
+			var categoryAxis = chart.categoryAxis;
+			categoryAxis.labelRotation = 90;
+			categoryAxis.dashLength = 5;
+			categoryAxis.gridPosition = "start";
+			var valueAxis = new AmCharts.ValueAxis();
+			valueAxis.dashLength = 5;
+			chart.addValueAxis(valueAxis);
+			var graph = new AmCharts.AmGraph();
+			graph.valueField = "stock";
+			graph.balloonText = "Stock disponible del talle [[size]]: [[stock]]";
+			graph.type = "column";
+			graph.lineAlpha = 0;
+			graph.fillColors = generateRandomColor();
+			graph.lineColor = "#000000";
+			graph.fillAlphas = 1;
+			chart.addGraph(graph);
+			chart.write("chartdiv_stock");
+		}
+	});
+    
+    // ==================== Monthly boughts ====================
+    jsRoutes.controllers.Actions.actionsFrom(1, 1, formatDate(new Date(date.getFullYear(), date.getMonth(), 1)), formatDate(new Date(date.getFullYear(), date.getMonth() + 1, 0)), "BUY").ajax({success: 
+		function(json)
+		{
+			var chart = new AmCharts.AmSerialChart();
+		    chart.dataProvider = json;
+		    chart.categoryField = "id";                
+		    chart.rotate = true;
+		    chart.depth3D = 20;
+		    chart.angle = 30;
+		    var categoryAxis = chart.categoryAxis;
+		    categoryAxis.gridPosition = "start";
+		    categoryAxis.axisColor = "#DADADA";
+		    categoryAxis.fillAlpha = 1;
+		    categoryAxis.gridAlpha = 0;
+		    categoryAxis.fillColor = "#FAFAFA";
+		    var valueAxis = new AmCharts.ValueAxis();
+		    valueAxis.axisColor = "#DADADA";
+		    valueAxis.gridAlpha = 0.1;
+		    chart.addValueAxis(valueAxis);
+		    var graph = new AmCharts.AmGraph();
+		    graph.valueField = "purchases";
+		    graph.type = "column";
+		    graph.balloonText = "[[description]]: [[purchases]] unidades vendidas";
+		    graph.lineAlpha = 0;
+		    graph.fillColors = generateRandomColor();
+		    graph.fillAlphas = 1;
+		    chart.addGraph(graph);
+		    chart.write("chartdiv_mostMonthlyBoughtItems");
+		}
+	});
 });
-
-
