@@ -70,6 +70,10 @@ $(document).ready(function(){
 	
 });
 
+function generateRandomColor(){
+	return '#'+Math.floor(Math.random()*16777215).toString(16);
+}
+
 function drawingCallback(json)
 {
 	if("undefined" == typeof(json.error))
@@ -136,11 +140,10 @@ function drawChartMonthlyBoughtItems(json)
 	    graph.type = "column";
 	    graph.balloonText = "Unidades vendidas: [[value]]";
 	    graph.lineAlpha = 0;
-	    graph.fillColors = "#ADFF2F";
+	    graph.fillColors = generateRandomColor();
 	    graph.fillAlphas = 1;
 	    chart.addGraph(graph);
 	    chart.write("chartdiv_mostMonthlyBoughtItems");
-	    
 	}
 }
 
@@ -176,7 +179,7 @@ function drawChartAllTimeBoughtItems(json)
 	    graph.type = "column";
 	    graph.balloonText = "Unidades vendidas: [[value]]";
 	    graph.lineAlpha = 0;
-	    graph.fillColors = "#ADFF2F";
+	    graph.fillColors = generateRandomColor();
 	    graph.fillAlphas = 1;
 	    chart.addGraph(graph);
 	    chart.write("chartdiv_mostAllTimeBoughtItems");
@@ -215,7 +218,7 @@ function drawChartMonthlyViewedItems(json)
 	    graph.type = "column";
 	    graph.balloonText = "Cantidad de vistas: [[value]]";
 	    graph.lineAlpha = 0;
-	    graph.fillColors = "#ADFF2F";
+	    graph.fillColors = generateRandomColor();
 	    graph.fillAlphas = 1;
 	    chart.addGraph(graph);
 	    chart.write("chartdiv_mostMonthlyViewedtItems");
@@ -254,7 +257,7 @@ function drawChartAllTimeViewedItems(json)
 	    graph.type = "column";
 	    graph.balloonText = "Cantidad de vistas: [[value]]";
 	    graph.lineAlpha = 0;
-	    graph.fillColors = "#ADFF2F";
+	    graph.fillColors = generateRandomColor();
 	    graph.fillAlphas = 1;
 	    chart.addGraph(graph);
 	    chart.write("chartdiv_mostAllTimeViewedItems");

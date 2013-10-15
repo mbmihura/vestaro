@@ -4,16 +4,17 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Action;
 import models.Collection;
-import models.CollectionDashboard;
+import models.CollectionItems;
 import models.Item;
 import models.Stock;
 import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.dashboard.dashboardTest;
 import views.html.dashboard.dashboard;
+import views.html.dashboard.dashboardTest;
 
+/*TODO replace sellerId with this.currentUserId();*/
 public class DashboardController extends BaseController {
   
     public static Result dashboardTest() {
@@ -22,26 +23,31 @@ public class DashboardController extends BaseController {
         
     public static Result biggestCollections(Long sellerId){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
-    	List<CollectionDashboard> collectionsDash = new ArrayList<>();
+    	List<CollectionItems> items = new ArrayList<>();
     	
 		for(Collection collection : collections){
-			CollectionDashboard colDash = new CollectionDashboard(collection);
-			collectionsDash.add(colDash);
+			CollectionItems colItems = new CollectionItems(collection);
+			items.add(colItems);
 		}
     	
-    	return ok(Json.toJson(collectionsDash));
+    	return ok(Json.toJson(items));
     }
     
-    public static Result allItemsFromAlbums(Long sellerId){
+    public static Result itemsViewedFromCollections(Long sellerId, Long actionDateBegin, Long actionDateEnd){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
-    	List<CollectionDashboard> collectionsDash = new ArrayList<CollectionDashboard>();
+    	List<CollectionItems> items = new ArrayList<CollectionItems>();
     	
-    	for(Collection collection : collections){    		
-    		CollectionDashboard colDash = new CollectionDashboard(collection);
-			collectionsDash.add(colDash);
-    	}
+		for(Collection collection : collections){
+			CollectionItems collectionItems = new CollectionItems(collection);
+			
+			for(Item item : collectionItems.items){
+				item.views = Action.findActionsFrom("VIEW", actionDateBegin, actionDateEnd, item.id).size();
+			}
+			
+			items.add(collectionItems);
+		}
     	
-    	return ok(Json.toJson(collectionsDash));
+    	return ok(Json.toJson(items));
     }
     
     public static Result littleItemsStock(Long sellerId){
@@ -62,4 +68,3 @@ public class DashboardController extends BaseController {
         return ok(dashboard.render());
     }
 }
-

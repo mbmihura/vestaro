@@ -25,7 +25,7 @@ public class Application extends BaseController {
     			
     		}else
     		{
-    			// buyyer
+    			// buyer
     		}
     	}
         return ok(index.render());
@@ -58,8 +58,11 @@ public class Application extends BaseController {
                 // Routes for Dashboard
                 controllers.routes.javascript.DashboardController.biggestCollections(),
                 controllers.routes.javascript.DashboardController.littleItemsStock(),
-                controllers.routes.javascript.DashboardController.allItemsFromAlbums()
-                
+                controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
+
+                // Routes for Actions
+                controllers.routes.javascript.ActionController.actionsFrom()
+ 
             )
         );
     }
