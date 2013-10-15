@@ -1,0 +1,50 @@
+<h1>Buyer's Home Template</h1>
+
+<!-- FILTERS -->
+<input type="text" ng-model="search" class="search-query" placeholder="Search">
+<input type="text" ng-model="order" class="search-query" placeholder="Order">
+
+<!-- ITEMS CONTAINER -->
+<div class="row">
+	<div class="col-md-10">
+		<ul id="itemsContainer" class="row">
+		  <li ng-repeat="item in items | filter:search | orderBy:order" class="thumbnail col-md-3" data-item-id={{item.id}} data-item-category={{item.category.name}}>
+			  <img src={{item.imgUrl}} alt={{item.title}}>
+			  <div class="itemInformation">
+			 	<h2 class='title'>{{item.title}}</h2>
+			 	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span>
+			 	<p class='price'>${{item.price}}</p>
+			 	<div class='itemControls btn-group'>
+				  	<button ng-click='showBuyModal(item)' type='button' class='buy-btn btn btn-primary'>Comprar</button>
+				  	<button ng-click='addToWishlist(item)' type='button' class='wishlist-btn btn btn-default'>Wishlist</button>
+				</div>
+			  </div>
+		  </li>
+		</ul>
+	</div>
+</div>
+
+<!-- BUY MODAL -->
+<div id="buyModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Comprar Prenda</h4>
+      </div>
+      <div class="modal-body">
+        <h2 class='title'>{{item.title}}</h2>
+        <img src={{item.imgUrl}} alt={{item.title}}>
+	 	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span>
+	 	<p class='price'>${{item.price}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Comprar</button>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+

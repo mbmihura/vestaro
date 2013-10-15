@@ -90,7 +90,6 @@ border-top-right-radius: 15px;
 
 .item .itemInformation {
 cursor: pointer;
-position: absolute;
 bottom: 0px;
 background-color: #FFF;
 opacity: .8;
@@ -100,6 +99,8 @@ display: none;
 -webkit-border-top-left-radius: 10px;
 -moz-border-radius-topleft: 10px;
 border-top-left-radius: 10px;
+width: 100%;
+z-index: 3;
 }
 
 .item .itemControls {

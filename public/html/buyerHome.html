@@ -1,15 +1,165 @@
-<h1>Buyer's Home Template</h1>
+<h1>Buyer Home</h1>
+<div class='row'>
+<nav id='itemsControls nav nav-stacked' class='col-md-2'>
+	<div class="well sidebar-nav" style="font-size: 13px;">
+	
+  		<ul id="filters" class="option-set nav nav-list" data-option-key="filter"> <!--Filters by class-->
+  		<li class = "nav-header">Filtros (test)</li>
+			<li><a href="#filter" data-option-value="*" class="option selected active">Todos</a></li>
+			<li><a href="#filter" data-option-value=".camisa" class="option">Camisas</a></li>
+			<li><a href="#filter" data-option-value=".abrigo" class="option">Abrigos</a></li>
+			<li><a href="#filter" data-option-value=".pantalon" class="option">Pantalones</a></li>
+			<li><a href="#filter" data-option-value=".camisa, .pantalon" class="option">Pantalones y Camisas</a></li>
+			<li><a href="#filter" data-option-value=":not(.abrigo)" class="option">No Abrigos</a></li>
+		</ul>
+		
+		<ul class="nav nav-list">
+	    <li class="nav-header">Categorías</li>
+		    <li><a href="#">Remeras</a></li>
+		    <li><a href="#">Camisas</a></li>
+		    <li><a href="#">Camperas</a></li>
+		    <li><a href="#">Buzos</a></li>
+		    <li><a href="#">Pantalones</a></li>
+		</ul>
+		
+		<ul class="nav nav-list">
+	    <li class="nav-header">Marcas</li>
+		    <li><a href="#">Akiabara</a></li>
+		    <li><a href="#">Legacy</a></li>
+		    <li><a href="#">Nike</a></li>
+		    <li><a href="#">CH</a></li>
+		    <li><a href="#">Lacrosse</a></li>
+		</ul>
+		
+	</div><!-- well -->
+</nav>
+<!-- <nav id='itemsControls nav nav-stacked' class='col-xs-4 col-md-2'> -->
+<!-- 	<h3>Filters</h3> -->
 
-<input type="text" ng-model="search" class="search-query" placeholder="Search">
-<input type="text" ng-model="order" class="search-query" placeholder="Order">
+<!--     <ul id="filters" class="option-set btn-group-vertical" data-option-key="filter"> Filters by class -->
+<!--       <li class='btn btn-default'><a href="#filter" data-option-value="*" class="selected active">show all</a></li> -->
+<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".camisa">camisa</a></li> -->
+<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".abrigo">abrigo</a></li> -->
+<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".pantalon">pantalon</a></li> -->
+<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".camisa, .pantalon">pantalon y camisa</a></li> -->
+<!--       <li class='btn btn-default'><a href="#filter" data-option-value=":not(.abrigo)">no abrigo</a></li> -->
+<!--     </ul> -->
+  
+<!--     <h3>Sort</h3> -->
 
-<div class="row">
-  <div ng-repeat="item in items | filter:search | orderBy:order" class="col-md-3 thumbnail">
-    <div style="height: 100px; width: 100%; display: block;">
-    	<h3>{{item.title}}</h3>
-    </div>
-    <a href="#" style="height: 200px; width: 100%; display: block;">
-      <img class="img-responsive" alt="{{item.title}}" src="{{item.imgUrl}}">
-    </a>
-  </div>
+<!--     <ul id="sort-by" class="option-set btn-group-vertical" data-option-key="sortBy"> -->
+<!--       <li class='btn btn-default'><a href="#sortBy=original-order" data-option-value="original-order" class="selected" data="">original-order</a></li> -->
+<!--       <li class='btn btn-default'><a href="#sortBy=title" data-option-value="title">tÃ­tulo</a></li> -->
+<!--       <li class='btn btn-default'><a href="#sortBy=price" data-option-value="price">precio</a></li> -->
+<!--       <li class='btn btn-default'><a href="#sortBy=type" data-option-value="type">tipo</a></li> -->
+<!--       <li class='btn btn-default'><a href="#sortBy=random" data-option-value="random">random</a></li> -->
+<!--     </ul> -->
+
+<!--     <h3>Sort direction</h3> -->
+
+<!--     <ul id="sort-direction" class="option-set btn-group-vertical" data-option-key="sortAscending"> -->
+<!--       <li class='btn btn-default'><a href="#sortAscending=true" data-option-value="true" class="selected">sort ascending</a></li> -->
+<!--       <li class='btn btn-default'><a href="#sortAscending=false" data-option-value="false">sort descending</a></li> -->
+<!--     </ul> -->
+<!-- </nav> -->
+
+<div class="col-md-10">
+	<ul id="itemsContainer" class="items isotope row">
+		<li ng-repeat="item in items" class="item camisa" data-item-id="{{item.id}}" data-category="camisa">
+		<img src={{item.imgUrl}} alt={{item.title}}>
+			<div class="itemInformation">
+				<h2 class='title'>{{item.title}}</h2>
+				<h3 class='description'>{{item.description}}</h3>
+				<span class='sellerName'>{{item.seller.name}}</span>
+				<p class='price'>${{item.price}}</p>
+				<div class='itemControls btn-group'>
+					<button type='button' class='buy btn btn-primary'>Comprar</button>
+					<button type='button' class='buy btn btn-default'>Wishlist</button>
+				</div>
+			</div>
+		</li>
+	</ul>
 </div>
+
+</div>
+
+<!-- <script> -->
+// $(document).ready(function(){
+  
+//   var $container = $('#itemsContainer');
+  
+//   $container.imagesLoaded( function(){
+// 	  $container.isotope({
+// 		itemSelector: '.item',
+// 		getSortData : {
+// 	        type : function( $elem ) {
+// 	          return $elem.attr('data-type');
+// 	        },
+// 	        price : function( $elem ) {
+// 	          return parseFloat( $elem.find('.price').text().replace('$','') );
+// 	        },
+// 	        title : function ( $elem ) {
+// 	          return $elem.find('.title').text();
+// 	        }
+// 	    }
+// 	  });
+//    });
+  
+// 	var $optionSets = $('#itemsControls .option-set'),
+// 		$optionLinks = $optionSets.find('.option');
+
+// 	$optionLinks.click(function(){
+// 		var $this = $(this);
+// 		// don't proceed if already selected
+// 		if ( $this.hasClass('selected') ) {
+// 		  return false;
+// 		}
+// 		var $optionSet = $this.parents('.option-set');
+// 		$optionSet.find('.selected').removeClass('selected').removeClass('active');
+// 		$this.addClass('selected').addClass('active');
+		
+// 		// make option object dynamically, i.e. { filter: '.my-filter-class' }
+// 		var options = {},
+// 		    key = $optionSet.attr('data-option-key'),
+// 		    value = $this.attr('data-option-value');
+// 		// parse 'false' as false boolean
+// 		value = value === 'false' ? false : value;
+// 		options[ key ] = value;
+// 		if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
+// 		  // changes in layout modes need extra logic
+// 		  changeLayoutMode( $this, options )
+// 		} else {
+// 		  // otherwise, apply new options
+// 		  $container.isotope( options );
+// 		}
+		
+// 		return false;
+// 	});
+	
+// 	// Toggles item size
+// 	$container.delegate( '.item', 'click', function(){
+// 		if($(this).hasClass('large')){
+// 			$(this).removeClass('large');
+// 		}
+// 		else
+// 		{
+// 			$container.find('.item.large').removeClass('large');
+// 			$(this).addClass('large');
+// 		}
+// 		$container.isotope('reLayout');
+// 	});
+	
+// 	// Toggles item information
+// 	$container.find('.item').bind({
+// 		mouseenter: function(e){
+// 			e.preventDefault();
+// 			$(this).find('.itemInformation').fadeToggle('fast');
+// 		},
+// 		mouseleave: function(e){
+// 			e.preventDefault();
+// 			$(this).find('.itemInformation').fadeToggle('fast');
+// 		}
+// 	});
+  
+// });
+<!-- </script> -->

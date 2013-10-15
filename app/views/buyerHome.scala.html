@@ -66,21 +66,19 @@
 
 <div class="col-md-10">
 	<ul id="itemsContainer" class="items isotope row">
-		@for(item <- items) {
-			@views.html.items.itemIsotope(item)
-		}
-<!-- 	  <li ng-repeat="item in items" class="item camisa" data-item-id={{item.id}} ng-mouseover="visible = 'visible'"> -->
-<!-- 		  <img src={{item.imgUrl}} alt={{item.title}}> -->
-<!-- 		  <div class="itemInformation"> -->
-<!-- 		  	<h2 class='title'>{{item.title}}</h2> -->
-<!-- 		  	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span> -->
-<!-- 		  	<p class='price'>${{item.price}}</p> -->
-<!-- 		  	<div class='itemControls btn-group' style='visibility: {{visible}};'> -->
-<!-- 			  	<button type='button' class='buy btn btn-primary'>Comprar</button> -->
-<!-- 			  	<button type='button' class='buy btn btn-default'>Wishlist</button> -->
-<!-- 			</div> -->
-<!-- 		  </div> -->
-<!-- 	  </li> -->
+		<li class="item camisa" data-item-id="{{item.id}}" data-category="camisa"><img src={{item.imgUrl}}
+			alt={{item.title}}>
+			<div class="itemInformation">
+				<h2 class='title'>{{item.title}}</h2>
+				<h3 class='description'>{{item.description}}</h3>
+				<span class='sellerName'>{{item.seller.name}}</span>
+				<p class='price'>${{item.price}}</p>
+				<div class='itemControls btn-group'>
+					<button type='button' class='buy btn btn-primary'>Comprar</button>
+					<button type='button' class='buy btn btn-default'>Wishlist</button>
+				</div>
+			</div>
+		</li>
 	</ul>
 </div>
 
