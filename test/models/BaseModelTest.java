@@ -1,22 +1,20 @@
 package models;
 
-import java.util.List;
-import java.util.Map;
+import static org.fest.assertions.Assertions.assertThat;
 
-import org.junit.*;
-import static org.fest.assertions.Assertions.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import play.test.FakeApplication;
+import play.test.Helpers;
 
 import com.avaje.ebean.Ebean;
-
-import play.libs.Yaml;
-import play.test.*;
-import models.*;
 
 
 public class BaseModelTest {
   public static FakeApplication app;
  
-  @SuppressWarnings("unchecked")
   @BeforeClass
   public static void startApp() {
 	app = Helpers.fakeApplication(Helpers.inMemoryDatabase());

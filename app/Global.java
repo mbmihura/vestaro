@@ -44,7 +44,7 @@ public class Global extends GlobalSettings {
                 user = new User(100000262980862L,"testUserAlan", rol);
                 user.save();   
                 
-                user = new User(1335414847L,"testUserKurt", rol);
+                user = new User(1335414847L,"testUserPablo", rol);
                 user.save();
             }
             
@@ -63,6 +63,9 @@ public class Global extends GlobalSettings {
                 
                 // Insert stocks
                 Ebean.save(all.get("stocks"));
+
+                // Insert actions
+                Ebean.save(all.get("actions"));
                 
                 // Insert the collections relations
 //                for(Object collection: all.get("collections")) {

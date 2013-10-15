@@ -1,11 +1,12 @@
 package models;
 
-import play.db.ebean.Model;
-import security.Roles;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import play.db.ebean.Model;
+import security.Roles;
+
+@SuppressWarnings("serial")
 @Entity
 public class Rol extends Model
 {

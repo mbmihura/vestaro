@@ -1,12 +1,8 @@
 package models;
 
-import org.junit.*;
-
-import com.avaje.ebean.validation.AssertTrue;
-
-import play.mvc.Content;
 import static org.fest.assertions.Assertions.assertThat;
-import static play.test.Helpers.contentType;
+
+import org.junit.Test;
 
 
 /**

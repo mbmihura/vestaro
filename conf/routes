@@ -9,19 +9,23 @@ GET		/                    				controllers.Application.index()
 ## Authentication & Authorization ##
 POST	/authentication/login 				controllers.Authentication.login()
 #TODO: check if really necesarry as we will be using fbLogin
-POST	/authentication/logout      		controllers.Authentication.logout() 
+POST	/authentication/logout      		controllers.Authentication.logout()
 
 ## Seller ##
 # Dashboard
-GET		/dashboardTest						controllers.DashboardController.dashboardTest()
-GET		/dashboard							controllers.DashboardController.dashboard()
-GET		/allItemsFromAlbums/:sellerId		controllers.DashboardController.allItemsFromAlbums(sellerId: Long)
+GET		/dashboard							controllers.DashboardController.dashboardTest()
+GET		/dashboardFull						controllers.DashboardController.dashboard()
 GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
+GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections(sellerId: Long, actionDateBegin: Long, actionDateEnd: Long)
 
-# Seller Profile
+# Actions
+GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType			controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
-# Album & Item Management
+# Seller
+GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
+GET     /seller/:sellerId/items     		controllers.SellerController.listItems(sellerId: Long)
+GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 
 
 ## Buyer ##
@@ -54,3 +58,4 @@ GET        /reco	           				controllers.RecommendationEngine.recoExample()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
+

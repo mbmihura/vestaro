@@ -6,8 +6,6 @@ import play.Routes;
 import play.mvc.Result;
 import security.RestrictTo;
 import security.Roles;
-import models.Rol;
-import models.User; 
 import views.html.aboutPlay;
 import views.html.index;
 
@@ -27,7 +25,7 @@ public class Application extends BaseController {
     			
     		}else
     		{
-    			// buyyer
+    			// buyer
     		}
     	}
         return ok(index.render());
@@ -60,8 +58,11 @@ public class Application extends BaseController {
                 // Routes for Dashboard
                 controllers.routes.javascript.DashboardController.biggestCollections(),
                 controllers.routes.javascript.DashboardController.littleItemsStock(),
-                controllers.routes.javascript.DashboardController.allItemsFromAlbums()
-                
+                controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
+
+                // Routes for Actions
+                controllers.routes.javascript.ActionController.actionsFrom()
+ 
             )
         );
     }
