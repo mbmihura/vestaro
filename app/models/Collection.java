@@ -20,9 +20,9 @@ public class Collection extends Model {
     @Formats.NonEmpty
     public String title;
 
+    @Constraints.Required
+    @Formats.NonEmpty
     public String description;
-    
-    public Integer item_count;
 
     @OneToOne
     public Seller seller;
