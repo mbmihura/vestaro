@@ -1,4 +1,4 @@
-@main("Dashboard"){
+@main("Albums"){
   <div class="well container-fluid">
   	<h1>Mis Colecciones</h1>
     <p>Administración de álbums</p>
@@ -22,5 +22,22 @@
 	</ul>
   </div>
   
+	<div style="width: 500px; height: 320px;" class="modal fade well container-fluid" id="delete">
+		<div class="row-fluid">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">&times;</a>
+			    <h3>Confirmar acción</h3>
+			</div>
+			<div class="modal-body">
+				<p>¿Está seguro que desea eliminar el álbum seleccionado?</p>
+				<p>Las prendas del mismo no serán eliminadas.</p>
+			</div>
+			<div class="modal-footer">
+			    <a href="#" class="btn btn-primary">Si</a>
+			    <a href="#" class="btn" data-dismiss="modal">No</a>
+			</div>
+		</div>
+	</div>
+	
   <script src="@routes.Assets.at("javascripts/collections.js")" type="text/javascript"></script>
 }

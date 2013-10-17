@@ -13,8 +13,15 @@ $(document).ready(function(){
 						"' alt='...'>";
 		}
 		
-		return images + "</div";
+		return images + "</div>";
 	}
+	
+	$('#delete').modal().css(
+    {
+        'margin-top': function () {
+            return window.pageYOffset-($(this).height() / 2 );
+        }
+    });
 	
 	jsRoutes.controllers.SellerController.listCollections(1).ajax({success:
 		function(json)
@@ -33,7 +40,8 @@ $(document).ready(function(){
 						"</p>" +
 						"<br>" +
 						"<br>" +
-						"<p><a href='#' class='btn btn-primary'>Editar</a><a href='#' class='btn btn-default' style='float: right;'>Eliminar</a></p>" +
+						"<p><a href='#' class='btn btn-primary'>Editar</a>" +
+						"<a class='btn btn-default delete' href='#delete' data-toggle='modal' style='float: right;'>Eliminar</a></p>" +
 						"</div>" +
 						"</div>" +
 						"</div>"
