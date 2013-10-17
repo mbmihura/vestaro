@@ -62,7 +62,7 @@ AmCharts.ready(function () {
     chart.write("chartdiv_commission");
 	
     // ==================== Stock ====================
-    jsRoutes.controllers.Dashboard.littleItemsStock(1).ajax({success: 
+    jsRoutes.controllers.DashboardController.littleItemsStock(1).ajax({success: 
 		function(json)
 		{
 			chart = new AmCharts.AmSerialChart();
@@ -94,7 +94,7 @@ AmCharts.ready(function () {
 	});
     
     // ==================== Monthly boughts ====================
-    jsRoutes.controllers.Actions.actionsFrom(1, 1, formatDate(new Date(date.getFullYear(), date.getMonth(), 1)), formatDate(new Date(date.getFullYear(), date.getMonth() + 1, 0)), "BUY").ajax({success: 
+    jsRoutes.controllers.ActionController.actionsFrom(1, 1, formatDate(new Date(date.getFullYear(), date.getMonth(), 1)), formatDate(new Date(date.getFullYear(), date.getMonth() + 1, 0)), "BUY").ajax({success: 
 		function(json)
 		{
 			var chart = new AmCharts.AmSerialChart();
