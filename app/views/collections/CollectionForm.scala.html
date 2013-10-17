@@ -1,0 +1,26 @@
+@main("Dashboard"){
+  <div class="well container-fluid">
+  	<h1>Mis Colecciones</h1>
+    <p>Administración de álbums</p>
+    <p><a href='#' style='float: right;' class='btn btn-primary'>Crear nuevo álbum</a></p>
+    <br>
+    <br>
+  </div>
+  <div class="well container-fluid">
+  	<div class="row-fluid">
+		<div id="albums" class="row">
+		</div
+	</div>
+	<br>
+	<ul style='float: right;' class="pagination">
+	  <li class="disabled"><a href="#">&laquo;</a></li>
+	  <li class="active"><a href="#">1</a></li>
+	  <li><a href="#">2</a></li>
+	  <li><a href="#">3</a></li>
+	  <li><a href="#">4</a></li>
+	  <li><a href="#">5</a></li>
+	</ul>
+  </div>
+  
+  <script src="@routes.Assets.at("javascripts/collections.js")" type="text/javascript"></script>
+}

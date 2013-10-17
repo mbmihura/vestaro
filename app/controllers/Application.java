@@ -65,7 +65,10 @@ public class Application extends BaseController {
                 controllers.routes.javascript.Dashboard.itemsViewedFromCollections(),
 
                 // Routes for Actions
-                controllers.routes.javascript.Actions.actionsFrom()
+                controllers.routes.javascript.Actions.actionsFrom(),
+                
+                // Routes for Collections
+                controllers.routes.javascript.CollectionController.getCollections()
                 
             )
         );
