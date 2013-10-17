@@ -5,7 +5,6 @@ import java.util.List;
 
 import models.Collection;
 import models.CollectionItems;
-import models.Item;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,9 +20,7 @@ public class CollectionController extends Controller {
     	List<CollectionItems> items = new ArrayList<CollectionItems>();
     	
 		for(Collection collection : collections){
-			CollectionItems collectionItems = new CollectionItems(collection.id, collection.title, collection.description);
-			collectionItems.items = Item.findItemsFromCollection(collection.id);
-			items.add(collectionItems);
+			items.add(new CollectionItems(collection));
 		}
     	
     	return ok(Json.toJson(items));

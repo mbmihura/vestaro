@@ -2,7 +2,6 @@ package controllers;
 
 import models.Item;
 import play.data.Form;
-import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.items.form;
 import views.html.items.item;

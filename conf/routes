@@ -57,7 +57,6 @@ GET        /reco	           				controllers.RecommendationEngine.recoExample()
 
 # Collections
 GET        /collections	       controllers.CollectionController.CollectionForm()
-GET		/getCollections/:sellerId	controllers.CollectionController.getCollections(sellerId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)

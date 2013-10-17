@@ -16,7 +16,7 @@ $(document).ready(function(){
 		return images + "</div";
 	}
 	
-	jsRoutes.controllers.CollectionController.getCollections(1).ajax({success:
+	jsRoutes.controllers.SellerController.listCollections(1).ajax({success:
 		function(json)
 		{
 			for (var i = 0; i < json.length; i++) {

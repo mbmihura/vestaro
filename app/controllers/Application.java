@@ -54,6 +54,7 @@ public class Application extends BaseController {
                 
                 // Routes for Sellers
                 controllers.routes.javascript.SellerController.itemsOwnedBy(),
+                controllers.routes.javascript.SellerController.listCollections(),
                                 
                 // Routes for Dashboard
                 controllers.routes.javascript.DashboardController.biggestCollections(),
@@ -61,10 +62,7 @@ public class Application extends BaseController {
                 controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
 
                 // Routes for Actions
-                controllers.routes.javascript.ActionController.actionsFrom(),
-                
-                // Routes for Collections
-                controllers.routes.javascript.CollectionController.getCollections()
+                controllers.routes.javascript.ActionController.actionsFrom()
                 
             )
         );
