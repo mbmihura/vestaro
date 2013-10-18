@@ -5,14 +5,13 @@ import java.util.List;
 
 import models.Collection;
 import models.CollectionItems;
-import models.Item;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.collections.CollectionForm;collectionForm;
-import views.html.collections.form;
 import views.html.collections.collection;
+import views.html.collections.collectionForm;
+import views.html.collections.form;
 
 public class CollectionController extends Controller {
 
@@ -23,7 +22,7 @@ public class CollectionController extends Controller {
     }
 	
 	public static Result form() {
-        return ok(form.render());
+        return ok(form.render(formCollection));
     }
 	
 	public static Result getCollections(Long sellerId){

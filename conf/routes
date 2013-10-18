@@ -53,14 +53,14 @@ POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
 PUT		/item/:itemId						controllers.ItemController.update(itemId: String)
 
 # Recommendations
-GET        /reco	           				controllers.RecommendationEngine.recoExample()
+GET     /reco	           					controllers.RecommendationEngine.recoExample()
 
 # Collections
 GET     /collections	       				controllers.CollectionController.collectionForm()
+GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
-GET     /collection	       					controllers.CollectionController.form()
-GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
-GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
+POST	/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
+PUT		/collection/:collectionId			controllers.CollectionController.update(collectionId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)

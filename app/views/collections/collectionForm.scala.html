@@ -1,28 +1,27 @@
 @main("Albums"){
-  <div class="well container-fluid">
-  	<h1>Mis Colecciones</h1>
-    <p>Administración de álbums</p>
-    <p><a href='#' style='float: right;' class='btn btn-primary'>Crear nuevo álbum</a></p>
-    <br>
-    <br>
-  </div>
-  <div class="well container-fluid">
-  	<div class="row-fluid">
-		<div id="albums" class="row">
-		</div
+	<div class="well container-fluid">
+		<h1>Mis Colecciones</h1>
+		<p>Administración de álbums</p>
+		<p><a href='#' style='float: right;' class='btn btn-primary'>Crear nuevo álbum</a></p>
+		<br>
+		<br>
 	</div>
-	<br>
-	<ul style='float: right;' class="pagination">
-	  <li class="disabled"><a href="#">&laquo;</a></li>
-	  <li class="active"><a href="#">1</a></li>
-	  <li><a href="#">2</a></li>
-	  <li><a href="#">3</a></li>
-	  <li><a href="#">4</a></li>
-	  <li><a href="#">5</a></li>
-	</ul>
-  </div>
+	<div class="well container-fluid">
+		<div class="row-fluid">
+			<div id="albums" class="row">
+		</div>
+		<br>
+		<ul style='float: right;' class="pagination">
+			<li class="disabled"><a>&laquo;</a></li>
+		  	<li class="active"><a>1</a></li>
+		  	<li><a>2</a></li>
+		  	<li><a>3</a></li>
+		  	<li><a>4</a></li>
+		  	<li><a>5</a></li>
+		</ul>
+	</div>
   
-	<div style="width: 500px; height: 320px;" class="modal fade well container-fluid" id="delete">
+	<div style="width: 500px; height: 320px; margin-top: 150px; margin-left: 450px;" class="modal fade well container-fluid" id="delete">
 		<div class="row-fluid">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">&times;</a>
@@ -33,8 +32,24 @@
 				<p>Las prendas del mismo no serán eliminadas.</p>
 			</div>
 			<div class="modal-footer">
-			    <a id="confirmDelete" href="#" class="btn btn-primary">Si</a>
-			    <a href="#" class="btn" data-dismiss="modal">No</a>
+			    <a id="confirmDelete" class="btn btn-primary" data-dismiss="modal">Si</a>
+			    <a class="btn" data-dismiss="modal">No</a>
+			</div>
+		</div>
+	</div>
+	
+	<div style="width: 500px; height: 465px; margin-top: 100px; margin-left: 450px;" class="modal fade well container-fluid" id="edit">
+		<div class="row-fluid">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">&times;</a>
+			    <h3>Editar Álbum</h3>
+			</div>
+			<div class="modal-body">
+				<iframe style="width: 400px; height: 200px;" src="collection"></iframe>
+			</div>
+			<div class="modal-footer">
+			    <a id="confirmUpdate" class="btn btn-primary" data-dismiss="modal">Guardar cambios</a>
+			    <a class="btn" data-dismiss="modal">Cancelar</a>
 			</div>
 		</div>
 	</div>

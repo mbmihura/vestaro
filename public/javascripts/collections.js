@@ -23,7 +23,7 @@ $(document).ready(function(){
 		    $(this).remove();
 		});
 	});
-		
+	
 	jsRoutes.controllers.SellerController.listCollections(1).ajax({success:
 		function(json)
 		{
@@ -43,8 +43,8 @@ $(document).ready(function(){
 						"</p>" +
 						"<br>" +
 						"<br>" +
-						"<p><a href='#' class='btn btn-primary'>Editar</a>" +
-						"<a class='btn btn-default delete' href='#delete' data-toggle='modal' style='float: right;'>Eliminar</a></p>" +
+						"<p><a href='#edit' data-toggle='modal' class='btn btn-primary'>Editar</a>" +
+						"<a class='btn btn-default' href='#delete' data-toggle='modal' style='float: right;'>Eliminar</a></p>" +
 						"</div>" +
 						"</div>" +
 						"</div>"
@@ -52,4 +52,5 @@ $(document).ready(function(){
 			}
 		}
 	});
+
 });

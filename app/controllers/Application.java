@@ -41,11 +41,13 @@ public class Application extends BaseController {
         response().setContentType("text/javascript");
         return ok(
             Routes.javascriptRouter("jsRoutes",
-            
+
                 // Routes for Collections
-                controllers.routes.javascript.CollectionController.submit(),
-                controllers.routes.javascript.CollectionController.form(),
                 controllers.routes.javascript.CollectionController.collectionForm(),
+                controllers.routes.javascript.CollectionController.form(),
+                controllers.routes.javascript.CollectionController.submit(),
+                controllers.routes.javascript.CollectionController.update(),
+                controllers.routes.javascript.CollectionController.delete(),
                 
                 // Routes for Items
             	controllers.routes.javascript.ItemController.form(),
