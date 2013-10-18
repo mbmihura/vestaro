@@ -5,14 +5,25 @@ import java.util.List;
 
 import models.Collection;
 import models.CollectionItems;
+import models.Item;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.collections.CollectionForm;
+import views.html.collections.CollectionForm;collectionForm;
+import views.html.collections.form;
+import views.html.collections.collection;
 
 public class CollectionController extends Controller {
-	public static Result CollectionForm() {
-        return ok(CollectionForm.render());
+
+	static Form<Collection> formCollection = Form.form(Collection.class);
+	
+	public static Result collectionForm() {
+        return ok(collectionForm.render());
+    }
+	
+	public static Result form() {
+        return ok(form.render());
     }
 	
 	public static Result getCollections(Long sellerId){
@@ -24,5 +35,24 @@ public class CollectionController extends Controller {
 		}
     	
     	return ok(Json.toJson(items));
+    }
+	
+	public static Result submit() {
+    	Form<Collection> collectionFilledForm = formCollection.bindFromRequest();
+    	if(collectionFilledForm.hasErrors()) {
+            return badRequest(form.render(collectionFilledForm));
+        } else {
+            return ok(
+                collection.render(Collection.submit(collectionFilledForm.get()))
+            );
+        }
+    }
+
+    public static Result update(Long collectionId) {
+    	return TODO;
+    }
+    
+    public static Result delete(Long itemId) {
+    	return TODO;
     }
 }

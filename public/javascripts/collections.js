@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	function generateRandomColor(maxLength){
+	function generateRandomIndex(maxLength){
 		return Math.floor(Math.random() * (maxLength - 1)) + 0;
 	}
 		
@@ -9,26 +9,29 @@ $(document).ready(function(){
 		
 		for (var i = 0; i < 3; i++) {
 			images += "<img style='width:80px; height:100px;' src='" +
-						json.items[generateRandomColor(json.items.length)].imgUrl +
+						json.items[generateRandomIndex(json.items.length)].imgUrl +
 						"' alt='...'>";
 		}
 		
 		return images + "</div>";
 	}
-	
-	$('#delete').modal().css(
-    {
-        'margin-top': function () {
-            return window.pageYOffset-($(this).height() / 2 );
-        }
-    });
-	
+		
+	$('#confirmDelete').click(function(){
+		$("#albums").children().filter(function() {
+		    return $(this).val() == $(this).attr('value');
+		}).each(function() {
+		    $(this).remove();
+		});
+	});
+		
 	jsRoutes.controllers.SellerController.listCollections(1).ajax({success:
 		function(json)
 		{
 			for (var i = 0; i < json.length; i++) {
 				$("#albums").append(
-						"<div class='col-sm-6 col-md-3'>" +
+						"<div value='" +
+						json[i].id +
+						"' class='album col-sm-6 col-md-3'>" +
 						"<div class='thumbnail'>" +
 						getAlbumImages(json[i]) +
 						"<div class='caption'>" +
@@ -46,7 +49,6 @@ $(document).ready(function(){
 						"</div>" +
 						"</div>"
 						);
-				
 			}
 		}
 	});

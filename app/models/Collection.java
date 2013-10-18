@@ -34,4 +34,12 @@ public class Collection extends Model {
                 .eq("seller.id", sellerId)
                 .findList();
     }
+    
+    public static Collection submit(Collection collection) {
+    	if(collection.seller == null){
+    		collection.seller = Seller.find.byId((long)1);
+    	}
+    	collection.save();
+    	return collection;
+    }
 }

@@ -1,0 +1,30 @@
+@(formCollection: Form[models.Collection])
+
+@import helper._
+	
+	@helper.form(action = routes.CollectionController.submit, 'id -> "collectionForm", 'class -> "form-horizontal", 'role -> "form") {
+		<fieldset>
+		
+		<legend>Nueva Prenda</legend>
+		
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="control-label" for="title">Nombre</label>
+		  <div class="controls">
+		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="" value="@formCollection("title").value">
+		  </div>
+		</div>
+		
+		<!-- Textarea -->
+		<div class="form-group">
+		  <label class="control-label" for="description">Descripción</label>
+		  <div class="controls">                     
+		    <textarea id="description" name="description" class="form-control" required="" value="@formCollection("description").value"></textarea>
+		  </div>
+		</div>
+		
+		<div class="form-group">
+	    	<button type="submit" class="btn btn-primary">Crear</button>
+	    </div>
+	    
+	}

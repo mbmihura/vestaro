@@ -43,7 +43,9 @@ public class Application extends BaseController {
             Routes.javascriptRouter("jsRoutes",
             
                 // Routes for Collections
-                //controllers.routes.javascript.CollectionController.add(), 
+                controllers.routes.javascript.CollectionController.submit(),
+                controllers.routes.javascript.CollectionController.form(),
+                controllers.routes.javascript.CollectionController.collectionForm(),
                 
                 // Routes for Items
             	controllers.routes.javascript.ItemController.form(),
