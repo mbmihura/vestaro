@@ -1,50 +1,62 @@
 <h1>Buyer's Home Template</h1>
 
 <!-- FILTERS -->
-<input type="text" ng-model="search" class="search-query" placeholder="Search">
+<input type="search" ng-model="search.title" class="search-query" placeholder="Search">
 <input type="text" ng-model="order" class="search-query" placeholder="Order">
+<p>Precio entre:</p>
+<input type="number" ng-model="minPrice" placeholder="Precio mínimo...">
+<input type="number" ng-model="maxPrice" placeholder="Precio máximo...">
 
-<!-- ITEMS CONTAINER -->
 <div class="row">
-	<div class="col-md-10">
-		<ul id="itemsContainer" class="row">
-		  <li ng-repeat="item in items | filter:search | orderBy:order" class="thumbnail col-md-3" data-item-id={{item.id}} data-item-category={{item.category.name}}>
-			  <img src={{item.imgUrl}} alt={{item.title}}>
-			  <div class="itemInformation">
-			 	<h2 class='title'>{{item.title}}</h2>
-			 	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span>
-			 	<p class='price'>${{item.price}}</p>
-			 	<div class='itemControls btn-group'>
-				  	<button ng-click='showBuyModal(item)' type='button' class='buy-btn btn btn-primary'>Comprar</button>
-				  	<button ng-click='addToWishlist(item)' type='button' class='wishlist-btn btn btn-default'>Wishlist</button>
+	<!-- ITEMS CONTAINER -->
+	<div class="col-md-9">
+		<li ng-repeat="item in items | filter:search | orderBy:order"
+			class="item-container col-md-3 thumbnail">
+			<!-- TODO: extract style to main.css -->
+			<h3 class="item-title">{{item.title}}</h3>
+			<div class="item-main">
+				<div class="item-actions" style="position: absolute; z-index: 1; right: 0px;">
+					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px;">
+						<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+						<li><a href="#">Like</a></li>
+					</ol>
 				</div>
-			  </div>
-		  </li>
-		</ul>
+				<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.description}}">
+			</div>
+			<div class="item-details">
+				<div class="btn-group">
+					<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
+					<button type="button" class="btn btn-primary">Comprar</button>
+				</div>
+			</div>
+		</li>
 	</div>
 </div>
 
 <!-- BUY MODAL -->
 <div id="buyModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
+	<div class="modal-dialog">
+		<div class="modal-content">
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myModalLabel">Comprar Prenda</h4>
-      </div>
-      <div class="modal-body">
-        <h2 class='title'>{{item.title}}</h2>
-        <img src={{item.imgUrl}} alt={{item.title}}>
-	 	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span>
-	 	<p class='price'>${{item.price}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Comprar</button>
-      </div>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Comprar Prenda</h4>
+			</div>
+			<div class="modal-body">
+				<h2 class='title'>{{item.title}}</h2>
+				<img src={{item.imgUrl}} alt={{item.title}}>
+				<h3 class='description'>{{item.description}}</h3>
+				<span class='sellerName'>{{item.seller.name}}</span>
+				<p class='price'>${{item.price}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Comprar</button>
+			</div>
 
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
 </div>
 

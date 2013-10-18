@@ -28,6 +28,18 @@ vestaroMain.config(function($routeProvider) {
     
 }]);
 
+vestaroMain.filter('priceBetween', function () {
+    return function ( items, minPrice, maxPrice ) {
+        var filteredItems = [];
+        angular.forEach(items, function ( item ) {
+            if ( item.price >= minPrice && item.price <= maxPrice ) {
+                filteredItems.push(item);
+            }
+        });
+        return filteredItems;
+    }
+});
+
 function BuyerHomeCtrl($scope, $http) {
   $http.get('/items').success(function(data){
 	  $scope.items = data;
@@ -35,22 +47,22 @@ function BuyerHomeCtrl($scope, $http) {
   
   $scope.container = $('#itemsContainer');
   
-  $scope.container.imagesLoaded( function(){
-	  $scope.container.isotope({
-		itemSelector: '.item',
-		getSortData : {
-	        type : function( $elem ) {
-	          return $elem.attr('data-type');
-	        },
-	        price : function( $elem ) {
-	          return parseFloat( $elem.find('.price').text().replace('$','') );
-	        },
-	        title : function ( $elem ) {
-	          return $elem.find('.title').text();
-	        }
-	    }
-	  });
-   });
+//  $scope.container.imagesLoaded( function(){
+//	  $scope.container.isotope({
+//		itemSelector: '.item',
+//		getSortData : {
+//	        type : function( $elem ) {
+//	          return $elem.attr('data-type');
+//	        },
+//	        price : function( $elem ) {
+//	          return parseFloat( $elem.find('.price').text().replace('$','') );
+//	        },
+//	        title : function ( $elem ) {
+//	          return $elem.find('.title').text();
+//	        }
+//	    }
+//	  });
+//   });
 }
 
 function ItemSearchCtrl($scope, $http) {

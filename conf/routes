@@ -24,7 +24,6 @@ GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType			con
 
 # Seller
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/items     		controllers.SellerController.listItems(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 
 
