@@ -52,6 +52,20 @@ vestaroMain.filter('priceBetween', function () {
     };
 })
 
+/* Directives */
+vestaroMain.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    scope.$emit(attr.onFinishRender);
+                });
+            }
+        }
+    }
+})
+
 /* Data Factory */
 vestaroMain.factory('Items', function($http) {
 	var Items = {};
@@ -74,37 +88,43 @@ function BuyerHomeCtrl($scope, $http) {
 	  $scope.popularItems = data;
   });
   
-//  $scope.$on('$viewContentLoaded', function(){
-//	var $container = $('#itemsContainer');
-//	var options = {
-//		itemSelector : '.item',
-//		getSortData : {
-//			type : function($elem) {
-//				return $elem.attr('data-type');
-//			},
-//			price : function($elem) {
-//				return parseFloat($elem.find('.price').text().replace('$', ''));
-//			},
-//			title : function($elem) {
-//				return $elem.find('.title').text();
-//			}
-//		}
-//	};
-//	$container.imagesLoaded( function(){
-//	  $container.isotope(options);
-//   });
-//  });
-  
-}
-
-var jqueryItemSearch = function(){
-	tooltipOptions = {animation: true,
-		placement: 'top',
-		delay: {show: 800, hide: 200}};
-	$('.has-tooltip').tooltip(tooltipOptions);
-	$('.item-container').on('mouseenter mouseleave', function(){
-		$(this).find('.item-actions').slideToggle();
+  $scope.$on('isotope', function(ngRepeatFinishedEvent) {
+	var $container = $('#itemsContainer');
+	var options = {
+		itemSelector : '.item',
+		getSortData : {
+			category : function($elem) {
+				return $elem.attr('data-category');
+			},
+			price : function($elem) {
+				return parseFloat($elem.find('.price').text().replace('$', ''));
+			},
+			title : function($elem) {
+				return $elem.find('.title').text();
+			}
+		}
+	};
+	$container.imagesLoaded(function() {
+		$container.isotope(options);
 	});
+	// Toggles item size
+	$container.on('click', '.item', function() {
+		if ($(this).hasClass('large')) {
+			$(this).removeClass('large');
+		} else {
+			$container.find('.item.large').removeClass('large');
+			$(this).addClass('large');
+		}
+		$container.isotope('reLayout');
+	});
+
+	// Toggles item information
+	$container.on('.item', 'mouseenter mouseleave', function(e) {
+		e.preventDefault();
+		$(this).find('.itemInformation').fadeToggle('fast');
+	});
+});
+  
 }
 
 function ItemSearchCtrl($scope, $http, Items) {
@@ -123,8 +143,6 @@ function ItemSearchCtrl($scope, $http, Items) {
   $scope.addToWishlist = function(item){
 	  console.log("TODO: Add to wishlist: " + item.title);
   }
-  
-  $scope.$on('$viewContentLoaded', jqueryItemSearch);
   
 }
  

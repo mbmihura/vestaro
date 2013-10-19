@@ -3,7 +3,7 @@
 	<h1 class="vestaro-logo" style="font-size: 120px">Vestaro</h1>
 	</div>
 	<div class="col-md-6">
-	<iframe class="thumbnail" width="320" height="180" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
+	<iframe width="320" height="180" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
 	</div>
 </div>
 
@@ -43,8 +43,8 @@
 	<h1 class="page-header">La mejor ropa. <small>Sabemos qué te gusta.</small></h1>
 	<div id="itemsContainer" class="items isotope row">
 		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
-			class="item camisa" data-item-id="{{item.id}}" data-category="camisa">
-			<img class="img-responsive item-img" src={{item.imgUrl}} alt={{item.title}}>
+			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope">
+			<img src="{{item.imgUrl}}" alt="{{item.title}}">
 			<div ng-show="actionsView" class="itemInformation">
 				<h2 class='title'>{{item.title}}</h2>
 				<h3 class='description'>{{item.description}}</h3>
@@ -57,7 +57,44 @@
 			</div>
 		</div>
 	</div>
+	
+<!-- 	<div id="itemsContainer" class="items isotope"> -->
+    
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg" alt="Officer"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg" alt="Tony"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg" alt="Kendra"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg" alt="Giraffe"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg" alt="Gavin"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg" alt="Anita"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg" alt="Take My Portrait"> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="item"> -->
+<!-- 		  <img src="http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg" alt="Wonder"> -->
+<!-- 		</div> -->
+	    
+<!-- 	</div> -->
 </div>
+ 
 
 <!-- Facebook Activity Plugin -->
 <div class="col-md-2">
@@ -122,7 +159,7 @@
 // 	});
 	
 // 	// Toggles item size
-// 	$container.delegate( '.item', 'click', function(){
+// 	$container.on('click', '.item', function(){
 // 		if($(this).hasClass('large')){
 // 			$(this).removeClass('large');
 // 		}
@@ -135,15 +172,10 @@
 // 	});
 	
 // 	// Toggles item information
-// 	$container.find('.item').bind({
-// 		mouseenter: function(e){
+// 	$container.on('.item', 'mouseenter mouseleave',
+// 		function(e){
 // 			e.preventDefault();
 // 			$(this).find('.itemInformation').fadeToggle('fast');
-// 		},
-// 		mouseleave: function(e){
-// 			e.preventDefault();
-// 			$(this).find('.itemInformation').fadeToggle('fast');
-// 		}
 // 	});
   
 // });
