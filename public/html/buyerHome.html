@@ -1,95 +1,45 @@
-<h1>Buyer Home</h1>
+<h1 class="page-header">La mejor ropa. <small>Sabemos qué te gusta.</small></h1>
+
 <div class='row'>
-<nav id='itemsControls nav nav-stacked' class='col-md-2'>
-	<div class="div-container">
-		<div class = "item-container">
-			<h3 class="item-title">Item</h3>
+
+<!-- Top Sold/Viewed Items -->
+<div class="col-md-2" >
+<div class="well" style="padding: 5px">
+	<label>Prendas populares</label>
+	<div ng-repeat="item in popularItems | limitTo:4"
+		class="item-container" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
+		<div class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
+			<!-- TODO: extract style to main.css -->
+			<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
+				<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+					<li class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+					<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+					<li class="has-tooltip action" title="Ver más" ng-click="showItemModal(item)"><span class="glyphicon glyphicon-zoom-in"></span></li>
+				</ol>
+			</div>
 			<div class="item-main">
-				<div class="item-actions">
-					<ol class="breadcrumb">
-					  <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-					  <li><a href="#">Library</a></li>
-					  <li class="active">Data</li>
-					</ol>
-				</div>
-				<img class="item-img" src="/public/img/pañuelo_rojo_floreado.jpg">
+				<h3 class="item-title">{{item.title}}</h3>
+				<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
 			</div>
 			<div class="item-details">
 				<div class="btn-group">
-				  <div class="btn btn-default" style="font-family: vivaldi;">$149.99</div>
-				  <button type="button" class="btn btn-primary">Comprar</button>
+					<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
+					<button type="button" class="btn btn-primary">Comprar</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div class="well sidebar-nav" style="font-size: 13px;">
-	
-  		<ul id="filters" class="option-set nav nav-list" data-option-key="filter"> <!--Filters by class-->
-  		<li class = "nav-header">Filtros (test)</li>
-			<li><a href="#filter" data-option-value="*" class="option selected active">Todos</a></li>
-			<li><a href="#filter" data-option-value=".camisa" class="option">Camisas</a></li>
-			<li><a href="#filter" data-option-value=".abrigo" class="option">Abrigos</a></li>
-			<li><a href="#filter" data-option-value=".pantalon" class="option">Pantalones</a></li>
-			<li><a href="#filter" data-option-value=".camisa, .pantalon" class="option">Pantalones y Camisas</a></li>
-			<li><a href="#filter" data-option-value=":not(.abrigo)" class="option">No Abrigos</a></li>
-		</ul>
-		
-		<ul class="nav nav-list">
-	    <li class="nav-header">Categorías</li>
-		    <li><a href="#">Remeras</a></li>
-		    <li><a href="#">Camisas</a></li>
-		    <li><a href="#">Camperas</a></li>
-		    <li><a href="#">Buzos</a></li>
-		    <li><a href="#">Pantalones</a></li>
-		</ul>
-		
-		<ul class="nav nav-list">
-	    <li class="nav-header">Marcas</li>
-		    <li><a href="#">Akiabara</a></li>
-		    <li><a href="#">Legacy</a></li>
-		    <li><a href="#">Nike</a></li>
-		    <li><a href="#">CH</a></li>
-		    <li><a href="#">Lacrosse</a></li>
-		</ul>
-		
-	</div><!-- well -->
-</nav>
-<!-- <nav id='itemsControls nav nav-stacked' class='col-xs-4 col-md-2'> -->
-<!-- 	<h3>Filters</h3> -->
+</div>
+</div>
 
-<!--     <ul id="filters" class="option-set btn-group-vertical" data-option-key="filter"> Filters by class -->
-<!--       <li class='btn btn-default'><a href="#filter" data-option-value="*" class="selected active">show all</a></li> -->
-<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".camisa">camisa</a></li> -->
-<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".abrigo">abrigo</a></li> -->
-<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".pantalon">pantalon</a></li> -->
-<!--       <li class='btn btn-default'><a href="#filter" data-option-value=".camisa, .pantalon">pantalon y camisa</a></li> -->
-<!--       <li class='btn btn-default'><a href="#filter" data-option-value=":not(.abrigo)">no abrigo</a></li> -->
-<!--     </ul> -->
-  
-<!--     <h3>Sort</h3> -->
-
-<!--     <ul id="sort-by" class="option-set btn-group-vertical" data-option-key="sortBy"> -->
-<!--       <li class='btn btn-default'><a href="#sortBy=original-order" data-option-value="original-order" class="selected" data="">original-order</a></li> -->
-<!--       <li class='btn btn-default'><a href="#sortBy=title" data-option-value="title">tÃ­tulo</a></li> -->
-<!--       <li class='btn btn-default'><a href="#sortBy=price" data-option-value="price">precio</a></li> -->
-<!--       <li class='btn btn-default'><a href="#sortBy=type" data-option-value="type">tipo</a></li> -->
-<!--       <li class='btn btn-default'><a href="#sortBy=random" data-option-value="random">random</a></li> -->
-<!--     </ul> -->
-
-<!--     <h3>Sort direction</h3> -->
-
-<!--     <ul id="sort-direction" class="option-set btn-group-vertical" data-option-key="sortAscending"> -->
-<!--       <li class='btn btn-default'><a href="#sortAscending=true" data-option-value="true" class="selected">sort ascending</a></li> -->
-<!--       <li class='btn btn-default'><a href="#sortAscending=false" data-option-value="false">sort descending</a></li> -->
-<!--     </ul> -->
-<!-- </nav> -->
-
-<div class="col-md-10">
-	<ul id="itemsContainer" class="items isotope row">
-		<li ng-repeat="item in items" class="item camisa" data-item-id="{{item.id}}" data-category="camisa">
-		<img src={{item.imgUrl}} alt={{item.title}}>
-			<div class="itemInformation">
+<!-- Recommended Items -->
+<div class="col-md-8">
+	<h1>Prendas recomendadas</h1>
+	<div id="itemsContainer" class="items isotope row">
+		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
+			class="item camisa" data-item-id="{{item.id}}" data-category="camisa">
+			<img class="img-responsive item-img" src={{item.imgUrl}} alt={{item.title}}>
+			<div ng-show="actionsView" class="itemInformation">
 				<h2 class='title'>{{item.title}}</h2>
 				<h3 class='description'>{{item.description}}</h3>
 				<span class='sellerName'>{{item.seller.name}}</span>
@@ -99,8 +49,15 @@
 					<button type='button' class='buy btn btn-default'>Wishlist</button>
 				</div>
 			</div>
-		</li>
-	</ul>
+		</div>
+	</div>
+</div>
+
+<!-- Facebook Activity Plugin -->
+<div class="col-md-2">
+<div class="well" style="padding: 5px">
+	<label>Tus amigos y Vestaro</label>
+</div>
 </div>
 
 </div>

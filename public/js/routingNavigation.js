@@ -28,6 +28,7 @@ vestaroMain.config(function($routeProvider) {
     
 }]);
 
+/* Filtros */
 vestaroMain.filter('priceBetween', function () {
 	return function ( items, minPrice, maxPrice ) {
 		var filteredItems = [];
@@ -38,54 +39,72 @@ vestaroMain.filter('priceBetween', function () {
         }
 		return filteredItems;
     }
-});
-
-vestaroMain.filter('inCategory', function(){
-    return function(items, title){
-        var filteredItems = [];
+}).filter('inCategory', function(){
+    return function(items, category){
+        if(category == 'Todas') return items;
+    	var filteredItems = [];
         for (var i=0; i<items.length; i++){
-            if (items[i].title.toLowerCase().search(title.toLowerCase()) != -1) {
+            if (items[i].title.toLowerCase().search(category.toLowerCase()) != -1) {
             	filteredItems.push(items[i]);
             }
         }
         return filteredItems;
     };
-});
+})
 
+/* Data Factory */
 vestaroMain.factory('Items', function($http) {
 	var Items = {};
     
-    Items.categories = [ {name: 'Camisa', sexo: 'Mujer'},
+    Items.categories = [ {name: 'Todas', sexo: 'Todos'},
+                         {name: 'Camisa', sexo: 'Mujer'},
 	                     {name: 'Buzo', sexo: 'Hombre'}];
-    
-    Items.categories.push({name: '', sexo: ''});
     
 	return Items;
 });
 
+/* Controllers */
 function BuyerHomeCtrl($scope, $http) {
   $http.get('/items').success(function(data){
 	  $scope.items = data;
   });
   
-  $scope.container = $('#itemsContainer');
+  //TODO: call to easyrec most viewed
+  $http.get('/items').success(function(data){
+	  $scope.popularItems = data;
+  });
   
-//  $scope.container.imagesLoaded( function(){
-//	  $scope.container.isotope({
-//		itemSelector: '.item',
+//  $scope.$on('$viewContentLoaded', function(){
+//	var $container = $('#itemsContainer');
+//	var options = {
+//		itemSelector : '.item',
 //		getSortData : {
-//	        type : function( $elem ) {
-//	          return $elem.attr('data-type');
-//	        },
-//	        price : function( $elem ) {
-//	          return parseFloat( $elem.find('.price').text().replace('$','') );
-//	        },
-//	        title : function ( $elem ) {
-//	          return $elem.find('.title').text();
-//	        }
-//	    }
-//	  });
+//			type : function($elem) {
+//				return $elem.attr('data-type');
+//			},
+//			price : function($elem) {
+//				return parseFloat($elem.find('.price').text().replace('$', ''));
+//			},
+//			title : function($elem) {
+//				return $elem.find('.title').text();
+//			}
+//		}
+//	};
+//	$container.imagesLoaded( function(){
+//	  $container.isotope(options);
 //   });
+//  });
+  
+}
+
+var jqueryItemSearch = function(){
+	tooltipOptions = {animation: true,
+		placement: 'top',
+		delay: {show: 800, hide: 200}};
+	$('.has-tooltip').tooltip(tooltipOptions);
+	$('.item-container').on('mouseenter mouseleave', function(){
+		$(this).find('.item-actions').slideToggle();
+	});
 }
 
 function ItemSearchCtrl($scope, $http, Items) {
@@ -96,15 +115,19 @@ function ItemSearchCtrl($scope, $http, Items) {
 	  $scope.items = data;
   });
   
-  $scope.showBuyModal = function(item){
-	  $('#buyModal').modal('show');
+  $scope.showItemModal = function(item){
 	  $scope.item = item;
+	  $('#itemModal').modal('show');
   }
   
   $scope.addToWishlist = function(item){
 	  console.log("TODO: Add to wishlist: " + item.title);
   }
+  
+  $scope.$on('$viewContentLoaded', jqueryItemSearch);
+  
 }
  
 function SellerDashboardCtrl($scope) {
+	
 }

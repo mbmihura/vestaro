@@ -74,15 +74,13 @@
 
 /* photo style */
 .items .item {
-width: 250px;
-margin: 5px;
+margin: 2px;
 float: left;
-list-style:none;
+width: 30%;
+position: relative;
 }
 
-.items .item img {
-display: block;
-width: 100%;
+.items .item-img {
 -webkit-border-top-right-radius: 15px;
 -moz-border-radius-topright: 15px;
 border-top-right-radius: 15px;
@@ -95,11 +93,12 @@ background-color: #FFF;
 opacity: .8;
 margin: 5px;
 padding: 5px;
-display: none;
+/* display: none; */
+position: absolute;
 -webkit-border-top-left-radius: 10px;
 -moz-border-radius-topleft: 10px;
 border-top-left-radius: 10px;
-width: 100%;
+width: 95%;
 z-index: 3;
 }
 
@@ -116,4 +115,8 @@ width: 400px;
 -webkit-border-top-right-radius: 30px;
 -moz-border-radius-topright: 30px;
 border-top-right-radius: 30px;
+}
+
+.action {
+	cursor: pointer;
 }
