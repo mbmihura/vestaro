@@ -88,7 +88,11 @@ function BuyerHomeCtrl($scope, $http) {
 	  $scope.popularItems = data;
   });
   
-  $scope.$on('isotope', function(ngRepeatFinishedEvent) {
+  $scope.$on('isotope', isotopeHandling);
+  
+}
+
+var isotopeHandling = function(ngRepeatFinishedEvent) {
 	var $container = $('#itemsContainer');
 	var options = {
 		itemSelector : '.item',
@@ -104,9 +108,44 @@ function BuyerHomeCtrl($scope, $http) {
 			}
 		}
 	};
+	
+	// Wait until all images are loaded
 	$container.imagesLoaded(function() {
 		$container.isotope(options);
 	});
+	
+	var $optionSets = $('#itemsControls .option-set'),
+	$optionLinks = $optionSets.find('.option');
+	
+	// Filters and ordering
+	$optionLinks.click(function(){
+		var $this = $(this);
+		// don't proceed if already selected
+		if ( $this.hasClass('selected') ) {
+		  return false;
+		}
+		var $optionSet = $this.parents('.option-set');
+		$optionSet.find('.selected').removeClass('selected').removeClass('active');
+		$this.addClass('selected').addClass('active');
+		
+		// make option object dynamically, i.e. { filter: '.my-filter-class' }
+		var options = {},
+		    key = $optionSet.attr('data-option-key'),
+		    value = $this.attr('data-option-value');
+		// parse 'false' as false boolean
+		value = value === 'false' ? false : value;
+		options[ key ] = value;
+		if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
+		  // changes in layout modes need extra logic
+		  changeLayoutMode( $this, options )
+		} else {
+		  // otherwise, apply new options
+		  $container.isotope( options );
+		}
+		
+		return false;
+	});
+	
 	// Toggles item size
 	$container.on('click', '.item', function() {
 		if ($(this).hasClass('large')) {
@@ -123,8 +162,6 @@ function BuyerHomeCtrl($scope, $http) {
 		e.preventDefault();
 		$(this).find('.itemInformation').fadeToggle('fast');
 	});
-});
-  
 }
 
 function ItemSearchCtrl($scope, $http, Items) {
