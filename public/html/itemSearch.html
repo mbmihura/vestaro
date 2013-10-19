@@ -1,35 +1,57 @@
 <h1>Buyer's Home Template</h1>
 
-<!-- FILTERS -->
-<input type="search" ng-model="search.title" class="search-query" placeholder="Search">
-<input type="text" ng-model="order" class="search-query" placeholder="Order">
-<p>Precio entre:</p>
-<input type="number" ng-model="minPrice" placeholder="Precio mínimo...">
-<input type="number" ng-model="maxPrice" placeholder="Precio máximo...">
-
 <div class="row">
+	<!-- FILTERS -->
+	<div class="col-md-3">
+		<div class="well">
+			
+			<div class="form-group">
+				<label>Filtrar</label>
+				<input type="search" ng-model="search.title" class="form-control" placeholder="Search">
+				<input type="text" ng-model="order" class="form-control" placeholder="Order">
+			</div>
+			
+			<div class="form-group">
+				<label>Precio entre:</label>
+				<input type="number" ng-model="minPrice" class="form-control" placeholder="Precio mínimo...">
+				<input type="number" ng-model="maxPrice" class="form-control" placeholder="Precio máximo...">
+			</div>
+			
+			<select ng-model="category" ng-init="category = ''" ng-options="c.name for c in categories"></select>
+			
+			<div class="form-inline">
+			<div class="form-group">
+				<label for="numItems">Cantidad de items:</label>
+				<input id="numItems" type="number" ng-model="numItems" ng-init="numItems = 20" class="form-control">
+			</div>
+			</div>
+			
+		</div>
+	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-9">
-		<li ng-repeat="item in items | filter:search | orderBy:order"
-			class="item-container col-md-3 thumbnail">
-			<!-- TODO: extract style to main.css -->
-			<h3 class="item-title">{{item.title}}</h3>
-			<div class="item-main">
-				<div class="item-actions" style="position: absolute; z-index: 1; right: 0px;">
-					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px;">
-						<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-						<li><a href="#">Like</a></li>
+		<div ng-repeat="item in items | filter:search | orderBy:order | inCategory:category | limitTo:numItems"
+			class="item-container col-md-3">
+			<div class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
+				<!-- TODO: extract style to main.css -->
+				<div class="item-actions" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9;">
+					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+						<li><a href="#" class="has-tooltip" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></a></li>
+						<li><a href="#" class="has-tooltip" title="Compartir en Facebook">Like</a></li>
 					</ol>
 				</div>
-				<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.description}}">
-			</div>
-			<div class="item-details">
-				<div class="btn-group">
-					<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
-					<button type="button" class="btn btn-primary">Comprar</button>
+				<div class="item-main">
+					<h3 class="item-title">{{item.title}}</h3>
+					<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
+				</div>
+				<div class="item-details">
+					<div class="btn-group">
+						<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
+						<button type="button" class="btn btn-primary">Comprar</button>
+					</div>
 				</div>
 			</div>
-		</li>
+		</div>
 	</div>
 </div>
 
@@ -60,3 +82,9 @@
 	<!-- /.modal-dialog -->
 </div>
 
+<script>
+tooltipOptions = {animation: true,
+	placement: 'top',
+	delay: {show: 800, hide: 200}};
+$('.has-tooltip').tooltip(tooltipOptions);
+</script>

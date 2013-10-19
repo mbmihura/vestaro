@@ -29,15 +29,38 @@ vestaroMain.config(function($routeProvider) {
 }]);
 
 vestaroMain.filter('priceBetween', function () {
-    return function ( items, minPrice, maxPrice ) {
-        var filteredItems = [];
-        angular.forEach(items, function ( item ) {
-            if ( item.price >= minPrice && item.price <= maxPrice ) {
+	return function ( items, minPrice, maxPrice ) {
+		var filteredItems = [];
+		for (var i=0; i<items.length; i++){
+            if ( items[i].price >= minPrice && items[0].price <= maxPrice ) {
                 filteredItems.push(item);
             }
-        });
-        return filteredItems;
+        }
+		return filteredItems;
     }
+});
+
+vestaroMain.filter('inCategory', function(){
+    return function(items, title){
+        var filteredItems = [];
+        for (var i=0; i<items.length; i++){
+            if (items[i].title.toLowerCase().search(title.toLowerCase()) != -1) {
+            	filteredItems.push(items[i]);
+            }
+        }
+        return filteredItems;
+    };
+});
+
+vestaroMain.factory('Items', function($http) {
+	var Items = {};
+    
+    Items.categories = [ {name: 'Camisa', sexo: 'Mujer'},
+	                     {name: 'Buzo', sexo: 'Hombre'}];
+    
+    Items.categories.push({name: '', sexo: ''});
+    
+	return Items;
 });
 
 function BuyerHomeCtrl($scope, $http) {
@@ -65,8 +88,11 @@ function BuyerHomeCtrl($scope, $http) {
 //   });
 }
 
-function ItemSearchCtrl($scope, $http) {
-  $http.get('/items').success(function(data){
+function ItemSearchCtrl($scope, $http, Items) {
+  
+  $scope.categories = Items.categories;
+  
+  $http.get('/items').success(function(data) {
 	  $scope.items = data;
   });
   
