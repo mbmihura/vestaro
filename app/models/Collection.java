@@ -35,11 +35,24 @@ public class Collection extends Model {
                 .findList();
     }
     
+    public static List<Collection> findCollectionsById(Long collectionId){
+        return Collection.find.where()
+                .eq("id", collectionId)
+                .findList();
+    }
+    
     public static Collection submit(Collection collection) {
     	if(collection.seller == null){
     		collection.seller = Seller.find.byId((long)1);
     	}
+    	
+    	collection.id = Long.parseLong(((Integer) (findCollectionsOwnedBy(1L).size() + 1)).toString());
     	collection.save();
+    	return collection;
+    }
+    
+    public static Collection update(Collection collection) {
+    	collection.update();
     	return collection;
     }
 }

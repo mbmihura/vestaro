@@ -2,7 +2,7 @@
 	<div class="well container-fluid">
 		<h1>Mis Colecciones</h1>
 		<p>Administración de álbums</p>
-		<p><a href='#' style='float: right;' class='btn btn-primary'>Crear nuevo álbum</a></p>
+		<p><a href='#create' data-toggle='modal' style='float: right; font-size: 25px;' class='col-md-3 btn btn-primary'>Crear nuevo álbum</a></p>
 		<br>
 		<br>
 	</div>
@@ -21,6 +21,22 @@
 		</ul>
 	</div>
   
+  	<div style="width: 500px; height: 465px; margin-top: 100px; margin-left: 450px;" class="modal fade well container-fluid" id="create">
+		<div class="row-fluid">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">&times;</a>
+			    <h3>Crear Álbum</h3>
+			</div>
+			<div class="modal-body">
+				<iframe id="create_collection" style="width: 400px; height: 175px;" src="collection"></iframe>
+			</div>
+			<div class="modal-footer">
+			    <a id="confirmCreate" type="submit" class="btn btn-primary" data-dismiss="modal">Crear</a>
+			    <a class="btn" data-dismiss="modal">Cancelar</a>
+			</div>
+		</div>
+	</div>
+  	
 	<div style="width: 500px; height: 320px; margin-top: 150px; margin-left: 450px;" class="modal fade well container-fluid" id="delete">
 		<div class="row-fluid">
 			<div class="modal-header">
@@ -45,10 +61,10 @@
 			    <h3>Editar Álbum</h3>
 			</div>
 			<div class="modal-body">
-				<iframe style="width: 400px; height: 200px;" src="collection"></iframe>
+				<iframe id="iframe_edit" style="width: 400px; height: 175px;" src="collection"></iframe>
 			</div>
 			<div class="modal-footer">
-			    <a id="confirmUpdate" class="btn btn-primary" data-dismiss="modal">Guardar cambios</a>
+			    <a id="confirmUpdate" type="update" class="btn btn-primary" data-dismiss="modal">Guardar cambios</a>
 			    <a class="btn" data-dismiss="modal">Cancelar</a>
 			</div>
 		</div>

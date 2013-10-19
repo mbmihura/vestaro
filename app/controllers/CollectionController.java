@@ -48,10 +48,17 @@ public class CollectionController extends Controller {
     }
 
     public static Result update(Long collectionId) {
-    	return TODO;
+    	Form<Collection> collectionFilledForm = formCollection.bindFromRequest();
+    	if(collectionFilledForm.hasErrors()) {
+            return badRequest(form.render(collectionFilledForm));
+        } else {
+            return ok(
+                collection.render(Collection.update(collectionFilledForm.get()))
+            );
+        }
     }
     
-    public static Result delete(Long itemId) {
+    public static Result delete(Long collectionId) {
     	return TODO;
     }
 }
