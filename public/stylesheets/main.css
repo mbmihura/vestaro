@@ -9,6 +9,12 @@
     font-style: normal
 }
 
+.vestaro-logo {
+	font-family: 'vivaldi';
+	color: #2974B9;
+	letter-spacing: 3px;
+}
+
 /**** Isotope Filtering ****/
 
 .isotope-item {

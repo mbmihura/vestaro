@@ -1,7 +1,13 @@
-<h1 class="page-header">La mejor ropa. <small>Sabemos qué te gusta.</small></h1>
+<div class='row well'>
+	<div class="col-md-6">
+	<h1 class="vestaro-logo" style="font-size: 120px">Vestaro</h1>
+	</div>
+	<div class="col-md-6">
+	<iframe class="thumbnail" width="320" height="180" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
+	</div>
+</div>
 
 <div class='row'>
-
 <!-- Top Sold/Viewed Items -->
 <div class="col-md-2" >
 <div class="well" style="padding: 5px">
@@ -34,7 +40,7 @@
 
 <!-- Recommended Items -->
 <div class="col-md-8">
-	<h1>Prendas recomendadas</h1>
+	<h1 class="page-header">La mejor ropa. <small>Sabemos qué te gusta.</small></h1>
 	<div id="itemsContainer" class="items isotope row">
 		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
 			class="item camisa" data-item-id="{{item.id}}" data-category="camisa">
