@@ -1,16 +1,57 @@
-<div class='row well'>
-	<div class="col-md-6">
-	<h1 class="vestaro-logo" style="font-size: 120px">Vestaro</h1>
+<div class="well">
+<div class="row">
+	<div class="page-header" style="text-align: center; margin-top:-20px;">
+		<h1 class="vestaro-logo" style="font-size: 120px">Vestaro</h1>
+		<button type="button" class="btn btn-primary" ng-init="knowMore = false" ng-click="knowMore = (knowMore == false)">Conocer más!</button>
 	</div>
+	<div ng-show="knowMore">
 	<div class="col-md-6">
-	<iframe width="320" height="180" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
+	<div class="video-container"><iframe width="320" height="160" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></div>
 	</div>
+		<div class="col-md-6">
+		<div class="panel panel-info" style="border-color: #2974B9">
+	        <div class="panel-heading" style="background-color: #2974B9; color: white;">
+	          <h3 class="panel-title">¿Por qué elegir Vestaro?</h3>
+	        </div>
+			<div class="panel-body">
+				<div class="media">
+					<a class="pull-left" href="#" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+						src="/assets/img/vestaro/facebook.jpg"
+						style="width: 60px; height: 60px;">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">Accedé con Facebook.</h4>
+					</div>
+				</div>
+				<div class="media">
+					<a class="pull-left" href="#recommendation" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+						src="/assets/img/vestaro/gustos.jpg"
+						style="width: 50px; height: 64px;">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">Recomendaciones adaptadas a <strong>tus</strong> gustos.</h4>
+					</div>
+				</div>
+				<div class="media">
+					<a class="pull-left" href="#" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+						src="/assets/img/vestaro/puntos.jpg"
+						style="width: 64px; height: 64px;">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">Acumulá puntos!</h4>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
 </div>
 
 <div class='row'>
 <!-- Top Sold/Viewed Items -->
 <div class="col-md-2" >
-<div class="well" style="padding: 5px">
+<div id="recommendation" class="well" style="padding: 5px">
 	<label>Prendas populares</label>
 	<div ng-repeat="item in popularItems | limitTo:4"
 		class="item-container" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
@@ -68,79 +109,3 @@
 </div>
 
 </div>
-
-<!-- <script> -->
-// $(document).ready(function(){
-  
-//   var $container = $('#itemsContainer');
-  
-//   $container.imagesLoaded( function(){
-// 	  $container.isotope({
-// 		itemSelector: '.item',
-// 		getSortData : {
-// 	        type : function( $elem ) {
-// 	          return $elem.attr('data-type');
-// 	        },
-// 	        price : function( $elem ) {
-// 	          return parseFloat( $elem.find('.price').text().replace('$','') );
-// 	        },
-// 	        title : function ( $elem ) {
-// 	          return $elem.find('.title').text();
-// 	        }
-// 	    }
-// 	  });
-//    });
-  
-// 	var $optionSets = $('#itemsControls .option-set'),
-// 		$optionLinks = $optionSets.find('.option');
-
-// 	$optionLinks.click(function(){
-// 		var $this = $(this);
-// 		// don't proceed if already selected
-// 		if ( $this.hasClass('selected') ) {
-// 		  return false;
-// 		}
-// 		var $optionSet = $this.parents('.option-set');
-// 		$optionSet.find('.selected').removeClass('selected').removeClass('active');
-// 		$this.addClass('selected').addClass('active');
-		
-// 		// make option object dynamically, i.e. { filter: '.my-filter-class' }
-// 		var options = {},
-// 		    key = $optionSet.attr('data-option-key'),
-// 		    value = $this.attr('data-option-value');
-// 		// parse 'false' as false boolean
-// 		value = value === 'false' ? false : value;
-// 		options[ key ] = value;
-// 		if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
-// 		  // changes in layout modes need extra logic
-// 		  changeLayoutMode( $this, options )
-// 		} else {
-// 		  // otherwise, apply new options
-// 		  $container.isotope( options );
-// 		}
-		
-// 		return false;
-// 	});
-	
-// 	// Toggles item size
-// 	$container.on('click', '.item', function(){
-// 		if($(this).hasClass('large')){
-// 			$(this).removeClass('large');
-// 		}
-// 		else
-// 		{
-// 			$container.find('.item.large').removeClass('large');
-// 			$(this).addClass('large');
-// 		}
-// 		$container.isotope('reLayout');
-// 	});
-	
-// 	// Toggles item information
-// 	$container.on('.item', 'mouseenter mouseleave',
-// 		function(e){
-// 			e.preventDefault();
-// 			$(this).find('.itemInformation').fadeToggle('fast');
-// 	});
-  
-// });
-<!-- </script> -->
