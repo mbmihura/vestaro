@@ -6,6 +6,7 @@ vestaroMain.config(function($routeProvider) {
 	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyerHome.html'}).
 	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/itemSearch.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/sellerDashboard.html'}).
+	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/wishlist.html'}).
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
@@ -67,24 +68,32 @@ vestaroMain.directive('onFinishRender', function ($timeout) {
 })
 
 /* Data Factory */
-vestaroMain.factory('Items', function($http) {
-	var Items = {};
-    
-    Items.categories = [ {name: 'Todas', sexo: 'Todos'},
-                         {name: 'Camisa', sexo: 'Mujer'},
-	                     {name: 'Buzo', sexo: 'Hombre'}];
-    
-	return Items;
+vestaroMain.factory('buyerSession', function($http){
+    return {
+        getWishlist: function() {
+            return $http.get('/wishlist');
+        },
+        getItems: function() {
+        	return $http.get('/items');
+        },
+        getPopularItems: function() {
+        	return $http.get('/items');
+        },
+        getCategories: function() {
+        	return [ {name: 'Todas', sexo: 'Todos'},
+                     {name: 'Camisa', sexo: 'Mujer'},
+                     {name: 'Buzo', sexo: 'Hombre'}];
+        }
+    };
 });
 
 /* Controllers */
-function BuyerHomeCtrl($scope, $http) {
-  $http.get('/items').success(function(data){
+function BuyerHomeCtrl($scope, buyerSession) {
+  buyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
   
-  //TODO: call to easyrec most viewed
-  $http.get('/items').success(function(data){
+  buyerSession.getPopularItems().success(function(data){
 	  $scope.popularItems = data;
   });
   
@@ -162,13 +171,14 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 		e.preventDefault();
 		$(this).find('.itemInformation').fadeToggle('fast');
 	});
+	
 }
 
-function ItemSearchCtrl($scope, $http, Items) {
+function ItemSearchCtrl($scope, buyerSession) {
   
-  $scope.categories = Items.categories;
+  $scope.categories = buyerSession.getCategories();
   
-  $http.get('/items').success(function(data) {
+  buyerSession.getItems().success(function(data) {
 	  $scope.items = data;
   });
   
@@ -181,6 +191,10 @@ function ItemSearchCtrl($scope, $http, Items) {
 	  console.log("TODO: Add to wishlist: " + item.title);
   }
   
+}
+
+function WishlistCtrl($scope) {
+	
 }
  
 function SellerDashboardCtrl($scope) {

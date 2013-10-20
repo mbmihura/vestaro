@@ -33,6 +33,7 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 # Search
 
 # Wishlist
+#GET		/wishlist							controllers.WishlistController.userWishlistItems()
 
 # Buyer Profile
 

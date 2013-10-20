@@ -53,7 +53,7 @@ items:
         id:           CN1
         title:        Camisa Negra
         description:  Camisa Negra Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_a_cuadros_blanca.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_a_cuadros_blanca.jpg
         price:        200
         sex:        m
         seller:        !!models.Seller
@@ -64,7 +64,7 @@ items:
         id:           CB1
         title:        Camisa Blanca
         description:  Camisa Blanca Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_lisa_blanca.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_lisa_blanca.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -75,7 +75,7 @@ items:
         id:           CG1
         title:        Camisa Gris
         description:  Camisa Gris Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_lisa_gris.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_lisa_gris.jpg
         price:        150
         sex:        m
         seller:        !!models.Seller
@@ -86,7 +86,7 @@ items:
         id:           CB2
         title:        Camisa Azul y Blanca
         description:  Camisa Azul y Blanca a cuadros Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_a_cuadros_azul.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_a_cuadros_azul.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -97,9 +97,9 @@ items:
         id:           CN2
         title:        Camisa Negra
         description:  Camisa Negra Manga Corta de Seda
-        imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_blanca_beso_mujer.jpg
         price:        120
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
@@ -109,9 +109,9 @@ items:
         id:           RN3
         title:        Remera Negra
         description:  Remera Negra Manga Larga de Seda
-        imgUrl:       http://www.remerasya.com/Resource/fotos%5CRemera%20Negra%20Manga%20Larga.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_leopardo_mujer.jpg
         price:        70
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
@@ -121,9 +121,9 @@ items:
         id:           BN4
         title:        Buzo Negro
         description:  Buzo Negro Manga Larga
-        imgUrl:       http://www.fademy.com.ar/imagenes/Modelos%20de%20Ropa/Buzo/Buzo%20negro%20espalda.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/campera_abrigo_rosa.jpg
         price:        240
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
@@ -133,7 +133,7 @@ items:
         id:           BB4
         title:        Buzo Blanco
         description:  Buzo Blanco Manga Larga
-        imgUrl:       http://www.impresosmar.com.ar/imagenes/productos/502_K001.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/capri_yoga_negro.jpg
         price:        300
         sex:        m
         seller:        !!models.Seller
@@ -145,9 +145,9 @@ items:
         id:           BA4
         title:        Buzo Azul
         description:  Buzo Azul Manga Larga
-        imgUrl:       http://www.1-uniformes.com.ar/images/Canguro%20verde.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/paniuelo_rojo_floreado.jpg
         price:        310
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
@@ -157,9 +157,9 @@ items:
         id:           BV4
         title:        Buzo Verde 
         description:  Buzo Verde Manga Larga
-        imgUrl:       http://www.1-uniformes.com.ar/images/Canguro%20verde.jpg
+        imgUrl:       http://localhost:9000/assets/img/items/gorro_lana_rojo.jpg
         price:        250
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
