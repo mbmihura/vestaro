@@ -1,7 +1,6 @@
 package models;
 
 import java.sql.Timestamp;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
-import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
@@ -42,7 +40,7 @@ public class WishlistItem extends Model {
     public static List<WishlistItem> findItemsOwnedBy(Long userId){
         return WishlistItem.find
         		.where()
-                	.eq("owner.id", userId)
+                	.eq("owner.userId", userId)
                 .findList();
     }
     
