@@ -23,7 +23,7 @@ public class DashboardController extends BaseController {
         
     public static Result biggestCollections(Long sellerId){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
-    	List<CollectionItems> items = new ArrayList<>();
+    	List<CollectionItems> items = new ArrayList<CollectionItems>();
     	
 		for(Collection collection : collections){
 			CollectionItems colItems = new CollectionItems(collection);
