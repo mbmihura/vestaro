@@ -5,6 +5,7 @@ import java.util.List;
 
 import models.Collection;
 import models.CollectionItems;
+import models.Item;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -24,6 +25,10 @@ public class CollectionController extends Controller {
 	public static Result form() {
         return ok(form.render(formCollection));
     }
+	
+	public static Result getItemsFromColection(Long collectionId){
+		return ok(Json.toJson(Item.findItemsFromCollection(collectionId)));
+	}
 	
 	public static Result getCollections(Long sellerId){
 		List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);

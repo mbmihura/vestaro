@@ -26,10 +26,10 @@ $(document).ready(function(){
 					$("#albums").append(
 							"<div id='" +
 							json[i].id +
-							"' class='album col-sm-6 col-md-4' style='margin-top: 30px;'>" +
+							"' class='col-sm-6 col-md-4' style='margin-top: 30px;'>" +
 							"<div class='thumbnail'>" +
 							getAlbumImages(json[i]) +
-							"<div class='caption'>" +
+							"<div title='Haz click para ver su contenido' href='#collectionItems' data-toggle='modal' class='album caption' style='cursor: pointer;'>" +
 							"<h3 class='title'>" +
 							json[i].title +
 							"</h3>" +
@@ -38,9 +38,9 @@ $(document).ready(function(){
 							"</p>" +
 							"<br>" +
 							"<br>" +
+							"</div>" +
 							"<p><a href='#edit' data-toggle='modal' class='btn btn-primary button_edit'>Editar</a>" +
 							"<a class='btn btn-default button_delete' href='#delete' data-toggle='modal' style='float: right;'>Eliminar</a></p>" +
-							"</div>" +
 							"</div>" +
 							"</div>"
 							);
@@ -56,6 +56,44 @@ $(document).ready(function(){
 						$("#iframe_edit").contents().find("#title").val($(this).parent().parent().find('.title').text());
 						$("#iframe_edit").contents().find("#description").text($(this).parent().parent().find('.description').text());
 					});
+					
+					$(".album").click(function(){
+						jsRoutes.controllers.CollectionController.getItemsFromColection($(this).parent().parent().val()).ajax({success:
+							function(json)
+							{
+								$("#items").children().remove();
+								
+								if(json.length == 0){
+									$("#items").append(
+											"<div class='media'>" +
+											"<h4 class='media-heading'>" +
+											"Este álbum no contiene ninguna prenda." +
+											"</h4>" +
+											"</div>"
+											);
+								}
+								else{
+									for (var i = 0; i < json.length; i++) {
+										$("#items").append(
+												"<div class='media'>" +
+												"<a class='pull-left' href='#'>" +
+												"<img style='width:80px; height:80px;' class='media-object' src='" +
+												json[i].imgUrl +
+												"' alt='...'>" +
+												"</a>" +
+												"<div class='media-body'>" +
+												"<h4 class='media-heading'>" +
+												json[i].title +
+												"</h4>" +
+												json[i].description +
+												"</div>" +
+												"</div>"
+												);
+									}
+								}
+							}
+						});
+					});
 				}
 			}
 		});
@@ -69,7 +107,6 @@ $(document).ready(function(){
 				$(this).remove();
 			}
 		});
-		//listAlbums();
 	});
 	
 	$('#confirmCreate').click(function(){
