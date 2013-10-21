@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.List;
-
 import models.Item;
 import models.WishlistItem;
 import play.data.DynamicForm;
@@ -21,7 +19,7 @@ public class WishlistController extends BaseController {
 			String itemId = data.get("itemId");
 			// Checks if item is already in wishlist.
 			WishlistItem wishItem = WishlistItem.find.where()
-					.eq("owner.userId", currentUser())
+					.eq("owner.userId", currentUserId())
 					.eq("item.id", itemId).findUnique();
 			// Cannot have duplicates.
 			if(wishItem != null) return badRequest();

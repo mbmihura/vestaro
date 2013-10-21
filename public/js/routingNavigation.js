@@ -83,9 +83,9 @@ vestaroMain.factory('buyerSession', function($http){
         	return [ {name: 'Todas', sexo: 'Todos'},
                      {name: 'Camisa', sexo: 'Mujer'},
                      {name: 'Buzo', sexo: 'Hombre'}];
-        },
-        addToWishlist: function(itemId) {
-        	return $http.post('/wishlist', {itemId: itemId});
+//        },
+//        addToWishlist: function(itemId) {
+//        	return $http.post('/wishlist', {itemId: itemId});
         }
     };
 });
@@ -202,9 +202,15 @@ function WishlistCtrl($scope, buyerSession, $http) {
 		$scope.wishlistItems = data;
 	});
 	
-//	$scope.addToWishlist = buyerSession.addToWishlist().success(function(data){
-//		console.log(data);
-//	});
+	$scope.addToWishlist = function($http, itemId){
+		$http({
+            url: '/wishlist',
+            method: "POST",
+            data: {itemId: itemId}
+        }).success(function(data){
+        	console.log(data)
+        })
+	}
 	
 }
  
