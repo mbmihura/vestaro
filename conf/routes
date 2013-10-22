@@ -59,9 +59,9 @@ GET     /reco	           					controllers.RecommendationEngine.recoExample()
 GET     /collections	       				controllers.CollectionController.collectionForm()
 GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
-POST	/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
-PUT		/collection/:collectionId			controllers.CollectionController.update(collectionId: Long)
-GET		/collection/:collectionId			controllers.CollectionController.getItemsFromColection(collectionId: Long)
+GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
+GET		/collection/:collectionId/:collectionTitle/:collectionDescription			controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
+GET		/collection/:collectionId/collections										controllers.CollectionController.getItemsFromColection(collectionId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)

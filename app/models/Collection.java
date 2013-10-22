@@ -29,6 +29,13 @@ public class Collection extends Model {
 
     public static Finder<Long,Collection> find = new Finder<Long,Collection>(Long.class,Collection.class);
     
+    public Collection(Long collectionId, String collectionTitle, String collectionDescription){
+		super();
+		this.id = collectionId;
+		this.title = collectionTitle;
+		this.description = collectionDescription;
+	}
+    
     public static List<Collection> findCollectionsOwnedBy(Long sellerId){
         return Collection.find.where()
                 .eq("seller.id", sellerId)
@@ -54,5 +61,11 @@ public class Collection extends Model {
     public static Collection update(Collection collection) {
     	collection.update();
     	return collection;
+    }
+    
+    public static Collection delete(Long collectionId) {
+    	Collection collection = findCollectionsById(collectionId).get(0);
+    	collection.delete();
+    	return new Collection(collectionId, null, null);
     }
 }

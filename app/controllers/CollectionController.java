@@ -52,18 +52,11 @@ public class CollectionController extends Controller {
         }
     }
 
-    public static Result update(Long collectionId) {
-    	Form<Collection> collectionFilledForm = formCollection.bindFromRequest();
-    	if(collectionFilledForm.hasErrors()) {
-            return badRequest(form.render(collectionFilledForm));
-        } else {
-            return ok(
-                collection.render(Collection.update(collectionFilledForm.get()))
-            );
-        }
+    public static Result update(Long collectionId, String collectionTitle, String collectionDescription) {
+        return ok(collection.render(Collection.update(new Collection(collectionId, collectionTitle, collectionDescription))));
     }
     
     public static Result delete(Long collectionId) {
-    	return TODO;
+    	return ok(collection.render(Collection.delete(collectionId)));
     }
 }
