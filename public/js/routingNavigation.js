@@ -6,10 +6,9 @@ vestaroMain.config(function($routeProvider) {
 	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyerHome.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/sellerDashboard.html'}).
     when('/garment', {controller: 'garmentDetailsCtrl', templateUrl:'assets/html/garmentDetails.html'}).
-
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 
-
+	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
 .controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
