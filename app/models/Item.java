@@ -72,6 +72,13 @@ public class Item extends Model {
                 .eq("collection.id", collectionId)
                 .findList();
     }
+    
+    public static List<Item> findItemsWithNoCollection(Long sellerId){
+    	return Item.find.where()
+    			.eq("seller.id", sellerId)
+                .isNull("collection.id")
+                .findList();
+    }
 
     public static boolean isOwner(String itemId, Long sellerId){
         return Item.find.where()
@@ -86,6 +93,11 @@ public class Item extends Model {
         return item;
     }
 
+    public static Item update(Item item) {
+    	item.update();
+    	return item;
+    }
+    
     public static Item submit(Item item) {
     	if(item.seller == null){
     		item.seller = Seller.find.byId((long)1);

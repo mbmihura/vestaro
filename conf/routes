@@ -61,7 +61,9 @@ GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
 GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
 GET		/collection/:collectionId/:collectionTitle/:collectionDescription			controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
-GET		/collection/:collectionId/collections										controllers.CollectionController.getItemsFromColection(collectionId: Long)
+GET		/collection/:collectionId/:itemId	controllers.CollectionController.updateItem(collectionId: Long, itemId: String)
+GET		/collection/:collectionId/collections										controllers.CollectionController.getItemsFromCollection(collectionId: Long)
+GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWithNoCollection(sellerId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)
