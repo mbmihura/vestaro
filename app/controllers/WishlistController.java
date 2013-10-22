@@ -6,13 +6,17 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
+import security.RestrictTo;
+import security.Roles;
 
 public class WishlistController extends BaseController {
 	
+	@RestrictTo(Roles.BUYER)
 	public static Result userWishlistItems() {
 		return ok(Json.toJson(WishlistItem.findItemsOwnedBy(currentUserId())));
 	}
 	
+	@RestrictTo(Roles.BUYER)
 	public static Result addItemToWishlist() {
 		try {
 			DynamicForm data = Form.form().bindFromRequest();
@@ -33,13 +37,11 @@ public class WishlistController extends BaseController {
 		}
 	}
 	
-	public static Result removeItemFromWishlist() {
-		try {
-			DynamicForm data = Form.form().bindFromRequest();
-			String itemId = data.get("itemId");
-			
+	@RestrictTo(Roles.BUYER)
+	public static Result removeItemFromWishlist(String itemId) {
+		try {	
 			WishlistItem wish = WishlistItem.find.where()
-					.eq("owner.userId", currentUser())
+					.eq("owner.userId", currentUserId())
 					.eq("item.id", itemId).findUnique();
 			wish.delete();
 			return ok(itemId + " removed from wishlist.");

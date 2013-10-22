@@ -1,6 +1,6 @@
 <h1 class="page-header">Wishlist. <small>Tus prendas favoritas.</small></h1>
 
-<div ng-repeat="wishItem in wishlistItems" ng-bind="wishItem.item.id"></div>
-
-<input type="text" ng-model="itemId">
-<button type="button" ng-click="addToWishlist(itemId)">Add</button>
+<div ng-repeat="wishItem in wishlistItems">
+{{wishItem.item.id}}
+<button type="button" ng-click="removeFromWishlist(wishItem, $index)">Remove</button>
+</div>

@@ -69,7 +69,7 @@ vestaroMain.directive('onFinishRender', function ($timeout) {
 
 /* Data Factory */
 vestaroMain.factory('buyerSession', function($http){
-    return {
+	return {
         getWishlist: function() {
             return $http.get('/wishlist');
         },
@@ -83,9 +83,12 @@ vestaroMain.factory('buyerSession', function($http){
         	return [ {name: 'Todas', sexo: 'Todos'},
                      {name: 'Camisa', sexo: 'Mujer'},
                      {name: 'Buzo', sexo: 'Hombre'}];
-//        },
-//        addToWishlist: function(itemId) {
-//        	return $http.post('/wishlist', {itemId: itemId});
+        },
+        addToWishlist: function(itemId) {
+        	return $http.post('/wishlist', {'itemId': itemId});
+        },
+        removeFromWishlist: function(itemId) {
+        	return $http.delete('/wishlist/' + itemId);
         }
     };
 });
@@ -191,29 +194,25 @@ function ItemSearchCtrl($scope, buyerSession) {
   }
   
   $scope.addToWishlist = function(item){
-	  console.log("TODO: Add to wishlist: " + item.title);
+	  buyerSession.addToWishlist(item.id).success(function(data){
+		  console.log(data);
+	  });
   }
   
 }
 
 function WishlistCtrl($scope, buyerSession, $http) {
-	
-	buyerSession.getWishlist().success(function(data){
+
+	buyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
 	
-	$scope.addToWishlist = function($http, itemId){
-		$http({
-            url: '/wishlist',
-            method: "POST",
-            data: {itemId: itemId}
-        }).success(function(data){
-        	console.log(data)
-        })
+	$scope.removeFromWishlist = function(wishItem, idx) {
+		buyerSession.removeFromWishlist(wishItem.item.id).success(function(data) {
+			console.log(data);
+			$scope.wishlistItems.splice(idx, 1);
+		});
 	}
-	
 }
  
-function SellerDashboardCtrl($scope) {
-	
-}
+function SellerDashboardCtrl($scope) {}

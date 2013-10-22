@@ -36,9 +36,9 @@
 				<!-- TODO: extract style to main.css -->
 				<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
-						<li class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li class="has-tooltip action" title="Ver más" ng-click="showItemModal(item)"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						<li ng-click="showItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
 				<div class="item-main">
