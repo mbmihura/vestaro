@@ -43,7 +43,9 @@ public class Global extends GlobalSettings {
                 
                 user = new User(100000262980862L,"testUserAlan", rol);
                 user.save();   
-                
+
+            	rol.add(Rol.findByName(Roles.SELLER));
+            	
                 user = new User(1335414847L,"testUserPablo", rol);
                 user.save();
             }

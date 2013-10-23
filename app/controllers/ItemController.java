@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Collection;
 import models.Item;
 import play.data.Form;
 import play.mvc.Result;
@@ -50,7 +51,7 @@ public class ItemController extends BaseController {
 
     public static Result updateItem(Long collectionId, String itemId) {
     	Item item = Item.find.byId(itemId);
-    	item.collection.id = collectionId;
+    	item.collection = Collection.findCollectionsById(collectionId).get(0);
         return ok(views.html.items.item.render(Item.update(item)));
     }
     

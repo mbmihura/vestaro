@@ -55,7 +55,7 @@ $(document).ready(function(){
 								);
 
 						$(".glyphicon-remove").click(function(){
-							$(this).parent().parent().parent().hide();
+							$(this).parent().parent().parent().remove();
 						});
 					}
 				}
@@ -143,7 +143,7 @@ $(document).ready(function(){
 								"<input class='checked' style='float: right;' type='checkbox'>" +
 								"<p class'title'>" +
 								json[i].title +
-								"</p" +
+								"</p>" +
 								"</h4>" +
 								"<p class'description'>" +
 								json[i].description +
@@ -170,10 +170,9 @@ $(document).ready(function(){
 //			}
 //		});
 	});
-	
+		
 	$('#confirmCreate').click(function(){
 		$("#create_collection").contents().find("#button_create").click();
-		//$("#albums").append(newAlbum(json[i]));
 	});
 	
 	$('#confirmUpdate').click(function(){
@@ -214,14 +213,11 @@ $(document).ready(function(){
 		$("#button_cancel_items").hide();
 		
 		$("#items").children().each(function() {
-			if($(this).children('.checked').is(':checked')){
-				jsRoutes.controllers.CollectionController.updateItem(
-																$('#collectionItems').val(),
-																$(this).val(),
-																$(this).children('.title').val(),
-																$(this).children('.description').val()
-														  ).ajax();
-			}
+			$('input[type=checkbox]').each(function () {
+			    if(this.checked){
+			    	jsRoutes.controllers.ItemController.updateItem($('#collectionItems').val(), $(this).parent().parent().parent().val()).ajax();
+			    }
+			});
 		});
 		
 		$("#items").children().remove();
