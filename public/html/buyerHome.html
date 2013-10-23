@@ -91,10 +91,10 @@
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
 						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
-				<div ng-show="actionsView" class="item-information">
+				<div ng-show="actionsView" class="item-information" style="text-align: center">
 					<h2>{{item.title}}</h2>
 	<!-- 				<h3 class='description'>{{item.description}}</h3> -->
 					<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
@@ -107,7 +107,9 @@
 		</div>
 	</div>
 </div>
- 
+
+<!-- BUY MODAL -->
+<div ng-include="'/assets/html/buyItemModal.html'"></div>
 
 <!-- Facebook Activity Plugin -->
 <div class="col-md-2">

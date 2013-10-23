@@ -76,6 +76,7 @@ vestaroMain.factory('buyerSession', function($http){
         getItems: function() {
         	return $http.get('/items');
         },
+        // TODO: replace with easyrec request.
         getPopularItems: function() {
         	return $http.get('/items');
         },
@@ -85,7 +86,15 @@ vestaroMain.factory('buyerSession', function($http){
                      {id: 2, name: 'Buzo', sexo: 'Hombre'}];
         },
         addToWishlist: function(itemId) {
-        	return $http.post('/wishlist', {'itemId': itemId});
+        	return $http.post('/wishlist', {'itemId': itemId})
+	        	.success(function(data){
+				  console.log(data);
+			  })
+			  .error(function(data, status, headers, config){
+				  console.log(status);
+				  // 401: Unauthorized
+				  if(status == 401) $('#loginBtn').popover('show');
+			  });
         },
         removeFromWishlist: function(itemId) {
         	return $http.delete('/wishlist/' + itemId);
@@ -104,6 +113,15 @@ function BuyerHomeCtrl($scope, buyerSession) {
   });
   
   $scope.$on('isotope', isotopeHandling);
+  
+  $scope.showBuyItemModal = function(item){
+	  $scope.item = item;
+	  $('#buyItemModal').modal('show');
+  }
+  
+  $scope.addToWishlist = function(item){
+	  buyerSession.addToWishlist(item.id);
+  }
   
 }
 
@@ -189,21 +207,13 @@ function ItemSearchCtrl($scope, buyerSession) {
 	  $scope.items = data;
   });
   
-  $scope.showItemModal = function(item){
+  $scope.showBuyItemModal = function(item){
 	  $scope.item = item;
-	  $('#itemModal').modal('show');
+	  $('#buyItemModal').modal('show');
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item.id)
-		  .success(function(data){
-			  console.log(data);
-		  })
-		  .error(function(data, status, headers, config){
-			  console.log(status);
-			  // 401: Unauthorized
-			  if(status == 401) $('#loginBtn').popover('show');
-		  });
+	  buyerSession.addToWishlist(item.id);
   }
   
 }

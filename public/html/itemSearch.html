@@ -42,14 +42,14 @@
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
 						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
 				<div class="item-main">
 					<h3 class="item-title">{{item.title}}</h3>
 					<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
 				</div>
-				<div class="item-details">
+				<div class="item-details" style="text-align: center">
 					<div class="btn-group">
 						<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
 						<button type="button" class="btn btn-primary">Comprar</button>
@@ -61,31 +61,7 @@
 </div>
 
 <!-- BUY MODAL -->
-<div id="itemModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="myModalLabel">Comprar Prenda</h4>
-			</div>
-			<div class="modal-body">
-				<h2 class='title'>{{item.title}}</h2>
-				<img class="img-responsive" src={{item.imgUrl}} alt={{item.title}}>
-				<h3 class='description'>{{item.description}}</h3>
-				<span class='sellerName'>{{item.seller.name}}</span>
-				<p class='price'>${{item.price}}</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Comprar</button>
-			</div>
-
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
+<div ng-include="'/assets/html/buyItemModal.html'"></div>
 
 <script src="/assets/js/bootstrap-select.min.js"></script>
 <script src="/assets/css/bootstrap-select.min.css"></script>
