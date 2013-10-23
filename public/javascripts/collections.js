@@ -47,12 +47,16 @@ $(document).ready(function(){
 								"<div class='media-body'>" +
 								"<h4 class='media-heading'>" +
 								json[i].title +
-								"<span style='float: right;' class='glyphicon glyphicon-remove'></span>" +
+								"<span title='Eliminar' style='float: right;' href='#' class='glyphicon glyphicon-remove'></span>" +
 								"</h4>" +
 								json[i].description +
 								"</div>" +
 								"</div>"
 								);
+
+						$(".glyphicon-remove").click(function(){
+							$(this).parent().parent().parent().hide();
+						});
 					}
 				}
 			}
@@ -134,12 +138,16 @@ $(document).ready(function(){
 								json[i].imgUrl +
 								"' alt='...'>" +
 								"</a>" +
-								"<div class='description media-body'>" +
-								"<h4 class='title media-heading'>" +
+								"<div class='media-body'>" +
+								"<h4 class='media-heading'>" +
 								"<input class='checked' style='float: right;' type='checkbox'>" +
+								"<p class'title'>" +
 								json[i].title +
+								"</p" +
 								"</h4>" +
+								"<p class'description'>" +
 								json[i].description +
+								"</p>" +
 								"</div>" +
 								"</div>"
 								);

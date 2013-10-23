@@ -47,6 +47,12 @@ public class ItemController extends BaseController {
     public static Result update(String itemId) {
     	return TODO;
     }
+
+    public static Result updateItem(Long collectionId, String itemId) {
+    	Item item = Item.find.byId(itemId);
+    	item.collection.id = collectionId;
+        return ok(views.html.items.item.render(Item.update(item)));
+    }
     
     public static Result delete(String itemId) {
     	return TODO;

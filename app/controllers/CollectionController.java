@@ -65,13 +65,6 @@ public class CollectionController extends BaseController {
         return ok(collection.render(Collection.update(new Collection(collectionId, collectionTitle, collectionDescription))));
     }
     
-    public static Result updateItem(Long collectionId, String itemId) {
-    	Item item = Item.find.byId(itemId);
-    	item.collection.id = collectionId;
-        return ok(views.html.items.item.render(Item.update(item)));
-    }
-    
-    
     public static Result delete(Long collectionId) {
     	return ok(collection.render(Collection.delete(collectionId)));
     }

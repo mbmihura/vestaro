@@ -51,6 +51,7 @@ GET		/item/:itemId						controllers.ItemController.read(itemId: String)
 POST	/item								controllers.ItemController.submit()
 POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
 PUT		/item/:itemId						controllers.ItemController.update(itemId: String)
+GET		/item/:collectionId/:itemId			controllers.ItemController.updateItem(collectionId: Long, itemId: String)
 
 # Recommendations
 GET     /reco	           					controllers.RecommendationEngine.recoExample()
@@ -60,9 +61,8 @@ GET     /collections	       				controllers.CollectionController.collectionForm(
 GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
 GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
-GET		/collection/:collectionId/:collectionTitle/:collectionDescription			controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
-GET		/collection/:collectionId/:itemId	controllers.CollectionController.updateItem(collectionId: Long, itemId: String)
-GET		/collection/:collectionId/collections										controllers.CollectionController.getItemsFromCollection(collectionId: Long)
+GET		/collection/:collectionId/:collectionTitle/:collectionDescription		controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
+GET		/collection/:collectionId/collections									controllers.CollectionController.getItemsFromCollection(collectionId: Long)
 GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWithNoCollection(sellerId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
