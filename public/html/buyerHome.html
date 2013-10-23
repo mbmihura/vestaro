@@ -85,15 +85,23 @@
 	<div id="itemsContainer" class="items isotope row">
 		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
 			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope">
-			<img src="{{item.imgUrl}}" alt="{{item.title}}">
-			<div ng-show="actionsView" class="itemInformation">
-				<h2 class='title'>{{item.title}}</h2>
-				<h3 class='description'>{{item.description}}</h3>
-				<span class='sellerName'>{{item.seller.name}}</span>
-				<p class='price'>${{item.price}}</p>
-				<div class='itemControls btn-group'>
-					<button type='button' class='buy btn btn-primary'>Comprar</button>
-					<button type='button' class='buy btn btn-default'>Wishlist</button>
+			<div class="item-container">
+				<img class="item-img" src="{{item.imgUrl}}" alt="{{item.title}}">
+				<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; top: 0px; opacity: 0.9;">
+					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+						<li ng-click="showItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+					</ol>
+				</div>
+				<div ng-show="actionsView" class="item-information">
+					<h2>{{item.title}}</h2>
+	<!-- 				<h3 class='description'>{{item.description}}</h3> -->
+					<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
+					<div class="btn-group">
+						<div class="btn btn-default disabled price" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
+						<button type="button" class="btn btn-primary">Comprar</button>
+					</div>
 				</div>
 			</div>
 		</div>

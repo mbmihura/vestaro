@@ -86,7 +86,7 @@ width: 240px;
 position: relative;
 }
 
-.items img {
+.items .item-img {
 width: 100%;
 height: auto;
 -webkit-border-top-right-radius: 15px;
@@ -94,28 +94,27 @@ height: auto;
 border-top-right-radius: 15px;
 }
 
-.item .itemInformation {
+.item .item-container {
+position: relative;
+-webkit-transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out;
+}
+
+.item .item-information {
 cursor: pointer;
 bottom: 0px;
 background-color: #FFF;
 opacity: .8;
 margin: 5px;
 padding: 5px;
-/* display: none; */
--webkit-transition: all 0.5s ease-in-out;
--moz-transition: all 0.5s ease-in-out;
--o-transition: all 0.5s ease-in-out;
-transition: all 0.5s ease-in-out;
 position: absolute;
 -webkit-border-top-left-radius: 10px;
 -moz-border-radius-topleft: 10px;
 border-top-left-radius: 10px;
 width: 95%;
 z-index: 3;
-}
-
-.item .itemControls {
-	opacity: 1;
 }
 
 .item:hover{
