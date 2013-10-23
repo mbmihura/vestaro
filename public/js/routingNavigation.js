@@ -201,7 +201,7 @@ function ItemSearchCtrl($scope, buyerSession) {
 		  })
 		  .error(function(data, status, headers, config){
 			  console.log(status);
-			  
+			  if(status == 401) $('#loginBtn').popover('show');
 		  });
   }
   
