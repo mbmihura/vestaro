@@ -17,8 +17,16 @@
 				<input type="number" min="1" ng-model="maxPrice" ng-init="maxPrice = 100000000" class="form-control" placeholder="Precio máximo...">
 			</div>
 			
-			<select ng-model="category" ng-init="category = 'Todas'" ng-options="c.name for c in categories"></select>
-			
+<!-- 			<select ng-model="category" ng-init="category.id = 0" ng-options="c.name for c in categories"></select> -->
+			<div ng-model="category" ng-init="category = {id: 0, name: 'Todas'}" class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					{{category.name}} <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li ng-repeat="category in categories"><a>{{category.name}}</a></li>
+				</ul>
+			</div>
+
 			<div class="form-inline">
 			<div class="form-group">
 				<label for="numItems">Cantidad de items:</label>
@@ -30,7 +38,7 @@
 	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
-		<div ng-repeat="item in items | filter:search | orderBy:order | inCategory:category | limitTo:numItems"
+		<div ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:category | limitTo:numItems"
 			class="item-container col-md-3" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
 			<a class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
 				<!-- TODO: extract style to main.css -->

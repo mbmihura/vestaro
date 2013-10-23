@@ -29,26 +29,26 @@ vestaroMain.config(function($routeProvider) {
     
 }]);
 
-/* Filtros */
+/* Filters */
 vestaroMain.filter('priceBetween', function () {
-	return function ( items, minPrice, maxPrice ) {
-		var filteredItems = [];
-		for (var i=0; i<items.length; i++){
-            if ( items[i].price >= minPrice && items[0].price <= maxPrice ) {
+    return function ( items, minPrice, maxPrice ) {
+        var filteredItems = []
+        angular.forEach(items, function ( item ) {
+            if ( item.price >= minPrice && item.price <= maxPrice ) {
                 filteredItems.push(item);
             }
-        }
-		return filteredItems;
+        });
+        return filteredItems;
     }
 }).filter('inCategory', function(){
     return function(items, category){
-        if(category == 'Todas') return items;
+        if(category.id == 0) return items;
     	var filteredItems = [];
-        for (var i=0; i<items.length; i++){
-            if (items[i].title.toLowerCase().search(category.toLowerCase()) != -1) {
-            	filteredItems.push(items[i]);
+        angular.forEach(items, function ( item ) {
+            if ( item.title.toLowerCase().search(category.name.toLowerCase()) != -1 ) {
+                filteredItems.push(item);
             }
-        }
+        });
         return filteredItems;
     };
 })
@@ -80,9 +80,9 @@ vestaroMain.factory('buyerSession', function($http){
         	return $http.get('/items');
         },
         getCategories: function() {
-        	return [ {name: 'Todas', sexo: 'Todos'},
-                     {name: 'Camisa', sexo: 'Mujer'},
-                     {name: 'Buzo', sexo: 'Hombre'}];
+        	return [ {id: 0, name: 'Todas', sexo: 'Todos'},
+                     {id: 1, name: 'Camisa', sexo: 'Mujer'},
+                     {id: 2, name: 'Buzo', sexo: 'Hombre'}];
         },
         addToWishlist: function(itemId) {
         	return $http.post('/wishlist', {'itemId': itemId});
