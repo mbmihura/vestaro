@@ -201,6 +201,7 @@ function ItemSearchCtrl($scope, buyerSession) {
 		  })
 		  .error(function(data, status, headers, config){
 			  console.log(status);
+			  // 401: Unauthorized
 			  if(status == 401) $('#loginBtn').popover('show');
 		  });
   }
