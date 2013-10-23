@@ -183,6 +183,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 function ItemSearchCtrl($scope, buyerSession) {
   
   $scope.categories = buyerSession.getCategories();
+//  $scope.selectedCategory = $scope.categories[0];
   
   buyerSession.getItems().success(function(data) {
 	  $scope.items = data;
@@ -194,9 +195,14 @@ function ItemSearchCtrl($scope, buyerSession) {
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item.id).success(function(data){
-		  console.log(data);
-	  });
+	  buyerSession.addToWishlist(item.id)
+		  .success(function(data){
+			  console.log(data);
+		  })
+		  .error(function(data, status, headers, config){
+			  console.log(status);
+			  
+		  });
   }
   
 }
