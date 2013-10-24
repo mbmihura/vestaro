@@ -7,11 +7,13 @@ sellers:
         id:         1
         fbUid:      999999
         name:       RopaCool
+        pointsEnabled: false
 
     - !!models.Seller
         id:         2
         fbUid:      666666
         name:       RopaHot
+        pointsEnabled: true
 
 # Collections
 
