@@ -178,7 +178,11 @@ $(document).ready(function(){
 	});
 		
 	$('#confirmCreate').click(function(){
-		$("#create_collection").contents().find("#button_create").click();
+		//$("#create_collection").contents().find("#button_create").click();
+		
+		$.post('/collection', {title: $("#create_collection").contents().find("#title").val(), description: $("#create_collection").contents().find("#description").val()});
+		
+		listAlbums();
 	});
 	
 	$('#confirmUpdate').click(function(){
@@ -187,6 +191,8 @@ $(document).ready(function(){
 														$("#iframe_edit").contents().find("#title").val(),
 														$("#iframe_edit").contents().find("#description").val()
 												  ).ajax();
+
+		listAlbums();
 	});
 	
 	$('#add_items').click(function(){
