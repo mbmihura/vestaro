@@ -26,10 +26,11 @@ PUT		/item/:itemId			controllers.Items.update(itemId: String)
 POST	/item/:itemId			controllers.Items.delete(itemId: String)
 
 # Payment Process
-GET		/buy/:itemId			controllers.Items.buy(itemId: String)
-GET 	/payment/success/:orderId controllers.Payment.success(orderId:Long)
+GET		/buy/:itemId				controllers.Items.buy(itemId: String)
+POST	/orderItem/					controllers.Items.orderItem(itemId: String, size: String)
+GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
 GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)
-GET 	/payment/pending/:orderId controllers.Payment.pending(orderId:Long)
+GET 	/payment/pending/:orderId	controllers.Payment.pending(orderId:Long)
 
 # Other
 GET		/facebookPlugins		controllers.Application.facebookPlugins()
