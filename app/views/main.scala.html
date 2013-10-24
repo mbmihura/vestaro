@@ -2,39 +2,33 @@
 
 <!DOCTYPE html>
 
-<html lang="es" ng-app>
+<html lang="es" ng-app="vestaroMain">
     <head>
         <title>@title</title>
         <meta content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="krea group">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap-responsive.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap3.min.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery-ui.css")">
-        <script src="@routes.Assets.at("javascripts/jquery-2.0.3.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/bootstrap3.min.js")" type="text/javascript"></script>
-        <script src='@routes.Application.javascriptRoutes()' type="text/javascript"></script>
+        
         <!-- Fav icons -->
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <!-- Stylesheets -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap-responsive.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery-ui.css")">
+        <!-- Javascripts -->
+        <script src="@routes.Assets.at("javascripts/jquery-2.0.3.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
+        <script src='@routes.Application.javascriptRoutes()' type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/easyrec.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/easyrec_functions.js")" type="text/javascript"></script>
-
+        <script src="@routes.Assets.at("javascripts/jquery.isotope.min.js")" type="text/javascript"></script>
         <!-- AngularJS & fireBase SDKs -->
-        <!-- Local in server version -->
         <script src="@routes.Assets.at("js/angularjs/1.0.8/angular.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("js/angularjs/1.0.8/angular-resource.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("js/firebase/v0/firebase.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("js/firebase/angularFire.js")" type="text/javascript"></script>
-        <!-- Online scrits in content delivery networks version -->
-        <!--
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
-        <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-        <script src="http://firebase.github.io/angularFire/angularFire.js"></script> -->
         
-        <script src="@routes.Assets.at("js/projects.js")"></script>
+        <script src="@routes.Assets.at("js/routingNavigation.js")" type="text/javascript"></script>
         
         <!-- Le styles -->
         <style>
@@ -142,78 +136,65 @@
              ref.parentNode.insertBefore(js, ref);
            }(document));
         </script>
-       
-		<nav class="navbar navbar-fixed-top" role="navigation" style="
-    min-height: 0px;
-">
-		  <!-- Brand and toggle get grouped for better mobile display -->
-		  <div class="navbar-header">
-		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-		      <span class="sr-only">Toggle navigation</span>
-		      <span class="icon-bar"></span>
-		      <span class="icon-bar"></span>
-		      <span class="icon-bar"></span>
-		    </button>
-		    <a class="navbar-brand" href="#" style="padding-bottom: 0px; padding-top: 8px; font-family: 'vivaldi'; font-size: 36px;color: #2974B9;letter-spacing: 3px;">Vestaro</a>
-		  </div>
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="min-height: 0px;">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="vestaro-logo navbar-brand" href="#"
+				style="padding-bottom: 0px; padding-top: 8px; color: #2974B9; font-size: 36px;">Vestaro</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul ng-controller="NavCtrl" class="nav navbar-nav">
+				<li ng-repeat="view in views" ng-class="{active: isActive(view)}">
+				<a style="padding-bottom: 10px; padding-top: 10px;" href="#{{view.path}}">
+				<span class="glyphicon glyphicon-{{view.icon}}"></span> {{view.title}}</a>
+				</li>
+			</ul>
+			<form class="navbar-form navbar-left" role="search" style="margin-bottom: 3px; margin-top: 3px;">
+				<div class="form-group">
+					<input type="text" class="form-control search-input" placeholder="Codigo de prenda...">
+				</div>
+				<button type="button" class="btn btn-default search-btn">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</form>
+			<ul class="nav navbar-nav navbar-right loggedUserOptions" style="display: none;">
+				<li><a href="#" style="padding: 9px 15px 6px;"><img src="" class="currentUserImg"
+						style="display: none; height: 23px; width: 23px; border: 1px solid #ccc;"> <span class="currentUsername"
+						style="display: none;"></span></a>
+				</li>
+				<li class="dropdown"><a style="padding-bottom: 10px; padding-top: 10px;" href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Comprador <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">Usar Vestaro como:</li>
+						<li class="divider"></li>
+						<li><a href="#"><span class="glyphicon glyphicon-ok pull-right"></span>Comprador</a></li>
+						<li><a href="#">Vendedor</a></li>
+						<li class="divider"></li>
+						<li><a href="#" onclick="FB.logout(function(response) {$('.navbar .loggedUserOptions').fadeOut();});">Salir</a></li>
+					</ul>
+				</li>
+			</ul>
 		
-		  <!-- Collect the nav links, forms, and other content for toggling -->
-		  <div class="collapse navbar-collapse navbar-ex1-collapse">
-		    <ul class="nav navbar-nav">
-                  <li class="active"><a style="
-    padding-bottom: 10px;
-    padding-top: 10px;
-" href="@routes.Application.index"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-                  <li><a style="
-    padding-bottom: 10px;
-    padding-top: 10px;
-" href="@routes.Application.index"><span class="glyphicon glyphicon-star"></span> Wishlist</a></li>
-                  <li><a style="
-    padding-bottom: 10px;
-    padding-top: 10px;
-" href="@routes.Application.index"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-                  <li class='items-btn'><a style="
-    padding-bottom: 10px;
-    padding-top: 10px;
-" href="#item"><span class="glyphicon glyphicon-th"></span> Prendas</a></li>
-            </ul>
-		    <form class="navbar-form navbar-left" role="search" style="
-    margin-bottom: 3px;
-    margin-top: 3px;
-">
-		      <div class="form-group">
-		        <input type="text" class="form-control search-input" placeholder="Codigo de prenda...">
-		      </div>
-		      <button type="button" class="btn btn-default search-btn"><span class="glyphicon glyphicon-search"></span></button>
-		    </form>
-			<ul class="nav navbar-nav navbar-right loggedUserOptions" style="display:none;">
-                <li><a href="#" style="padding: 9px 15px 6px;"><img src="" class="currentUserImg" style="display:none;height:23px; width:23px;border: 1px solid #ccc;"> <span class="currentUsername" style="display:none;"></span></a></li>
-                <li class="dropdown" >
-                    <a style="
-    padding-bottom: 10px;
-    padding-top: 10px;
-" href="#" class="dropdown-toggle" data-toggle="dropdown">Comprador <b class="caret"></b></a>
-                    <ul class="dropdown-menu" >
-                        <li class="dropdown-header">Usar Vestaro como:</li>
-                        <li class="divider"></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-ok pull-right"></span>Comprador</a></li>
-                        <li><a href="#">Vendedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="FB.logout(function(response) {$('.navbar .loggedUserOptions').fadeOut();});"@* This shouldn be done. TODO: Move function when general js file is defined. *@>Salir</a></li>
-                    </ul>
-                </li>
-            </ul>
-             <div ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
-		  </div><!-- /.navbar-collapse -->
+		<div ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
+		
+		</div>
+		<!-- /.navbar-collapse -->
 		</nav>
         <!-- /container -->
         <div id="main" class="container">
-          @content
+          <div ng-view></div>
         </div> 
               
         <!-- Le javascript -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src='@routes.Assets.at("javascripts/main.js")' type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.isotope.min.js")" type="text/javascript"></script>
         <!-- Delete if not necesary
         <script src="../assets/js/bootstrap-transition.js"></script>
         <script src="../assets/js/bootstrap-alert.js"></script>

@@ -11,15 +11,9 @@ import models.Item;
 import models.Stock;
 import play.libs.Json;
 import play.mvc.Result;
-import views.html.dashboard.dashboard;
-import views.html.dashboard.dashboardTest;
 
 /*TODO replace sellerId with this.currentUserId();*/
 public class DashboardController extends BaseController {
-  
-    public static Result dashboardTest() {
-        return ok(dashboardTest.render());
-    }
         
     public static Result biggestCollections(Long sellerId){    	
     	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
@@ -63,8 +57,5 @@ public class DashboardController extends BaseController {
     	
     	return ok(Json.toJson(lowStockItems));
     }
-    
-    public static Result dashboard() {
-        return ok(dashboard.render());
-    }
+
 }

@@ -25,7 +25,7 @@ public class ApplicationTest {
     public void renderTemplate() {
         Content html = views.html.index.render();
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Welcome to");
+        assertThat(contentAsString(html)).contains("Vestaro");
     }
   
    
