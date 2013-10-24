@@ -1,17 +1,22 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @SuppressWarnings("serial")
+	
 @Entity
 public class Stock extends Model {
     @Id
@@ -40,6 +45,16 @@ public class Stock extends Model {
         return Stock.find.where()
                 .eq("item.id", itemId)
                 .findList();
+    }
+
+    public static LinkedHashMap<String, String> findAvailableSizeOptions(String itemId){
+             LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(Stock sizeStock: Stock.find.where().eq("item.id", itemId).findList()) {
+        	if(sizeStock.stock !=0){
+        		options.put(sizeStock.id.toString(), sizeStock.size);
+        	}
+        }
+        return options;
     }
 
     public static Stock submit(Stock stock) {
