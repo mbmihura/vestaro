@@ -14,6 +14,7 @@ public class Seller extends Model {
     public Long id;
     public Long fbUid;
     public String name;
+    public boolean	 pointsEnabled=false;
 
     public String mp_client_secret ="uToiGVlNavrrbtjFX6ksHP51RQsG5and";//TEST_CLIENT_SECRET
     public String mp_client_id = "1406963671517811";//TEST_CLIENT_ID
