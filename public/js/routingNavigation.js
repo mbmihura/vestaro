@@ -4,7 +4,7 @@ vestaroMain.config(function($routeProvider) {
   var template = '<div ng-include="templateUrl">Loading...</div>';
   $routeProvider.
 	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyerHome.html'}).
-    when('/garment', {controller: 'garmentDetailsCtrl', templateUrl:'assets/html/garmentDetails.html'}).
+    when('/garment/:id', {controller: 'garmentDetailsCtrl', templateUrl:'assets/html/garment/garmentDetails.html'}).
 	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/itemSearch.html'}).
 	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/wishlist.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
@@ -15,8 +15,11 @@ vestaroMain.config(function($routeProvider) {
 .controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
   $scope.templateUrl = $location.$$url;
 }])
-.controller('garmentDetailsCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
-  
+.controller('garmentDetailsCtrl', ['$scope', '$routeParams', '$http',function($scope, $routeParams, $http){
+   $http.get('/garments/' + $routeParams.id).success(function(data) {
+      $scope.item = data;
+  });
+
 }])
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [

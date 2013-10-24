@@ -30,7 +30,6 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 2965px;
     margin: 10px 0px 0px -10px;
     margin-left: -10px;
     margin-top: 10px;
@@ -40,7 +39,7 @@
     padding-bottom: 10px;
     position: relative;
     text-align: left;
-    width: 1000px;
+    width: 1003px;
     z-index: 2;
 }/*#DIV_1*/
 
@@ -106,7 +105,6 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 2664px;
     outline: rgb(85, 85, 85) none 0px;
     outline-color: rgb(85, 85, 85);
     position: relative;
@@ -177,7 +175,6 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 2664px;
     min-height: 100px;
     outline: rgb(85, 85, 85) none 0px;
     outline-color: rgb(85, 85, 85);
@@ -336,7 +333,6 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 765px;
     outline: rgb(85, 85, 85) none 0px;
     outline-color: rgb(85, 85, 85);
     overflow: hidden;
@@ -362,7 +358,6 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 755px;
     outline: rgb(85, 85, 85) none 0px;
     outline-color: rgb(85, 85, 85);
     padding: 10px 0px 0px;
@@ -448,7 +443,6 @@
     padding-right: 100px;
     padding-top: 7px;
     text-align: center;
-    width: 559px;
 }/*#H1_10*/
 
 #A_11, #A_12 {
@@ -465,7 +459,7 @@
     color: rgb(84, 84, 84);
     font: normal normal normal 19px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
-    font-size: 19px;
+    font-size: 24px;
     outline: rgb(84, 84, 84) none 0px;
     outline-color: rgb(84, 84, 84);
     text-align: center;
@@ -553,8 +547,8 @@
 }/*#A_15*/
 
 #SPAN_16 {
-    background: rgba(0, 0, 0, 0) url(http://www.zappos.com/prd/imgs/spFoxwoods.20131001101054.png) no-repeat scroll -22px 0px / auto padding-box border-box;
-    background-image: url(http://www.zappos.com/prd/imgs/spFoxwoods.20131001101054.png);
+    background: rgba(0, 0, 0, 0) url(/assets/img/garment/garmentDetail.png) no-repeat scroll -22px 0px / auto padding-box border-box;
+    background-image: url(/assets/img/garment/garmentDetail.png);
     background-position: -22px 0px;
     background-position-x: -22px;
     background-position-y: 0px;
@@ -6346,7 +6340,7 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 410px;
+    height: 412px;
     outline: rgb(85, 85, 85) none 0px;
     outline-color: rgb(85, 85, 85);
     position: relative;
@@ -6505,8 +6499,8 @@
 }/*#DIV_351*/
 
 #SPAN_352 {
-    background: rgba(0, 0, 0, 0) url(http://www.zappos.com/prd/imgs/spFoxwoods.20131001101054.png) no-repeat scroll -183px -285px / auto padding-box border-box;
-    background-image: url(http://www.zappos.com/prd/imgs/spFoxwoods.20131001101054.png);
+    background: rgba(0, 0, 0, 0) url(/assets/img/garment/garmentDetail.png) no-repeat scroll -183px -285px / auto padding-box border-box;
+    background-image: url(/assets/img/garment/garmentDetail.png);
     background-position: -183px -285px;
     background-position-x: -183px;
     background-position-y: -285px;
@@ -7108,7 +7102,7 @@
     font: normal normal normal 12px/normal Verdana, Arial, sans;
     font-family: Verdana, Arial, sans;
     font-size: 12px;
-    height: 14px;
+    height: 35px;
     margin: 10px 0px 0px;
     margin-top: 10px;
     outline: rgb(44, 89, 135) none 0px;
@@ -7122,7 +7116,7 @@
     width: 180px;
 }/*#A_398*/
 
-#DIV_399 {
+#socialButtonsArea {
     border: 0px none rgb(85, 85, 85);
     border-bottom: 0px none rgb(85, 85, 85);
     border-bottom-color: rgb(85, 85, 85);
@@ -7181,16 +7175,7 @@
 }/*#SPAN_400*/
 
 #DIV_401, #DIV_406, #DIV_411, #DIV_416 {
-    border: 0px none rgb(85, 85, 85);
-    border-bottom: 0px none rgb(85, 85, 85);
-    border-bottom-color: rgb(85, 85, 85);
-    border-color: rgb(85, 85, 85);
-    border-left: 0px none rgb(85, 85, 85);
-    border-left-color: rgb(85, 85, 85);
-    border-right: 0px none rgb(85, 85, 85);
-    border-right-color: rgb(85, 85, 85);
-    border-top: 0px none rgb(85, 85, 85);
-    border-top-color: rgb(85, 85, 85);
+
     color: rgb(85, 85, 85);
     float: left;
     font: normal normal normal 12px/normal Verdana, Arial, sans;

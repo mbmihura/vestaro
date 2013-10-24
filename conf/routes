@@ -43,9 +43,9 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 
 # Item
-GET		/items								controllers.ItemController.index()
-GET		/item								controllers.ItemController.form()
-GET		/item/:itemId						controllers.ItemController.read(itemId: String)
+GET		/garments							controllers.ItemController.index()
+GET		/garments/new						controllers.ItemController.form()
+GET		/garments/:itemId					controllers.ItemController.get(itemId: String)
 POST	/item								controllers.ItemController.submit()
 POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
 PUT		/item/:itemId						controllers.ItemController.update(itemId: String)

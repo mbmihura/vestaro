@@ -48,7 +48,7 @@ public class Application extends BaseController {
                 // Routes for Items
             	controllers.routes.javascript.ItemController.form(),
                 controllers.routes.javascript.ItemController.submit(), 
-                controllers.routes.javascript.ItemController.read(),
+                controllers.routes.javascript.ItemController.get(),
                 controllers.routes.javascript.ItemController.update(),
                 controllers.routes.javascript.ItemController.delete(),
                 
