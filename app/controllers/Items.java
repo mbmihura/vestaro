@@ -1,9 +1,13 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.BuyOrder;
 import models.Buyer;
 import models.Item;
 import models.PaymentManager;
+import models.Stock;
 
 import org.codehaus.jettison.json.JSONException;
 
@@ -26,6 +30,7 @@ public class Items extends Controller {
     	if(itemFilledForm.hasErrors()) {
             return badRequest(form.render(itemFilledForm));
         } else {
+        	//TODO: load stock
             return ok(
                 item.render(Item.submit(itemFilledForm.get()))
             );
@@ -47,6 +52,7 @@ public class Items extends Controller {
     	
     }
     
+    
     public static Result index() {
     	return ok(Item.find.all().toString());
     }
@@ -58,11 +64,19 @@ public class Items extends Controller {
     public static Result delete(String itemId) {
     	return TODO;
     }
+    public static Result buy(String itemId){
+    	Item item = Item.find.byId(itemId);
+
+    	//TODO: Load AvailableStock
+    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
+//		return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
+		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable));
+    }
     
-    public static Result buy(String itemId) throws Exception{
+    public static Result orderItem(String itemId, String size) throws Exception{
     	Item item = Item.find.byId(itemId);
     	//TODO: how to get buyer
-    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer());
+    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer(), size);
 
     	PaymentManager manager = new PaymentManager();
     	
