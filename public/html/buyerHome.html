@@ -1,13 +1,13 @@
 <div class="well">
 <div class="row">
-	<div class="page-header" style="text-align: center; margin-top:-20px;">
+	<div class="page-header" align="center" style="margin-top:-20px;">
 		<h1 class="vestaro-logo" style="font-size: 120px">Vestaro</h1>
-		<button type="button" class="btn btn-primary" ng-init="knowMore = false" ng-click="knowMore = (knowMore == false)">Conocer más!</button>
+		<button id="knowMoreBtn" type="button" class="btn btn-primary">Conocer más!</button>
 	</div>
-	<div ng-show="knowMore">
-	<div class="col-md-6">
-	<div class="video-container"><iframe width="320" height="160" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></div>
-	</div>
+	<div id="knowMore" style="display: none">
+		<div class="col-md-6">
+			<div class="video-container"><iframe width="320" height="160" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></div>
+		</div>
 		<div class="col-md-6">
 		<div class="panel panel-info" style="border-color: #2974B9">
 	        <div class="panel-heading" style="background-color: #2974B9; color: white;">
@@ -80,11 +80,11 @@
 </div>
 
 <!-- Recommended Items -->
-<div class="col-md-8">
+<div class="col-md-8" align="center">
 	<h1 class="page-header">La mejor ropa. <small>Sabemos qué te gusta.</small></h1>
 	<div id="itemsContainer" class="items isotope row">
 		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
-			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope">
+			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope" align="center">
 			<div class="item-container">
 				<img class="item-img" src="{{item.imgUrl}}" alt="{{item.title}}">
 				<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; top: 0px; opacity: 0.9;">
@@ -94,7 +94,7 @@
 						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
-				<div ng-show="actionsView" class="item-information" style="text-align: center">
+				<div ng-show="actionsView" class="item-information" align="center">
 					<h2>{{item.title}}</h2>
 	<!-- 				<h3 class='description'>{{item.description}}</h3> -->
 					<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
@@ -108,14 +108,21 @@
 	</div>
 </div>
 
-<!-- BUY MODAL -->
-<div ng-include="'/assets/html/buyItemModal.html'"></div>
-
 <!-- Facebook Activity Plugin -->
 <div class="col-md-2">
 <div class="well" style="padding: 5px">
 	<label>Tus amigos y Vestaro</label>
+	<svg viewBox="0 0 126 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" class="hexagon">
+		<title>Hexagon</title>
+		<description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+		<g id="Page-1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+		<polygon id="Polygon-1" d="M63,0 L125.353829,36 L125.353829,108 L63,144 L0.646170928,108 L0.646170928,36 L63,0 Z M63,0" fill="#100933" sketch:type="MSShapeGroup" points="63 0 125.353829 36 125.353829 108 63 144 0.646170928 108 0.646170928 36 "></polygon>
+		</g>
+	</svg>
 </div>
 </div>
+
+<!-- BUY MODAL -->
+<div ng-include="'/assets/html/buyItemModal.html'"></div>
 
 </div>

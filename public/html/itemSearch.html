@@ -34,7 +34,7 @@
 	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
-		<div ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems"
+		<div ng-animate="'animate'" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems"
 			class="item-container col-md-3" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
 			<a class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
 				<!-- TODO: extract style to main.css -->

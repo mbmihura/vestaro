@@ -123,6 +123,30 @@ function BuyerHomeCtrl($scope, buyerSession) {
 	  buyerSession.addToWishlist(item.id);
   }
   
+  var $container = $('#itemsContainer');
+	// Toggles item size
+	$container.on('click', '.item-img', function() {
+		var $item = $(this).closest('.item'); 
+		if ($item.hasClass('large')) {
+			$item.removeClass('large');
+		} else {
+			$container.find('.item.large').removeClass('large');
+			$item.closest('.item').addClass('large');
+		}
+		$container.isotope('reLayout');
+	});
+	
+	// Toggles item information
+	$container.on('.item', 'mouseenter mouseleave', function(e) {
+		e.preventDefault();
+		$(this).find('.itemInformation').fadeToggle('fast');
+	});
+	
+	// Toggle know more
+	$('#knowMoreBtn').click(function(){
+		$('#knowMore').slideToggle()
+	})
+  
 }
 
 var isotopeHandling = function(ngRepeatFinishedEvent) {
@@ -177,25 +201,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 		}
 		
 		return false;
-	});
-	
-	// Toggles item size
-	$container.on('click', '.item', function() {
-		if ($(this).hasClass('large')) {
-			$(this).removeClass('large');
-		} else {
-			$container.find('.item.large').removeClass('large');
-			$(this).addClass('large');
-		}
-		$container.isotope('reLayout');
-	});
-
-	// Toggles item information
-	$container.on('.item', 'mouseenter mouseleave', function(e) {
-		e.preventDefault();
-		$(this).find('.itemInformation').fadeToggle('fast');
-	});
-	
+	});	
 }
 
 function ItemSearchCtrl($scope, buyerSession) {
