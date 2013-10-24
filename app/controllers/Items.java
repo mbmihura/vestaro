@@ -77,7 +77,7 @@ public class Items extends Controller {
 //		return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
     	
     	try {
-			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable,manager.checkout(buyOrder)));
+			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable,manager.checkout(buyOrder), buyOrder.buyer.points));
 		} catch (JSONException e) {
 			return badRequest();//TODO: think what to do when it fails
 		}catch (Exception e) {

@@ -1,4 +1,4 @@
-@(item: Item, sizeOptions: Map[String, String], pointsEnabledName : String, checkoutUrl: String)
+@(item: Item, sizeOptions: Map[String, String], pointsEnabledName : String, checkoutUrl: String, buyerPoints : Integer)
 @import helper._
 
 @main("Detalle Item"){
@@ -12,7 +12,7 @@
 			<li class=""><a href="#tab2" data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
 					
-		<div class="tab-content jumbotron" style="margin-top: 5px;">
+		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 800px;" >
 			
 				<div class="tab-pane active" id="tab1">
   				<div class="col-lg-5">
@@ -44,8 +44,8 @@
 						
 						<div name=@pointsEnabledName class="jumbotron container" style="text-align: center;   background: #D9D9DB;">
   						<p style="font-size: 30px; font-weight: bold;">Puntos Disponibles</p>
-   						<h1 style=" color: #428bca;  font-size: 120px;">22</h1>
-					    <p>Equivale a $2,2 para dicho vendedor</p>
+   						<h1 style=" color: #428bca;  font-size: 120px;">@buyerPoints</h1>
+					    <p>Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor</p>
 							<p>Puntos a utilizar</p>
      					<input type="text" id="pointsToUSe" name="pointsToUSe"  style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
   						<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
@@ -100,9 +100,7 @@
 				</div>
 
 						
-		<ul class="pager wizard">
-			
-		</ul>
+		
 	</div>	
 	
 </div>

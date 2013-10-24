@@ -20,6 +20,7 @@ public class Buyer extends Model {
     public Long fbUid;
     public String name;
 	public String mail = "mail@gmail.com";//TODO: get it from FB 
+	public Integer points =0; 
     
 	public static Finder<Long,Buyer> find = new Finder<Long,Buyer>(Long.class,Buyer.class);
 
