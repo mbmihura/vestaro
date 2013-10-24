@@ -10,8 +10,8 @@ vestaroMain.config(function($routeProvider) {
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
-.controller('serverPageRoutingCtrl', ['$scope', '$routeParams' ,function($scope, $routeParams){
-	$scope.templateUrl = "/" + $routeParams.serverPageUrl;
+.controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
+  $scope.templateUrl = $location.$$url;
 }])
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [
