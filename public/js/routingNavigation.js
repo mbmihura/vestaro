@@ -5,13 +5,14 @@ vestaroMain.config(function($routeProvider) {
   $routeProvider.
 	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyerHome.html'}).
 	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/itemSearch.html'}).
-	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/sellerDashboard.html'}).
 	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/wishlist.html'}).
+	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
+	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
-.controller('serverPageRoutingCtrl', ['$scope', '$routeParams' ,function($scope, $routeParams){
-	$scope.templateUrl = "/" + $routeParams.serverPageUrl;
+.controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
+  $scope.templateUrl = $location.$$url;
 }])
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [
