@@ -145,7 +145,7 @@ items:
         id:           BA4
         title:        Buzo Azul
         description:  Buzo Azul Manga Larga
-        imgUrl:       http://www.todoarbitros.com/catalog/images/athix_buzo_azul.jpg
+        imgUrl:       http://www.1-uniformes.com.ar/images/Canguro%20verde.jpg
         price:        310
         sex:        m
         seller:        !!models.Seller

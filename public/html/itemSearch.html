@@ -1,0 +1,84 @@
+<h1 class="page-header">Encontrá la mejor ropa <small>en un sólo lugar.</small></h1>
+
+<div class="row">
+	<!-- FILTERS -->
+	<div class="col-md-2">
+		<div class="well" style="padding: 5px">
+			
+			<div class="form-group">
+				<label>Filtrar</label>
+				<input type="search" ng-model="search.title" class="form-control" placeholder="Search">
+				<input type="text" ng-model="order" class="form-control" placeholder="Order">
+			</div>
+			
+			<div class="form-group">
+				<label>Precio entre:</label>
+				<input type="number" min="1" ng-model="minPrice" ng-init="minPrice = 1" class="form-control" placeholder="Precio mínimo...">
+				<input type="number" min="1" ng-model="maxPrice" ng-init="maxPrice = 100000000" class="form-control" placeholder="Precio máximo...">
+			</div>
+			
+			<select ng-model="category" ng-init="category = 'Todas'" ng-options="c.name for c in categories"></select>
+			
+			<div class="form-inline">
+			<div class="form-group">
+				<label for="numItems">Cantidad de items:</label>
+				<input id="numItems" type="number" min="8" ng-model="numItems" ng-init="numItems = 20" class="form-control">
+			</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- ITEMS CONTAINER -->
+	<div class="col-md-10">
+		<div ng-repeat="item in items | filter:search | orderBy:order | inCategory:category | limitTo:numItems"
+			class="item-container col-md-3" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
+			<div class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
+				<!-- TODO: extract style to main.css -->
+				<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
+					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+						<li class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+						<li class="has-tooltip action" title="Ver más" ng-click="showItemModal(item)"><span class="glyphicon glyphicon-zoom-in"></span></li>
+					</ol>
+				</div>
+				<div class="item-main">
+					<h3 class="item-title">{{item.title}}</h3>
+					<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
+				</div>
+				<div class="item-details">
+					<div class="btn-group">
+						<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
+						<button type="button" class="btn btn-primary">Comprar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- BUY MODAL -->
+<div id="itemModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Comprar Prenda</h4>
+			</div>
+			<div class="modal-body">
+				<h2 class='title'>{{item.title}}</h2>
+				<img class="img-responsive" src={{item.imgUrl}} alt={{item.title}}>
+				<h3 class='description'>{{item.description}}</h3>
+				<span class='sellerName'>{{item.seller.name}}</span>
+				<p class='price'>${{item.price}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Comprar</button>
+			</div>
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

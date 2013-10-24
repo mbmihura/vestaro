@@ -1,0 +1,111 @@
+<div class="well">
+<div class="row">
+	<div class="page-header" style="text-align: center; margin-top:-20px;">
+		<h1 class="vestaro-logo" style="font-size: 120px">Vestaro</h1>
+		<button type="button" class="btn btn-primary" ng-init="knowMore = false" ng-click="knowMore = (knowMore == false)">Conocer más!</button>
+	</div>
+	<div ng-show="knowMore">
+	<div class="col-md-6">
+	<div class="video-container"><iframe width="320" height="160" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></div>
+	</div>
+		<div class="col-md-6">
+		<div class="panel panel-info" style="border-color: #2974B9">
+	        <div class="panel-heading" style="background-color: #2974B9; color: white;">
+	          <h3 class="panel-title">¿Por qué elegir Vestaro?</h3>
+	        </div>
+			<div class="panel-body">
+				<div class="media">
+					<a class="pull-left" href="#" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+						src="/assets/img/vestaro/facebook.jpg"
+						style="width: 60px; height: 60px;">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">Accedé con Facebook.</h4>
+					</div>
+				</div>
+				<div class="media">
+					<a class="pull-left" href="#recommendation" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+						src="/assets/img/vestaro/gustos.jpg"
+						style="width: 50px; height: 64px;">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">Recomendaciones adaptadas a <strong>tus</strong> gustos.</h4>
+					</div>
+				</div>
+				<div class="media">
+					<a class="pull-left" href="#" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+						src="/assets/img/vestaro/puntos.jpg"
+						style="width: 64px; height: 64px;">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">Acumulá puntos!</h4>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class='row'>
+<!-- Top Sold/Viewed Items -->
+<div class="col-md-2" >
+<div id="recommendation" class="well" style="padding: 5px">
+	<label>Prendas populares</label>
+	<div ng-repeat="item in popularItems | limitTo:4"
+		class="item-container" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
+		<div class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
+			<!-- TODO: extract style to main.css -->
+			<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
+				<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+					<li class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+					<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+					<li class="has-tooltip action" title="Ver más" ng-click="showItemModal(item)"><span class="glyphicon glyphicon-zoom-in"></span></li>
+				</ol>
+			</div>
+			<div class="item-main">
+				<h3 class="item-title">{{item.title}}</h3>
+				<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
+			</div>
+			<div class="item-details">
+				<div class="btn-group">
+					<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
+					<button type="button" class="btn btn-primary">Comprar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- Recommended Items -->
+<div class="col-md-8">
+	<h1 class="page-header">La mejor ropa. <small>Sabemos qué te gusta.</small></h1>
+	<div id="itemsContainer" class="items isotope row">
+		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
+			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope">
+			<img src="{{item.imgUrl}}" alt="{{item.title}}">
+			<div ng-show="actionsView" class="itemInformation">
+				<h2 class='title'>{{item.title}}</h2>
+				<h3 class='description'>{{item.description}}</h3>
+				<span class='sellerName'>{{item.seller.name}}</span>
+				<p class='price'>${{item.price}}</p>
+				<div class='itemControls btn-group'>
+					<button type='button' class='buy btn btn-primary'>Comprar</button>
+					<button type='button' class='buy btn btn-default'>Wishlist</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+ 
+
+<!-- Facebook Activity Plugin -->
+<div class="col-md-2">
+<div class="well" style="padding: 5px">
+	<label>Tus amigos y Vestaro</label>
+</div>
+</div>
+
+</div>

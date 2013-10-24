@@ -9,6 +9,12 @@
     font-style: normal
 }
 
+.vestaro-logo {
+	font-family: 'vivaldi';
+	color: #2974B9;
+	letter-spacing: 3px;
+}
+
 /**** Isotope Filtering ****/
 
 .isotope-item {
@@ -74,39 +80,67 @@
 
 /* photo style */
 .items .item {
-width: 250px;
-margin: 5px;
+margin: 2px;
 float: left;
-list-style:none;
+width: 240px;
+position: relative;
 }
 
-.items .item img {
-display: block;
+.items img {
 width: 100%;
+height: auto;
 -webkit-border-top-right-radius: 15px;
 -moz-border-radius-topright: 15px;
 border-top-right-radius: 15px;
 }
 
 .item .itemInformation {
-position: absolute;
+cursor: pointer;
 bottom: 0px;
 background-color: #FFF;
 opacity: .8;
 margin: 5px;
 padding: 5px;
-display: none;
+/* display: none; */
+position: absolute;
+-webkit-border-top-left-radius: 10px;
+-moz-border-radius-topleft: 10px;
+border-top-left-radius: 10px;
+width: 95%;
+z-index: 3;
 }
 
-.item img:hover {
+.item .itemControls {
+	opacity: 1;
+}
+
+.item:hover{
 cursor: pointer;
-opacity: 0.8;
-box-shadow: 3px 3px 2px #000;
 }
 
 .item.large {
-width: 400px;
+width: 340px;
 -webkit-border-top-right-radius: 30px;
 -moz-border-radius-topright: 30px;
 border-top-right-radius: 30px;
+}
+
+.action {
+	cursor: pointer;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
