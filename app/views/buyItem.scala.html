@@ -1,4 +1,4 @@
-@(item: Item, sizeOptions: Map[String, String], pointsEnabledName : String)
+@(item: Item, sizeOptions: Map[String, String], pointsEnabledName : String, checkoutUrl: String)
 @import helper._
 
 @main("Detalle Item"){
@@ -55,7 +55,47 @@
 
 				<div class="tab-pane" id="tab2">
 					<div class="control-group">
-				 		<label class="control-label" for="url">Pagar</label>
+						<h2 style="margin-bottom: 30px;">Detalle compra</h2>
+						<table class="table table-striped">
+  						<tr>
+								<td>Prenda</td>
+								<td>@item.title</td>
+							</tr>
+  						<tr>
+								<td>Descripción</td>
+								<td>@item.description</td>
+							</tr>
+  						<tr>
+								<td>Precio</td>
+								<td>@item.price</td>
+							</tr>
+							<tr>
+								<td>Talle</td>
+								<td>M</td>
+							</tr>
+  						<tr>
+								<td>Vendedor</td>
+								<td>@item.seller.name</td>
+							</tr>
+  						<tr>
+								<td>Puntos usados</td>
+								<td>10</td>
+							</tr>
+  						<tr>
+								<td>Monto pendiente a pagar con MercadoPago</td>
+								<td>$99</td>
+							</tr>
+  						<tr>
+								<td>Puntos que se ganarán con la compra</td>
+								<td>99</td>
+							</tr>
+
+						</table>
+						
+						<div class="form-group">	
+	    				<a href=@checkoutUrl name="MP-Checkout" class="blue-rn-m" name="MP-Checkout">Pagar</a>
+				    </div>
+
 			 		</div>
 				</div>
 
@@ -67,6 +107,8 @@
 	</div>	
 	
 </div>
+   <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
+
 	<script>
 	$( document ).ready(function() {
   	var pointsDiv= $('[name=pointsDisabled]');

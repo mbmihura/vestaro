@@ -66,11 +66,23 @@ public class Items extends Controller {
     }
     public static Result buy(String itemId){
     	Item item = Item.find.byId(itemId);
+    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
+
+    	
+    	//TODO: it won't be here
+    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer(), "M");
+    	PaymentManager manager = new PaymentManager();
 
     	//TODO: Load AvailableStock
-    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
 //		return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable));
+    	
+    	try {
+			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable,manager.checkout(buyOrder)));
+		} catch (JSONException e) {
+			return badRequest();//TODO: think what to do when it fails
+		}catch (Exception e) {
+			return badRequest();//TODO: think what to do when it fails
+		}
     }
     
     public static Result orderItem(String itemId, String size) throws Exception{
@@ -84,6 +96,9 @@ public class Items extends Controller {
 			return ok(views.html.paymentProcess.render(manager.checkout(buyOrder)));
 		} catch (JSONException e) {
 			return badRequest();//TODO: think what to do when it fails
+		} catch (Exception e) {
+			return badRequest();//TODO: think what to do when it fails
 		}
+		
     }
 }
