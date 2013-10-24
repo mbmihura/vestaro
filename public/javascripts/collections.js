@@ -38,7 +38,9 @@ $(document).ready(function(){
 				else{
 					for (var i = 0; i < json.length; i++) {
 						$("#items").append(
-								"<div class='media'>" +
+								"<div id='" +
+								json[i].id +
+								"' class='media'>" +
 								"<a class='pull-left' href='#'>" +
 								"<img style='width:80px; height:80px;' class='media-object' src='" +
 								json[i].imgUrl +
@@ -53,9 +55,11 @@ $(document).ready(function(){
 								"</div>" +
 								"</div>"
 								);
-
+						
+						$("#" + json[i].id).val(json[i].id);
+						
 						$(".glyphicon-remove").click(function(){
-							$(this).parent().parent().parent().remove();
+							$(this).parent().parent().parent().hide();
 						});
 					}
 				}
@@ -126,6 +130,8 @@ $(document).ready(function(){
 							"</h4>" +
 							"</div>"
 							);
+					
+					$("#button_addItems").hide();
 				}
 				else{
 					for (var i = 0; i < json.length; i++) {
@@ -220,7 +226,15 @@ $(document).ready(function(){
 			});
 		});
 		
-		$("#items").children().remove();
+		$('#items').children().remove();
 		listItems($('#collectionItems').val());
+	});
+	
+	$('#button_saveItems').click(function(){
+		$('#items').children().each(function () {
+			if ($(this).is(':hidden')) {
+				jsRoutes.controllers.CollectionController.deleteCollectionId($(this).val()).ajax();
+			}
+		});
 	});
 });

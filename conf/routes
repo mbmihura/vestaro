@@ -61,6 +61,7 @@ GET     /collections	       				controllers.CollectionController.collectionForm(
 GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
 GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
+GET		/collection/:itemId/item			controllers.CollectionController.deleteCollectionId(itemId: String)
 GET		/collection/:collectionId/:collectionTitle/:collectionDescription		controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
 GET		/collection/:collectionId/collections									controllers.CollectionController.getItemsFromCollection(collectionId: Long)
 GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWithNoCollection(sellerId: Long)

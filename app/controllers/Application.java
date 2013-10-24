@@ -50,6 +50,7 @@ public class Application extends BaseController {
                 controllers.routes.javascript.CollectionController.delete(),
                 controllers.routes.javascript.CollectionController.getItemsFromCollection(),
                 controllers.routes.javascript.CollectionController.getItemsWithNoCollection(),
+                controllers.routes.javascript.CollectionController.deleteCollectionId(),
                 
                 // Routes for Items
             	controllers.routes.javascript.ItemController.form(),

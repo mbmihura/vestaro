@@ -68,4 +68,10 @@ public class CollectionController extends BaseController {
     public static Result delete(Long collectionId) {
     	return ok(collection.render(Collection.delete(collectionId)));
     }
+    
+    public static Result deleteCollectionId(String itemId) {
+    	Item item = Item.find.byId(itemId);
+    	item.collection = null;
+        return ok(views.html.items.item.render(Item.update(item)));
+    }
 }

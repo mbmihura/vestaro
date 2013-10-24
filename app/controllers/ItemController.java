@@ -51,7 +51,7 @@ public class ItemController extends BaseController {
 
     public static Result updateItem(Long collectionId, String itemId) {
     	Item item = Item.find.byId(itemId);
-    	item.collection = Collection.findCollectionsById(collectionId).get(0);
+    	item.collection = collectionId == null ? null : Collection.findCollectionsById(collectionId).get(0);
         return ok(views.html.items.item.render(Item.update(item)));
     }
     
