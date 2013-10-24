@@ -27,11 +27,12 @@ public class BuyOrder extends Model{
 	public BuyOrder(){
 		
 	}
-	public BuyOrder(Item item,Buyer buyer, String size){
+	public BuyOrder(Item item,Buyer buyer, String size, Integer pointsUsed){
 		this.item = item;
 		this.price = item.price;
 		this.buyer = buyer;
 		this.size = size;
+		this.pointsUsed = pointsUsed;
 		this.save();
 	}
 	

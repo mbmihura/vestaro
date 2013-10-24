@@ -28,6 +28,8 @@ public class PaymentManager {
 
 
 	private JSONObject createJSONPreference(BuyOrder buyOrder) throws JSONException {
+		double payamount= buyOrder.price - (buyOrder.pointsUsed * buyOrder.item.seller.pointMoneyRelation);
+		
 		JSONObject preferenceJson = new JSONObject();
 		 
 		 JSONObject itemJson = new JSONObject();
@@ -35,7 +37,7 @@ public class PaymentManager {
 		 itemJson.put("title", buyOrder.item.title);
 		 itemJson.put("description", buyOrder.item.description);
 		 itemJson.put("quantity", 1);
-		 itemJson.put("unit_price", buyOrder.price);
+		 itemJson.put("unit_price", payamount);
 		 itemJson.put("currency_id", "ARS");
 		 itemJson.put("picture_url", buyOrder.item.imgUrl);
 		 

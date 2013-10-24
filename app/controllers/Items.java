@@ -12,6 +12,7 @@ import models.Stock;
 import org.codehaus.jettison.json.JSONException;
 
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.items.form;
@@ -68,37 +69,25 @@ public class Items extends Controller {
     	Item item = Item.find.byId(itemId);
     	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
 
-    	
-    	//TODO: it won't be here
-    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer(), "M");
-    	PaymentManager manager = new PaymentManager();
-
     	//TODO: Load AvailableStock
 //		return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-    	
-    	try {
-			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable,manager.checkout(buyOrder), buyOrder.buyer.points));
-		} catch (JSONException e) {
-			return badRequest();//TODO: think what to do when it fails
-		}catch (Exception e) {
-			return badRequest();//TODO: think what to do when it fails
-		}
+    	Buyer buyer = new Buyer();
+		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, buyer.points));
     }
     
-    public static Result orderItem(String itemId, String size) throws Exception{
+    public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception{
     	Item item = Item.find.byId(itemId);
     	//TODO: how to get buyer
-    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer(), size);
+    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer(), size, pointsUsed);
 
     	PaymentManager manager = new PaymentManager();
     	
 		try {
-			return ok(views.html.paymentProcess.render(manager.checkout(buyOrder)));
+			return ok(Json.toJson(manager.checkout(buyOrder)));
 		} catch (JSONException e) {
 			return badRequest();//TODO: think what to do when it fails
 		} catch (Exception e) {
 			return badRequest();//TODO: think what to do when it fails
 		}
-		
     }
 }

@@ -1,4 +1,4 @@
-@(item: Item, sizeOptions: Map[String, String], pointsEnabledName : String, checkoutUrl: String, buyerPoints : Integer)
+@(item: Item, sizeOptions: Map[String, String], pointsEnabledName : String,  buyerPoints : Integer)
 @import helper._
 
 @main("Detalle Item"){
@@ -9,7 +9,7 @@
 	<div id="rootwizard">
 		<ul class="nav nav-pills">
 			<li class="active"><a href="#" data-toggle="tab">Crear orden de compra</a></li>
-			<li class=""><a href="#tab2" data-toggle="tab" >Pagar orden de compra</a></li>
+			<li class=""><a id="orderItemButton" href="#tab2"  data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
 					
 		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 800px;" >
@@ -47,7 +47,7 @@
    						<h1 style=" color: #428bca;  font-size: 120px;">@buyerPoints</h1>
 					    <p>Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor</p>
 							<p>Puntos a utilizar</p>
-     					<input type="text" id="pointsToUSe" name="pointsToUSe"  style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
+     					<input type="text" id="pointsToUse"   style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
   						<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
 						</div>
 	    		</div>
@@ -79,21 +79,21 @@
 							</tr>
   						<tr>
 								<td>Puntos usados</td>
-								<td>10</td>
+								<td id="usedPoints"></td>
 							</tr>
   						<tr>
 								<td>Monto pendiente a pagar con MercadoPago</td>
-								<td>$99</td>
+								<td id="pendingAmount"></td>
 							</tr>
   						<tr>
 								<td>Puntos que se ganarán con la compra</td>
-								<td>99</td>
+								<td id="earnedPoints"></td>
 							</tr>
 
 						</table>
 						
 						<div class="form-group">	
-	    				<a href=@checkoutUrl name="MP-Checkout" class="blue-rn-m" name="MP-Checkout">Pagar</a>
+	    				<a id="mpButton" name="MP-Checkout" class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Pagar</a>
 				    </div>
 
 			 		</div>
@@ -104,23 +104,49 @@
 	</div>	
 	
 </div>
+<!--MP Script needed to give styles to payment button/modal-->
    <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
 
+<!--App scrips TODO: take it to a separate file-->
 	<script>
 	$( document ).ready(function() {
-  	var pointsDiv= $('[name=pointsDisabled]');
-			if(pointsDiv != null){
-				disablePointsPayment(pointsDiv);
-			}
-	});
+	  	var pointsDiv= $('[name=pointsDisabled]');
+				if(pointsDiv != null){
+					disablePointsPayment(pointsDiv);
+				}
+			$("#orderItemButton").click(function(){
+				orderItem();
+			});
+		});
 
 	function disablePointsPayment(pointsDiv){
-  	pointsDiv.children().attr("disabled", "disabled");
-  	pointsDiv.css("opacity", "0.5");
-  	pointsDiv.append("<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>")
+	  	pointsDiv.children().attr("disabled", "disabled");
+	  	pointsDiv.css("opacity", "0.5");
+	  	pointsDiv.append("<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>")
+		}
+		
+	function orderItem(){
+		var points =$("#pointsToUse").val();
+		if(points== ""){
+			points = 0;
+		}
+		jsRoutes.controllers.Items.orderItem("@item.id", "L", points).ajax(
+			{
+				success:function(json){
+					var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+					$("#mpButton").attr("href", json);
+					$("#usedPoints").html(points);
+					$("#earnedPoints").html(pending);
+					$("#pendingAmount").html("$"+ pending);
+					
+				}
+			}
+		);
 	}
 	</script>
 	
+
+<!--Styles TODO: take it to a separate file-->
  	<style type="text/css">
 		.disabledPointsLegend{
 			position: relative;
@@ -141,7 +167,7 @@
 		  content: '';
 		}
 
-	.simplecolorpicker.picker:after {
+		.simplecolorpicker.picker:after {
 		  position: absolute;
 		  top: -6px;
 		  left: 10px;
@@ -152,7 +178,7 @@
 		  content: '';
 		}
 
-	.simplecolorpicker.picker {
+		.simplecolorpicker.picker {
 		  position: absolute;
 		  top: 100%;
 		  left: 0;
@@ -178,14 +204,14 @@
 		     -moz-border-radius: 5px;
 		          border-radius: 5px;
 
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
      -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
-  -webkit-background-clip: padding-box;
+ 	 -webkit-background-clip: padding-box;
      -moz-background-clip: padding;
           background-clip: padding-box;
-}
+	}
 
   .simplecolorpicker.inline {
     display: inline-block;
