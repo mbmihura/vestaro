@@ -1,12 +1,15 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.persistence.*;
-import javax.validation.Valid;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -36,8 +39,6 @@ public class Item extends Model {
     @Constraints.MaxLength(10)
     public String sex;
     
-    //TODO Change Object type to Stock
-    public List<String> stocks;
 
     @OneToOne
     public Seller seller;
@@ -80,6 +81,9 @@ public class Item extends Model {
     	return item;
     }
     
+    public LinkedHashMap<String, String> getAvailableStock(){
+    	return Stock.findAvailableSizeOptions(id);
+    }
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Item [id=")
@@ -99,5 +103,13 @@ public class Item extends Model {
                 .append("]");
         return builder.toString();
     }
+
+	public LinkedHashMap<String, String> getMockAvailableStock() {
+		LinkedHashMap<String, String> availableStockSize = new LinkedHashMap<String,String>();
+		availableStockSize.put("S", "Small");
+		availableStockSize.put("M", "Medium");
+		availableStockSize.put("L", "Large");
+		return availableStockSize;
+	}
 
 }
