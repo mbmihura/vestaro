@@ -5,6 +5,7 @@ vestaroMain.config(function($routeProvider) {
   $routeProvider.
 	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyerHome.html'}).
 	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/itemSearch.html'}).
+	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/wishlist.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
 	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
@@ -29,26 +30,26 @@ vestaroMain.config(function($routeProvider) {
     
 }]);
 
-/* Filtros */
+/* Filters */
 vestaroMain.filter('priceBetween', function () {
-	return function ( items, minPrice, maxPrice ) {
-		var filteredItems = [];
-		for (var i=0; i<items.length; i++){
-            if ( items[i].price >= minPrice && items[0].price <= maxPrice ) {
+    return function ( items, minPrice, maxPrice ) {
+        var filteredItems = []
+        angular.forEach(items, function ( item ) {
+            if ( item.price >= minPrice && item.price <= maxPrice ) {
                 filteredItems.push(item);
             }
-        }
-		return filteredItems;
+        });
+        return filteredItems;
     }
 }).filter('inCategory', function(){
     return function(items, category){
-        if(category == 'Todas') return items;
+        if(category.id == 0) return items;
     	var filteredItems = [];
-        for (var i=0; i<items.length; i++){
-            if (items[i].title.toLowerCase().search(category.toLowerCase()) != -1) {
-            	filteredItems.push(items[i]);
+        angular.forEach(items, function ( item ) {
+            if ( item.title.toLowerCase().search(category.name.toLowerCase()) != -1 ) {
+                filteredItems.push(item);
             }
-        }
+        });
         return filteredItems;
     };
 })
@@ -68,28 +69,84 @@ vestaroMain.directive('onFinishRender', function ($timeout) {
 })
 
 /* Data Factory */
-vestaroMain.factory('Items', function($http) {
-	var Items = {};
-    
-    Items.categories = [ {name: 'Todas', sexo: 'Todos'},
-                         {name: 'Camisa', sexo: 'Mujer'},
-	                     {name: 'Buzo', sexo: 'Hombre'}];
-    
-	return Items;
+vestaroMain.factory('buyerSession', function($http){
+	return {
+        getWishlist: function() {
+            return $http.get('/wishlist');
+        },
+        getItems: function() {
+        	return $http.get('/items');
+        },
+        // TODO: replace with easyrec request.
+        getPopularItems: function() {
+        	return $http.get('/items');
+        },
+        getCategories: function() {
+        	return [ {id: 0, name: 'Todas', sexo: 'Todos'},
+                     {id: 1, name: 'Camisa', sexo: 'Mujer'},
+                     {id: 2, name: 'Buzo', sexo: 'Hombre'}];
+        },
+        addToWishlist: function(itemId) {
+        	return $http.post('/wishlist', {'itemId': itemId})
+	        	.success(function(data){
+				  console.log(data);
+			  })
+			  .error(function(data, status, headers, config){
+				  console.log(status);
+				  // 401: Unauthorized
+				  if(status == 401) $('#loginBtn').popover('show');
+			  });
+        },
+        removeFromWishlist: function(itemId) {
+        	return $http.delete('/wishlist/' + itemId);
+        }
+    };
 });
 
 /* Controllers */
-function BuyerHomeCtrl($scope, $http) {
-  $http.get('/items').success(function(data){
+function BuyerHomeCtrl($scope, buyerSession) {
+  buyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
   
-  //TODO: call to easyrec most viewed
-  $http.get('/items').success(function(data){
+  buyerSession.getPopularItems().success(function(data){
 	  $scope.popularItems = data;
   });
   
   $scope.$on('isotope', isotopeHandling);
+  
+  $scope.showBuyItemModal = function(item){
+	  $scope.item = item;
+	  $('#buyItemModal').modal('show');
+  }
+  
+  $scope.addToWishlist = function(item){
+	  buyerSession.addToWishlist(item.id);
+  }
+  
+  var $container = $('#itemsContainer');
+	// Toggles item size
+	$container.on('click', '.item-img', function() {
+		var $item = $(this).closest('.item'); 
+		if ($item.hasClass('large')) {
+			$item.removeClass('large');
+		} else {
+			$container.find('.item.large').removeClass('large');
+			$item.closest('.item').addClass('large');
+		}
+		$container.isotope('reLayout');
+	});
+	
+	// Toggles item information
+	$container.on('.item', 'mouseenter mouseleave', function(e) {
+		e.preventDefault();
+		$(this).find('.itemInformation').fadeToggle('fast');
+	});
+	
+	// Toggle know more
+	$('#knowMoreBtn').click(function(){
+		$('#knowMore').slideToggle()
+	})
   
 }
 
@@ -145,45 +202,41 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 		}
 		
 		return false;
-	});
-	
-	// Toggles item size
-	$container.on('click', '.item', function() {
-		if ($(this).hasClass('large')) {
-			$(this).removeClass('large');
-		} else {
-			$container.find('.item.large').removeClass('large');
-			$(this).addClass('large');
-		}
-		$container.isotope('reLayout');
-	});
-
-	// Toggles item information
-	$container.on('.item', 'mouseenter mouseleave', function(e) {
-		e.preventDefault();
-		$(this).find('.itemInformation').fadeToggle('fast');
-	});
+	});	
 }
 
-function ItemSearchCtrl($scope, $http, Items) {
+function ItemSearchCtrl($scope, buyerSession) {
   
-  $scope.categories = Items.categories;
+  $scope.categories = buyerSession.getCategories();
+//  $scope.selectedCategory = $scope.categories[0];
   
-  $http.get('/items').success(function(data) {
+  buyerSession.getItems().success(function(data) {
 	  $scope.items = data;
   });
   
-  $scope.showItemModal = function(item){
+  $scope.showBuyItemModal = function(item){
 	  $scope.item = item;
-	  $('#itemModal').modal('show');
+	  $('#buyItemModal').modal('show');
   }
   
   $scope.addToWishlist = function(item){
-	  console.log("TODO: Add to wishlist: " + item.title);
+	  buyerSession.addToWishlist(item.id);
   }
   
 }
- 
-function SellerDashboardCtrl($scope) {
+
+function WishlistCtrl($scope, buyerSession, $http) {
+
+	buyerSession.getWishlist().success(function(data) {
+		$scope.wishlistItems = data;
+	});
 	
+	$scope.removeFromWishlist = function(wishItem, idx) {
+		buyerSession.removeFromWishlist(wishItem.item.id).success(function(data) {
+			console.log(data);
+			$scope.wishlistItems.splice(idx, 1);
+		});
+	}
 }
+ 
+function SellerDashboardCtrl($scope) {}

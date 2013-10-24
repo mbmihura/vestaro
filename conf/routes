@@ -31,6 +31,9 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 # Search
 
 # Wishlist
+GET		/wishlist							controllers.WishlistController.userWishlistItems()
+POST	/wishlist							controllers.WishlistController.addItemToWishlist()
+DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
 
 # Buyer Profile
 
