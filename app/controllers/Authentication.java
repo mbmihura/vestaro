@@ -60,6 +60,6 @@ public class Authentication extends Controller {
    }
     
     public static User currentUser() {
-        return User.findById(Authentication.currentUserId());
+        return currentUserId() != null? User.findById(Authentication.currentUserId()): null;
     }
 }

@@ -13,8 +13,6 @@ POST	/authentication/logout      		controllers.Authentication.logout()
 
 ## Seller ##
 # Dashboard
-GET		/dashboard							controllers.DashboardController.dashboardTest()
-GET		/dashboardFull						controllers.DashboardController.dashboard()
 GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
 GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections(sellerId: Long, actionDateBegin: Long, actionDateEnd: Long)
@@ -24,7 +22,6 @@ GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType			con
 
 # Seller
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/items     		controllers.SellerController.listItems(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 
 
@@ -34,6 +31,9 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 # Search
 
 # Wishlist
+GET		/wishlist							controllers.WishlistController.userWishlistItems()
+POST	/wishlist							controllers.WishlistController.addItemToWishlist()
+DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
 
 # Buyer Profile
 
@@ -41,8 +41,6 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 ## Commons ##
 # Collection
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/items     		controllers.SellerController.listItems(sellerId: Long)
-GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 
 # Item
 GET		/items								controllers.ItemController.index()

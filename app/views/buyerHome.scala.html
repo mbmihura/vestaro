@@ -1,19 +1,17 @@
-@(seller: Seller, items: List[Item])
+@(items: List[Item])
 
-@main(title="Prendas @seller.name") {
-
-<div ng-controller='searchClothesCtrl' class='row'>
+<div class='row'>
 <nav id='itemsControls nav nav-stacked' class='col-md-2'>
 	<div class="well sidebar-nav" style="font-size: 13px;">
 	
   		<ul id="filters" class="option-set nav nav-list" data-option-key="filter"> <!--Filters by class-->
   		<li class = "nav-header">Filtros (test)</li>
-			<li><a href="#filter" data-option-value="*" class="selected active">Todos</a></li>
-			<li><a href="#filter" data-option-value=".camisa">Camisas</a></li>
-			<li><a href="#filter" data-option-value=".abrigo">Abrigos</a></li>
-			<li><a href="#filter" data-option-value=".pantalon">Pantalones</a></li>
-			<li><a href="#filter" data-option-value=".camisa, .pantalon">Pantalones y Camisas</a></li>
-			<li><a href="#filter" data-option-value=":not(.abrigo)">No Abrigos</a></li>
+			<li><a href="#filter" data-option-value="*" class="option selected active">Todos</a></li>
+			<li><a href="#filter" data-option-value=".camisa" class="option">Camisas</a></li>
+			<li><a href="#filter" data-option-value=".abrigo" class="option">Abrigos</a></li>
+			<li><a href="#filter" data-option-value=".pantalon" class="option">Pantalones</a></li>
+			<li><a href="#filter" data-option-value=".camisa, .pantalon" class="option">Pantalones y Camisas</a></li>
+			<li><a href="#filter" data-option-value=":not(.abrigo)" class="option">No Abrigos</a></li>
 		</ul>
 		
 		<ul class="nav nav-list">
@@ -68,38 +66,26 @@
 
 <div class="col-md-10">
 	<ul id="itemsContainer" class="items isotope row">
-		@for(item <- items) {
-			@views.html.items.itemIsotope(item)
-		}
+		<li class="item camisa" data-item-id="{{item.id}}" data-category="camisa"><img src={{item.imgUrl}}
+			alt={{item.title}}>
+			<div class="itemInformation">
+				<h2 class='title'>{{item.title}}</h2>
+				<h3 class='description'>{{item.description}}</h3>
+				<span class='sellerName'>{{item.seller.name}}</span>
+				<p class='price'>${{item.price}}</p>
+				<div class='itemControls btn-group'>
+					<button type='button' class='buy btn btn-primary'>Comprar</button>
+					<button type='button' class='buy btn btn-default'>Wishlist</button>
+				</div>
+			</div>
+		</li>
 	</ul>
-<!-- 	<ul class="items isotope row"> -->
-<!-- 	  <li ng-repeat="item in items" class="item camisa" data-item-id={{item.id}} ng-mouseover="visible = 'visible'"> -->
-<!-- 		  <img src={{item.imgUrl}} alt={{item.title}}> -->
-<!-- 		  <div class="itemInformation"> -->
-<!-- 		  	<h2 class='title'>{{item.title}}</h2> -->
-<!-- 		  	<h3 class='description'>{{item.description}}</h3><span class='sellerName'>{{item.seller.name}}</span> -->
-<!-- 		  	<p class='price'>${{item.price}}</p> -->
-<!-- 		  	<div class='itemControls btn-group' style='visibility: {{visible}};'> -->
-<!-- 			  	<button type='button' class='buy btn btn-primary'>Comprar</button> -->
-<!-- 			  	<button type='button' class='buy btn btn-default'>Wishlist</button> -->
-<!-- 			</div> -->
-<!-- 		  </div> -->
-<!-- 	  </li> -->
-<!-- 	</ul> -->
 </div>
 
 </div>
 
 <script src="@routes.Assets.at("javascripts/jquery.isotope.min.js")" type="text/javascript"></script>
 <script>
-function searchClothesCtrl($scope, $http){
-	
- 	$http.get('/seller/1/itemsJson').success(function(data, status, headers, config) {
- 		$scope.items = data;
- 	});
- 	
-}
-
 $(document).ready(function(){
   
   var $container = $('#itemsContainer');
@@ -122,7 +108,7 @@ $(document).ready(function(){
    });
   
 	var $optionSets = $('#itemsControls .option-set'),
-	$optionLinks = $optionSets.find('a');
+		$optionLinks = $optionSets.find('.option');
 
 	$optionLinks.click(function(){
 		var $this = $(this);
@@ -151,27 +137,31 @@ $(document).ready(function(){
 		
 		return false;
 	});
-
-  
-  // change size of clicked item
-  $container.delegate( '.item', 'click', function(){
-	if($(this).hasClass('large')){
-		$(this).removeClass('large');
-		
-	}
-	else
-	{
-		$container.find('.item.large').removeClass('large');
-		$(this).addClass('large');
-	}
-	$container.isotope('reLayout');
-  });
-  
-  // toggle display of item information
-  $('.item').mouseenter(function(e){e.preventDefault();$(this).find('.itemInformation').show();});
-  $('.item').mouseleave(function(e){e.preventDefault();$(this).find('.itemInformation').hide();});
+	
+	// Toggles item size
+	$container.delegate( '.item', 'click', function(){
+		if($(this).hasClass('large')){
+			$(this).removeClass('large');
+		}
+		else
+		{
+			$container.find('.item.large').removeClass('large');
+			$(this).addClass('large');
+		}
+		$container.isotope('reLayout');
+	});
+	
+	// Toggles item information
+	$container.find('.item').bind({
+		mouseenter: function(e){
+			e.preventDefault();
+			$(this).find('.itemInformation').fadeToggle('fast');
+		},
+		mouseleave: function(e){
+			e.preventDefault();
+			$(this).find('.itemInformation').fadeToggle('fast');
+		}
+	});
   
 });
 </script>
-
-}
