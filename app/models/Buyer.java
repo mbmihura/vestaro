@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -21,9 +23,15 @@ public class Buyer extends Model {
 	 @OneToOne
 	public User user;
 	public Integer points =0; 
+	public String mail ="test@gmail.com";
     
-	public static Finder<User,Buyer> find = new Finder<User,Buyer>(User.class,Buyer.class);
+	public static Finder<Long,Buyer> find = new Finder<Long,Buyer>(Long.class,Buyer.class);
 	
+  public static Buyer findBuyerByUser(Long user){
+	  return Buyer.find.where()
+    			.eq("user.userId", user)
+    			.findUnique();
+    }
 	public Buyer(User user){
 		this.user = user;
 		this.points=0;
