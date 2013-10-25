@@ -2,6 +2,8 @@ package models;
 
 import java.sql.Timestamp;
 import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -106,6 +108,9 @@ public class Item extends Model {
     	return item;
     }
     
+    public LinkedHashMap<String, String> getAvailableStock(){
+    	return Stock.findAvailableSizeOptions(id);
+    }
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Item [id=")
@@ -156,5 +161,13 @@ public class Item extends Model {
             }
         };
     }
+
+	public LinkedHashMap<String, String> getMockAvailableStock() {
+		LinkedHashMap<String, String> availableStockSize = new LinkedHashMap<String,String>();
+		availableStockSize.put("S", "Small");
+		availableStockSize.put("M", "Medium");
+		availableStockSize.put("L", "Large");
+		return availableStockSize;
+	}
 
 }

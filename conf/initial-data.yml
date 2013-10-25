@@ -7,11 +7,13 @@ sellers:
         id:         1
         fbUid:      999999
         name:       RopaCool
+        pointsEnabled: false
 
     - !!models.Seller
         id:         2
         fbUid:      666666
         name:       RopaHot
+        pointsEnabled: true
 
 # Collections
 
@@ -64,7 +66,7 @@ items:
         price:        200
         sex:        m
         seller:        !!models.Seller
-                        id: 1
+                        id: 2
         collection:   !!models.Collection
                         id: 1
     - !!models.Item
