@@ -50,7 +50,7 @@ GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
 
 DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
 PUT		/garment/:itemId					controllers.ItemController.update(itemId: String)
-POST	/garment/				controllers.ItemController.submit()
+POST	/garment/							controllers.ItemController.submit()
 
 
 # Recommendations
