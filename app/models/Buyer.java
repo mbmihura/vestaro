@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
@@ -17,12 +18,23 @@ public class Buyer extends Model {
 	
 	 @Id
     public Long id;
-    public Long fbUid;
-    public String name;
-	public String mail = "mail@gmail.com";//TODO: get it from FB 
+	 @OneToOne
+	public User user;
 	public Integer points =0; 
     
-	public static Finder<Long,Buyer> find = new Finder<Long,Buyer>(Long.class,Buyer.class);
-
+	public static Finder<User,Buyer> find = new Finder<User,Buyer>(User.class,Buyer.class);
 	
+	public Buyer(User user){
+		this.user = user;
+		this.points=0;
+	}
+	public Buyer(){
+		
+	}
+	
+	public Buyer create(User user){
+		Buyer buyer = new Buyer(user);
+		buyer.save();
+		return buyer;
+	}
 }

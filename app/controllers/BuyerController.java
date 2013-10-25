@@ -10,7 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.*;
 
-public class Buyer extends Controller {
+public class BuyerController extends Controller {
   
     public static Result profile(){
     	return ok(views.html.buyerProfile.render(getMockOrders()));
