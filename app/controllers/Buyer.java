@@ -20,7 +20,7 @@ public class Buyer extends Controller {
 	private static ArrayList<BuyOrder> getMockOrders() {
 		ArrayList<BuyOrder> orders = new ArrayList<BuyOrder>();
 		
-    	Item item1= Item.find.byId("CN1");
+    	Item item1= Item.find.byId("CG1");
     	Item item2= Item.find.byId("CB1");
     	orders.add(new BuyOrder((long) 1,item1, new models.Buyer(), "L", 55, State.PAYMENT_PENDING));
     	orders.add(new BuyOrder((long) 2,item2, new models.Buyer(), "M", 50, State.RECEPTION_PENDING));

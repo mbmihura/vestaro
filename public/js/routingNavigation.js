@@ -9,8 +9,7 @@ vestaroMain.config(function($routeProvider) {
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
 	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/collections', {controller:CollectionsCtrl, templateUrl:'assets/html/collectionForm.html'}).
-	  when('/sellerSettings', {controller:SelletSettingsCtrl, templateUrl:'assets/html/sellerSettings.html'}).
-	  
+	  when('/sellerSettings', {controller:SelletSettingsCtrl, templateUrl:'assets/html/sellerSettings.html'}).	  
 
 	  when('/garments', {controller:'GarmentListCtrl', templateUrl:'assets/html/garment/listCompact.html'}).
 	  when('/garmentsComplete', {controller:'GarmentListCCtrl', templateUrl:'assets/html/garment/listDetailed.html'}).
