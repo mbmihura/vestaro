@@ -48,7 +48,7 @@
 		</div>
 		<div id="DIV_341">
 			<h2 id="H2_342">
-				 <a href="/levis-mens" class="to-brand" id="A_343"><img src="{{item.logoUrl}}}" alt="brand logo" class="gae-click*Product-Page*Tabs*Brand-Logo" id="IMG_344" /></a>
+				 <a href="/levis-mens" class="to-brand" id="A_343"><img src="assets/img/users-data/levisBrandLogo.jpg" alt="brand logo" class="gae-click*Product-Page*Tabs*Brand-Logo" id="IMG_344" /></a>
 			</h2>
 		</div>
 		<div id="DIV_345" class="wingContainer resized">
@@ -58,8 +58,15 @@
 					<input type="hidden" name="productId" value="8131819" id="INPUT_349" />
 					<input type="hidden" name="timedSaleId" id="INPUT_350" />
 					<div id="DIV_351" class="onSale">
-						<span class="sale" id="SPAN_352">Now on SALE!</span> <span class="oldPrice" id="SPAN_353" style="display:none">$50.00</span> <span class="price salePrice" id="SPAN_354">$29.99</span>
+						<span class="sale" id="SPAN_352">Now on SALE!</span> <span class="oldPrice" id="SPAN_353" style="display:none">$50.00</span> <span class="price salePrice" id="SPAN_354">${{item.price}}</span>
 					</div>
+					<div class="shipOpts ng-binding" id="DIV_355" style="
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 24px;
+    font-weight:bolder;
+    margin-bottom: 5px;
+">{{item.seller.name}}</div>
 					<div class="shipOpts" id="DIV_355" style="
     padding-right: 10px;
     padding-left: 10px;
