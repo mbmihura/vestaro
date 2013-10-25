@@ -34,7 +34,6 @@ public class ItemController extends BaseController {
     	if(itemFilledForm.hasErrors()) {
             return badRequest(form.render(itemFilledForm));
         } else {
-        	//TODO: load stock
             return ok(
                 item.render(Item.submit(itemFilledForm.get()))
             );
@@ -87,22 +86,24 @@ public class ItemController extends BaseController {
     			.findList();
     	return ok(Json.toJson(items));
     }
-
-    public static Result buy(String itemId){
+//TODO: problem with routes with parameters
+//    public static Result buy(String itemId){
+     public static Result buy(){
+//        String itemId = "CB3";
+        String itemId= "CB1";
     	Item item = Item.find.byId(itemId);
     	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
 
     	//TODO: Load AvailableStock
         //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-    	Buyer buyer = new Buyer();
-		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, buyer.points));
+		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, Buyer.findBuyerByUser(currentUser().userId).points));
     }
     
     public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception{
     	Item item = Item.find.byId(itemId);
-    	//TODO: how to get buyer
+    	
     	BuyOrder buyOrder  = new BuyOrder();
-    	buyOrder.create(buyOrder, item, new Buyer(), size, pointsUsed);
+    	buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
 
     	PaymentManager manager = new PaymentManager();
     	
