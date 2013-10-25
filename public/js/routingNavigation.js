@@ -236,6 +236,8 @@ function WishlistCtrl($scope, buyerSession, $http) {
 		buyerSession.removeFromWishlist(wishItem.item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
+			$scope.alert = {title:'Prenda eliminada de Wishlist', type:'info'};
+			$('#alertModal').modal('show');
 		});
 	}
 }
