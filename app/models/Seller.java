@@ -14,7 +14,12 @@ public class Seller extends Model {
     public Long id;
     public Long fbUid;
     public String name;
-    public Long merchantId;
+    public boolean	 pointsEnabled=false;
+    public Double pointMoneyRelation = 1.0;	 
+
+    public String mp_client_secret ="uToiGVlNavrrbtjFX6ksHP51RQsG5and";//TEST_CLIENT_SECRET
+    public String mp_client_id = "1406963671517811";//TEST_CLIENT_ID
+    
     public String logoUrl;
     public String webpageUrl;
     @Formats.DateTime(pattern="yyyy-MM-dd hh:mm:ss")

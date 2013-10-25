@@ -70,7 +70,6 @@ public class Application extends BaseController {
 
                 // Routes for Actions
                 controllers.routes.javascript.ActionController.actionsFrom()
-                
             )
         );
     }

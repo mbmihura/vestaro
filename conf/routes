@@ -66,3 +66,10 @@ GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWith
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
+
+# Payment Process
+GET		/buy/:itemId				controllers.ItemController.buy(itemId: String)
+POST	/orderItem					controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
+GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
+GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)
+
