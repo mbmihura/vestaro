@@ -3,8 +3,7 @@
 
 @main("Buy orders") {
 	
-<div class="panel-group" id="accordion">
-  
+  <div class="panel panel-default" style="text-align: center;"><h1>Mi perfil</h1><h1></h1></div>
 	<div class="col-lg-4">
 		<legend><h2>Mis puntos</h2></legend>	
 		<div class= "jumbotron container" style="text-align:center;">
@@ -17,6 +16,7 @@
 	<div class="col-lg-8">
 	<legend><h2>Órdenes de compra</h2></legend>
 
+<div class="panel-group" id="accordion">
   @for(buyOrder <- orders ){
   <div class="panel panel-default">
     <div class="panel-heading">
