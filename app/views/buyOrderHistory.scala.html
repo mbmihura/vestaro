@@ -31,13 +31,19 @@
 				<div class="col-lg-3">
 					<img src=@buyOrder.item.imgUrl style="width:80%;">
 				</div>
-				<div class="col-lg-7">
+				<div class="col-lg-6">
 					<p>Descripción: @buyOrder.item.description</p>
 					<p>Talle: @buyOrder.size</p>
 					<p>Precio: $@buyOrder.price</p>
 				</div>
-				<div class="col-lg-2">
-					<button type="button" class="btn btn-primary">Acción</button>
+				<div class="col-lg-3">
+					@if(buyOrder.state.getDescription() != "Recepción confirmada"){
+						<button type="button" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
+						<button type="button" class="btn btn-default" style="margin-top:15px;">Abrir disputa</button>
+							
+						}
+					}
 				</div>
       </div>
     </div>

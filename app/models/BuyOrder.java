@@ -11,17 +11,24 @@ import play.db.ebean.Model;
 public class BuyOrder extends Model{
 	
 	public enum State{
-		PAYMENT_PENDING("Pendiente de pago"),
-		RECEPTION_PENDING("Pendiente de recepción"),
-		RECEPTION_CONFIRMED("Recepción confirmada"),
-		IN_DISPUTE("En disputa");
-	private String description;	
-	public String getDescription(){
-		return description;
-	}
-	private State(String d){
-		description = d;
-	}
+		PAYMENT_PENDING("Pendiente de pago", "Pagar"),
+		RECEPTION_PENDING("Pendiente de recepción", "Confirmar recepción"),
+		RECEPTION_CONFIRMED("Recepción confirmada",""),
+		IN_DISPUTE("En disputa","Confirmar recepción");
+	
+		private String description;	
+		private String actionMessage;	
+
+		public String getDescription(){
+			return description;
+		}
+		public String getActionMessage(){
+			return actionMessage;
+		}
+		private State(String d, String am){
+			description = d;
+			actionMessage=am;
+		}
 	}
 
 	/**
