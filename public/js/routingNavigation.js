@@ -102,11 +102,11 @@ vestaroMain.factory('buyerSession', function($http){
             return $http.get('/wishlist');
         },
         getItems: function() {
-        	return $http.get('/items');
+        	return $http.get('/garment');
         },
         // TODO: replace with easyrec request.
         getPopularItems: function() {
-        	return $http.get('/items');
+        	return $http.get('/garment');
         },
         getCategories: function() {
         	return [ {id: 0, name: 'Todas', sexo: 'Todos'},
