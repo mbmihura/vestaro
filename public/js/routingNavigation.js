@@ -3,9 +3,9 @@ var vestaroMain = angular.module('vestaroMain', []);
 vestaroMain.config(function($routeProvider) {
   var template = '<div ng-include="templateUrl">Loading...</div>';
   $routeProvider.
-	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyerHome.html'}).
-	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/itemSearch.html'}).
-	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/wishlist.html'}).
+	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyer/buyerHome.html'}).
+	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/buyer/itemSearch.html'}).
+	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/buyer/wishlist.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
 	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/collections', {controller:CollectionsCtrl, templateUrl:'assets/html/collectionForm.html'}).
@@ -108,10 +108,11 @@ vestaroMain.factory('buyerSession', function($http){
         getPopularItems: function() {
         	return $http.get('/garment');
         },
+        // TODO: replace with server request for categories.
         getCategories: function() {
         	return [ {id: 0, name: 'Todas', sexo: 'Todos'},
                      {id: 1, name: 'Camisa', sexo: 'Mujer'},
-                     {id: 2, name: 'Buzo', sexo: 'Hombre'}];
+                     {id: 2, name: 'Campera', sexo: 'Hombre'}];
         },
         addToWishlist: function(itemId) {
         	return $http.post('/wishlist', {'itemId': itemId})
@@ -149,6 +150,14 @@ function BuyerHomeCtrl($scope, buyerSession) {
   
   $scope.addToWishlist = function(item){
 	  buyerSession.addToWishlist(item.id);
+	  $scope.alert = {title:'Prenda agregada a Wishlist',
+				type:'info',
+				body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
+				btns: {primary: {title: 'Seguir', href: ''},
+					   'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
+				}
+		};
+		$('#alertModal').modal('show');
   }
   
   var $container = $('#itemsContainer');
@@ -248,6 +257,14 @@ function ItemSearchCtrl($scope, buyerSession) {
   
   $scope.addToWishlist = function(item){
 	  buyerSession.addToWishlist(item.id);
+	  $scope.alert = {title:'Prenda agregada a Wishlist',
+				type:'info',
+				body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
+				btns: {primary: {title: 'Seguir', href: ''},
+					   'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
+				}
+		};
+		$('#alertModal').modal('show');
   }
   
 }
@@ -262,7 +279,13 @@ function WishlistCtrl($scope, buyerSession, $http) {
 		buyerSession.removeFromWishlist(wishItem.item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
-			$scope.alert = {title:'Prenda eliminada de Wishlist', type:'info'};
+			$scope.alert = {title:'Prenda eliminada de Wishlist',
+					type:'info',
+					body: 'La prenda ' + wishItem.item.title + ' fue eliminada de tu wishlist.',
+					btns: {primary: {title: 'Seguir', href: ''},
+						   'default': {title: 'Ir a Home', href: '#/'}
+					}
+			};
 			$('#alertModal').modal('show');
 		});
 	}
