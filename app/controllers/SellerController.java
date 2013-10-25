@@ -6,6 +6,7 @@ import java.util.List;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
+import models.Seller;
 import play.libs.Json;
 import play.mvc.Result;
 
@@ -25,5 +26,13 @@ public class SellerController extends BaseController {
 		}
     	
     	return ok(Json.toJson(items));
+    }
+    
+    public static Result findSellerById(Long sellerId) {
+    	return ok(Json.toJson(Seller.find.byId(sellerId)));
+    }
+    
+    public static Result update(Long sellerID, String logoURL, String name, String pageURL, Boolean pointsEnabled, Long pointMoneyRelation) {
+        return ok(Json.toJson(Seller.update(new Seller(sellerID, logoURL, name, pageURL, pointsEnabled, pointMoneyRelation))));
     }
 }

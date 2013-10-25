@@ -9,11 +9,37 @@ vestaroMain.config(function($routeProvider) {
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
 	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/collections', {controller:CollectionsCtrl, templateUrl:'assets/html/collectionForm.html'}).
+	  when('/sellerSettings', {controller:SelletSettingsCtrl, templateUrl:'assets/html/sellerSettings.html'}).
+	  
+
+	  when('/garments', {controller:'GarmentListCtrl', templateUrl:'assets/html/garment/listCompact.html'}).
+	  when('/garmentsComplete', {controller:'GarmentListCCtrl', templateUrl:'assets/html/garment/listDetailed.html'}).
+	  when('/garments/new', {controller:'GarmentNewCtrl', templateUrl:'assets/html/garment/form.html'}).
+	  when('/garments/:id', {controller:'GarmentEditCtrl', templateUrl:'assets/html/garment/form.html'}).
+
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
 .controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
   $scope.templateUrl = $location.$$url;
+}])
+.controller('GarmentListCtrl', ['$scope','$http', function($scope, $http){
+  	$http.get('/garment').success(function(list) {
+		$scope.list = list;
+	});;
+}])
+.controller('GarmentListCCtrl', ['$scope','$http', function($scope, $http){
+  	$http.get('/garment').success(function(list) {
+		$scope.list = list;
+	});;
+}])
+.controller('GarmentNewCtrl', ['$scope', function($scope){
+  $scope.save = function() {
+    //TODO:
+  }
+}])
+.controller('GarmentEditCtrl', ['$scope', function($scope){
+  
 }])
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [
@@ -76,11 +102,11 @@ vestaroMain.factory('buyerSession', function($http){
             return $http.get('/wishlist');
         },
         getItems: function() {
-        	return $http.get('/items');
+        	return $http.get('/garment');
         },
         // TODO: replace with easyrec request.
         getPopularItems: function() {
-        	return $http.get('/items');
+        	return $http.get('/garment');
         },
         getCategories: function() {
         	return [ {id: 0, name: 'Todas', sexo: 'Todos'},
@@ -241,6 +267,8 @@ function WishlistCtrl($scope, buyerSession, $http) {
 		});
 	}
 }
- 
-function SellerDashboardCtrl($scope) {}
+
+
+function SellerDashboardCtrl($scope){}
 function CollectionsCtrl(){}
+function SelletSettingsCtrl(){}

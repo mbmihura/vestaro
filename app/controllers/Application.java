@@ -57,12 +57,13 @@ public class Application extends BaseController {
                 controllers.routes.javascript.ItemController.read(),
                 controllers.routes.javascript.ItemController.update(),
                 controllers.routes.javascript.ItemController.delete(),
-                controllers.routes.javascript.ItemController.updateItem(),
                 
                 // Routes for Sellers
                 controllers.routes.javascript.SellerController.itemsOwnedBy(),
                 controllers.routes.javascript.SellerController.listCollections(),
-                                
+                controllers.routes.javascript.SellerController.findSellerById(),
+                controllers.routes.javascript.SellerController.update(),
+                
                 // Routes for Dashboard
                 controllers.routes.javascript.DashboardController.biggestCollections(),
                 controllers.routes.javascript.DashboardController.littleItemsStock(),
@@ -70,7 +71,6 @@ public class Application extends BaseController {
 
                 // Routes for Actions
                 controllers.routes.javascript.ActionController.actionsFrom()
-                
             )
         );
     }

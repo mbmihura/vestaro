@@ -21,12 +21,14 @@ GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		cont
 GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
 # Seller
+
+GET     /findSellerById/			     	controllers.SellerController.findSellerById(sellerId: Long)
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
-
+GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 	controllers.SellerController.update(sellerID: Long, logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Long)
 
 ## Buyer ##
-# Home
+#  Home  #
 
 # Search
 
@@ -43,13 +45,15 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 
 # Item
-GET		/items								controllers.ItemController.index()
-GET		/item								controllers.ItemController.form()
-GET		/item/:itemId						controllers.ItemController.read(itemId: String)
-POST	/item								controllers.ItemController.submit()
-POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
-PUT		/item/:itemId						controllers.ItemController.update(itemId: String)
-GET		/item/:collectionId/:itemId			controllers.ItemController.updateItem(collectionId: Long, itemId: String)
+
+GET		/garment							controllers.ItemController.index()
+GET		/garment/new						controllers.ItemController.form()
+GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
+
+DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
+PUT		/garment/:itemId					controllers.ItemController.update(itemId: String)
+POST	/garment/							controllers.ItemController.submit()
+
 
 # Recommendations
 GET     /reco	           					controllers.RecommendationEngine.recoExample()
@@ -66,3 +70,10 @@ GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWith
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
+
+# Payment Process
+GET		/buy/:itemId				controllers.ItemController.buy(itemId: String)
+POST	/orderItem					controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
+GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
+GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)
+

@@ -12,7 +12,7 @@ $(document).ready(function(){
 		});
 		
 		for (var i = 0; i < 4; i++) {
-			images += "<img style='width:83px; height:100px;' src='" +
+			images += "<img style='width:87px; height:100px;' src='" +
 						(i < album.items.length ? album.items[ar.pop()].imgUrl : "") +
 						"' alt='...'>";
 		}
@@ -77,7 +77,7 @@ $(document).ready(function(){
 					$("#albums").append(
 						"<div id='" +
 						json[i].id +
-						"' class='col-sm-6 col-md-4' style='margin-top: 30px;'>" +
+						"' class='col-lg-4' style='width: 390px; margin-top: 30px;'>" +
 						"<div class='thumbnail'>" +
 						getAlbumImages(json[i]) +
 						"<div title='Haz click para ver su contenido' href='#collectionItems' data-toggle='modal' class='album caption' style='cursor: pointer;'>" +
