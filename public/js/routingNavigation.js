@@ -11,11 +11,35 @@ vestaroMain.config(function($routeProvider) {
 	  when('/collections', {controller:CollectionsCtrl, templateUrl:'assets/html/collectionForm.html'}).
 	  when('/sellerSettings', {controller:SelletSettingsCtrl, templateUrl:'assets/html/sellerSettings.html'}).
 	  
+
+	  when('/garments', {controller:'GarmentListCtrl', templateUrl:'assets/html/garment/listCompact.html'}).
+	  when('/garmentsComplete', {controller:'GarmentListCCtrl', templateUrl:'assets/html/garment/listDetailed.html'}).
+	  when('/garments/new', {controller:'GarmentNewCtrl', templateUrl:'assets/html/garment/form.html'}).
+	  when('/garments/:id', {controller:'GarmentEditCtrl', templateUrl:'assets/html/garment/form.html'}).
+
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
 .controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
   $scope.templateUrl = $location.$$url;
+}])
+.controller('GarmentListCtrl', ['$scope','$http', function($scope, $http){
+  	$http.get('/garment').success(function(list) {
+		$scope.list = list;
+	});;
+}])
+.controller('GarmentListCCtrl', ['$scope','$http', function($scope, $http){
+  	$http.get('/garment').success(function(list) {
+		$scope.list = list;
+	});;
+}])
+.controller('GarmentNewCtrl', ['$scope', function($scope){
+  $scope.save = function() {
+    //TODO:
+  }
+}])
+.controller('GarmentEditCtrl', ['$scope', function($scope){
+  
 }])
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [
