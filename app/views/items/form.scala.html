@@ -1,12 +1,17 @@
 @(formItem: Form[Item])
 
 @import helper._
-	
-	@helper.form(action = routes.ItemController.submit, 'id -> "itemForm", 'class -> "form-horizontal", 'role -> "form") {   
+
+< div class = "row" >
+
+
+@helper.form(action = routes.ItemController.submit, 'id -> "itemForm", 'class -> "form-horizontal", 'role -> "form") {   
+
 		<fieldset>
 		
 		<legend>Nueva Prenda</legend>
 		
+
  		<div class="col-lg-6">
           <div class="form-group">
 		  <label class="control-label" for="title">Nombre</label>
@@ -43,16 +48,19 @@
 		    <img src="http://a2.zassets.com/images/z/2/4/7/9/4/5/2479458-p-MULTIVIEW.jpg" alt="imagend de la prenda" style="
     height: 200px;
 ">		    
+
 		  </div>
 		</div>
 
 
 		<div class="form-group">
+
 			<label class="control-label" for="sex" style="
     float: left;
     margin-right: 30px;
 ">Sexo</label>
 			<div id="sex">
+
 			  <label class="radio-inline">
 			    <input type="radio" name="sex" id="femenino" value="f" checked="">
 			    Femenino
@@ -79,7 +87,7 @@
 			</div>
 		  
 		</div>
-          
+
 
           
           
@@ -158,14 +166,8 @@
 		
 		</fieldset>
 		
+
 		    
-		    
-
-
-
-
-
-
 
 
 		<div class="form-group" style="padding-top: 10px;
@@ -174,6 +176,14 @@ text-align: center;
 border-top: 1px solid #e5e5e5;">
 	    	<button type="submit" class="btn btn-primary">Publicar</button>
 	    	<button type="submit" class="btn">Cancelar</button>
+
 	    </div>
 	    
 	}
+	</div>
+	
+	<div class="col-md-4">
+		<img alt="Asd" src="">
+	</div>
+
+</div>

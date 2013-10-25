@@ -2,6 +2,8 @@ package models;
 
 import java.sql.Timestamp;
 import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -72,6 +74,13 @@ public class Item extends Model {
                 .eq("collection.id", collectionId)
                 .findList();
     }
+    
+    public static List<Item> findItemsWithNoCollection(Long sellerId){
+    	return Item.find.where()
+    			.eq("seller.id", sellerId)
+                .isNull("collection.id")
+                .findList();
+    }
 
     public static boolean isOwner(String itemId, Long sellerId){
         return Item.find.where()
@@ -86,6 +95,11 @@ public class Item extends Model {
         return item;
     }
 
+    public static Item update(Item item) {
+    	item.update();
+    	return item;
+    }
+    
     public static Item submit(Item item) {
     	if(item.seller == null){
     		item.seller = Seller.find.byId((long)1);
@@ -94,6 +108,9 @@ public class Item extends Model {
     	return item;
     }
     
+    public LinkedHashMap<String, String> getAvailableStock(){
+    	return Stock.findAvailableSizeOptions(id);
+    }
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Item [id=")
@@ -144,5 +161,13 @@ public class Item extends Model {
             }
         };
     }
+
+	public LinkedHashMap<String, String> getMockAvailableStock() {
+		LinkedHashMap<String, String> availableStockSize = new LinkedHashMap<String,String>();
+		availableStockSize.put("S", "Small");
+		availableStockSize.put("M", "Medium");
+		availableStockSize.put("L", "Large");
+		return availableStockSize;
+	}
 
 }

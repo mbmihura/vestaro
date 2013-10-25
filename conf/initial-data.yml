@@ -7,11 +7,13 @@ sellers:
         id:         1
         fbUid:      999999
         name:       RopaCool
+        pointsEnabled: false
 
     - !!models.Seller
         id:         2
         fbUid:      666666
         name:       RopaHot
+        pointsEnabled: true
 
 # Collections
 
@@ -19,29 +21,36 @@ collections:
 
     - !!models.Collection
         id:             1
-        title:          Camisas Manga Larga
+        title:          Camisas Manga Larga Hombre
         description:    Camisas para Hombre
         seller:  !!models.Seller
                     id: 1
                     
     - !!models.Collection
         id:             2
-        title:          Camisas Manga Corta
-        description:    Camisas para Hombre
+        title:          Camisas Manga Larga Mujer
+        description:    Camisas para Mujer
         seller:  !!models.Seller
                     id: 1
                     
     - !!models.Collection
         id:             3
-        title:          Remeras
-        description:    Remeras para Hombre
+        title:          Camperas Abrigo
+        description:    Camperas para Mujer
         seller:  !!models.Seller
                     id: 1
                     
     - !!models.Collection
         id:             4
-        title:          Buzos
-        description:    Buzos para Hombre
+        title:          Sport
+        description:    Ropa Deportiva
+        seller:  !!models.Seller
+                    id: 1
+
+    - !!models.Collection
+        id:             5
+        title:          Accesorios
+        description:    Accesorios de vestimenta
         seller:  !!models.Seller
                     id: 1
 
@@ -50,21 +59,21 @@ collections:
 items:
     
     - !!models.Item
-        id:           CN1
-        title:        Camisa Negra
-        description:  Camisa Negra Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_a_cuadros_blanca.jpg
+        id:           CB1
+        title:        Camisa Blanca
+        description:  Camisa blanca a cuadros manga larga
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_a_cuadros_blanca.jpg
         price:        200
         sex:        m
         seller:        !!models.Seller
-                        id: 1
+                        id: 2
         collection:   !!models.Collection
                         id: 1
     - !!models.Item
-        id:           CB1
-        title:        Camisa Blanca
-        description:  Camisa Blanca Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_lisa_blanca.jpg
+        id:           CB2
+        title:        Camisa Blanca Lisa
+        description:  Camisa blanca lisa manga larga
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_lisa_blanca.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -74,8 +83,8 @@ items:
     - !!models.Item
         id:           CG1
         title:        Camisa Gris
-        description:  Camisa Gris Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_lisa_gris.jpg
+        description:  Camisa gris manga larga de seda
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_lisa_gris.jpg
         price:        150
         sex:        m
         seller:        !!models.Seller
@@ -83,10 +92,10 @@ items:
         collection:   !!models.Collection
                         id: 1
     - !!models.Item
-        id:           CB2
+        id:           CAB1
         title:        Camisa Azul y Blanca
-        description:  Camisa Azul y Blanca a cuadros Manga Larga de Seda
-        imgUrl:       http://localhost:9000/assets/img/camisa_a_cuadros_azul.jpg
+        description:  Camisa azul y blanca a cuadros manga larga
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_a_cuadros_azul.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -94,77 +103,87 @@ items:
         collection:   !!models.Collection
                         id: 1
     - !!models.Item
-        id:           CN2
-        title:        Camisa Negra
-        description:  Camisa Negra Manga Corta de Seda
-        imgUrl:       http://db2.stb.s-msn.com/i/8D/5C896D6DE8D7E2E58D5DB98AFD3.jpg
+        id:           CB3
+        title:        Camisa Blanca Beso
+        description:  Camisa blanca beso manga larga
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_blanca_beso_mujer.jpg
         price:        120
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
                         id: 2
                         
     - !!models.Item
-        id:           RN3
-        title:        Remera Negra
-        description:  Remera Negra Manga Larga de Seda
-        imgUrl:       http://www.remerasya.com/Resource/fotos%5CRemera%20Negra%20Manga%20Larga.jpg
+        id:           CL1
+        title:        Camisa Leopardo
+        description:  Camisa leopardo manga larga
+        imgUrl:       http://localhost:9000/assets/img/items/camisa_leopardo_mujer.jpg
         price:        70
-        sex:        m
+        sex:        f
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 2
+                        
+    - !!models.Item
+        id:           CR1
+        title:        Campera Abrigo Rosa
+        description:  Campera abrigo rosa de mujer
+        imgUrl:       http://localhost:9000/assets/img/items/campera_abrigo_rosa.jpg
+        price:        240
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
                         id: 3
                         
     - !!models.Item
-        id:           BN4
-        title:        Buzo Negro
-        description:  Buzo Negro Manga Larga
-        imgUrl:       http://www.fademy.com.ar/imagenes/Modelos%20de%20Ropa/Buzo/Buzo%20negro%20espalda.jpg
-        price:        240
-        sex:        m
-        seller:        !!models.Seller
-                        id: 1
-        collection:   !!models.Collection
-                        id: 4
-                        
-    - !!models.Item
-        id:           BB4
-        title:        Buzo Blanco
-        description:  Buzo Blanco Manga Larga
-        imgUrl:       http://www.impresosmar.com.ar/imagenes/productos/502_K001.jpg
+        id:           CY1
+        title:        Capri Yoga Negro
+        description:  Capri yoga negro de mujer
+        imgUrl:       http://localhost:9000/assets/img/items/capri_yoga_negro.jpg
         price:        300
-        sex:        m
+        sex:        f
         seller:        !!models.Seller
                         id: 1
         collection:   !!models.Collection
                         id: 4
                         
     - !!models.Item
-        id:           BA4
-        title:        Buzo Azul
-        description:  Buzo Azul Manga Larga
-        imgUrl:       http://www.todoarbitros.com/catalog/images/athix_buzo_azul.jpg
+        id:           PR1
+        title:        Pañuelo Rojo
+        description:  Pañuelo rojo floreado de mujer
+        imgUrl:       http://localhost:9000/assets/img/items/paniuelo_rojo_floreado.jpg
+        price:        310
+        sex:        f
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 5
+                        
+    - !!models.Item
+        id:           GR1
+        title:        Gorro Rojo
+        description:  Gorro rojo de lana
+        imgUrl:       http://localhost:9000/assets/img/items/gorro_lana_rojo.jpg
+        price:        250
+        sex:        f
+        seller:        !!models.Seller
+                        id: 1
+        collection:   !!models.Collection
+                        id: 5
+
+    - !!models.Item
+        id:           CRMC
+        title:        Camisa Roja
+        description:  Camisa Roja Manga Larga
+        imgUrl:       http://localhost:9000/assets/img/items/Camisa-Roja-Slim-Fit-Hombre-Moda-Casual.png
         price:        310
         sex:        m
         seller:        !!models.Seller
                         id: 1
-        collection:   !!models.Collection
-                        id: 4
                         
-    - !!models.Item
-        id:           BV4
-        title:        Buzo Verde 
-        description:  Buzo Verde Manga Larga
-        imgUrl:       http://www.1-uniformes.com.ar/images/Canguro%20verde.jpg
-        price:        250
-        sex:        m
-        seller:        !!models.Seller
-                        id: 1
-        collection:   !!models.Collection
-                        id: 4
-
 # Stocks
 
 stocks:
@@ -174,35 +193,35 @@ stocks:
         size:        L
         stock:       5
         item:        !!models.Item
-                        id: CN1
+                        id: CB1
                         
     - !!models.Stock
-        id:          SCNM
+        id:          SCBM
         size:        M
         stock:       4
         item:        !!models.Item
-                        id: CN1
+                        id: CB1
 
     - !!models.Stock
         id:          SCBS
         size:        S
         stock:       1
         item:        !!models.Item
-                        id: CB1
+                        id: CB2
 
     - !!models.Stock
-        id:          SBAM
+        id:          SCABM
         size:        M
         stock:       0
         item:        !!models.Item
-                        id: BA4
+                        id: CAB1
 
     - !!models.Stock
-        id:          SBAL
+        id:          SCABL
         size:        L
         stock:       7
         item:        !!models.Item
-                        id: BA4
+                        id: CAB1
 
 # Actions
 
@@ -213,203 +232,203 @@ actions:
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
                         
     - !!models.Action
         id:          2
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
                         
     - !!models.Action
         id:          3
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
                         
     - !!models.Action
         id:          4
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
 
     - !!models.Action
         id:          5
         action_type: BUY
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
                         
     - !!models.Action
         id:          6
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
 
     - !!models.Action
         id:          7
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          8
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CB1
+        itemId:      CB2
         
     - !!models.Action
         id:          9
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      BA4
+        itemId:      CAB1
         
     - !!models.Action
         id:          10
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      BA4
+        itemId:      CAB1
         
     - !!models.Action
         id:          11
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      BA4
+        itemId:      CAB1
         
     - !!models.Action
         id:          12
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      BA4
+        itemId:      CAB1
         
     - !!models.Action
         id:          13
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      BA4
+        itemId:      CAB1
         
     - !!models.Action
         id:          14
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CN2
+        itemId:      CG1
         
     - !!models.Action
         id:          15
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CN2
+        itemId:      CG1
         
     - !!models.Action
         id:          16
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CB1
+        itemId:      CL1
         
     - !!models.Action
         id:          17
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CG1
+        itemId:      PR1
         
     - !!models.Action
         id:          18
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      CG1
+        itemId:      PR1
         
     - !!models.Action
         id:          19
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      RN3
+        itemId:      GR1
   
     - !!models.Action
         id:          20
         action_type: BUY
         date:        20131018
         userId:      1335414847
-        itemId:      BB4
+        itemId:      CY1
         
     - !!models.Action
         id:          21
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          22
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          23
         action_type: VIEW
         date:        20130915
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          24
         action_type: VIEW
         date:        20130905
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          25
         action_type: VIEW
         date:        20131021
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          26
         action_type: VIEW
         date:        20131024
         userId:      1335414847
-        itemId:      CN1
+        itemId:      CB1
         
     - !!models.Action
         id:          27
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      BB4
+        itemId:      GR1
         
     - !!models.Action
         id:          28
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      BB4
+        itemId:      GR1
         
     - !!models.Action
         id:          29
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      BB4
+        itemId:      GR1
         
     - !!models.Action
         id:          30
@@ -430,46 +449,46 @@ actions:
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      RN3
+        itemId:      CAB1
         
     - !!models.Action
         id:          33
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      RN3
+        itemId:      CAB1
         
     - !!models.Action
         id:          34
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      RN3
+        itemId:      CAB1
         
     - !!models.Action
         id:          35
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      RN3
+        itemId:      CAB1
         
     - !!models.Action
         id:          36
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN2
+        itemId:      CB2
         
     - !!models.Action
         id:          37
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      CN2
+        itemId:      CB2
         
     - !!models.Action
         id:          38
         action_type: VIEW
         date:        20131015
         userId:      1335414847
-        itemId:      BV4
+        itemId:      CL1

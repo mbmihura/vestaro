@@ -43,7 +43,9 @@ public class Global extends GlobalSettings {
                 
                 user = new User(100000262980862L,"testUserAlan", rol);
                 user.save();   
-                
+
+            	rol.add(Rol.findByName(Roles.SELLER));
+            	
                 user = new User(1335414847L,"testUserPablo", rol);
                 user.save();
             }
@@ -51,7 +53,6 @@ public class Global extends GlobalSettings {
             if(Ebean.find(Seller.class).findRowCount() == 0) {
             	
             	Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
-
                 // Insert sellers first
                 Ebean.save(all.get("sellers"));
 
