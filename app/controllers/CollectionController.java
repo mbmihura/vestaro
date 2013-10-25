@@ -12,18 +12,13 @@ import play.mvc.Result;
 import security.RestrictTo;
 import security.Roles;
 import views.html.collections.collection;
-import views.html.collections.collectionForm;
 import views.html.collections.form;
 
 @RestrictTo(Roles.SELLER)
 public class CollectionController extends BaseController {
 
 	static Form<Collection> formCollection = Form.form(Collection.class);
-	
-	public static Result collectionForm() {
-        return ok(collectionForm.render());
-    }
-	
+		
 	public static Result form() {
         return ok(form.render(formCollection));
     }

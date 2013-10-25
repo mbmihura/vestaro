@@ -41,15 +41,15 @@ $(document).ready(function(){
 								"<div id='" +
 								json[i].id +
 								"' class='media'>" +
-								"<a class='pull-left' href='#'>" +
-								"<img style='width:80px; height:80px;' class='media-object' src='" +
+								"<div class='pull-left' style='width:80px; height:80px;'>" +
+								"<img class='img-responsive media-object' src='" +
 								json[i].imgUrl +
 								"' alt='...'>" +
-								"</a>" +
+								"</div>" +
 								"<div class='media-body'>" +
 								"<h4 class='media-heading'>" +
 								json[i].title +
-								"<span title='Eliminar' style='float: right;' href='#' class='glyphicon glyphicon-remove'></span>" +
+								"<span title='Eliminar' style='float: right;' class='glyphicon glyphicon-remove'></span>" +
 								"</h4>" +
 								json[i].description +
 								"</div>" +
@@ -139,11 +139,11 @@ $(document).ready(function(){
 								"<div id='" +
 								json[i].id +
 								"' class='media'>" +
-								"<a class='pull-left' href='#'>" +
-								"<img style='width:80px; height:80px;' class='media-object' src='" +
+								"<div class='pull-left' style='width:80px; height:80px;'>" +
+								"<img class='img-responsive media-object' src='" +
 								json[i].imgUrl +
 								"' alt='...'>" +
-								"</a>" +
+								"</div>" +
 								"<div class='media-body'>" +
 								"<h4 class='media-heading'>" +
 								"<input class='checked' style='float: right;' type='checkbox'>" +

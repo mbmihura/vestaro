@@ -55,7 +55,6 @@ GET		/item/:collectionId/:itemId			controllers.ItemController.updateItem(collect
 GET     /reco	           					controllers.RecommendationEngine.recoExample()
 
 # Collections
-GET     /collections	       				controllers.CollectionController.collectionForm()
 GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
 GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)

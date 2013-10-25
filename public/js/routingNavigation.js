@@ -8,6 +8,7 @@ vestaroMain.config(function($routeProvider) {
 	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/wishlist.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
 	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
+	  when('/collections', {controller:CollectionsCtrl, templateUrl:'assets/html/collectionForm.html'}).
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
 })
@@ -240,3 +241,4 @@ function WishlistCtrl($scope, buyerSession, $http) {
 }
  
 function SellerDashboardCtrl($scope) {}
+function CollectionsCtrl(){}
