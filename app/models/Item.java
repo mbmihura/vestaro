@@ -72,6 +72,8 @@ public class Item extends Model {
         item.save();
         return item;
     }
+    
+    
 
     public static Item submit(Item item) {
     	if(item.seller == null){

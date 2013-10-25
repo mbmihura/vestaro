@@ -17,6 +17,9 @@ POST	/authentication/logout      		controllers.Authentication.logout()
 GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long)
 GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
 
+#Buyer
+GET		/buyer/orders			controllers.Buyer.orders()
+
 # Item
 GET		/items					controllers.Items.index()
 GET		/item					controllers.Items.form()

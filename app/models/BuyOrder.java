@@ -6,10 +6,10 @@ import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
-enum State{PAYMENT_PENDING, RECEPTION_PENDING, RECEPTION_CONFIRMED, IN_DISPUTE}
 
 @Entity
 public class BuyOrder extends Model{
+	public enum State{PAYMENT_PENDING, RECEPTION_PENDING, RECEPTION_CONFIRMED, IN_DISPUTE}
 
 	/**
 	 * 
@@ -41,7 +41,14 @@ public class BuyOrder extends Model{
 		order.save();
 		return order;
 	}
-	
+	public BuyOrder(Item item,Buyer buyer2, String size, Integer pointsUsed, State state){
+		this.item = item;
+		this.price = item.price;
+		this.buyer = buyer2;
+		this.size = size;
+		this.pointsUsed = pointsUsed;
+		this.state= state;
+	}
 	
     public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
 
@@ -51,7 +58,7 @@ public class BuyOrder extends Model{
 		//TODO: Use real buyer
 		//this.buyer.points +=this.pointsEarned;
 		
-//		this.buyer.save();
+		this.buyer.save();
 		this.save();
 	}
 

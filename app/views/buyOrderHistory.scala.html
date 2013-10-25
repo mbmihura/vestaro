@@ -1,0 +1,70 @@
+@(orders : List[BuyOrder])
+@import helper._
+
+@main("Buy orders") {
+	
+<div class="panel-group" id="accordion">
+  
+	<div class="col-lg-4">
+		<legend><h2>Mis puntos</h2></legend>	
+	</div>
+
+	<div class="col-lg-8">
+	<legend><h2>Órdenes de compra</h2></legend>
+
+  @for(buyOrder <- orders ){
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+        <strong> @buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state</span>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+				<div class="col-lg-3">
+					<img src=@buyOrder.item.imgUrl style="width:80%;">
+				</div>
+				<div class="col-lg-7">
+					<p>Descripción: @buyOrder.item.description</p>
+					<p>Talle: @buyOrder.size</p>
+					<p>Precio: $@buyOrder.price</p>
+				</div>
+				<div class="col-lg-2">
+					<button type="button" class="btn btn-primary">Acción</button>
+				</div>
+      </div>
+    </div>
+  </div>
+  }
+  
+  </div>
+		
+
+	</div>
+		
+
+	<script>
+		$(document).ready(function(){
+			$('.collapse').collapse('hide');
+		});
+	</script>
+	
+	<style>
+	.PAYMENT_PENDING{
+		background-color: rgb(153, 134, 202);
+		}
+	.RECEPTION_PENDING{
+		background-color: rgb(100, 164, 233);
+		}
+	.RECEPTION_CONFIRMED{
+		background-color: rgb(55, 197, 72);
+		}
+	.IN_DISPUTE{
+		background-color: rgb(240, 77, 77);;
+		}
+	</style>
+	    
+
+	}
