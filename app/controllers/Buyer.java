@@ -12,8 +12,8 @@ import views.*;
 
 public class Buyer extends Controller {
   
-    public static Result orders(){
-    	return ok(views.html.buyOrderHistory.render(getMockOrders()));
+    public static Result profile(){
+    	return ok(views.html.buyerProfile.render(getMockOrders()));
     }
 	
 

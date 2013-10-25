@@ -18,7 +18,7 @@ GET     /seller/:sellerId/items     controllers.Sellers.listItems(sellerId: Long
 GET     /seller/:sellerId/collections     controllers.Sellers.listCollections(sellerId: Long)
 
 #Buyer
-GET		/buyer/orders			controllers.Buyer.orders()
+GET		/buyer/profile			controllers.Buyer.profile()
 
 # Item
 GET		/items					controllers.Items.index()
