@@ -21,9 +21,11 @@ GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		cont
 GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
 # Seller
+
+GET     /findSellerById/			     	controllers.SellerController.findSellerById(sellerId: Long)
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
-
+GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 	controllers.SellerController.update(sellerID: Long, logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Long)
 
 ## Buyer ##
 # Home

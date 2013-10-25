@@ -62,7 +62,9 @@ public class Application extends BaseController {
                 // Routes for Sellers
                 controllers.routes.javascript.SellerController.itemsOwnedBy(),
                 controllers.routes.javascript.SellerController.listCollections(),
-                                
+                controllers.routes.javascript.SellerController.findSellerById(),
+                controllers.routes.javascript.SellerController.update(),
+                
                 // Routes for Dashboard
                 controllers.routes.javascript.DashboardController.biggestCollections(),
                 controllers.routes.javascript.DashboardController.littleItemsStock(),

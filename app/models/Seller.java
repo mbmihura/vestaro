@@ -21,6 +21,22 @@ public class Seller extends Model {
     public DateTime insertDate = new DateTime();
     public SellerPoint activeSellerPoint;
 
+    public Seller(){
+    	super();
+    }
+    
+    public Seller(Long sellerID, String logoURL, String name, String pageURL, Boolean pointsEnabled, Long pointMoneyRelation){
+    	super();
+    	this.id = sellerID;
+    	this.name = name;
+    	this.logoUrl = logoURL;
+    	this.webpageUrl = pageURL;
+    }
+    
     public static Finder<Long,Seller> find = new Finder<Long,Seller>(Long.class,Seller.class);
 
+    public static Seller update(Seller seller) {
+    	seller.update();
+    	return seller;
+    }
 }
