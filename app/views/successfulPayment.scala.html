@@ -1,0 +1,22 @@
+@(buyOrder: BuyOrder, hasEarnedPoints : Boolean)
+
+@main("Pago exitoso") {
+	
+	<div class="alert alert-block alert-info fade in">
+        <h3><strong>Pago exitoso!</strong></h3>
+        <p>Tu pago se realizó correctamente.	
+			@if(hasEarnedPoints){
+				
+				<strong>Ganaste </strong><span class="badge active"> @buyOrder.pointsEarned </span><strong> puntos.</strong>	
+			}
+		</p>
+		<p style="font-style=italic; margin-bottom: 15px;">Recordá modificar el estado de tu compra al recibir tu prenda.</p>
+          <a class="btn btn-info" href="#">Ver órdenes de compra</a> <a class="btn btn-default" href="#">Seguir comprando</a>
+        </p>
+      </div>
+		
+		
+
+	    
+
+	}
