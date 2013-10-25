@@ -14,8 +14,7 @@ public class Payment extends Controller{
 		
 	}
 	public static Result error(Long orderId){
-		return TODO;
-		
+		return ok(views.html.failedPayment.render());		
 	}
 	public static Result pending(Long orderId){
 		return TODO;
