@@ -78,7 +78,8 @@ public class Items extends Controller {
     public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception{
     	Item item = Item.find.byId(itemId);
     	//TODO: how to get buyer
-    	BuyOrder buyOrder  = new BuyOrder(item, new Buyer(), size, pointsUsed);
+    	BuyOrder buyOrder  = new BuyOrder();
+    	buyOrder.create(buyOrder, item, new Buyer(), size, pointsUsed);
 
     	PaymentManager manager = new PaymentManager();
     	

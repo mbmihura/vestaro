@@ -38,7 +38,7 @@ items:
         price:        200
         sex:        m
         seller:        !!models.Seller
-                        id: 1
+                        id: 2
         collection:   !!models.Collection
                         id: 1
                         
