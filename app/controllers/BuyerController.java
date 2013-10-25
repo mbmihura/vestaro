@@ -1,19 +1,22 @@
 package controllers;
 
 import java.util.ArrayList;
+import controllers.BaseController;
 
 import models.BuyOrder;
 import models.BuyOrder.State;
+import models.Buyer;
 import models.Item;
 import models.Seller;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.*;
 
-public class BuyerController extends Controller {
+public class BuyerController extends BaseController {
   
     public static Result profile(){
-    	return ok(views.html.buyerProfile.render(getMockOrders()));
+    	
+    	return ok(views.html.buyerProfile.render(getMockOrders(), Buyer.findBuyerByUser( currentUserId())));
     }
 	
 
