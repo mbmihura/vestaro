@@ -11,7 +11,7 @@ public class PaymentManager {
 	private static final String SITE_URL = "http://localhost:9000";
 	private static final String PAYMENT_SUCCESS_URL = SITE_URL + "/payment/success/";
 	private static final String PAYMENT_ERROR_URL = SITE_URL + "/payment/error/";
-	private static final String PAYMENT_PENDING_URL = SITE_URL + "/payment/pending/";
+	private static final String PAYMENT_PENDING_URL = SITE_URL + "/payment/success/";
 
 	
 	private static final String CLIENT_SECRET_VESTARO = "uToiGVlNavrrbtjFX6ksHP51RQsG5and";

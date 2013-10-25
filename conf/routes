@@ -30,7 +30,6 @@ GET		/buy/:itemId				controllers.Items.buy(itemId: String)
 POST	/orderItem					controllers.Items.orderItem(itemId: String, size: String, pointsUsed: Integer)
 GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
 GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)
-GET 	/payment/pending/:orderId	controllers.Payment.pending(orderId:Long)
 
 # Other
 GET		/facebookPlugins		controllers.Application.facebookPlugins()
