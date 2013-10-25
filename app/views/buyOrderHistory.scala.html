@@ -10,7 +10,7 @@
 		<div class= "jumbotron container" style="text-align:center;">
 			<h1 style="font-size: 100px;  font-weight: bold; color: #428bca;">100</h1>
 			<p style="font-size: 20px;text-transform: uppercase;">puntos disponibles</p>
-			<p style="margin-top:15px; color:#428bca; font-style:italic;"> Podés usarlos en cualquier compra!</p>
+			<p style="margin-top:65px; color:#428bca; font-style:italic;text-align: right; font-size:15px;"> Podés usarlos en cualquier compra!</p>
 		</div>
 	</div>
 
@@ -21,12 +21,12 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#@buyOrder.id">
         <strong> @buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state</span>
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
+    <div id=@buyOrder.id class="panel-collapse collapse in">
       <div class="panel-body">
 				<div class="col-lg-3">
 					<img src=@buyOrder.item.imgUrl style="width:80%;">

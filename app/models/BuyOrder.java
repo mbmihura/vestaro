@@ -41,7 +41,8 @@ public class BuyOrder extends Model{
 		order.save();
 		return order;
 	}
-	public BuyOrder(Item item,Buyer buyer2, String size, Integer pointsUsed, State state){
+	public BuyOrder(Long id,Item item,Buyer buyer2, String size, Integer pointsUsed, State state){
+		this.id =id;
 		this.item = item;
 		this.price = item.price;
 		this.buyer = buyer2;
