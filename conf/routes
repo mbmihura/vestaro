@@ -18,7 +18,7 @@ GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestColle
 GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections(sellerId: Long, actionDateBegin: Long, actionDateEnd: Long)
 
 # Actions
-GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType			controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
+GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
 # Seller
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
@@ -49,11 +49,20 @@ GET		/item/:itemId						controllers.ItemController.read(itemId: String)
 POST	/item								controllers.ItemController.submit()
 POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
 PUT		/item/:itemId						controllers.ItemController.update(itemId: String)
+GET		/item/:collectionId/:itemId			controllers.ItemController.updateItem(collectionId: Long, itemId: String)
 
 # Recommendations
-GET        /reco	           				controllers.RecommendationEngine.recoExample()
+GET     /reco	           					controllers.RecommendationEngine.recoExample()
+
+# Collections
+GET		/collection							controllers.CollectionController.form()
+POST	/collection							controllers.CollectionController.submit()
+GET		/collection/:collectionId			controllers.CollectionController.delete(collectionId: Long)
+GET		/collection/:itemId/item			controllers.CollectionController.deleteCollectionId(itemId: String)
+GET		/collection/:collectionId/:collectionTitle/:collectionDescription		controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
+GET		/collection/:collectionId/collections									controllers.CollectionController.getItemsFromCollection(collectionId: Long)
+GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWithNoCollection(sellerId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
-

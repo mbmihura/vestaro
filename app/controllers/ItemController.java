@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Collection;
 import java.util.List;
 
 import models.Item;
@@ -50,6 +51,12 @@ public class ItemController extends BaseController {
     
     public static Result update(String itemId) {
     	return TODO;
+    }
+
+    public static Result updateItem(Long collectionId, String itemId) {
+    	Item item = Item.find.byId(itemId);
+    	item.collection = collectionId == null ? null : Collection.findCollectionsById(collectionId).get(0);
+        return ok(views.html.items.item.render(Item.update(item)));
     }
     
     public static Result delete(String itemId) {
