@@ -45,7 +45,7 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 
 #Buyer
-GET		/buyer/profile			controllers.Buyer.profile()
+GET		/buyerProfile			controllers.Buyer.profile()
 
 # Item
 
