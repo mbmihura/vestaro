@@ -1,16 +1,12 @@
 @font-face {
-    font-family: ClaireHand;
-    src: url('http://rrhh.monits.com/fonts/clairehandregular-webfont.eot');
-    src: url('http://rrhh.monits.com/fonts/clairehandregular-webfont.eot?#iefix') format('embedded-opentype'),
-    url('http://rrhh.monits.com/fonts/clairehandregular-webfont.woff') format('woff'),
-    url('http://rrhh.monits.com/fonts/clairehandregular-webfont.ttf') format('truetype'),
-    url('http://rrhh.monits.com/fonts/clairehandregular-webfont.svg#claire_handregular') format('svg');
+    font-family: Vivaldi;
+    src: url('/assets/fonts/vivaldi.ttf');
     font-weight: normal;
     font-style: normal
 }
 
 .vestaro-logo {
-	font-family: 'vivaldi';
+	font-family: 'Vivaldi';
 	color: #2974B9;
 	letter-spacing: 3px;
 }
