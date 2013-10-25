@@ -2,6 +2,15 @@
 	<h1>Wishlist. <small>Tus prendas favoritas.</small></h1>
 </div>
 
+<div class="alert alert-block alert-info" ng-hide="wishlistItems.length">
+	<h4>No tienes prendas en tu wishlist.</h4>
+	<p style="margin-bottom:10px">Para agregar prendas a la wishlist puedes hacer click en <span class="badge"><span class="glyphicon glyphicon-star-empty"></span></span></p>
+	<p>
+		<a type="button" class="btn btn-info" href="#/">Ver recomendaciones</a>
+		<a type="button" class="btn btn-default" href="#/itemSearch">Buscar ropa</a>
+	</p>
+</div>
+
 <div class="row">
 <div ng-repeat="wishItem in wishlistItems" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false" class="col-md-4">
 	<a class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;"> <!-- TODO: extract style to main.css -->
@@ -29,3 +38,6 @@
 	</a>
 </div>
 </div>
+
+<!-- Alert Modal -->
+<div ng-include="'/assets/html/alertModal.html'"></div>

@@ -1,0 +1,20 @@
+<div id="alertModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">{{alert.title}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-block alert-{{alert.type}}">
+					<p style="margin-bottom:10px">{{alert.body}}</p>
+					<p>
+						<a type="button" class="btn btn-{{alert.type}}" class="close" data-dismiss="modal" aria-hidden="true" href="{{alert.btns.primary.href}}">{{alert.btns.primary.title}}</a>
+						<a type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-hidden="true" href="{{alert.btns.default.href}}">{{alert.btns.default.title}}</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
