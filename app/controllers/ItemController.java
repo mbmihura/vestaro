@@ -90,7 +90,7 @@ public class ItemController extends BaseController {
 //    public static Result buy(String itemId){
      public static Result buy(){
 //        String itemId = "CB3";
-        String itemId= "CB1";
+        String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
     	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
 
