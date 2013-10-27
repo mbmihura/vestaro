@@ -1,22 +1,23 @@
 package controllers;
 
 import models.Collection;
+
 import java.util.List;
 import java.util.ArrayList;
 
 import models.Item;
 import play.data.DynamicForm;
-
 import models.BuyOrder;
 import models.Buyer;
-import models.Item;
 import models.PaymentManager;
 import models.Stock;
 
+import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
 import org.codehaus.jettison.json.JSONException;
 
 import play.data.Form;
 import play.libs.Json;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.items.form;
 import views.html.items.item;
@@ -34,7 +35,6 @@ public class ItemController extends BaseController {
     	if(itemFilledForm.hasErrors()) {
             return badRequest(form.render(itemFilledForm));
         } else {
-        	//TODO: load stock
             return ok(
                 item.render(Item.submit(itemFilledForm.get()))
             );
@@ -88,21 +88,24 @@ public class ItemController extends BaseController {
     	return ok(Json.toJson(items));
     }
 
-    public static Result buy(String itemId){
+     public static Result buy(){
+        String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
-    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
-
-    	//TODO: Load AvailableStock
-        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-    	Buyer buyer = new Buyer();
-		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, buyer.points));
+    	if (item != null) {	
+	    	//TODO: Load AvailableStock
+	        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
+			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), Buyer.findBuyerByUser(currentUserId()).points));
+    	} else {
+    		return badRequest("item not found");
+    		// TODO: should be 422 as it's a smantic error not sintax. Does plays allow to return a 422?
+    	}
     }
     
     public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception{
     	Item item = Item.find.byId(itemId);
-    	//TODO: how to get buyer
+    	
     	BuyOrder buyOrder  = new BuyOrder();
-    	buyOrder.create(buyOrder, item, new Buyer(), size, pointsUsed);
+    	buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
 
     	PaymentManager manager = new PaymentManager();
     	

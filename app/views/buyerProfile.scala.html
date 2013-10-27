@@ -1,4 +1,4 @@
-@(orders : List[BuyOrder]) @import helper._
+@(orders : List[BuyOrder], buyer : Buyer) @import helper._
 
 <div class="panel panel-default" style="text-align: center;">
 	<h1>Mi perfil</h1>
@@ -9,7 +9,7 @@
 		<h2>Mis puntos</h2>
 	</legend>
 	<div class="jumbotron" style="text-align: center;">
-		<h1 style="font-size: 100px; font-weight: bold; color: #428bca;">100</h1>
+		<h1 style="font-size: 100px; font-weight: bold; color: #428bca;">@buyer.points</h1>
 		<p style="font-size: 20px; text-transform: uppercase;">puntos disponibles</p>
 		<p style="margin-top: 65px; color: #428bca; font-style: italic; text-align: right; font-size: 15px;">Podés usarlos en cualquier compra!</p>
 	</div>

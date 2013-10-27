@@ -33,21 +33,27 @@ public class Global extends GlobalSettings {
             if (User.find.findRowCount() == 0)
             {
             	HashSet<Rol> rol = new HashSet<Rol>();
-            	
+            	Buyer buyerManager = new Buyer();
             	rol.add(Rol.findByName(Roles.BUYER));
                 User user = new User(563729055L,"testUserKurt", rol);
+
+                
                 user.save();
+                buyerManager.create(user);
                 
                 user = new User(1406678834L,"testUserNaty", rol);
                 user.save();
+                buyerManager.create(user);
                 
                 user = new User(100000262980862L,"testUserAlan", rol);
                 user.save();   
+                buyerManager.create(user);
 
             	rol.add(Rol.findByName(Roles.SELLER));
             	
                 user = new User(1335414847L,"testUserPablo", rol);
                 user.save();
+                buyerManager.create(user);
             }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {
