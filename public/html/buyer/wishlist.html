@@ -32,7 +32,7 @@
 		<div class="item-details" style="text-align: center">
 			<div class="btn-group">
 				<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{wishItem.item.price}}</div>
-				<a href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+				<div class="btn btn-primary" ng-click="buyItem(wishItem.item.id)">Comprar</div>
 			</div>
 		</div>
 	</a>

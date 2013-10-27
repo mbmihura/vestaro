@@ -13,7 +13,7 @@ import models.PaymentManager;
 import models.Stock;
 
 import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
-import org.json.JSONException;
+import org.codehaus.jettison.json.JSONException;
 
 import play.data.Form;
 import play.libs.Json;

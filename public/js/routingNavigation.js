@@ -95,7 +95,7 @@ vestaroMain.directive('onFinishRender', function ($timeout) {
 })
 
 /* Data Factory */
-vestaroMain.factory('buyerSession', function($http){
+vestaroMain.factory('buyerSession', function($http, $location){
 	return {
         getWishlist: function() {
             return $http.get('/wishlist');
@@ -126,6 +126,9 @@ vestaroMain.factory('buyerSession', function($http){
         },
         removeFromWishlist: function(itemId) {
         	return $http.delete('/wishlist/' + itemId);
+        },
+        buyItem: function(itemId) {
+        	$location.path('#/buy?id=' + itemId);
         }
     };
 });
@@ -287,6 +290,10 @@ function WishlistCtrl($scope, buyerSession, $http) {
 			};
 			$('#alertModal').modal('show');
 		});
+	}
+	
+	$scope.buyItem = function(wishItemId) {
+		buyerSession.buyItem(wishItemId);
 	}
 }
 
