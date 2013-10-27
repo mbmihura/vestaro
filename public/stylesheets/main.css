@@ -1,12 +1,10 @@
 @font-face {
-    font-family: Vivaldi;
-    src: url('/assets/fonts/vivaldi.ttf');
-    font-weight: normal;
-    font-style: normal
+    font-family: VivaldiF;
+    src: url('../fonts/vivaldi.ttf');
 }
 
 .vestaro-logo {
-	font-family: 'Vivaldi';
+	font-family: vivaldi;
 	color: #2974B9;
 	letter-spacing: 3px;
 }
@@ -88,8 +86,7 @@ position: relative;
 }
 
 .items .item-img {
-width: 100%;
-height: auto;
+cursor: pointer;
 -webkit-border-top-right-radius: 15px;
 -moz-border-radius-topright: 15px;
 border-top-right-radius: 15px;
@@ -111,28 +108,31 @@ top: 0px;
 opacity: 0.9;
 }
 
-.item .item-information {
-cursor: pointer;
-bottom: 0px;
+.item .item-info-container {
+	position: absolute;
+	padding: 4px;
+	bottom: 0px;
+	width: 100%;
+}
+
+.item .item-info {
 background-color: #FFF;
 opacity: 0.9;
-margin: 5px;
-padding: 5px;
-position: absolute;
+padding: 4px;
 -webkit-border-top-left-radius: 10px;
 -moz-border-radius-topleft: 10px;
 border-top-left-radius: 10px;
-width: 95%;
 }
 
-.item .item-information .price {
+.item .item-info .price {
 font-color: #2974B9;
 font-weight: bold;
 font-size: 14px;
 }
 
-.item:hover{
-cursor: pointer;
+.item .item-info .title {
+	margin-top:0px;
+	cursor: default;
 }
 
 .item.large {
@@ -186,4 +186,45 @@ border-top-right-radius: 30px;
     opacity: 0;
     top: -50px;
     height: 0px;
+}
+
+.item-thumb {
+	position: relative;
+	padding-top: 0px;
+	-webkit-transition: 400ms ease-in-out all;
+    -moz-transition: 400ms ease-in-out all;
+    -ms-transition: 400ms ease-in-out all;
+    -o-transition: 400ms ease-in-out all;
+    transition: 400ms ease-in-out all;
+}
+
+.item-thumb:HOVER {
+	border: 1px solid #2974B9;
+}
+
+.item-thumb .item-actions {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	opacity: 0.9;
+}
+
+.item-thumb .item-actions .breadcrumb {
+	border-radius: 0px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.item-thumb .item-main {
+	padding: 4px;
+}
+
+.item-thumb .item-main .item.img {
+	border-radius: 4px;
+}
+
+.item-thumb .item-details .price {
+font-color: #2974B9;
+font-weight: bold;
+font-size: 14px;
 }

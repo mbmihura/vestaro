@@ -14,4 +14,4 @@ directive('onFinishRender', function ($timeout) {
             }
         }
     }
-})
+});

@@ -58,7 +58,10 @@ public class BuyOrder extends Model{
 		order.buyer = buyer;
 		order.size = size;
 		order.pointsUsed = pointsUsed;
+		this.buyer.points-=pointsUsed;
+		this.buyer.save();
 		order.save();
+		
 		return order;
 	}
 	public BuyOrder(Long id,Item item,Buyer buyer2, String size, Integer pointsUsed, State state){
@@ -76,8 +79,7 @@ public class BuyOrder extends Model{
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
 		this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));
-		//TODO: Use real buyer
-		//this.buyer.points +=this.pointsEarned;
+		this.buyer.points +=this.pointsEarned;
 		
 		this.buyer.save();
 		this.save();

@@ -19,5 +19,4 @@ vestaroMain.config(function($routeProvider) {
 
 	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
 	  otherwise({redirectTo:'/'});
-})
-
+});
