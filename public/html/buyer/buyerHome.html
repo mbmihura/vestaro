@@ -15,7 +15,7 @@
 	        </div>
 			<div class="panel-body">
 				<div class="media">
-					<a class="pull-left" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+					<a class="pull-left" href="https://www.facebook.com/vestaro" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
 						src="/assets/img/vestaro/facebook.jpg"
 						style="width: 60px; height: 60px;">
 					</a>
@@ -24,7 +24,7 @@
 					</div>
 				</div>
 				<div class="media">
-					<a class="pull-left" href="#recommendation" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+					<a class="pull-left" href="http://easyrec.org/" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
 						src="/assets/img/vestaro/gustos.jpg"
 						style="width: 50px; height: 64px;">
 					</a>
@@ -63,13 +63,14 @@
 						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
-				<div ng-show="actionsView" class="item-information" align="center">
-					<h2>{{item.title}}</h2>
-	<!-- 				<h3 class='description'>{{item.description}}</h3> -->
-					<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
-					<div class="btn-group">
-						<div class="btn btn-default disabled price">${{item.price}}</div>
-						<button type="button" class="btn btn-primary">Comprar</button>
+				<div ng-show="actionsView" class="item-info-container">
+					<div class="item-info" align="center">
+						<h3 style="margin-top:0px">{{item.title}}</h3>
+						<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
+						<div class="btn-group">
+							<div class="btn btn-default disabled price">${{item.price}}</div>
+							<button type="button" class="btn btn-primary">Comprar</button>
+						</div>
 					</div>
 				</div>
 			</div>
