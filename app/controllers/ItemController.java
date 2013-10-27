@@ -1,20 +1,19 @@
 package controllers;
 
 import models.Collection;
+
 import java.util.List;
 import java.util.ArrayList;
 
 import models.Item;
 import play.data.DynamicForm;
-
 import models.BuyOrder;
 import models.Buyer;
-import models.Item;
 import models.PaymentManager;
 import models.Stock;
 
-import org.codehaus.jettison.json.JSONException;
 import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
+import org.json.JSONException;
 
 import play.data.Form;
 import play.libs.Json;
@@ -88,15 +87,11 @@ public class ItemController extends BaseController {
     			.findList();
     	return ok(Json.toJson(items));
     }
-//TODO: problem with routes with parameters
-//    public static Result buy(String itemId){
+
      public static Result buy(){
-//        String itemId = "CB3";
         String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
-    	if (item != null) {
-	    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
-	
+    	if (item != null) {	
 	    	//TODO: Load AvailableStock
 	        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
 			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), Buyer.findBuyerByUser(currentUserId()).points));
