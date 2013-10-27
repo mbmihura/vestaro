@@ -20,45 +20,6 @@ vestaroMain.config(function($routeProvider) {
 	  otherwise({redirectTo:'/'});
 })
 
-
-/* Filters */
-vestaroMain.filter('priceBetween', function () {
-    return function ( items, minPrice, maxPrice ) {
-        var filteredItems = []
-        angular.forEach(items, function ( item ) {
-            if ( item.price >= minPrice && item.price <= maxPrice ) {
-                filteredItems.push(item);
-            }
-        });
-        return filteredItems;
-    }
-}).filter('inCategory', function(){
-    return function(items, category){
-        if(category.id == 0) return items;
-    	var filteredItems = [];
-        angular.forEach(items, function ( item ) {
-            if ( item.title.toLowerCase().search(category.name.toLowerCase()) != -1 ) {
-                filteredItems.push(item);
-            }
-        });
-        return filteredItems;
-    };
-})
-
-/* Directives */
-vestaroMain.directive('onFinishRender', function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function () {
-                    scope.$emit(attr.onFinishRender);
-                });
-            }
-        }
-    }
-})
-
 /* Data Factory */
 vestaroMain.factory('buyerSession', function($http){
 	return {
