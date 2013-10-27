@@ -16,7 +16,5 @@ vestaroMain.config(function($routeProvider) {
 	  when('/garmentsComplete', {controller:'GarmentListCCtrl', templateUrl:'assets/html/garment/listDetailed.html'}).
 	  when('/garments/new', {controller:'GarmentNewCtrl', templateUrl:'assets/html/garment/form.html'}).
 	  when('/garments/:id', {controller:'GarmentEditCtrl', templateUrl:'assets/html/garment/form.html'}).
-
-	  when('/:serverPageUrl', {template: template, controller: 'serverPageRoutingCtrl'}).
-	  otherwise({redirectTo:'/'});
+	  otherwise({controller: 'serverPageRoutingCtrl', template: template});
 });
