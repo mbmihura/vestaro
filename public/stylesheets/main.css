@@ -187,3 +187,44 @@ border-top-right-radius: 30px;
     top: -50px;
     height: 0px;
 }
+
+.item-thumb {
+	position: relative;
+	padding-top: 0px;
+	-webkit-transition: 400ms ease-in-out all;
+    -moz-transition: 400ms ease-in-out all;
+    -ms-transition: 400ms ease-in-out all;
+    -o-transition: 400ms ease-in-out all;
+    transition: 400ms ease-in-out all;
+}
+
+.item-thumb:HOVER {
+	border: 1px solid #2974B9;
+}
+
+.item-thumb .item-actions {
+	position: absolute;
+	right: 0px;
+	opacity: 0.9;
+	display: none;
+}
+
+.item-thumb .item-actions .breadcrumb {
+	border-radius: 0px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.item-thumb .item-main {
+	padding: 4px;
+}
+
+.item-thumb .item-main .item.img {
+	border-radius: 4px;
+}
+
+.item-thumb .item-details .price {
+font-color: #2974B9;
+font-weight: bold;
+font-size: 14px;
+}

@@ -13,29 +13,25 @@
 
 <div class="row">
 <div ng-repeat="wishItem in wishlistItems" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false" class="col-md-4">
-	<a class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;"> <!-- TODO: extract style to main.css -->
-		<div class="item-actions" ng-show="actionsView"
-			style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
-			<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
-				<li ng-click="removeFromWishlist(wishItem, $index)" class="has-tooltip action" title="Eliminar de Wishlist"><span
-					class="glyphicon glyphicon-trash"></span></li>
+	<div class="thumbnail item-thumb">
+		<div class="item-actions" ng-show="actionsView">
+			<ol class="breadcrumb">
+				<li ng-click="removeFromWishlist(wishItem.item)" class="has-tooltip action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
 				<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-				<li class="has-tooltip action" title="Ver más"><span
-					class="glyphicon glyphicon-zoom-in"></span></li>
+				<li ng-click="showBuyItemModal(wishItem.item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 			</ol>
 		</div>
 		<div class="item-main">
 			<h3 class="item-title">{{wishItem.item.title}}</h3>
-			<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{wishItem.item.imgUrl}}"
-				alt="{{wishItem.item.description}}">
+			<img class="item-img img-responsive" src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
 		</div>
-		<div class="item-details" style="text-align: center">
+		<div class="item-details" align="center">
 			<div class="btn-group">
-				<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{wishItem.item.price}}</div>
-				<div class="btn btn-primary" ng-click="buyItem(wishItem.item.id)">Comprar</div>
+				<div class="btn btn-default disabled price">${{wishItem.item.price}}</div>
+				<a type="button" href="#/buy?id={{wishItem.item.id}}" class="btn btn-primary">Comprar</a>
 			</div>
 		</div>
-	</a>
+	</div>
 </div>
 </div>
 
