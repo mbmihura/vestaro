@@ -99,7 +99,7 @@ public class ItemController extends BaseController {
 	
 	    	//TODO: Load AvailableStock
 	        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, Buyer.findBuyerByUser(currentUser().userId).points));
+			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), Buyer.findBuyerByUser(currentUserId()).points));
     	} else {
     		return badRequest("item not found");
     		// TODO: should be 422 as it's a smantic error not sintax. Does plays allow to return a 422?

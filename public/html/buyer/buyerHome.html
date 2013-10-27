@@ -69,7 +69,7 @@
 					<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
 					<div class="btn-group">
 						<div class="btn btn-default disabled price">${{item.price}}</div>
-						<button type="button" class="btn btn-primary">Comprar</button>
+						<a href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 					</div>
 				</div>
 			</div>
@@ -103,7 +103,7 @@
 					<div class="item-details">
 						<div class="btn-group">
 							<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
-							<button type="button" class="btn btn-primary">Comprar</button>
+							<a href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 						</div>
 					</div>
 				</a>
