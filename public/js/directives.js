@@ -1,7 +1,9 @@
 'use strict';
 
 /* Directives */
-vestaroMain.directive('onFinishRender', function ($timeout) {
+vestaroMain.
+
+directive('onFinishRender', function ($timeout) {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {

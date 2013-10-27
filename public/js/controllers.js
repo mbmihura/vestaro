@@ -1,8 +1,6 @@
-
 'use strict';
 
 /* Controllers */
-
 vestaroMain.
 
 controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
@@ -100,7 +98,7 @@ function BuyerHomeCtrl($scope, buyerSession) {
 		$('#knowMore').slideToggle()
 	})
   
-}
+};
 
 var isotopeHandling = function(ngRepeatFinishedEvent) {
 	var $container = $('#itemsContainer');

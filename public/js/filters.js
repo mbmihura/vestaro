@@ -1,7 +1,9 @@
 'use strict';
 
 /* Filters */
-vestaroMain.filter('priceBetween', function () {
+vestaroMain.
+
+filter('priceBetween', function () {
     return function ( items, minPrice, maxPrice ) {
         var filteredItems = []
         angular.forEach(items, function ( item ) {
@@ -11,7 +13,9 @@ vestaroMain.filter('priceBetween', function () {
         });
         return filteredItems;
     }
-}).filter('inCategory', function(){
+}).
+
+filter('inCategory', function(){
     return function(items, category){
         if(category.id == 0) return items;
     	var filteredItems = [];
