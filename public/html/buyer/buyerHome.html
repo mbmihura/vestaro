@@ -55,7 +55,7 @@
 		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
 			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope" align="center">
 			<div class="item-container">
-				<img class="item-img" src="{{item.imgUrl}}" alt="{{item.title}}">
+				<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.title}}">
 				<div class="item-actions" ng-show="actionsView">
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; margin: 0px;">
 						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
@@ -65,8 +65,8 @@
 				</div>
 				<div ng-show="actionsView" class="item-info-container">
 					<div class="item-info" align="center">
-						<h3 style="margin-top:0px">{{item.title}}</h3>
-						<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
+						<h3 class="title">{{item.title}}</h3>
+						<p><a href="{{item.seller.webpageUrl}}" class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
 						<div class="btn-group">
 							<div class="btn btn-default disabled price">${{item.price}}</div>
 							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
@@ -81,33 +81,32 @@
 <div class='row'>
 	<!-- Top Sold/Viewed Items -->
 	<div class="col-md-8">
-		<div id="recommendation" class="well" style="padding: 5px">
+		<div class="well" style="padding: 5px">
 			<div class="page-header" align="center" style="margin-top: -15px">
 				<h3>Prendas populares</h3>
 			</div>
 			<div class="row" style="margin:0">
 			<div class="col-md-3 item-container" style="padding-right:10px; padding-left:10px;" ng-repeat="item in popularItems | limitTo:4"
 				ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
-				<a class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
-					<!-- TODO: extract style to main.css -->
-					<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
-						<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+				<div class="thumbnail item-thumb">
+					<div class="item-actions" ng-show="actionsView">
+						<ol class="breadcrumb">
 							<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 							<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-							<li class="has-tooltip action" title="Ver más" ng-click="showItemModal(item)"><span class="glyphicon glyphicon-zoom-in"></span></li>
+							<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 						</ol>
 					</div>
 					<div class="item-main">
-						<h3 class="item-title">{{item.title}}</h3>
-						<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
+						<h4 class="item-title">{{item.title}}</h4>
+						<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.description}}">
 					</div>
-					<div class="item-details">
+					<div class="item-details" align="center">
 						<div class="btn-group">
-							<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
-							<a href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+							<div class="btn btn-default disabled price">${{item.price}}</div>
+							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 						</div>
 					</div>
-				</a>
+				</div>
 			</div>
 			</div>
 		</div>
