@@ -113,10 +113,18 @@ vestaroMain.factory('buyerSession', function($http){
                      {id: 1, name: 'Camisa', sexo: 'Mujer'},
                      {id: 2, name: 'Campera', sexo: 'Hombre'}];
         },
-        addToWishlist: function(itemId) {
-        	return $http.post('/wishlist', {'itemId': itemId})
+        addToWishlist: function(item) {
+        	return $http.post('/wishlist', {'itemId': item.id})
 	        	.success(function(data){
 				  console.log(data);
+				  $scope.alert = {title:'Prenda agregada a Wishlist',
+							type:'info',
+							body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
+							btns: {primary: {title: 'Seguir', href: ''},
+								   'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
+							}
+					};
+					$('#alertModal').modal('show');
 			  })
 			  .error(function(data, status, headers, config){
 				  console.log(status);
@@ -148,15 +156,7 @@ function BuyerHomeCtrl($scope, buyerSession) {
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item.id);
-	  $scope.alert = {title:'Prenda agregada a Wishlist',
-				type:'info',
-				body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
-				btns: {primary: {title: 'Seguir', href: ''},
-					   'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
-				}
-		};
-		$('#alertModal').modal('show');
+	  buyerSession.addToWishlist(item);
   }
   
   var $container = $('#itemsContainer');
@@ -255,15 +255,7 @@ function ItemSearchCtrl($scope, buyerSession) {
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item.id);
-	  $scope.alert = {title:'Prenda agregada a Wishlist',
-				type:'info',
-				body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
-				btns: {primary: {title: 'Seguir', href: ''},
-					   'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
-				}
-		};
-		$('#alertModal').modal('show');
+	  buyerSession.addToWishlist(item);
   }
   
 }
@@ -274,13 +266,13 @@ function WishlistCtrl($scope, buyerSession, $http) {
 		$scope.wishlistItems = data;
 	});
 	
-	$scope.removeFromWishlist = function(wishItem, idx) {
-		buyerSession.removeFromWishlist(wishItem.item.id).success(function(data) {
+	$scope.removeFromWishlist = function(item, idx) {
+		buyerSession.removeFromWishlist(item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
 			$scope.alert = {title:'Prenda eliminada de Wishlist',
 					type:'info',
-					body: 'La prenda ' + wishItem.item.title + ' fue eliminada de tu wishlist.',
+					body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
 					btns: {primary: {title: 'Seguir', href: ''},
 						   'default': {title: 'Ir a Home', href: '#/'}
 					}
