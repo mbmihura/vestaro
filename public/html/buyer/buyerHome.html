@@ -1,6 +1,6 @@
 <div class="well" style="padding-bottom: 5px; padding-top: 5px;">
 <div class="row">
-	<div class="page-header" align="center" style="margin-top:-20px; margin-bottom:5px;">
+	<div align="center" style="margin-bottom: 15px">
 		<h1 class="vestaro-logo" style="font-size: 100px">Vestaro</h1>
 		<button id="knowMoreBtn" type="button" class="btn btn-primary">Conocer más!</button>
 	</div>
@@ -15,7 +15,7 @@
 	        </div>
 			<div class="panel-body">
 				<div class="media">
-					<a class="pull-left" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+					<a class="pull-left" href="https://www.facebook.com/vestaro" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
 						src="/assets/img/vestaro/facebook.jpg"
 						style="width: 60px; height: 60px;">
 					</a>
@@ -24,7 +24,7 @@
 					</div>
 				</div>
 				<div class="media">
-					<a class="pull-left" href="#recommendation" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+					<a class="pull-left" href="http://easyrec.org/" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
 						src="/assets/img/vestaro/gustos.jpg"
 						style="width: 50px; height: 64px;">
 					</a>
@@ -57,19 +57,20 @@
 			<div class="item-container">
 				<img class="item-img" src="{{item.imgUrl}}" alt="{{item.title}}">
 				<div class="item-actions" ng-show="actionsView">
-					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; margin: 0px;">
 						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
 						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
-				<div ng-show="actionsView" class="item-information" align="center">
-					<h2>{{item.title}}</h2>
-	<!-- 				<h3 class='description'>{{item.description}}</h3> -->
-					<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
-					<div class="btn-group">
-						<div class="btn btn-default disabled price">${{item.price}}</div>
-						<a href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+				<div ng-show="actionsView" class="item-info-container">
+					<div class="item-info" align="center">
+						<h3 style="margin-top:0px">{{item.title}}</h3>
+						<p><a class='sellerName'><strong>{{item.seller.name}}</strong></a></p>
+						<div class="btn-group">
+							<div class="btn btn-default disabled price">${{item.price}}</div>
+							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+						</div>
 					</div>
 				</div>
 			</div>
