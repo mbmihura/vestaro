@@ -14,9 +14,11 @@ import models.PaymentManager;
 import models.Stock;
 
 import org.codehaus.jettison.json.JSONException;
+import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
 
 import play.data.Form;
 import play.libs.Json;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.items.form;
 import views.html.items.item;
@@ -92,11 +94,16 @@ public class ItemController extends BaseController {
 //        String itemId = "CB3";
         String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
-    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
-
-    	//TODO: Load AvailableStock
-        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-		return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, Buyer.findBuyerByUser(currentUser().userId).points));
+    	if (item != null) {
+	    	String pointsAvailable = (item.seller.pointsEnabled ? "pointsEnabled": "pointsDisabled");
+	
+	    	//TODO: Load AvailableStock
+	        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
+			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), pointsAvailable, Buyer.findBuyerByUser(currentUser().userId).points));
+    	} else {
+    		return badRequest("item not found");
+    		// TODO: should be 422 as it's a smantic error not sintax. Does plays allow to return a 422?
+    	}
     }
     
     public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception{
