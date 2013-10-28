@@ -63,7 +63,9 @@ vestaroMain.factory('buyerSession', function($http){
             return $http.delete('/wishlist/' + itemId);
         },
         hideAlertModal: function() {
-          $('.modal-backdrop').remove();
+          $('#alertModal').modal('hide', function(){
+            $('.modal-backdrop').remove();
+          });
         }
     };
 });
