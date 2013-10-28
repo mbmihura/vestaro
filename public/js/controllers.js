@@ -47,6 +47,7 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
 
 /* Controllers */
 function BuyerHomeCtrl($scope, buyerSession) {
+  $scope.hideAlertModal = buyerSession.hideAlertModal();
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
@@ -148,9 +149,8 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 }
 
 function ItemSearchCtrl($scope, buyerSession) {
-  
+  $scope.hideAlertModal = buyerSession.hideAlertModal();
   $scope.categories = buyerSession.getCategories();
-//  $scope.selectedCategory = $scope.categories[0];
   
   buyerSession.getItems().success(function(data) {
 	  $scope.items = data;
@@ -168,7 +168,7 @@ function ItemSearchCtrl($scope, buyerSession) {
 }
 
 function WishlistCtrl($scope, buyerSession, $http) {
-
+	$scope.hideAlertModal = buyerSession.hideAlertModal();
 	buyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
