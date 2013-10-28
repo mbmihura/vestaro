@@ -63,7 +63,7 @@ function BuyerHomeCtrl($scope, buyerSession) {
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item);
+	  buyerSession.addToWishlist(item, $scope);
   }
   
   var $container = $('#itemsContainer');
@@ -162,7 +162,7 @@ function ItemSearchCtrl($scope, buyerSession) {
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item);
+	  buyerSession.addToWishlist(item, $scope);
   }
   
 }
