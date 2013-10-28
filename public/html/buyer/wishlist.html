@@ -16,7 +16,7 @@
 	<div class="thumbnail item-thumb">
 		<div class="item-actions" ng-show="actionsView">
 			<ol class="breadcrumb">
-				<li ng-click="removeFromWishlist(wishItem.item)" class="has-tooltip action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
+				<li ng-click="removeFromWishlist(wishItem.item, $index)" class="has-tooltip action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
 				<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
 				<li ng-click="showBuyItemModal(wishItem.item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 			</ol>
