@@ -14,11 +14,11 @@ public class Seller extends Model {
     public Long id;
     public Long fbUid;
     public String name;
-    public boolean	 pointsEnabled=false;
+    public boolean pointsEnabled = false;
     public Double pointMoneyRelation = 1.0;	 
 
-    public String mp_client_secret ="uToiGVlNavrrbtjFX6ksHP51RQsG5and";//TEST_CLIENT_SECRET
-    public String mp_client_id = "1406963671517811";//TEST_CLIENT_ID
+    public String mp_client_secret; // ="uToiGVlNavrrbtjFX6ksHP51RQsG5and";//TEST_CLIENT_SECRET
+    public String mp_client_id; // = "1406963671517811";//TEST_CLIENT_ID
     
     public String logoUrl;
     public String webpageUrl;
@@ -30,12 +30,14 @@ public class Seller extends Model {
     	super();
     }
     
-    public Seller(Long sellerID, String logoURL, String name, String pageURL, Boolean pointsEnabled, Long pointMoneyRelation){
+    public Seller(Long sellerID, String logoURL, String name, String pageURL, Boolean pointsEnabled, Double pointMoneyRelation){
     	super();
     	this.id = sellerID;
     	this.name = name;
     	this.logoUrl = logoURL;
     	this.webpageUrl = pageURL;
+    	this.pointsEnabled = pointsEnabled;
+    	this.pointMoneyRelation = pointMoneyRelation;
     }
     
     public static Finder<Long,Seller> find = new Finder<Long,Seller>(Long.class,Seller.class);

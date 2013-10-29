@@ -7,7 +7,10 @@ sellers:
         id:         1
         fbUid:      999999
         name:       RopaCool
-        pointsEnabled: false
+        pointsEnabled: true
+        pointMoneyRelation: 1.0
+        mp_client_secret: uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id: 1406963671517811
 
     - !!models.Seller
         id:         2

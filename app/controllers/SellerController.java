@@ -32,7 +32,7 @@ public class SellerController extends BaseController {
     	return ok(Json.toJson(Seller.find.byId(sellerId)));
     }
     
-    public static Result update(Long sellerID, String logoURL, String name, String pageURL, Boolean pointsEnabled, Long pointMoneyRelation) {
+    public static Result update(Long sellerID, String logoURL, String name, String pageURL, Boolean pointsEnabled, Double pointMoneyRelation) {
         return ok(Json.toJson(Seller.update(new Seller(sellerID, logoURL, name, pageURL, pointsEnabled, pointMoneyRelation))));
     }
 }

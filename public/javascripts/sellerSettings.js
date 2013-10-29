@@ -5,6 +5,16 @@ $(document).ready(function(){
 			$('#name').val(json.name);
 			$('#logoUrl').attr('src', json.logoUrl);
 			$('#webpageUrl').val(json.webpageUrl);
+	    	
+			if(json.pointsEnabled){
+				$('#pointsEnabled').prop('checked', true);
+				$("#pointMoneyRelation").prop('disabled', false);
+		    	$('#points_ok').show();
+		    	$('#points_warning').hide();
+		    	$("#pointMoneyRelation").prop('disabled', false);
+			}
+
+	    	$("#pointMoneyRelation").val(json.pointMoneyRelation);
 		}
 	});
 	
