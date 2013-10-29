@@ -5,7 +5,7 @@
 <div class="row">
 	<!-- FILTERS -->
 	<div class="col-md-2">
-		<div class="well" style="padding: 5px">
+		<div class="well well-sm">
 			
 			<div class="form-group">
 				<label>Filtrar</label>
@@ -38,26 +38,25 @@
 	<div class="col-md-10">
 		<div ng-animate="'animate'" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems"
 			class="item-container col-md-3" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
-			<a class="thumbnail" style="margin: 1px; position: relative; padding-top: 0px;">
-				<!-- TODO: extract style to main.css -->
-				<div class="item-actions" ng-show="actionsView" style="position: absolute; z-index: 1; right: 0px; opacity: 0.9; display: none;">
-					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px;">
+			<div class="thumbnail item-thumb">
+				<div class="item-actions" ng-show="actionsView">
+					<ol class="breadcrumb">
 						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
 						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
 				<div class="item-main">
-					<h3 class="item-title">{{item.title}}</h3>
-					<img class="item-img img-responsive" style="border-top-right-radius: 4px;" src="{{item.imgUrl}}" alt="{{item.description}}">
+					<h4 class="item-title">{{item.title}}</h4>
+					<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.description}}">
 				</div>
-				<div class="item-details" style="text-align: center">
+				<div class="item-details" align="center">
 					<div class="btn-group">
-						<div class="btn btn-default disabled" style="font-color: #2974B9; font-weight: bold; font-size: 14px;">${{item.price}}</div>
-						<button type="button" class="btn btn-primary">Comprar</button>
+						<div class="btn btn-default disabled price">${{item.price}}</div>
+						<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 					</div>
 				</div>
-			</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -65,5 +64,8 @@
 <!-- BUY MODAL -->
 <div ng-include="'/assets/html/buyItemModal.html'"></div>
 
-<script src="/assets/js/bootstrap-select.min.js"></script>
-<script src="/assets/css/bootstrap-select.min.css"></script>
+<!-- Alert Modal -->
+<div ng-include="'/assets/html/alertModal.html'"></div>
+
+<script src="/assets/lib/bootstrap-plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="/assets/lib/bootstrap-plugins/bootstrap-select/bootstrap-select.min.css"></script>

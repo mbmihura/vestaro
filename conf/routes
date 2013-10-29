@@ -28,7 +28,7 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 	controllers.SellerController.update(sellerID: Long, logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Double)
 
 ## Buyer ##
-# Home
+#  Home  #
 
 # Search
 
@@ -37,21 +37,25 @@ GET		/wishlist							controllers.WishlistController.userWishlistItems()
 POST	/wishlist							controllers.WishlistController.addItemToWishlist()
 DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
 
-# Buyer Profile
 
 
 ## Commons ##
 # Collection
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 
+# Buyer Profile
+GET		/buyerProfile			controllers.BuyerController.profile()
+
 # Item
-GET		/items								controllers.ItemController.index()
-GET		/item								controllers.ItemController.form()
-GET		/item/:itemId						controllers.ItemController.read(itemId: String)
-POST	/item								controllers.ItemController.submit()
-POST	/item/:itemId						controllers.ItemController.delete(itemId: String)
-PUT		/item/:itemId						controllers.ItemController.update(itemId: String)
-GET		/item/:collectionId/:itemId			controllers.ItemController.updateItem(collectionId: Long, itemId: String)
+
+GET		/garment							controllers.ItemController.index()
+GET		/garment/new						controllers.ItemController.form()
+GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
+
+DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
+PUT		/garment/:itemId					controllers.ItemController.update(itemId: String)
+POST	/garment/							controllers.ItemController.submit()
+
 
 # Recommendations
 GET     /reco	           					controllers.RecommendationEngine.recoExample()
@@ -70,7 +74,7 @@ GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
 
 # Payment Process
-GET		/buy/:itemId				controllers.ItemController.buy(itemId: String)
+GET		/buy				controllers.ItemController.buy()
 POST	/orderItem					controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
 GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
 GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)

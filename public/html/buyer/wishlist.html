@@ -1,0 +1,39 @@
+<div class="page-header" align="center">
+	<h1>Wishlist. <small>Tus prendas favoritas.</small></h1>
+</div>
+
+<div class="alert alert-block alert-info" ng-hide="wishlistItems.length">
+	<h4>No tienes prendas en tu wishlist.</h4>
+	<p style="margin-bottom:10px">Para agregar prendas a la wishlist puedes hacer click en <span class="badge"><span class="glyphicon glyphicon-star-empty"></span></span></p>
+	<p>
+		<a type="button" class="btn btn-info" href="#/">Ver recomendaciones</a>
+		<a type="button" class="btn btn-default" href="#/itemSearch">Buscar ropa</a>
+	</p>
+</div>
+
+<div class="row">
+<div ng-repeat="wishItem in wishlistItems" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false" class="col-md-4">
+	<div class="thumbnail item-thumb">
+		<div class="item-actions" ng-show="actionsView">
+			<ol class="breadcrumb">
+				<li ng-click="removeFromWishlist(wishItem.item, $index)" class="has-tooltip action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
+				<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+				<li ng-click="showBuyItemModal(wishItem.item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+			</ol>
+		</div>
+		<div class="item-main">
+			<h3 class="item-title">{{wishItem.item.title}}</h3>
+			<img class="item-img img-responsive" src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
+		</div>
+		<div class="item-details" align="center">
+			<div class="btn-group">
+				<div class="btn btn-default disabled price">${{wishItem.item.price}}</div>
+				<a type="button" href="#/buy?id={{wishItem.item.id}}" class="btn btn-primary">Comprar</a>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- Alert Modal -->
+<div ng-include="'/assets/html/alertModal.html'"></div>
