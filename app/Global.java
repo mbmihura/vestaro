@@ -49,12 +49,12 @@ public class Global extends GlobalSettings {
                 user = new User(100000262980862L,"testUserAlan", rol);
                 user.save();   
                 buyerManager.create(user);
-                Seller.create(new Seller(user, 2L, null, "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
+                Seller.create(new Seller(user, 2L, "/assets/img/logo.jpg", "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
                 
                 user = new User(1335414847L,"testUserPablo", rol);
                 user.save();
                 buyerManager.create(user);
-                Seller.create(new Seller(user, 1L, null, "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
+                Seller.create(new Seller(user, 1L, "/assets/img/logo.jpg", "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
             }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {
