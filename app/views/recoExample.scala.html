@@ -1,65 +1,47 @@
-<!DOCTYPE html>
-@()
-@main("Recommendations") {
-	<html>
-		<head>
-		    <style type="text/css">
-				form {
-				    padding-left: 90px;
-				}
-			</style>
-	    </head>
-	    <body>
-		    <form class="form-horizontal">
-		    	<br>
-			  	<div class="control-group">
-			  		ID Usuario:
-			  		<br>
-			  		<input id="userId"/>
-			  		<br>
-			  		<br>
-			  		<hl>
-			  			ID Item:
-			  			<br>
-			  			<input id="itemId"/>
-			  			<br>
-			  			<br>
-			  			Descripción Item:
-			  			<br>
-			  			<input id="itemDescription"/>
-			  		</hl>
-					<br>
-					<br>
-				   	<hl>
-				   		<button type="button" class="btn btn-view-item">
-			          		Simular Vista
-			          	</button>
-				      	<button type="button" class="btn btn-buy-item">
-			          		Simular Compra
-			          	</button>
-			          	<button type="button" class="btn btn-rate-item">
-			          		Simular Puntuación
-			          	</button>
-			          	<button type="button" class="btn btn-like-item">
-			          		Simular Like
-			          	</button>
-			          	<button type="button" class="btn btn-share-item">
-			         		Simular Share
-			         	</button>
-			    	</hl>
-					<br>
-					<br>
-		          	<button type="button" class="btn btn-ranking-items">
-		          		Simular Ranking Most Viewed
-		          	</button>
-		          	<button type="button" class="btn btn-related-items">
-		          		Simular Related Items
-		          	</button>
-					<br>
-					<br>
-	        		<div id="resultados">&nbsp;</div>
-				</div>
-			</form>
-	    </body>
-	</html>
-}
+<html>
+	<head>
+    	<script src="assets/lib/jQuery/2.0.3/jquery-2.0.3.min.js" type="text/javascript"></script>
+    	<script src="assets/lib/easyrec-jsApi/easyrec-jsApi-v0.98.js"" type="text/javascript"></script>
+    	<script src="assets/js/easyrec.js"" type="text/javascript"></script>
+    
+	    <style type="text/css">
+			form {
+			    padding-left: 90px;
+			}
+		</style>
+    </head>
+    <body>
+	    <form class="form-horizontal">
+	    	<br>
+		  	<div class="control-group">
+		  		Items más vistos de:
+		  		<select id="sexo" onchange="exec_easyrec_function()">
+		  			<option selected>MALE</option>
+		  			<option>FEMALE</option>
+		  		</select>
+		  		<br>
+		  		<br>
+        		<div id="resultados">&nbsp;</div>
+			</div>	
+		</form>
+		
+	    <script>
+			/* Si es servicio de Koding... */ //var easyrecApiUrl="http://vestaro.kd.io:8080/easyrec-web/api/1.0/json/";
+			/* Si es instancia local...    */ var easyrecApiUrl="http://localhost:8080/easyrec-web/api/1.0/json/";
+			
+			var tenantId = "Vestaro";
+			var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
+			
+			function exec_easyrec_function(){
+			    easyrec_mostViewedItems({
+					numberOfResults:10,
+					timeRange:'ALL',
+			        requestedItemType: $('#sexo option:selected').text(),
+					drawingCallback:'drawingCallback'
+				});
+			}
+			
+			exec_easyrec_function();
+    	</script>
+    </body>
+</html>
