@@ -20,9 +20,9 @@
   						<p style="font-size: 30px; font-weight: bold;">Talles Disponibles</p>
    						
 							<div class="btn-group" data-toggle="buttons">
-							@for((sizeOption , value) <- sizeOptions ){
+							@for((sizeOptionId , sizeOption) <- sizeOptions ){
  								 <label class="btn btn-primary" style="padding: 15px 25px;margin-left: 6px;">
-   								 <input type="radio" name="options" id="option1" > @sizeOption</input> 
+   								 <input type="radio" name="options" id="@sizeOptionId" > @sizeOption</input> 
 						  	</label>
 							}
  							</div>
@@ -117,7 +117,6 @@
 		
 	function orderItem(){
 	
-		var selectedSize=$('label.active').get(0).innerText;
 		var points =$("#pointsToUse").val();
 		if(points== "" || !@item.seller.pointsEnabled){
 			points = 0;
