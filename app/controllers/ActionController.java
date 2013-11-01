@@ -29,7 +29,7 @@ public class ActionController extends Controller {
 		
 		Collections.sort(items, actionType.equals("BUY") ? Item.Comparators.mostPurchases : Item.Comparators.mostViews);
 		
-    	return ok(Json.toJson(items.subList(0, 5)));
+    	return ok(Json.toJson(items.size() > 5 ? items.subList(0, 5) : items));
     }
 	
 	private static Result lessActionsFrom(Long sellerId, Long actionDateBegin, Long actionDateEnd, String actionType){
