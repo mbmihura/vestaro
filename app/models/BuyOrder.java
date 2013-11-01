@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -83,6 +85,12 @@ public class BuyOrder extends Model{
 		
 		this.buyer.save();
 		this.save();
+	}
+	
+	public static List<BuyOrder> findBuyerOrders(Long buyerId){
+		return BuyOrder.find.where()
+				.eq("buyer.id", buyerId)
+				.findList();
 	}
 
 }
