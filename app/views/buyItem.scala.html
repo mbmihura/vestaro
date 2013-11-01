@@ -119,7 +119,7 @@
 	
 		var selectedSize=$('label.active').get(0).innerText;
 		var points =$("#pointsToUse").val();
-		if(points== ""){
+		if(points== "" || !@item.seller.pointsEnabled){
 			points = 0;
 		}
 		
