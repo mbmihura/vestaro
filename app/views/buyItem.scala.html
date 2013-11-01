@@ -21,8 +21,8 @@
    						
 							<div class="btn-group" data-toggle="buttons">
 							@for((sizeOptionId , sizeOption) <- sizeOptions ){
- 								 <label class="btn btn-primary" style="padding: 15px 25px;margin-left: 6px;">
-   								 <input type="radio" name="options" id="@sizeOptionId" > @sizeOption</input> 
+ 								 <label class="btn btn-primary" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;">
+   								 <input type="radio" name="options"  > @sizeOption</input> 
 						  	</label>
 							}
  							</div>
@@ -116,7 +116,10 @@
 		});
 		
 	function orderItem(){
-	
+		var selectedLabel = $('label.active').get(0);
+		var selectedSize= selectedLabel.innerText;
+		var selectedSizeId= selectedLabel.htmlFor;
+		
 		var points =$("#pointsToUse").val();
 		if(points== "" || !@item.seller.pointsEnabled){
 			points = 0;
