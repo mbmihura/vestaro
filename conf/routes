@@ -22,10 +22,11 @@ GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		cont
 
 # Seller
 
-GET     /findSellerById/			     	controllers.SellerController.findSellerById(sellerId: Long)
+GET     /findSellerById/:sellerId	     	controllers.SellerController.findSellerById(sellerId: Long)
+GET     /findCurrentSeller	     			controllers.SellerController.findCurrentSeller()
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
-GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 	controllers.SellerController.update(sellerID: Long, logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Long)
+POST	/seller/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 			controllers.SellerController.update(logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Double, mp_client_secret: String, mp_client_id: String)
 
 ## Buyer ##
 #  Home  #
