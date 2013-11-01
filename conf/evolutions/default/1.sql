@@ -12,6 +12,28 @@ create table action (
   constraint pk_action primary key (id))
 ;
 
+create table buy_order (
+  id                        bigint not null,
+  item_id                   varchar(255),
+  price                     bigint,
+  buyer_id                  bigint,
+  size                      varchar(255),
+  points_used               integer,
+  points_earned             integer,
+  state                     integer,
+  constraint ck_buy_order_state check (state in (0,1,2,3)),
+  constraint pk_buy_order primary key (id))
+;
+
+create table buyer (
+  id                        bigint not null,
+  fb_uid                    bigint,
+  name                      varchar(255),
+  mail                      varchar(255),
+  points                    integer,
+  constraint pk_buyer primary key (id))
+;
+
 create table collection (
   id                        bigint not null,
   title                     varchar(255),
@@ -46,7 +68,10 @@ create table seller (
   id                        bigint not null,
   fb_uid                    bigint,
   name                      varchar(255),
-  merchant_id               bigint,
+  points_enabled            boolean,
+  point_money_relation      double,
+  mp_client_secret          varchar(255),
+  mp_client_id              varchar(255),
   logo_url                  varchar(255),
   webpage_url               varchar(255),
   insert_date               timestamp,
@@ -86,6 +111,10 @@ create table user_rol (
 ;
 create sequence action_seq;
 
+create sequence buy_order_seq;
+
+create sequence buyer_seq;
+
 create sequence collection_seq;
 
 create sequence item_seq;
@@ -100,18 +129,22 @@ create sequence user_seq;
 
 create sequence wishlist_item_seq;
 
-alter table collection add constraint fk_collection_seller_1 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
-create index ix_collection_seller_1 on collection (seller_id);
-alter table item add constraint fk_item_seller_2 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
-create index ix_item_seller_2 on item (seller_id);
-alter table item add constraint fk_item_collection_3 foreign key (collection_id) references collection (id) on delete restrict on update restrict;
-create index ix_item_collection_3 on item (collection_id);
-alter table stock add constraint fk_stock_item_4 foreign key (item_id) references item (id) on delete restrict on update restrict;
-create index ix_stock_item_4 on stock (item_id);
-alter table wishlist_item add constraint fk_wishlist_item_item_5 foreign key (item_id) references item (id) on delete restrict on update restrict;
-create index ix_wishlist_item_item_5 on wishlist_item (item_id);
-alter table wishlist_item add constraint fk_wishlist_item_owner_6 foreign key (owner_user_id) references user (user_id) on delete restrict on update restrict;
-create index ix_wishlist_item_owner_6 on wishlist_item (owner_user_id);
+alter table buy_order add constraint fk_buy_order_item_1 foreign key (item_id) references item (id) on delete restrict on update restrict;
+create index ix_buy_order_item_1 on buy_order (item_id);
+alter table buy_order add constraint fk_buy_order_buyer_2 foreign key (buyer_id) references buyer (id) on delete restrict on update restrict;
+create index ix_buy_order_buyer_2 on buy_order (buyer_id);
+alter table collection add constraint fk_collection_seller_3 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
+create index ix_collection_seller_3 on collection (seller_id);
+alter table item add constraint fk_item_seller_4 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
+create index ix_item_seller_4 on item (seller_id);
+alter table item add constraint fk_item_collection_5 foreign key (collection_id) references collection (id) on delete restrict on update restrict;
+create index ix_item_collection_5 on item (collection_id);
+alter table stock add constraint fk_stock_item_6 foreign key (item_id) references item (id) on delete restrict on update restrict;
+create index ix_stock_item_6 on stock (item_id);
+alter table wishlist_item add constraint fk_wishlist_item_item_7 foreign key (item_id) references item (id) on delete restrict on update restrict;
+create index ix_wishlist_item_item_7 on wishlist_item (item_id);
+alter table wishlist_item add constraint fk_wishlist_item_owner_8 foreign key (owner_user_id) references user (user_id) on delete restrict on update restrict;
+create index ix_wishlist_item_owner_8 on wishlist_item (owner_user_id);
 
 
 
@@ -124,6 +157,10 @@ alter table user_rol add constraint fk_user_rol_rol_02 foreign key (rol_id) refe
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists action;
+
+drop table if exists buy_order;
+
+drop table if exists buyer;
 
 drop table if exists collection;
 
@@ -144,6 +181,10 @@ drop table if exists wishlist_item;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists action_seq;
+
+drop sequence if exists buy_order_seq;
+
+drop sequence if exists buyer_seq;
 
 drop sequence if exists collection_seq;
 

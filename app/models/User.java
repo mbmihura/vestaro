@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import models.Buyer;
 import play.db.ebean.*;
 import security.Roles;
 
@@ -41,6 +43,10 @@ public class User extends Model {
     	rol.add(Rol.findByName(Roles.BUYER));
     	User newUser = new User(userId, name, rol);
     	newUser.save();
+    	Buyer b =new Buyer();
+    	b.create(newUser);
+    	
+    	
     	return newUser;
     }
 }

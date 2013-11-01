@@ -1,18 +1,3 @@
-
-# Sellers
-
-sellers:
-
-    - !!models.Seller
-        id:         1
-        fbUid:      999999
-        name:       RopaCool
-
-    - !!models.Seller
-        id:         2
-        fbUid:      666666
-        name:       RopaHot
-
 # Collections
 
 collections:
@@ -64,7 +49,7 @@ items:
         price:        200
         sex:        m
         seller:        !!models.Seller
-                        id: 1
+                        id: 2
         collection:   !!models.Collection
                         id: 1
     - !!models.Item
@@ -172,6 +157,16 @@ items:
         collection:   !!models.Collection
                         id: 5
 
+    - !!models.Item
+        id:           CRMC
+        title:        Camisa Roja
+        description:  Camisa Roja Manga Larga
+        imgUrl:       http://localhost:9000/assets/img/items/Camisa-Roja-Slim-Fit-Hombre-Moda-Casual.png
+        price:        310
+        sex:        m
+        seller:        !!models.Seller
+                        id: 1
+                        
 # Stocks
 
 stocks:
