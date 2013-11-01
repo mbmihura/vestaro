@@ -187,6 +187,30 @@ items:
 # Stocks
 
 stocks:
+
+    
+    - !!models.Stock
+        id:          SCB3XS
+        size:        XS
+        stock:       10
+        item:        !!models.Item
+                        id: CB3
+                        
+                            
+    - !!models.Stock
+        id:          SCB3S
+        size:        S
+        stock:       2
+        item:        !!models.Item
+                        id: CB3
+                        
+                            
+    - !!models.Stock
+        id:          SCB3M
+        size:        M
+        stock:       22
+        item:        !!models.Item
+                        id: CB3    
     
     - !!models.Stock
         id:          SCNL
@@ -194,7 +218,8 @@ stocks:
         stock:       5
         item:        !!models.Item
                         id: CB1
-                        
+
+                                                
     - !!models.Stock
         id:          SCBM
         size:        M
