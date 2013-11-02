@@ -192,7 +192,7 @@ stocks:
     - !!models.Stock
         id:          SCB3XS
         size:        XS
-        stock:       10
+        stock:       1
         item:        !!models.Item
                         id: CB3
                         
