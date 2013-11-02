@@ -74,14 +74,19 @@ public class BuyOrder extends Model{
 
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
-		//TODO: if seller does not accept points you donpt gain them
-		this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));
-		this.buyer.points +=this.pointsEarned;
+		this.assignCredits();
 		this.size.consumeStock();
 		this.buyer.save();
 		this.save();
 	}
 	
+	private void assignCredits() {
+		if(this.item.seller.pointsEnabled){
+			this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));
+			this.buyer.points +=this.pointsEarned;
+		}
+		
+	}
 	public static List<BuyOrder> findBuyerOrders(Long buyerId){
 		return BuyOrder.find.where()
 				.eq("buyer.id", buyerId)

@@ -128,10 +128,17 @@
 		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
 			{
 				success:function(json){
-					var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+						var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+					if(@item.seller.pointsEnabled){
+						$("#earnedPoints").html(pending);
+					}
+					else{
+						$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
+					
+					}
 					$("#mpButton").attr("href", json);
 					$("#usedPoints").html(points);
-					$("#earnedPoints").html(pending);
+					
 					$("#pendingAmount").html("$"+ pending);
 					$("#selectedSize").html(selectedSize);
 					
