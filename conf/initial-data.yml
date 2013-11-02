@@ -1,3 +1,77 @@
+# Roles
+
+roles:
+
+    - &buyerRole  !!models.Rol
+        id:             1
+        name:           BUYER
+        
+    - &sellerRole !!models.Rol
+        id:             2
+        name:           SELLER
+
+    - &adminRole  !!models.Rol
+        id:             3
+        name:           ADMIN
+
+# Users
+
+users:
+
+    - !!models.User
+        userId:         563729055
+        name:           Kurt
+        roles: 
+            - *buyerRole
+
+    - !!models.User
+        userId:         1406678834
+        name:           Naty
+        roles: 
+            - *buyerRole
+       
+    - !!models.User
+        userId:         100000262980862
+        name:           Alan
+        roles: 
+            - *buyerRole
+            - *sellerRole
+        
+    - !!models.User
+        userId:         1335414847
+        name:           Pablo
+        roles: 
+            - *buyerRole
+            - *sellerRole
+
+# Sellers
+
+sellers:
+
+    - !!models.Seller
+        id:                         1
+        name:                       RopaCool
+        pointsEnabled:              true
+        pointMoneyRelation:         1.0
+        mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id:               1406963671517811
+        logoUrl:                    /assets/img/logo.jpg
+        webpageUrl:                 www.example.com
+        user:     !!models.User
+                    userId: 1335414847
+                    
+    - !!models.Seller
+        id:                         2
+        name:                       RopaHot
+        pointsEnabled:              false
+        pointMoneyRelation:         0.0
+        mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id:               1406963671517811
+        logoUrl:                    /assets/img/logo.jpg
+        webpageUrl:                 www.example.com
+        user:     !!models.User
+                    userId: 100000262980862
+
 # Collections
 
 collections:
