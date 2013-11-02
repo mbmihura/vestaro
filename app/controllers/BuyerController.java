@@ -12,6 +12,12 @@ public class BuyerController extends BaseController {
     	Buyer buyer = Buyer.findBuyerByUser(currentUserId());
     	return ok(views.html.buyerProfile.render(BuyOrder.findBuyerOrders(buyer.id), buyer));
     }
+    
+    public static Result openDispute(Long orderId){
+    	
+    	BuyOrder.find.byId(orderId).openDispute();
+    	return ok();
+    }
 	
 
 	

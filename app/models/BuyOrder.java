@@ -92,5 +92,9 @@ public class BuyOrder extends Model{
 				.eq("buyer.id", buyerId)
 				.findList();
 	}
+	public void openDispute() {
+		this.state = State.IN_DISPUTE;
+		this.save();
+	}
 
 }

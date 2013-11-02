@@ -28,6 +28,8 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 	controllers.SellerController.update(sellerID: Long, logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Long)
 
 ## Buyer ##
+
+POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long)
 #  Home  #
 
 # Search
