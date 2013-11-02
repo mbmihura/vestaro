@@ -46,7 +46,9 @@ public class BuyOrder extends Model{
 	
 	@OneToOne
 	public Buyer buyer;
-	public String size;
+	
+	@OneToOne
+	public Stock size;
 	public Integer pointsUsed =0;
 	public Integer pointsEarned=0;
 	public State state =State.PAYMENT_PENDING;
@@ -58,7 +60,7 @@ public class BuyOrder extends Model{
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
-		order.size = size;
+		order.size = Stock.find.byId(size);
 		order.pointsUsed = pointsUsed;
 		this.buyer.points-=pointsUsed;
 		this.buyer.save();
@@ -66,23 +68,16 @@ public class BuyOrder extends Model{
 		
 		return order;
 	}
-	public BuyOrder(Long id,Item item,Buyer buyer2, String size, Integer pointsUsed, State state){
-		this.id =id;
-		this.item = item;
-		this.price = item.price;
-		this.buyer = buyer2;
-		this.size = size;
-		this.pointsUsed = pointsUsed;
-		this.state= state;
-	}
+
 	
     public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
 
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
+		//TODO: if seller does not accept points you donpt gain them
 		this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));
 		this.buyer.points +=this.pointsEarned;
-		
+		this.size.consumeStock();
 		this.buyer.save();
 		this.save();
 	}
