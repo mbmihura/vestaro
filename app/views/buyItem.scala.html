@@ -115,11 +115,38 @@
 	<script>
 	$( document ).ready(function() {
 			$("#orderItemButton").click(function(){
-				$('#loadingModal').modal('show');
-				orderItem();
+				if (validateOK()){
+					$('#loadingModal').modal('show');
+					orderItem();
+				}
 			});
 		});
 		
+	function validateOK(){
+		var ok= true;
+		var points =$("#pointsToUse").val();
+		
+		//Validate not using more points than available
+		if(points > @buyerPoints){
+			ok = false;
+			alert("Solo tenés " +points +" puntos disponibles" );
+		}
+		
+		//Validate max 75% of item price
+		var maxPermitted = @item.price * 0.75;
+		if(points * @item.seller.pointMoneyRelation > maxPermitted){
+			ok = false;
+			alert("Sólo podés pagar el 75% del precio con puntos!");
+		}
+		
+		if(! $('label.active').get(0)){
+			ok = false;
+			alert("Por favor elegí tu talle");
+		}
+		return ok;
+		
+		
+	}
 	function orderItem(){
 		var selectedLabel = $('label.active').get(0);
 		var selectedSize= selectedLabel.innerText;
