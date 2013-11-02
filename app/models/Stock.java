@@ -3,7 +3,6 @@ package models;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -46,6 +45,7 @@ public class Stock extends Model {
                 .eq("item.id", itemId)
                 .findList();
     }
+    
 
     public static LinkedHashMap<String, String> findAvailableSizeOptions(String itemId){
              LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
@@ -79,5 +79,12 @@ public class Stock extends Model {
                 .append("]");
         return builder.toString();
     }
+
+
+	public void consumeStock() {
+		this.stock --;
+		this.save();
+		
+	}
 
 }
