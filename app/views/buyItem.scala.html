@@ -144,8 +144,9 @@
 			ok = false;
 			message +="<p>Por favor elegí tu talle</p>";
 		}
-		
-		$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+		if(!ok){
+			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+		}
 		return ok;
 		
 		
