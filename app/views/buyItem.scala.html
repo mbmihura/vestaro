@@ -6,10 +6,10 @@
 	<div id="rootwizard">
 		<ul class="nav nav-pills">
 			<li class="active"><a href="#tab1" data-toggle="tab">Crear orden de compra</a></li>
-			<li class=""><a id="orderItemButton" href="#tab2"  data-toggle="tab" >Pagar orden de compra</a></li>
+			<li class=""><a id="orderItemButton" href="#"  data-loading-text="Loading..."  data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
 					
-		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 800px;" >
+		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
 			
 				<div class="tab-pane active" id="tab1">
 						<div class="col-lg-5">
@@ -102,6 +102,22 @@
 						
 		
 	</div>	
+
+
+<!-- Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Creando tu órden de compra...</h4>
+      </div>
+			<div class="modal-body" style="text-align: center">
+      	<img src="assets/img/loading_animation.gif" style="width: 10%;">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 	
 </div>
 <!--MP Script needed to give styles to payment button/modal-->
@@ -111,6 +127,7 @@
 	<script>
 	$( document ).ready(function() {
 			$("#orderItemButton").click(function(){
+				$('#loadingModal').modal('show');
 				orderItem();
 			});
 		});
@@ -141,6 +158,9 @@
 					
 					$("#pendingAmount").html("$"+ pending);
 					$("#selectedSize").html(selectedSize);
+					$('#tab1').attr('class','tab-pane');
+					$('#tab2').attr('class','tab-pane active');
+					$('#loadingModal').modal('hide');
 					
 				}
 			}
