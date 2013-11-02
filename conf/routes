@@ -29,7 +29,7 @@ GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelatio
 
 ## Buyer ##
 
-POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long)
+POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long, disputeMessage: String)
 #  Home  #
 
 # Search

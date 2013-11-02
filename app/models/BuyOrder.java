@@ -52,6 +52,7 @@ public class BuyOrder extends Model{
 	public Integer pointsUsed =0;
 	public Integer pointsEarned=0;
 	public State state =State.PAYMENT_PENDING;
+	public String disputeMessage;
 	
 	public BuyOrder(){
 		
@@ -92,8 +93,9 @@ public class BuyOrder extends Model{
 				.eq("buyer.id", buyerId)
 				.findList();
 	}
-	public void openDispute() {
+	public void openDispute(String disputeMessage) {
 		this.state = State.IN_DISPUTE;
+		this.disputeMessage = disputeMessage;
 		this.save();
 	}
 

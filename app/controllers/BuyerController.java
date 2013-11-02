@@ -13,9 +13,9 @@ public class BuyerController extends BaseController {
     	return ok(views.html.buyerProfile.render(BuyOrder.findBuyerOrders(buyer.id), buyer));
     }
     
-    public static Result openDispute(Long orderId){
+    public static Result openDispute(Long orderId, String disputeMessage){
     	
-    	BuyOrder.find.byId(orderId).openDispute();
+    	BuyOrder.find.byId(orderId).openDispute(disputeMessage);
     	return ok();
     }
 	

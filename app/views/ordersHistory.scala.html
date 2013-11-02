@@ -69,13 +69,12 @@
 	}
 
 	function openDispute(buyOrder){
-
-	jsRoutes.controllers.BuyerController.openDispute(buyOrder).ajax(
+	
+	var disputeMessage = $('#disputeMessage').get(0).value;
+	jsRoutes.controllers.BuyerController.openDispute(buyOrder, disputeMessage).ajax(
 			{
 				success:function(json){
-					
 						$('#disputeModal').modal('hide');
-						alert('disputa cargada correctamente!');
 					
 				}
 			}
