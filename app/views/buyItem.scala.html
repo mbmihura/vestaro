@@ -8,7 +8,6 @@
 			<li class="active"><a href="#tab1" data-toggle="tab">Crear orden de compra</a></li>
 			<li class=""><a id="orderItemButton" href="#"  data-loading-text="Loading..."  data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
-					
 		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
 			
 				<div class="tab-pane active" id="tab1">
@@ -115,6 +114,7 @@
 	<script>
 	$( document ).ready(function() {
 			$("#orderItemButton").click(function(){
+				$('.alert').fadeOut();
 				if (validateOK()){
 					$('#loadingModal').modal('show');
 					orderItem();
@@ -124,25 +124,28 @@
 		
 	function validateOK(){
 		var ok= true;
+		var message= "";
 		var points =$("#pointsToUse").val();
 		
 		//Validate not using more points than available
 		if(points > @buyerPoints){
 			ok = false;
-			alert("Solo tenés " +points +" puntos disponibles" );
+			message = "<p>Solo tenés " +points +" puntos disponibles</p>" ;
 		}
 		
 		//Validate max 75% of item price
 		var maxPermitted = @item.price * 0.75;
 		if(points * @item.seller.pointMoneyRelation > maxPermitted){
 			ok = false;
-			alert("Sólo podés pagar el 75% del precio con puntos!");
+			message += "<p>Sólo podés pagar el 75% del precio con puntos!</p>";
 		}
 		
 		if(! $('label.active').get(0)){
 			ok = false;
-			alert("Por favor elegí tu talle");
+			message +="<p>Por favor elegí tu talle</p>";
 		}
+		
+		$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
 		return ok;
 		
 		
