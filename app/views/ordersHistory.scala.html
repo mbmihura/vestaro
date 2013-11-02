@@ -1,5 +1,6 @@
 @(orders : List[BuyOrder]) @import helper._
 
+<div>
 <div class="col-lg-8">
 	<legend>
 		<h2>Órdenes de compra</h2>
@@ -29,7 +30,7 @@
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
 						<button type="button" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
 						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
-						<button type="button" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
+						<button type="button" onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
 
 						} }
 					</div>
@@ -39,12 +40,28 @@
 		}
 
 	</div>
+	
+	
+	
+	
+	
+	
 </div>	
 
+@disputeModal("orderId")
+
+</div>
 <script>
 	$(document).ready(function() {
 		$('.collapse').collapse('hide');
+	
 	});
+
+
+	function showDisputeModal(buyOrder){
+		$('#disputeModal').modal('show');
+	}
+
 </script>
 
 <style>
