@@ -35,33 +35,13 @@ public class SellerController extends BaseController {
     public static Result findSellerById(Long sellerId) {
     	return ok(Json.toJson(Seller.find.byId(sellerId)));
     }
-    
-    public static Result findCurrentSeller(){
-    	return ok(Json.toJson(Seller.findSellerByUser(currentUserId())));
-    }
-    
-    public static Result update(String logoURL, String name, String pageURL,
-    							Boolean pointsEnabled, Double pointMoneyRelation, String mp_client_secret, String mp_client_id) {
-    	    	
-    	Seller seller = Seller.findSellerByUser(currentUserId());
-    	
-    	seller.brandName = name;
-    	seller.logoUrl = logoURL;
-    	seller.webpageUrl = pageURL;
-    	seller.pointsEnabled = pointsEnabled;
-    	seller.pointMoneyRelation = pointMoneyRelation;
-    	seller.mp_client_secret = mp_client_secret;
-    	seller.mp_client_id = mp_client_id;
-    	
-        return ok(Json.toJson(Seller.update(seller)));
-    }
-    
+        
     @SubjectPresent
-	public static Result getJson(){
+	public static Result readCurrent(){
         return ok(Json.toJson(Seller.findSellerByUser(currentUserId()))); 
     }
     @SubjectPresent
-    public static Result createOrUpdate() {
+    public static Result createOrUpdateCurrent() {
     	Long currentUserId = currentUserId();
     	Seller currentSeller = Seller.findSellerByUser(currentUserId());
     	

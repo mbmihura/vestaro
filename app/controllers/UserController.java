@@ -14,7 +14,7 @@ import utils.Crypto;
 public class UserController extends BaseController {
 	
 	@SubjectPresent
-	public static Result update(){
+	public static Result updateCurrent(){
 		DynamicForm data = Form.form().bindFromRequest();
     	User user = currentUser();
     	
@@ -28,12 +28,12 @@ public class UserController extends BaseController {
 
 
     @SubjectPresent
-    public static Result getUserId() {
+    public static Result readCurrentId() {
         return ok(Json.toJson(currentUserId()));
     }
     
     @SubjectPresent
-    public static Result getJson() {
+    public static Result readCurrent() {
         return ok(Json.toJson(currentUser()));
     }
 }

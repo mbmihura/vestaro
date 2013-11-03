@@ -6,13 +6,43 @@
 GET		/aboutplay           				controllers.Application.aboutPlay()
 GET		/                    				controllers.Application.index()
 
-## Authentication & Authorization ##
+####   Authentication & Authorization   ####
 POST	/authentication/login 				controllers.Authentication.login()
 #TODO: check if really necesarry as we will be using fbLogin
 POST	/authentication/logout      		controllers.Authentication.logout() 
-GET		/user 				 				controllers.UserController.getJson()
-GET		/userId 							controllers.UserController.getUserId()
-PUT		/user 				 				controllers.UserController.update()
+GET		/user 				 				controllers.UserController.readCurrent()
+PUT		/user 				 				controllers.UserController.updateCurrent()
+GET		/userId 							controllers.UserController.readCurrentId()
+
+####   Seller   ####
+GET		/seller 	 						controllers.SellerController.readCurrent()
+PUT		/seller 							controllers.SellerController.createOrUpdateCurrent()
+GET     /seller/:sellerId	     			controllers.SellerController.findSellerById(sellerId: Long)
+GET     /seller/:sellerId/items  	    	controllers.SellerController.itemsOwnedBy(sellerId: Long)
+GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
+
+####   Buyer   ####
+GET 	/buyer 								controllers.BuyerController.readCurrent()
+PUT 	/buyer 								controllers.BuyerController.createOrUpdateCurrent()
+
+
+####   Items - Garments   ####
+# API
+GET		/garment							controllers.ItemController.readAll()
+GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
+DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
+PUT		/garment/:itemId					controllers.ItemController.createOrUpdate(itemId: String)
+# UI
+GET		/garment/new						controllers.ItemController.form()
+POST	/garment/							controllers.ItemController.submit()
+
+####   Items - Garments   ####
+GET		/wishlist							controllers.WishlistController.userWishlistItems()
+POST	/wishlist							controllers.WishlistController.addItemToWishlist()
+DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
+
+
+
 
 # Dashboard
 GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
@@ -22,47 +52,8 @@ GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		cont
 # Actions
 GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
-## Seller ##
-
-GET     /findSellerById/:sellerId	     	controllers.SellerController.findSellerById(sellerId: Long)
-GET     /findCurrentSeller	     			controllers.SellerController.findCurrentSeller()
-GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
-POST	/seller/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 			controllers.SellerController.update(logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Double, mp_client_secret: String, mp_client_id: String)
-GET		/seller 	 						controllers.SellerController.getJson()
-PUT		/seller 							controllers.SellerController.createOrUpdate()
-
-## Buyer ##
-GET 	/buyer 								controllers.BuyerController.getJson()
-PUT 	/buyer 								controllers.BuyerController.createOrUpdate()
-#  Home  #
-
-# Search
-
-# Wishlist
-GET		/wishlist							controllers.WishlistController.userWishlistItems()
-POST	/wishlist							controllers.WishlistController.addItemToWishlist()
-DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
-
-
-
-## Commons ##
-# Collection
-GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-
 # Buyer Profile
 GET		/buyerProfile			controllers.BuyerController.profile()
-
-# Item
-
-GET		/garment							controllers.ItemController.index()
-GET		/garment/new						controllers.ItemController.form()
-GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
-
-DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
-PUT		/garment/:itemId					controllers.ItemController.update(itemId: String)
-POST	/garment/							controllers.ItemController.submit()
-
 
 # Recommendations
 GET     /reco	           					controllers.RecommendationEngine.recoExample()

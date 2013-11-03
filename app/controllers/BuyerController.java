@@ -31,12 +31,12 @@ public class BuyerController extends BaseController {
 	}
 
 	@SubjectPresent
-	public static Result getJson(){
+	public static Result readCurrent(){
         return ok(Json.toJson(Buyer.findBuyerByUser(currentUserId()))); 
     }
 	
 	@SubjectPresent
-	public static Result createOrUpdate(){
+	public static Result createOrUpdateCurrent(){
 		// TODO: check if buyer was already created to avoid losing points if method is call twice [low priority]
     	Buyer buyer = Buyer.createFor(currentUserId());
     	buyer.save();
