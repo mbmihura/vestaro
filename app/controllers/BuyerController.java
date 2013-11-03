@@ -34,7 +34,7 @@ public class BuyerController extends BaseController {
     	BuyOrder buyOrder = BuyOrder.find.byId(Long.parseLong(orderId));
     	
     	try{
-    		return ok(views.html.payOrder.render(buyOrder,manager.checkout(buyOrder) ));
+    		return ok(views.html.payOrder.render(buyOrder.item,buyOrder.size.size,buyOrder.pointsUsed,manager.checkout(buyOrder) ));
     	} catch (JSONException e) {
 			return badRequest();//TODO: think what to do when it fails
 		} catch (Exception e) {

@@ -1,38 +1,38 @@
-@(order: BuyOrder, checkOutUrl: String)
+@(item: Item, size: String, pointsUsed: Integer,  checkOutUrl: String)
 		<div class="control-group">
 						<h2 style="margin-bottom: 30px;">Detalle compra</h2>
 						<table class="table table-striped">
   						<tr>
 								<td>Prenda</td>
-								<td>@order.item.title</td>
+								<td>@item.title</td>
 							</tr>
   						<tr>
 								<td>Descripción</td>
-								<td>@order.item.description</td>
+								<td>@item.description</td>
 							</tr>
   						<tr>
 								<td>Precio</td>
-								<td>@order.item.price</td>
+								<td>@item.price</td>
 							</tr>
 							<tr>
 								<td>Talle</td>
-								<td id=selectedSize>@order.size.size</td>
+								<td id=selectedSize>@size</td>
 							</tr>
   						<tr>
 								<td>Vendedor</td>
-								<td>@order.item.seller.name</td>
+								<td>@item.seller.name</td>
 							</tr>
   						<tr>
 								<td>Puntos usados</td>
-								<td id="usedPoints">@order.pointsUsed</td>
+								<td id="usedPoints">@pointsUsed</td>
 							</tr>
   						<tr>
 								<td>Monto pendiente a pagar con MercadoPago</td>
-								<td id="pendingAmount">@(order.item.price - (order.pointsUsed * order.item.seller.pointMoneyRelation))</td>
+								<td id="pendingAmount">@(item.price - (pointsUsed * item.seller.pointMoneyRelation))</td>
 							</tr>
   						<tr>
 								<td>Puntos que se ganarán con la compra</td>
-								<td id="earnedPoints">@(order.item.price - (order.pointsUsed * order.item.seller.pointMoneyRelation))</td>
+								<td id="earnedPoints">@(item.price - (pointsUsed * item.seller.pointMoneyRelation))</td>
 							</tr>
 
 						</table>
