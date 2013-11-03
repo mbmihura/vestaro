@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
+import security.Roles;
 
 @Entity
 public class Buyer extends Model {
@@ -34,9 +35,15 @@ public class Buyer extends Model {
 		
 	}
 	
-	public Buyer create(User user){
-		Buyer buyer = new Buyer(user);
-		buyer.save();
-		return buyer;
-	}
+	/**
+     * Creates new buyers, related User entity, and set default values. This methods should be call when a new user register into the system as a buyer.
+     * @param fbUserId User facebook's id, name User's real name (as display in facebook).
+     * @return The user's new seller entety.
+     */
+    public static Buyer create(Long fbUserId, String name) {
+    	User user = User.create(fbUserId, name, Roles.BUYER);
+    	Buyer newBuyer = new Buyer(user);
+    	newBuyer.save();
+    	return newBuyer;
+    }
 }

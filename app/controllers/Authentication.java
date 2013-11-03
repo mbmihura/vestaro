@@ -1,12 +1,19 @@
 package controllers;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
+
 import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
+import models.Rol;
 import models.User;
+import security.Roles;
 import utils.Crypto;
 
 
@@ -32,12 +39,40 @@ public class Authentication extends Controller {
             if(expectedSignature.equals(signature)) {
                 String signedData = Crypto.getBase64UrlDecode(payload);
 
-                // Retrieve userId and create a session for it.
-                String userId = Json.parse(signedData).get("user_id").getTextValue();
+                // Retrieve userId, register if necessary and create a session for it.
+                Long userId = Json.parse(signedData).get("user_id").getLongValue();
+                User user = User.findById(userId);
+                
+                ObjectNode response = Json.newObject();
+                ArrayNode userRoles = response.putArray("userRoles");
+                                
+                if (user == null)
+                {
+                	// Define main account usage: Seller, Buyer?
+                	String accountUsage = data.get("accountUsage");
+                	
+                	// TODO: define how to manage situavion with no roles, shouldn't normally happend but it could.
+                	if (accountUsage == null || accountUsage.isEmpty())
+                		accountUsage = Roles.BUYER.getName();
+                	
+                	// Define user's name
+                	String userFbname = data.get("fbName");
+                	
+                	// Register user in.
+                	user = User.create(userId, userFbname, Roles.valueOf(accountUsage));
+                }
+                
+            	if (user.name == null || user.name.isEmpty())
+            		response.put("requestUserName", true); 
+            	for(Rol rol : user.getRoles())
+            	{
+            		userRoles.add(rol.getName());
+            	}
+                
                 session().clear();
-                session(currentUserIdKey, userId);
-            
-                return ok(Json.parse(signedData));
+                session(currentUserIdKey, userId.toString());                      
+                
+                return ok(response);
             } else {
                 return forbidden();
             }

@@ -34,7 +34,7 @@
 				  		<p class="control-label" for="Title">Prenda: @item.title</p>
         			<p class="control-label" for="description">Descripción: @item.description</p>
 							<p class="control-label" for="price">Precio: $@item.price</p>
-							<p class="control-label" for="sellerName">Vendedor: <a href= @item.seller.webpageUrl>@item.seller.name</a></p>
+							<p class="control-label" for="sellerName">Vendedor: <a href= @item.seller.webpageUrl>@item.seller.brandName</a></p>
 
 						</div>
 						
@@ -75,7 +75,7 @@
 							</tr>
   						<tr>
 								<td>Vendedor</td>
-								<td>@item.seller.name</td>
+								<td>@item.seller.brandName</td>
 							</tr>
   						<tr>
 								<td>Puntos usados</td>

@@ -37,16 +37,17 @@ public class User extends Model {
     	return find.byId(userId);
     }
 
-    public static User create(Long userId, String name)
+    /**
+     * Creates new Users. This methods should not be use to create users directly, it must be used by Seller.Create() or Buyer.Create().
+     * @param fbUserId User facebook's id, fbName User's real name (as display in facebook), authorizationRol User's roles.
+     * @return The new user's entity.
+     */
+    public static User create(Long fbUserId, String fbName, Roles authorizationRol)
     {
     	HashSet<Rol> rol = new HashSet<Rol>();
-    	rol.add(Rol.findByName(Roles.BUYER));
-    	User newUser = new User(userId, name, rol);
+    	rol.add(Rol.findByName(authorizationRol));
+    	User newUser = new User(fbUserId, fbName, rol);
     	newUser.save();
-    	Buyer b =new Buyer();
-    	b.create(newUser);
-    	
-    	
     	return newUser;
     }
 }
