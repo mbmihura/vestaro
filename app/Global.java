@@ -19,43 +19,29 @@ public class Global extends GlobalSettings {
         @SuppressWarnings("unchecked")
 		public static void insert() {
 
-//        	if (Rol.find.findRowCount() == 0)
-//            {
-//                for (Roles roleEnum : Roles.values())
-//                {
-//                    Rol role = new Rol();
-//                    role.name = roleEnum.getName();
-//                    role.save();
-//                }
-//            }
-//        	
-//            // If test user isn't set, create it.
-//            if (User.find.findRowCount() == 0)
-//            {
-//            	HashSet<Rol> rol = new HashSet<Rol>();
-//            	Buyer buyerManager = new Buyer();
-//            	rol.add(Rol.findByName(Roles.BUYER));
-//                
-//            	User user = new User(563729055L,"testUserKurt", rol);
-//            	user.save();
-//                buyerManager.create(user);
-//                
-//                user = new User(1406678834L,"testUserNaty", rol);
-//                user.save();
-//                buyerManager.create(user);
-//
-//            	rol.add(Rol.findByName(Roles.SELLER));
-//            	
-//                user = new User(100000262980862L,"testUserAlan", rol);
-//                user.save();   
-//                buyerManager.create(user);
-//                Seller.create(new Seller(user, 2L, "/assets/img/logo.jpg", "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
-//                
-//                user = new User(1335414847L,"testUserPablo", rol);
-//                user.save();
-//                buyerManager.create(user);
-//                Seller.create(new Seller(user, 1L, "/assets/img/logo.jpg", "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
-//            }
+            // if (Rol.find.findRowCount() == 0)
+            // {
+            //     for (Roles roleEnum : Roles.values())
+            //     {
+            //         Rol role = new Rol();
+            //         role.name = roleEnum.getName();
+            //         role.save();
+            //     }
+            // }
+        	
+            // // If test user isn't set, create it.
+            // if (User.find.findRowCount() == 0)
+            // {
+            // 	// Buyer.create(563729055L,"testUserKurt");
+
+            //     Buyer.create(1406678834L,"testUserNaty");
+                   
+            //     Buyer buyer = Buyer.create(100000262980862L,"testUserAlan");
+            //     Seller.create(new Seller(buyer.user, 2L, "/assets/img/logo.jpg", "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
+                
+            //     buyer = Buyer.create(1335414847L,"testUserPablo");
+            //     Seller.create(new Seller(buyer.user, 1L, "/assets/img/logo.jpg", "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
+            // }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {
             	
@@ -81,16 +67,6 @@ public class Global extends GlobalSettings {
 
                 // Insert actions
                 Ebean.save(all.get("actions"));
-                
-                // Insert the collections relations
-//                for(Object collection: all.get("collections")) {
-//                    Ebean.saveAssociation(collection,"items");
-//                }
-//
-//                // Insert the items relations
-//                for(Object item: all.get("items")) {
-//                    Ebean.saveAssociation(item,"owner");
-//                }
 
             }
         }

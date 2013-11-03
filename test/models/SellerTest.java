@@ -17,10 +17,10 @@ public class SellerTest extends BaseModelTest {
     public void SellerSimpleAssertion(){
     	Seller seller = new Seller();
     	seller.id = (long) 3;
-    	seller.name = "RopaCool";
+    	seller.brandName = "RopaCool";
     	seller.save();
     	
     	assertThat(seller.id).isNotNull();
-    	assertThat(Seller.find.byId((long)3).name).isEqualTo("RopaCool");
+    	assertThat(Seller.find.byId((long)3).brandName).isEqualTo("RopaCool");
     }
 }

@@ -50,7 +50,7 @@ sellers:
 
     - &ropaCool !!models.Seller
         id:                         1
-        name:                       RopaCool
+        brandName:                       RopaCool
         pointsEnabled:              true
         pointMoneyRelation:         1.0
         mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
@@ -61,7 +61,7 @@ sellers:
 
     - &ropaHot !!models.Seller
         id:                         2
-        name:                       RopaHot
+        brandName:                       RopaHot
         pointsEnabled:              false
         pointMoneyRelation:         0.0
         mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and

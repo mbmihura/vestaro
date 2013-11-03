@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import controllers.routes;
+
+import play.api.mvc.Call;
 import play.db.ebean.Model;
+import security.Roles;
 
 @SuppressWarnings("serial")
 @Entity
@@ -13,7 +17,7 @@ public class Seller extends Model {
     public Long id;
     @OneToOne
     public User user;
-    public String name;
+    public String brandName;
     public boolean pointsEnabled = false;
     public Double pointMoneyRelation = 1.0;	 
 
@@ -30,7 +34,7 @@ public class Seller extends Model {
     				Boolean pointsEnabled, Double pointMoneyRelation, String mp_client_secret, String mp_client_id){
     	this.user = user;
     	this.id = sellerID;
-    	this.name = name;
+    	this.brandName = name;
     	this.logoUrl = logoURL;
     	this.webpageUrl = pageURL;
     	this.pointsEnabled = pointsEnabled;
@@ -51,9 +55,27 @@ public class Seller extends Model {
     	return seller;
     }
     
+    /**
+     * Creates new sellers, related User entity, and set default values. This methods should be call when a new user register into the system as a seller.
+     * @param fbUserId User facebook's id, name User's real name (as display in facebook).
+     * @return The user's new seller entety.
+     */
+    public static Seller create(Long fbUserId, String name) {
+    	Seller newSeller = new Seller();
+    	newSeller.user = User.create(fbUserId, name, Roles.SELLER);
+    	newSeller.brandName = name;
+    	newSeller.logoUrl = Seller.DefaultLogoUrl;
+    	
+    	//TODO set default values for points ans mercado pago
+    	newSeller.save();
+    	return newSeller;
+    }
+    
     public static Seller findSellerByUser(Long user){
   	  return Seller.find.where()
       			.eq("user.userId", user)
       			.findUnique();
       }
+    
+    public static String DefaultLogoUrl = routes.Assets.at("img/globals-business/paperTag.jpg").url();
 }

@@ -41,7 +41,7 @@ public class SellerController extends BaseController {
     	    	
     	Seller seller = Seller.findSellerByUser(currentUserId());
     	
-    	seller.name = name;
+    	seller.brandName = name;
     	seller.logoUrl = logoURL;
     	seller.webpageUrl = pageURL;
     	seller.pointsEnabled = pointsEnabled;
