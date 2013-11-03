@@ -1,7 +1,7 @@
 /* Buyer Controllers */
 vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 	function ($scope, buyerSession) {
-  $scope.hideAlertModal = buyerSession.hideAlertModal();
+
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
@@ -48,7 +48,7 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 }]);
 
 var isotopeHandling = function(ngRepeatFinishedEvent) {
-	
+
 	var $container = $('#itemsContainer');
 	var options = {
 		itemSelector : '.item',
@@ -102,7 +102,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 
 vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
 	function ($scope, buyerSession) {
-  $scope.hideAlertModal = buyerSession.hideAlertModal();
+
   $scope.categories = buyerSession.getCategories();
   
   buyerSession.getItems().success(function(data) {
@@ -122,7 +122,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
 
 vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 	function ($scope, buyerSession, $http) {
-	$scope.hideAlertModal = buyerSession.hideAlertModal();
+
 	buyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
