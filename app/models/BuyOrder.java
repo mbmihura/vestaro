@@ -13,7 +13,7 @@ import play.db.ebean.Model;
 public class BuyOrder extends Model{
 	
 	public enum State{
-		PAYMENT_PENDING("Pendiente de pago", "Pagar","payOrder"),
+		PAYMENT_PENDING("Pendiente de pago", "Pagar","window.location.href = '/#/buyer/pay?id="),
 		RECEPTION_PENDING("Pendiente de recepción", "Confirmar recepción","confirmReception"),
 		RECEPTION_CONFIRMED("Recepción confirmada","",""),
 		IN_DISPUTE("En disputa","Confirmar recepción","confirmReception");
@@ -34,7 +34,12 @@ public class BuyOrder extends Model{
 			action = a;
 		}
 		public String getAction(Long id) {
-			return action +"(" +id +")";
+			if(this.getClass()!=State.PAYMENT_PENDING.getClass()){
+				return action +"(" +id +")";
+			}
+			else{
+				return action + id +"'";
+			}
 		}
 		public void setAction(String action) {
 			this.action = action;

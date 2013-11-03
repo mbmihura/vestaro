@@ -1,0 +1,48 @@
+@(order: BuyOrder, checkOutUrl: String)
+		<div class="control-group">
+						<h2 style="margin-bottom: 30px;">Detalle compra</h2>
+						<table class="table table-striped">
+  						<tr>
+								<td>Prenda</td>
+								<td>@order.item.title</td>
+							</tr>
+  						<tr>
+								<td>Descripción</td>
+								<td>@order.item.description</td>
+							</tr>
+  						<tr>
+								<td>Precio</td>
+								<td>@order.item.price</td>
+							</tr>
+							<tr>
+								<td>Talle</td>
+								<td id=selectedSize>@order.size.size</td>
+							</tr>
+  						<tr>
+								<td>Vendedor</td>
+								<td>@order.item.seller.name</td>
+							</tr>
+  						<tr>
+								<td>Puntos usados</td>
+								<td id="usedPoints">@order.pointsUsed</td>
+							</tr>
+  						<tr>
+								<td>Monto pendiente a pagar con MercadoPago</td>
+								<td id="pendingAmount">@(order.item.price - (order.pointsUsed * order.item.seller.pointMoneyRelation))</td>
+							</tr>
+  						<tr>
+								<td>Puntos que se ganarán con la compra</td>
+								<td id="earnedPoints">@(order.item.price - (order.pointsUsed * order.item.seller.pointMoneyRelation))</td>
+							</tr>
+
+						</table>
+						
+						<div class="form-group">	
+	    				<a id="mpButton" name="MP-Checkout" href = @checkOutUrl class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Pagar</a>
+				    </div>
+
+			 		</div>
+
+<!--MP Script needed to give styles to payment button/modal-->
+   <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
+
