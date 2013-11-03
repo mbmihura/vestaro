@@ -21,8 +21,8 @@ public class Seller extends Model {
     public boolean pointsEnabled = false;
     public Double pointMoneyRelation = 1.0;	 
 
-    public String mp_client_secret; // ="uToiGVlNavrrbtjFX6ksHP51RQsG5and";//TEST_CLIENT_SECRET
-    public String mp_client_id; // = "1406963671517811";//TEST_CLIENT_ID
+    public String mp_client_secret;
+    public String mp_client_id;
     
     public String logoUrl;
     public String webpageUrl;
