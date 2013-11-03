@@ -30,6 +30,7 @@ GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelatio
 ## Buyer ##
 
 POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long, disputeMessage: String)
+POST	/buyer/confirmReception/			controllers.BuyerController.confirmReception(buyOrder: Long)
 #  Home  #
 
 # Search

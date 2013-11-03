@@ -18,6 +18,11 @@ public class BuyerController extends BaseController {
     	BuyOrder.find.byId(orderId).openDispute(disputeMessage);
     	return ok();
     }
+    
+    public static Result confirmReception(Long orderId){
+    	BuyOrder.find.byId(orderId).confirmReception();
+    	return ok();
+    }
 	
 
 	
