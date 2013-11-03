@@ -11,7 +11,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#@buyOrder.id"> <strong>
+					<a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" href="#@buyOrder.id"> <strong>
 							@buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state.getDescription()</span>
 					</a>
 				</h4>
@@ -28,9 +28,9 @@
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
-						<button type="button" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+						<button type="button" id="actionButton" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
 						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
-						<button type="button"  onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
+						<button type="button"  id="disputeButton" onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
 
 						} }
 					</div>
@@ -75,12 +75,24 @@
 			{
 				success:function(json){
 						$('#disputeModal').modal('hide');
+						changeToInDispute(buyOrder);
 					
 				}
 			}
 		);
 	}
 
+	function changeToInDispute(buyOrder){
+					//Change state text and colo r+ delete open dispute button
+					var title=$($('#'+buyOrder).parent()).find('span');
+					$(title).text('En disputa')
+					$(title).attr('class', 'badge active pull-right IN_DISPUTE')
+					var disputeButton = $('#' + buyOrder).find('#disputeButton');
+					$(disputeButton).fadeOut('normal', function(){
+									$(this).remove();
+						});
+					
+	}
 	
 </script>
 
