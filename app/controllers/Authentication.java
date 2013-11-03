@@ -14,6 +14,7 @@ import play.libs.Json;
 import models.Rol;
 import models.User;
 import security.Roles;
+import security.SubjectPresent;
 import utils.Crypto;
 
 
@@ -40,7 +41,8 @@ public class Authentication extends Controller {
                 String signedData = Crypto.getBase64UrlDecode(payload);
 
                 // Retrieve userId, register if necessary and create a session for it.
-                Long userId = Json.parse(signedData).get("user_id").getLongValue();
+                String userIdText = Json.parse(signedData).get("user_id").getTextValue();
+                Long userId = Long.parseLong(userIdText);
                 User user = User.findById(userId);
                 
                 ObjectNode response = Json.newObject();
@@ -70,7 +72,7 @@ public class Authentication extends Controller {
             	}
                 
                 session().clear();
-                session(currentUserIdKey, userId.toString());                      
+                session(currentUserIdKey, userIdText);                      
                 
                 return ok(response);
             } else {
@@ -87,6 +89,29 @@ public class Authentication extends Controller {
         return redirect(
             routes.Application.index()
         );
+    }
+    
+    @SubjectPresent
+    public static Result getUserId() {
+        return ok(Json.toJson(currentUserId()));
+    }
+    
+    @SubjectPresent
+    public static Result getUser() {
+        return ok(Json.toJson(currentUser()));
+    }
+    
+    @SubjectPresent
+    public static Result updateUser() {
+    	DynamicForm data = Form.form().bindFromRequest();
+    	User user = currentUser();
+    	
+        String name = data.get("signedRequest");
+        if (name != null)
+        	user.name = name;
+    	
+        user.save();
+        return ok(Json.toJson(user));
     }
     
     public static Long currentUserId() {

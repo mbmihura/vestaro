@@ -10,6 +10,9 @@ GET		/                    				controllers.Application.index()
 POST	/authentication/login 				controllers.Authentication.login()
 #TODO: check if really necesarry as we will be using fbLogin
 POST	/authentication/logout      		controllers.Authentication.logout()
+GET		/authentication/user 				controllers.Authentication.getUser()
+GET		/authentication/userId 				controllers.Authentication.getUserId()
+PUT		/authentication/user 				controllers.Authentication.updateUser()
 
 ## Seller ##
 # Dashboard
