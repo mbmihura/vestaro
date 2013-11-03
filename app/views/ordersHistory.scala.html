@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
-						<button type="button" id="actionButton"  onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+						<button type="button" id="actionButton" data-loading-text="Cambiando estado..."	 onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
 						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
 						<button type="button"  id="disputeButton" onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
 
@@ -83,7 +83,7 @@
 	}
 
 	function confirmReception(buyOrder){
-		
+		$(actionButton(buyOrder)).button('loading');
 		jsRoutes.controllers.BuyerController.confirmReception(buyOrder).ajax(
 			{
 				success:function(){
@@ -114,6 +114,20 @@
 						});
 	
 	}	
+
+	function actionButton(buyOrder){
+		 return orderButton(buyOrder,'actionButton');
+	}
+	
+
+	function disputeButton(buyOrder){
+		return orderButton(buyOrder,'disputeButton');
+	}
+	
+	function orderButton(buyOrder, buttonId){
+		return $('#' + buyOrder).find('#'+buttonId);
+	}
+	
 </script>
 
 <style>
