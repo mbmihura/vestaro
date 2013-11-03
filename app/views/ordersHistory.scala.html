@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
-						<button type="button" id="actionButton" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+						<button type="button" id="actionButton"  onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
 						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
 						<button type="button"  id="disputeButton" onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
 
@@ -82,18 +82,38 @@
 		);
 	}
 
+	function confirmReception(buyOrder){
+		
+		jsRoutes.controllers.BuyerController.confirmReception(buyOrder).ajax(
+			{
+				success:function(){
+					changeToReceptionConfirmed(buyOrder);
+				}
+			}
+		);
+	}
 	function changeToInDispute(buyOrder){
 					//Change state text and colo r+ delete open dispute button
-					var title=$($('#'+buyOrder).parent()).find('span');
-					$(title).text('En disputa')
-					$(title).attr('class', 'badge active pull-right IN_DISPUTE')
-					var disputeButton = $('#' + buyOrder).find('#disputeButton');
-					$(disputeButton).fadeOut('normal', function(){
-									$(this).remove();
-						});
+					changeState(buyOrder, 'En disputa', 'IN_DISPUTE','disputeButton' );
+									
+	}
+	
+	function changeToReceptionConfirmed(buyOrder){
+					//Change state text and colo r+ delete button
+					changeState(buyOrder, 'Recepción confirmada','RECEPTION_CONFIRMED' , 'actionButton');
 					
 	}
 	
+	function changeState(buyOrder, stateMessage, stateClass, deletedButton){
+			var title=$($('#'+buyOrder).parent()).find('span');
+					$(title).text(stateMessage)
+					$(title).attr('class', 'badge active pull-right '+ stateClass)
+					var button = $('#' + buyOrder).find('#'+deletedButton);
+					$(button).fadeOut('normal', function(){
+									$(this).remove();
+						});
+	
+	}	
 </script>
 
 <style>
