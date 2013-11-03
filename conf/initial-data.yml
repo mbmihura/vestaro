@@ -5,7 +5,7 @@ roles:
     - &buyerRole  !!models.Rol
         id:             1
         name:           BUYER
-        
+
     - &sellerRole !!models.Rol
         id:             2
         name:           SELLER
@@ -18,26 +18,26 @@ roles:
 
 users:
 
-    - !!models.User
+    - &userKurt !!models.User
         userId:         563729055
         name:           Kurt
         roles: 
             - *buyerRole
 
-    - !!models.User
+    - &userNaty !!models.User
         userId:         1406678834
         name:           Naty
         roles: 
             - *buyerRole
-       
-    - !!models.User
+
+    - &userAlan !!models.User
         userId:         100000262980862
         name:           Alan
         roles: 
             - *buyerRole
             - *sellerRole
-        
-    - !!models.User
+
+    - &userPablo !!models.User
         userId:         1335414847
         name:           Pablo
         roles: 
@@ -48,7 +48,7 @@ users:
 
 sellers:
 
-    - !!models.Seller
+    - &ropaCool !!models.Seller
         id:                         1
         name:                       RopaCool
         pointsEnabled:              true
@@ -57,10 +57,9 @@ sellers:
         mp_client_id:               1406963671517811
         logoUrl:                    /assets/img/logo.jpg
         webpageUrl:                 www.example.com
-        user:     !!models.User
-                    userId: 1335414847
-                    
-    - !!models.Seller
+        user: *userAlan
+
+    - &ropaHot !!models.Seller
         id:                         2
         name:                       RopaHot
         pointsEnabled:              false
@@ -69,8 +68,7 @@ sellers:
         mp_client_id:               1406963671517811
         logoUrl:                    /assets/img/logo.jpg
         webpageUrl:                 www.example.com
-        user:     !!models.User
-                    userId: 100000262980862
+        user: *userPablo
 
 # Collections
 
@@ -82,21 +80,21 @@ collections:
         description:    Camisas para Hombre
         seller:  !!models.Seller
                     id: 1
-                    
+
     - !!models.Collection
         id:             2
         title:          Camisas Manga Larga Mujer
         description:    Camisas para Mujer
         seller:  !!models.Seller
                     id: 1
-                    
+
     - !!models.Collection
         id:             3
         title:          Camperas Abrigo
         description:    Camperas para Mujer
         seller:  !!models.Seller
                     id: 1
-                    
+
     - !!models.Collection
         id:             4
         title:          Sport
@@ -114,7 +112,7 @@ collections:
 # Items
 
 items:
-    
+
     - !!models.Item
         id:           CB1
         title:        Camisa Blanca
@@ -170,7 +168,7 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 2
-                        
+
     - !!models.Item
         id:           CL1
         title:        Camisa Leopardo
@@ -182,7 +180,7 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 2
-                        
+
     - !!models.Item
         id:           CR1
         title:        Campera Abrigo Rosa
@@ -194,7 +192,7 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 3
-                        
+
     - !!models.Item
         id:           CY1
         title:        Capri Yoga Negro
@@ -206,7 +204,7 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 4
-                        
+
     - !!models.Item
         id:           PR1
         title:        Pañuelo Rojo
@@ -218,7 +216,7 @@ items:
                         id: 1
         collection:   !!models.Collection
                         id: 5
-                        
+
     - !!models.Item
         id:           GR1
         title:        Gorro Rojo
@@ -240,18 +238,18 @@ items:
         sex:        m
         seller:        !!models.Seller
                         id: 1
-                        
+
 # Stocks
 
 stocks:
-    
+
     - !!models.Stock
         id:          SCNL
         size:        L
         stock:       5
         item:        !!models.Item
                         id: CB1
-                        
+
     - !!models.Stock
         id:          SCBM
         size:        M
