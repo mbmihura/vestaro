@@ -32,15 +32,24 @@ public class Global extends GlobalSettings {
             // If test user isn't set, create it.
             if (User.find.findRowCount() == 0)
             {
-            	// Buyer.create(563729055L,"testUserKurt");
+            	User user;
+            	Buyer buyer;
+            	Seller seller;
+            	
+            	user = User.create(563729055L,"testUserKurt");
+            	Buyer.createFor(user.userId);
+                Seller.createFor(user.userId);
 
-                Buyer.create(1406678834L,"testUserNaty");
+                user = User.create(1406678834L,"testUserNaty");
+                Buyer.createFor(user.userId);
                    
-                Buyer buyer = Buyer.create(100000262980862L,"testUserAlan");
-                Seller.create(new Seller(buyer.user, 2L, "/assets/img/logo.jpg", "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
+                user = User.create(100000262980862L,"testUserAlan");
+                Buyer.createFor(user.userId);
+                Seller.create(new Seller(user, 2L, "/assets/img/logo.jpg", "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
                 
-                buyer = Buyer.create(1335414847L,"testUserPablo");
-                Seller.create(new Seller(buyer.user, 1L, "/assets/img/logo.jpg", "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
+                user = User.create(1335414847L,"testUserPablo");
+                Buyer.createFor(user.userId);
+                Seller.create(new Seller(user, 1L, "/assets/img/logo.jpg", "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
             }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {

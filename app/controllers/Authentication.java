@@ -4,6 +4,7 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
+import org.joda.time.DateTime;
 
 import play.Play;
 import play.mvc.Controller;
@@ -11,7 +12,9 @@ import play.mvc.Result;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
+import models.Buyer;
 import models.Rol;
+import models.Seller;
 import models.User;
 import security.Roles;
 import security.SubjectPresent;
@@ -61,7 +64,15 @@ public class Authentication extends Controller {
                 	String userFbname = data.get("fbName");
                 	
                 	// Register user in.
-                	user = User.create(userId, userFbname, Roles.valueOf(accountUsage));
+                	user = User.create(userId, userFbname);
+                	
+                	if (Roles.BUYER.getName() == accountUsage)
+                		Buyer.createFor(userId);
+                	else if (Roles.SELLER.getName() == accountUsage)
+                		Seller.createFor(userId);
+                } else {
+                	user.lastLogin = DateTime.now();
+                	user.save();
                 }
                 
             	if (user.name == null || user.name.isEmpty())

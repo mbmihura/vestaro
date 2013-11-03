@@ -33,7 +33,7 @@ public class UserController extends BaseController {
     }
     
     @SubjectPresent
-    public static Result getUser() {
+    public static Result getJson() {
         return ok(Json.toJson(currentUser()));
     }
 }
