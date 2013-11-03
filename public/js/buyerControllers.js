@@ -1,6 +1,6 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
-	function ($scope, buyerSession) {
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
+	function ($scope, buyerSession, facebook) {
 
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;
@@ -19,6 +19,10 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
   
   $scope.addToWishlist = function(item){
 	  buyerSession.addToWishlist(item, $scope);
+  }
+
+  $scope.shareItem = function(item){
+  	facebook.feedDialog(item,null);
   }
   
   var $container = $('#itemsContainer');
@@ -134,7 +138,7 @@ vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 			$scope.alert = {title:'Prenda eliminada de Wishlist',
 					type:'info',
 					body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
-					btns: {primary: {title: 'Seguir', href: ''},
+					btns: {primary: {title: 'Continuar', href: ''},
 						   'default': {title: 'Ir a Home', href: '#/'}
 					}
 			};
