@@ -9,12 +9,11 @@ GET		/                    				controllers.Application.index()
 ## Authentication & Authorization ##
 POST	/authentication/login 				controllers.Authentication.login()
 #TODO: check if really necesarry as we will be using fbLogin
-POST	/authentication/logout      		controllers.Authentication.logout()
-GET		/authentication/user 				controllers.Authentication.getUser()
-GET		/authentication/userId 				controllers.Authentication.getUserId()
-PUT		/authentication/user 				controllers.Authentication.updateUser()
+POST	/authentication/logout      		controllers.Authentication.logout() 
+GET		/user 				 				controllers.UserController.getJson()
+GET		/userId 							controllers.UserController.getUserId()
+PUT		/user 				 				controllers.UserController.update()
 
-## Seller ##
 # Dashboard
 GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
@@ -23,15 +22,19 @@ GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		cont
 # Actions
 GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
-# Seller
+## Seller ##
 
 GET     /findSellerById/:sellerId	     	controllers.SellerController.findSellerById(sellerId: Long)
 GET     /findCurrentSeller	     			controllers.SellerController.findCurrentSeller()
 GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
 POST	/seller/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 			controllers.SellerController.update(logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Double, mp_client_secret: String, mp_client_id: String)
+GET		/seller 	 						controllers.SellerController.getJson()
+PUT		/seller 							controllers.SellerController.createOrUpdate()
 
 ## Buyer ##
+GET 	/buyer 								controllers.BuyerController.getJson()
+PUT 	/buyer 								controllers.BuyerController.createOrUpdate()
 #  Home  #
 
 # Search

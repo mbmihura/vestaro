@@ -27,23 +27,33 @@ public class Buyer extends Model {
     			.findUnique();
     }
 	
-	public Buyer(User user){
-		this.user = user;
-		this.points=0;
-	}
+	
 	public Buyer(){
 		
 	}
 	
 	/**
-     * Creates new buyers, related User entity, and set default values. This methods should be call when a new user register into the system as a buyer.
-     * @param fbUserId User facebook's id, name User's real name (as display in facebook).
-     * @return The user's new seller entety.
+     * Creates new buyers, related User entity, and set default values. This methods should be call when registering a new buyer into the system.
+     * @param user The userś id for which the buyer entity is being created.
+     * @return The new buyer entity.
      */
-    public static Buyer create(Long fbUserId, String name) {
-    	User user = User.create(fbUserId, name, Roles.BUYER);
+	public static Buyer createFor(Long fbUserId) {
+		User user = User.findById(fbUserId);
+		user.addRoles(Roles.BUYER);
+		user.save();
+		//TODO: throws ex in user not find or automaticaly register?
     	Buyer newBuyer = new Buyer(user);
     	newBuyer.save();
     	return newBuyer;
-    }
+	}
+	
+    /**
+     * Creates a buyer instance with default values.
+     * @param user The user entity for which the buyer entity is being created.
+     * @return The new buyer entity.
+     */
+	private Buyer(User user){
+		this.user = user;
+		this.points=0;
+	}
 }

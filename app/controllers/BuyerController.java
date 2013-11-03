@@ -6,7 +6,9 @@ import models.BuyOrder;
 import models.BuyOrder.State;
 import models.Buyer;
 import models.Item;
+import play.libs.Json;
 import play.mvc.Result;
+import security.SubjectPresent;
 
 public class BuyerController extends BaseController {
   
@@ -27,6 +29,18 @@ public class BuyerController extends BaseController {
     	orders.add(new BuyOrder((long) 4,item1, new models.Buyer(), "S", 50, State.IN_DISPUTE));
 		return orders;
 	}
-    
+
+	@SubjectPresent
+	public static Result getJson(){
+        return ok(Json.toJson(Buyer.findBuyerByUser(currentUserId()))); 
+    }
+	
+	@SubjectPresent
+	public static Result createOrUpdate(){
+		// TODO: check if buyer was already created to avoid losing points if method is call twice [low priority]
+    	Buyer buyer = Buyer.createFor(currentUserId());
+    	buyer.save();
+        return ok(Json.toJson(buyer)); 
+    }
 }
 

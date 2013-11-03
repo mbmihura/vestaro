@@ -10,10 +10,12 @@ import play.api.mvc.Call;
 import play.db.ebean.Model;
 import security.Roles;
 
-@SuppressWarnings("serial")
 @Entity
 public class Seller extends Model {
-    @Id
+
+	private static final long serialVersionUID = 2293136860329930788L;
+	
+	@Id
     public Long id;
     @OneToOne
     public User user;
@@ -55,27 +57,50 @@ public class Seller extends Model {
     	return seller;
     }
     
-    /**
-     * Creates new sellers, related User entity, and set default values. This methods should be call when a new user register into the system as a seller.
-     * @param fbUserId User facebook's id, name User's real name (as display in facebook).
-     * @return The user's new seller entety.
-     */
-    public static Seller create(Long fbUserId, String name) {
-    	Seller newSeller = new Seller();
-    	newSeller.user = User.create(fbUserId, name, Roles.SELLER);
-    	newSeller.brandName = name;
-    	newSeller.logoUrl = Seller.DefaultLogoUrl;
-    	
-    	//TODO set default values for points ans mercado pago
-    	newSeller.save();
-    	return newSeller;
+    public static Seller findSellerByUser(Long user){
+    	return Seller.find.where()
+    			.eq("user.userId", user)
+    			.findUnique();
     }
     
-    public static Seller findSellerByUser(Long user){
-  	  return Seller.find.where()
-      			.eq("user.userId", user)
-      			.findUnique();
-      }
     
+    
+    
+    
+
+    /**
+     * Creates a new seller in the DB and set default values, for the given user. This methods should be call to register a new seller in the system.
+     * @param fbUserId The user's id for which the seller entity is being created.
+     * @return The new seller entity.
+     */
+    public static Seller createFor(Long fbUserId) {
+		User user = User.findById(fbUserId);
+		user.addRoles(Roles.SELLER);
+		user.save();
+    	//TODO: throws ex in user not find or automaticaly register?
+    	Seller newSeller = new Seller(User.findById(fbUserId));
+    	newSeller.save();
+    	return newSeller;
+		
+	}
+    
+    /**
+     * Creates a seller instance with default values.
+     * @param user The user entity for which the seller entity is being created.
+     * @return The new seller entity.
+     */
+    private Seller(User user) {
+    	this.id = 4L; //TODO: averiguar por que buyer acepta id nulos y seller no.
+		this.user = user;
+		this.brandName = user.name;
+		this.logoUrl = Seller.DefaultLogoUrl;
+		this.pointsEnabled = false;
+		
+		//TODO set default values for points ans mercado pago
+	}
+    
+    /**
+     * Default logo's url for when a new seller is created.
+     */
     public static String DefaultLogoUrl = routes.Assets.at("img/globals-business/paperTag.jpg").url();
 }
