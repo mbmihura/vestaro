@@ -4,9 +4,9 @@
 vestaroMain.config(function($routeProvider) {
   var template = '<div ng-include="templateUrl">Loading...</div>';
   $routeProvider.
-	  when('/', {controller:BuyerHomeCtrl, templateUrl:'assets/html/buyer/buyerHome.html'}).
-	  when('/itemSearch', {controller:ItemSearchCtrl, templateUrl:'assets/html/buyer/itemSearch.html'}).
-	  when('/wishlist', {controller:WishlistCtrl, templateUrl:'assets/html/buyer/wishlist.html'}).
+	  when('/', {controller:'BuyerHomeCtrl', templateUrl:'assets/html/buyer/buyerHome.html'}).
+	  when('/itemSearch', {controller:'ItemSearchCtrl', templateUrl:'assets/html/buyer/itemSearch.html'}).
+	  when('/wishlist', {controller:'WishlistCtrl', templateUrl:'assets/html/buyer/wishlist.html'}).
 	  when('/dashboard', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboard.html'}).
 	  when('/dashboardFull', {controller:SellerDashboardCtrl, templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/collections', {controller:CollectionsCtrl, templateUrl:'assets/html/collectionForm.html'}).
