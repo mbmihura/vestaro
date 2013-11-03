@@ -167,7 +167,7 @@
         $.post("@routes.Authentication.login()", 
           {signedRequest: authData.signedRequest, accountUsage: selectedAccountUsage})
           .done(function(data) {
-            console.log("Auth to vestaro successfull. Data: " + data);
+            console.log("Auth to vestaro successful. Data: " + JSON.stringify(data));
             FB.VestaroData.registrationMode = false;
             if (data.userRoles.length == 0)
             {
@@ -194,7 +194,7 @@
 
       function SendUserName(username)
       {
-        //TODO: $.post("@routes.Authentication.()", {fbName: username})
+        $.post("@routes.Authentication.()", {fbName: username})
       };
     </script>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="min-height: 0px;">
