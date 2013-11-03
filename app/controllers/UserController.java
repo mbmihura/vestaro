@@ -14,17 +14,26 @@ import utils.Crypto;
 public class UserController extends BaseController {
 	
 	@SubjectPresent
-	public static Result Update()
-	{
-		User currentUser = currentUser();
-		
+	public static Result update(){
 		DynamicForm data = Form.form().bindFromRequest();
+    	User user = currentUser();
+    	
         String name = data.get("name");
-        
-        if (name != null && !name.isEmpty())
-        	currentUser.name = name;
+        if (name != null)
+        	user.name = name;
+    	
+        user.save();
+        return ok(Json.toJson(user));
+    }
 
-        currentUser.save();
-        return ok(Json.toJson(currentUser));
-	}
+
+    @SubjectPresent
+    public static Result getUserId() {
+        return ok(Json.toJson(currentUserId()));
+    }
+    
+    @SubjectPresent
+    public static Result getUser() {
+        return ok(Json.toJson(currentUser()));
+    }
 }

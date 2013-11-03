@@ -91,33 +91,10 @@ public class Authentication extends Controller {
         );
     }
     
-    @SubjectPresent
-    public static Result getUserId() {
-        return ok(Json.toJson(currentUserId()));
-    }
-    
-    @SubjectPresent
-    public static Result getUser() {
-        return ok(Json.toJson(currentUser()));
-    }
-    
-    @SubjectPresent
-    public static Result updateUser() {
-    	DynamicForm data = Form.form().bindFromRequest();
-    	User user = currentUser();
-    	
-        String name = data.get("signedRequest");
-        if (name != null)
-        	user.name = name;
-    	
-        user.save();
-        return ok(Json.toJson(user));
-    }
-    
     public static Long currentUserId() {
         String userId = session(currentUserIdKey);
         return userId != null? Long.parseLong(userId) : null;
-   }
+    }
     
     public static User currentUser() {
         return currentUserId() != null? User.findById(Authentication.currentUserId()): null;
