@@ -69,6 +69,10 @@ public class Item extends Model {
                 .findList();
     }
     
+    public Item(String id) //TODO Diff entre id y Title?
+    {
+    	this.id = id;
+    }
     public static List<Item> findItemsFromCollection(Long collectionId){
     	return Item.find.where()
                 .eq("collection.id", collectionId)
