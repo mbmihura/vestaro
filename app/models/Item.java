@@ -120,7 +120,7 @@ public class Item extends Model {
                 .append(", title=")
                 .append(title)
                 .append(", owner=")
-                .append(seller.name)
+                .append(seller.brandName)
                 .append(", price=")
                 .append(price)
                 .append(", sex=")
