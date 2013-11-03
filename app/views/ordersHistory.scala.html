@@ -28,9 +28,9 @@
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
-						<button type="button" id="actionButton" data-loading-text="Cambiando estado..."	 onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+						<button type="button" id="actionButton"  onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
 						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
-						<button type="button"  id="disputeButton" onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
+						<button type="button"  id="disputeButton" data-loading-text="Abriendo disputa..."	 onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
 
 						} }
 					</div>
@@ -69,13 +69,14 @@
 	}
 
 	function openDispute(buyOrder){
-	
+	$('#save').button('loading');
 	var disputeMessage = $('#disputeMessage').get(0).value;
 	jsRoutes.controllers.BuyerController.openDispute(buyOrder, disputeMessage).ajax(
 			{
 				success:function(json){
-						$('#disputeModal').modal('hide');
 						changeToInDispute(buyOrder);
+						$('#save').button('reset');
+						$('#disputeModal').modal('hide');
 					
 				}
 			}
