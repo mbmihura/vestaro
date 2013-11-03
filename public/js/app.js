@@ -71,7 +71,7 @@ vestaroMain.factory('buyerSession', function($http){
                       body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
                       btns: {
                         primary: {title: 'Seguir', href: ''},
-                        'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
+                        'default': {title: 'Ir a Wishlist', href: ''}
                       }
                     };
                   $('#alertModal').modal('show');
@@ -90,21 +90,28 @@ vestaroMain.factory('buyerSession', function($http){
                           body: 'La prenda ' + item.title + ' ya fue agregada a tu wishlist.',
                           btns: {
                             primary: {title: 'Seguir', href: ''},
-                            'default': {title: 'Ir a Wishlist', href: '#/wishlist'}
+                            'default': {title: 'Ir a Wishlist', href: ''}
                           }
                         };
                       $('#alertModal').modal('show');
                       break;
+
+                    default:
+                      $scope.alert =
+                        {title:'<strong>Oops</strong>, parece que hubo un problema',
+                          type:'error',
+                          body: 'La prenda ' + item.title + ' no pudo ser agregada a tu wishlist.',
+                          btns: {
+                            primary: {title: 'Seguir', href: ''},
+                            'default': {title: 'Ir a Wishlist', href: ''}
+                          }
+                        };
+                      $('#alertModal').modal('show');
                   }
               });
         },
         removeFromWishlist: function(itemId) {
             return $http.delete('/wishlist/' + itemId);
-        },
-        hideAlertModal: function() {
-          $('#alertModal').modal('hide', function(){
-            $('.modal-backdrop').remove();
-          });
         }
     };
 });
