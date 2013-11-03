@@ -58,16 +58,12 @@
         var authData = {};
         window.fbAsyncInit = function() {
           FB.init({
-            appId      : '578879162134484', // App id
+            appId      : '613594491995651', // App id
             channelUrl : '//localhost:9000/assets/html/authentication/channel.html', // Channel File
             status     : false, // check login status. HACK: Disable to avoid double login when user is logged into fb and app authorized.
             cookie     : true, // enable cookies to allow the server to access the session
             xfbml      : true  // parse XFBML
           });
-
-          
-
-          
 
           // Subscribe to the auth.authResponseChange JavaScript event. This event is fired
           // for any authentication related change, such as login, logout or session refresh. This means that
@@ -116,7 +112,6 @@
               $('#fbSignIn').hide();
               $('.navbar .connectingWithFbLabel').hide();
               $('.navbar .loggedUserOptions').fadeIn();
-
 
               //If app is not allow, aparently callbackfunction is never call. 
               //} else if (response.status === 'not_authorized') {

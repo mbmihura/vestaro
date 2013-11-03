@@ -45,23 +45,23 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
 /* Data Factory */
 vestaroMain.factory('buyerSession', function($http){
     return {
-        getWishlist: function() {
+        getWishlist: function(){
             return $http.get('/wishlist');
         },
-        getItems: function() {
+        getItems: function(){
             return $http.get('/garment');
         },
         // TODO: replace with easyrec request.
-        getPopularItems: function() {
+        getPopularItems: function(){
             return $http.get('/garment');
         },
         // TODO: replace with server request for categories.
-        getCategories: function() {
+        getCategories: function(){
             return [ {id: 0, name: 'Todas', sexo: 'Todos'},
                      {id: 1, name: 'Camisa', sexo: 'Mujer'},
                      {id: 2, name: 'Campera', sexo: 'Hombre'}];
         },
-        addToWishlist: function(item, $scope) {
+        addToWishlist: function(item, $scope){
             return $http.post('/wishlist', {'itemId': item.id})
                 .success(function(data){
                   console.log(data);
@@ -110,8 +110,46 @@ vestaroMain.factory('buyerSession', function($http){
                   }
               });
         },
-        removeFromWishlist: function(itemId) {
+        removeFromWishlist: function(itemId){
             return $http.delete('/wishlist/' + itemId);
+        },
+        feedDialog: function(item){
+          FB.ui(
+            {
+             method: 'feed',
+             name: item.title,
+             caption: item.seller.brandName,
+             description: (item.description),
+             link: 'https://developers.facebook.com/docs/reference/javascript/',
+             picture: item.imgUrl
+            },
+            function(response) {
+              if (response && response.post_id) {
+                alert('Post was published.');
+                console.log('https://www.facebook.com/me/activity/' + response.post_id);
+              } else {
+                alert('Post was not published.');
+                console.log(response);
+              }
+            }
+          );
+        },
+        likeItem: function(item){
+          FB.api(
+             'https://graph.facebook.com/me/og.likes',
+             'post',
+             { object: item.imgUrl, // TODO: replace with item preview page.
+               privacy: {'value': 'SELF'} }, // TODO: remove when in production.
+             function(response) {
+               if (!response) {
+                alert('Error occurred.');
+               } else if (response.error) {
+                console.log('Error: ' + response.error.message);
+               } else {
+                console.log('https://www.facebook.com/me/activity/' + response.id);
+               }
+             }
+          );
         }
     };
 });
