@@ -25,6 +25,7 @@
 						<p>Descripción: @buyOrder.item.description</p>
 						<p>Talle: @buyOrder.size.size</p>
 						<p>Precio: $@buyOrder.price</p>
+						<p>Fecha compra: @buyOrder.create_time</p>
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){

@@ -1,10 +1,14 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
+
+import com.avaje.ebean.annotation.CreatedTimestamp;
 
 import play.db.ebean.Model;
 
@@ -66,6 +70,12 @@ public class BuyOrder extends Model{
 	public Integer pointsEarned=0;
 	public State state =State.PAYMENT_PENDING;
 	public String disputeMessage;
+	
+	 @CreatedTimestamp
+	public Timestamp create_time;
+	
+	 @Version
+	 public Timestamp update_time;
 	
 	public BuyOrder(){
 		
