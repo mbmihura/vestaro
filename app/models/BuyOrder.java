@@ -38,7 +38,7 @@ public class BuyOrder extends Model{
 			action = a;
 		}
 		public String getAction(Long id) {
-			if(this.getClass()!=State.PAYMENT_PENDING.getClass()){
+			if(this.getDescription()!=State.PAYMENT_PENDING.getDescription()){
 				return action +"(" +id +")";
 			}
 			else{

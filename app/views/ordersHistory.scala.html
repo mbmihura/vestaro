@@ -101,21 +101,27 @@
 	}
 	
 	function changeToReceptionConfirmed(buyOrder){
-					//Change state text and colo r+ delete button
-					changeState(buyOrder, 'Recepción confirmada','RECEPTION_CONFIRMED' , 'actionButton');
+		//Change state text and colo r+ delete button
+		changeState(buyOrder, 'Recepción confirmada','RECEPTION_CONFIRMED' , 'actionButton');
+		deleteButton(buyOrder,'disputeButton');
 					
 	}
 	
 	function changeState(buyOrder, stateMessage, stateClass, deletedButton){
 			var title=$($('#'+buyOrder).parent()).find('span');
-					$(title).text(stateMessage)
-					$(title).attr('class', 'badge active pull-right '+ stateClass)
-					var button = $('#' + buyOrder).find('#'+deletedButton);
-					$(button).fadeOut('normal', function(){
-									$(this).remove();
-						});
+			$(title).text(stateMessage)
+			$(title).attr('class', 'badge active pull-right '+ stateClass)
+			deleteButton(buyOrder, deletedButton);
 	
 	}	
+	
+	function deleteButton(buyOrder, buttonId){
+		var button = $('#' + buyOrder).find('#'+ buttonId);
+		if(!button)return;//was already deleted
+		$(button).fadeOut('normal', function(){
+									$(this).remove();
+		});
+	}
 
 	function actionButton(buyOrder){
 		 return orderButton(buyOrder,'actionButton');
