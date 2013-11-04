@@ -52,12 +52,49 @@ public class ItemController extends BaseController {
     }
     
     
-    public static Result index() {
+    public static Result readAll() {
     	return ok(Json.toJson(Item.find.all()));
     }
     
-    public static Result update(String itemId) {
-    	return TODO;
+    public static Result createOrUpdate(String id) {
+    	Item item = Item.find.byId(id);
+    	boolean created = false;
+    	
+    	if (item == null) {
+    		item = new Item(id);
+    		created = true;
+    	}
+    	
+		DynamicForm data = Form.form().bindFromRequest();
+        
+		String title = data.get("title");
+		if (title != null && !title.isEmpty())
+			item.title = title;
+
+		String description = data.get("description");
+		if (description != null && !description.isEmpty())
+			item.description = description;
+		
+		String imgUrl = data.get("imgUrl");
+		if (imgUrl != null && !imgUrl.isEmpty())
+			item.imgUrl = imgUrl;
+		
+		String price = data.get("price");
+		if (price != null && !price.isEmpty())
+			item.price = Long.parseLong(price);
+		
+		String sex = data.get("sex");
+		if (sex != null && !sex.isEmpty())
+			item.sex = sex;
+		
+		item.save();
+		if (created)
+		{
+			return created(Json.toJson(item));
+		}else
+		{
+        return ok(Json.toJson(item));
+		}
     }
 
     public static Result updateItem(Long collectionId, String itemId) {

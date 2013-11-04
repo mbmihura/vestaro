@@ -6,12 +6,49 @@
 GET		/aboutplay           				controllers.Application.aboutPlay()
 GET		/                    				controllers.Application.index()
 
-## Authentication & Authorization ##
+####   Authentication & Authorization   ####
 POST	/authentication/login 				controllers.Authentication.login()
 #TODO: check if really necesarry as we will be using fbLogin
-POST	/authentication/logout      		controllers.Authentication.logout()
+POST	/authentication/logout      		controllers.Authentication.logout() 
+GET		/user 				 				controllers.UserController.readCurrent()
+PUT		/user 				 				controllers.UserController.updateCurrent()
+GET		/userId 							controllers.UserController.readCurrentId()
 
-## Seller ##
+####   Seller   ####
+GET		/seller 	 						controllers.SellerController.readCurrent()
+PUT		/seller 							controllers.SellerController.createOrUpdateCurrent()
+GET     /seller/:sellerId	     			controllers.SellerController.findSellerById(sellerId: Long)
+GET     /seller/:sellerId/items  	    	controllers.SellerController.itemsOwnedBy(sellerId: Long)
+GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
+
+####   Buyer   ####
+GET 	/buyer 								controllers.BuyerController.readCurrent()
+PUT 	/buyer 								controllers.BuyerController.createOrUpdateCurrent()
+POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long, disputeMessage: String)
+POST	/buyer/confirmReception/			controllers.BuyerController.confirmReception(buyOrder: Long)
+GET		/buyer/pay							controllers.BuyerController.payOrder()
+
+
+####   Items - Garments   ####
+# API
+GET		/garment							controllers.ItemController.readAll()
+GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
+DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
+PUT		/garment/:itemId					controllers.ItemController.createOrUpdate(itemId: String)
+# UI
+GET		/garment/new						controllers.ItemController.form()
+POST	/garment/							controllers.ItemController.submit()
+
+
+# Wishlist
+####   Items - Garments   ####
+GET		/wishlist							controllers.WishlistController.userWishlistItems()
+POST	/wishlist							controllers.WishlistController.addItemToWishlist()
+DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
+
+
+
+
 # Dashboard
 GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
 GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
@@ -20,47 +57,8 @@ GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		cont
 # Actions
 GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
-# Seller
-
-GET     /findSellerById/			     	controllers.SellerController.findSellerById(sellerId: Long)
-GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
-GET		/seller/:sellerID/:logoURL/:name/:pageURL/:pointsEnabled/:pointMoneyRelation 	controllers.SellerController.update(sellerID: Long, logoURL: String, name: String, pageURL: String, pointsEnabled: Boolean, pointMoneyRelation: Long)
-
-## Buyer ##
-
-POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long, disputeMessage: String)
-POST	/buyer/confirmReception/			controllers.BuyerController.confirmReception(buyOrder: Long)
-GET		/buyer/pay							controllers.BuyerController.payOrder()
-
-#  Home  #
-
-# Search
-
-# Wishlist
-GET		/wishlist							controllers.WishlistController.userWishlistItems()
-POST	/wishlist							controllers.WishlistController.addItemToWishlist()
-DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
-
-
-
-## Commons ##
-# Collection
-GET     /seller/:sellerId/itemsJson     	controllers.SellerController.itemsOwnedBy(sellerId: Long)
-
 # Buyer Profile
 GET		/buyerProfile			controllers.BuyerController.profile()
-
-# Item
-
-GET		/garment							controllers.ItemController.index()
-GET		/garment/new						controllers.ItemController.form()
-GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
-
-DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
-PUT		/garment/:itemId					controllers.ItemController.update(itemId: String)
-POST	/garment/							controllers.ItemController.submit()
-
 
 # Recommendations
 GET     /reco	           					controllers.RecommendationEngine.recoExample()

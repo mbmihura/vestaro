@@ -2,7 +2,6 @@ package models;
 
 import java.sql.Timestamp;
 import java.util.Comparator;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -69,6 +68,10 @@ public class Item extends Model {
                 .findList();
     }
     
+    public Item(String id) //TODO Diff entre id y Title?
+    {
+    	this.id = id;
+    }
     public static List<Item> findItemsFromCollection(Long collectionId){
     	return Item.find.where()
                 .eq("collection.id", collectionId)
@@ -120,7 +123,7 @@ public class Item extends Model {
                 .append(", title=")
                 .append(title)
                 .append(", owner=")
-                .append(seller.name)
+                .append(seller.brandName)
                 .append(", price=")
                 .append(price)
                 .append(", sex=")

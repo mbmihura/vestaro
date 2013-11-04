@@ -1,12 +1,15 @@
 package controllers;
 
-import org.codehaus.jettison.json.JSONException;
-
 import models.BuyOrder;
 import models.Buyer;
 import models.PaymentManager;
+
+import org.codehaus.jettison.json.JSONException;
+
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Result;
+import security.SubjectPresent;
 
 public class BuyerController extends BaseController {
   
@@ -43,7 +46,17 @@ public class BuyerController extends BaseController {
     }
 	
 
+	@SubjectPresent
+	public static Result readCurrent(){
+        return ok(Json.toJson(Buyer.findBuyerByUser(currentUserId()))); 
+    }
 	
-    
+	@SubjectPresent
+	public static Result createOrUpdateCurrent(){
+		// TODO: check if buyer was already created to avoid losing points if method is call twice [low priority]
+    	Buyer buyer = Buyer.createFor(currentUserId());
+    	buyer.save();
+        return ok(Json.toJson(buyer)); 
+    }
 }
 
