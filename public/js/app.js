@@ -43,7 +43,7 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 /* Data Factory */
-vestaroMain.factory('buyerSession', function($http){
+vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebook){
     return {
         getWishlist: function(){
             return $http.get('/wishlist');
@@ -75,6 +75,7 @@ vestaroMain.factory('buyerSession', function($http){
                   }
                 };
               $('#alertModal').modal('show');
+              facebook.likeItem(item, null);
             })
             .error(function(data, status, headers, config){
               console.log(status);
@@ -114,9 +115,9 @@ vestaroMain.factory('buyerSession', function($http){
             return $http.delete('/wishlist/' + itemId);
         }
     };
-});
+}]);
 
-vestaroMain.factory('facebook', function($location){
+vestaroMain.factory('facebook', ['$location', function($location){
   return {
     feedDialog: function(item, callback){
       if (callback == null){
@@ -163,4 +164,4 @@ vestaroMain.factory('facebook', function($location){
       );
     }
   };
-});
+}]);
