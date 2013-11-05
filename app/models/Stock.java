@@ -45,6 +45,7 @@ public class Stock extends Model {
                 .eq("item.id", itemId)
                 .findList();
     }
+    
 
     public static LinkedHashMap<String, String> findAvailableSizeOptions(String itemId){
              LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
@@ -78,5 +79,12 @@ public class Stock extends Model {
                 .append("]");
         return builder.toString();
     }
+
+
+	public void consumeStock() {
+		this.stock --;
+		this.save();
+		
+	}
 
 }

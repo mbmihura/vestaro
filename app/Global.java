@@ -1,7 +1,9 @@
 import java.util.List;
 import java.util.Map;
 
+import models.Buyer;
 import models.Seller;
+import models.User;
 import play.Application;
 import play.GlobalSettings;
 import play.libs.Yaml;
@@ -61,7 +63,12 @@ public class Global extends GlobalSettings {
             	
                 // Insert users
                 Ebean.save(all.get("users"));
-
+                
+                // Insert buyers for users
+                for (User user : User.find.all()) {
+					Buyer.createFor(user.userId);
+				}
+                
                 // Insert sellers
                 Ebean.save(all.get("sellers"));
                 

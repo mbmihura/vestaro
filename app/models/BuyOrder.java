@@ -1,8 +1,14 @@
 package models;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
+
+import com.avaje.ebean.annotation.CreatedTimestamp;
 
 import play.db.ebean.Model;
 
@@ -11,13 +17,14 @@ import play.db.ebean.Model;
 public class BuyOrder extends Model{
 	
 	public enum State{
-		PAYMENT_PENDING("Pendiente de pago", "Pagar"),
-		RECEPTION_PENDING("Pendiente de recepción", "Confirmar recepción"),
-		RECEPTION_CONFIRMED("Recepción confirmada",""),
-		IN_DISPUTE("En disputa","Confirmar recepción");
+		PAYMENT_PENDING("Pendiente de pago", "Pagar","window.location.href = '/#/buyer/pay?id="),
+		RECEPTION_PENDING("Pendiente de recepción", "Confirmar recepción","confirmReception"),
+		RECEPTION_CONFIRMED("Recepción confirmada","",""),
+		IN_DISPUTE("En disputa","Confirmar recepción","confirmReception");
 	
 		private String description;	
 		private String actionMessage;	
+		private String action;
 
 		public String getDescription(){
 			return description;
@@ -25,9 +32,21 @@ public class BuyOrder extends Model{
 		public String getActionMessage(){
 			return actionMessage;
 		}
-		private State(String d, String am){
+		private State(String d, String am, String a){
 			description = d;
 			actionMessage=am;
+			action = a;
+		}
+		public String getAction(Long id) {
+			if(this.getDescription()!=State.PAYMENT_PENDING.getDescription()){
+				return action +"(" +id +")";
+			}
+			else{
+				return action + id +"'";
+			}
+		}
+		public void setAction(String action) {
+			this.action = action;
 		}
 	}
 
@@ -44,10 +63,19 @@ public class BuyOrder extends Model{
 	
 	@OneToOne
 	public Buyer buyer;
-	public String size;
+	
+	@OneToOne
+	public Stock size;
 	public Integer pointsUsed =0;
 	public Integer pointsEarned=0;
 	public State state =State.PAYMENT_PENDING;
+	public String disputeMessage;
+	
+	 @CreatedTimestamp
+	public Timestamp create_time;
+	
+	 @Version
+	 public Timestamp update_time;
 	
 	public BuyOrder(){
 		
@@ -56,7 +84,7 @@ public class BuyOrder extends Model{
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
-		order.size = size;
+		order.size = Stock.find.byId(size);
 		order.pointsUsed = pointsUsed;
 		this.buyer.points-=pointsUsed;
 		this.buyer.save();
@@ -64,25 +92,39 @@ public class BuyOrder extends Model{
 		
 		return order;
 	}
-	public BuyOrder(Long id,Item item,Buyer buyer2, String size, Integer pointsUsed, State state){
-		this.id =id;
-		this.item = item;
-		this.price = item.price;
-		this.buyer = buyer2;
-		this.size = size;
-		this.pointsUsed = pointsUsed;
-		this.state= state;
-	}
+
 	
     public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
 
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
-		this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));
-		this.buyer.points +=this.pointsEarned;
-		
+		this.assignCredits();
+		this.size.consumeStock();
 		this.buyer.save();
 		this.save();
+	}
+	
+	private void assignCredits() {
+		if(this.item.seller.pointsEnabled){
+			this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));
+			this.buyer.points +=this.pointsEarned;
+		}
+		
+	}
+	public static List<BuyOrder> findBuyerOrders(Long buyerId){
+		return BuyOrder.find.where()
+				.eq("buyer.id", buyerId)
+				.findList();
+	}
+	public void openDispute(String disputeMessage) {
+		this.state = State.IN_DISPUTE;
+		this.disputeMessage = disputeMessage;
+		this.save();
+	}
+	public void confirmReception() {
+		this.state=State.RECEPTION_CONFIRMED;
+		this.save();
+		
 	}
 
 }

@@ -1,24 +1,18 @@
 package controllers;
 
-import models.Collection;
-
 import java.util.List;
-import java.util.ArrayList;
 
-import models.Item;
-import play.data.DynamicForm;
 import models.BuyOrder;
 import models.Buyer;
+import models.Collection;
+import models.Item;
 import models.PaymentManager;
-import models.Seller;
-import models.Stock;
 
-import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
 import org.codehaus.jettison.json.JSONException;
 
+import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import play.mvc.Http;
 import play.mvc.Result;
 import views.html.items.form;
 import views.html.items.item;
@@ -130,9 +124,7 @@ public class ItemController extends BaseController {
         String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
     	if (item != null) {	
-	    	//TODO: Load AvailableStock
-	        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), Buyer.findBuyerByUser(currentUserId()).points));
+	        return ok(views.html.buyItem.render(item, item.getAvailableStock(),Buyer.findBuyerByUser(currentUserId()).points));
     	} else {
     		return badRequest("item not found");
     		// TODO: should be 422 as it's a smantic error not sintax. Does plays allow to return a 422?

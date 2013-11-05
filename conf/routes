@@ -24,6 +24,9 @@ GET     /seller/:sellerId/collections     	controllers.SellerController.listColl
 ####   Buyer   ####
 GET 	/buyer 								controllers.BuyerController.readCurrent()
 PUT 	/buyer 								controllers.BuyerController.createOrUpdateCurrent()
+POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long, disputeMessage: String)
+POST	/buyer/confirmReception/			controllers.BuyerController.confirmReception(buyOrder: Long)
+GET		/buyer/pay							controllers.BuyerController.payOrder()
 
 
 ####   Items - Garments   ####
@@ -36,6 +39,8 @@ PUT		/garment/:itemId					controllers.ItemController.createOrUpdate(itemId: Stri
 GET		/garment/new						controllers.ItemController.form()
 POST	/garment/							controllers.ItemController.submit()
 
+
+# Wishlist
 ####   Items - Garments   ####
 GET		/wishlist							controllers.WishlistController.userWishlistItems()
 POST	/wishlist							controllers.WishlistController.addItemToWishlist()

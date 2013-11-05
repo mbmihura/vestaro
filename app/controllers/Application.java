@@ -71,7 +71,11 @@ public class Application extends BaseController {
                 controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
 
                 // Routes for Actions
-                controllers.routes.javascript.ActionController.actionsFrom()
+                controllers.routes.javascript.ActionController.actionsFrom(),
+                
+                //Routes for Buyers
+                controllers.routes.javascript.BuyerController.openDispute(),
+                controllers.routes.javascript.BuyerController.confirmReception()
             )
         );
     }

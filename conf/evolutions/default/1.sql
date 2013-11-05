@@ -17,10 +17,13 @@ create table buy_order (
   item_id                   varchar(255),
   price                     bigint,
   buyer_id                  bigint,
-  size                      varchar(255),
+  size_id                   varchar(255),
   points_used               integer,
   points_earned             integer,
   state                     integer,
+  dispute_message           varchar(255),
+  create_time               timestamp not null,
+  update_time               timestamp not null,
   constraint ck_buy_order_state check (state in (0,1,2,3)),
   constraint pk_buy_order primary key (id))
 ;
@@ -66,7 +69,7 @@ create table rol (
 create table seller (
   id                        bigint not null,
   user_user_id              bigint,
-  name                      varchar(255),
+  brand_name                varchar(255),
   points_enabled            boolean,
   point_money_relation      double,
   mp_client_secret          varchar(255),
@@ -89,6 +92,8 @@ create table stock (
 create table user (
   user_id                   bigint not null,
   name                      varchar(255),
+  creation_date             timestamp,
+  last_login                timestamp,
   constraint pk_user primary key (user_id))
 ;
 
@@ -131,22 +136,24 @@ alter table buy_order add constraint fk_buy_order_item_1 foreign key (item_id) r
 create index ix_buy_order_item_1 on buy_order (item_id);
 alter table buy_order add constraint fk_buy_order_buyer_2 foreign key (buyer_id) references buyer (id) on delete restrict on update restrict;
 create index ix_buy_order_buyer_2 on buy_order (buyer_id);
-alter table buyer add constraint fk_buyer_user_3 foreign key (user_user_id) references user (user_id) on delete restrict on update restrict;
-create index ix_buyer_user_3 on buyer (user_user_id);
-alter table collection add constraint fk_collection_seller_4 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
-create index ix_collection_seller_4 on collection (seller_id);
-alter table item add constraint fk_item_seller_5 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
-create index ix_item_seller_5 on item (seller_id);
-alter table item add constraint fk_item_collection_6 foreign key (collection_id) references collection (id) on delete restrict on update restrict;
-create index ix_item_collection_6 on item (collection_id);
-alter table seller add constraint fk_seller_user_7 foreign key (user_user_id) references user (user_id) on delete restrict on update restrict;
-create index ix_seller_user_7 on seller (user_user_id);
-alter table stock add constraint fk_stock_item_8 foreign key (item_id) references item (id) on delete restrict on update restrict;
-create index ix_stock_item_8 on stock (item_id);
-alter table wishlist_item add constraint fk_wishlist_item_item_9 foreign key (item_id) references item (id) on delete restrict on update restrict;
-create index ix_wishlist_item_item_9 on wishlist_item (item_id);
-alter table wishlist_item add constraint fk_wishlist_item_owner_10 foreign key (owner_user_id) references user (user_id) on delete restrict on update restrict;
-create index ix_wishlist_item_owner_10 on wishlist_item (owner_user_id);
+alter table buy_order add constraint fk_buy_order_size_3 foreign key (size_id) references stock (id) on delete restrict on update restrict;
+create index ix_buy_order_size_3 on buy_order (size_id);
+alter table buyer add constraint fk_buyer_user_4 foreign key (user_user_id) references user (user_id) on delete restrict on update restrict;
+create index ix_buyer_user_4 on buyer (user_user_id);
+alter table collection add constraint fk_collection_seller_5 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
+create index ix_collection_seller_5 on collection (seller_id);
+alter table item add constraint fk_item_seller_6 foreign key (seller_id) references seller (id) on delete restrict on update restrict;
+create index ix_item_seller_6 on item (seller_id);
+alter table item add constraint fk_item_collection_7 foreign key (collection_id) references collection (id) on delete restrict on update restrict;
+create index ix_item_collection_7 on item (collection_id);
+alter table seller add constraint fk_seller_user_8 foreign key (user_user_id) references user (user_id) on delete restrict on update restrict;
+create index ix_seller_user_8 on seller (user_user_id);
+alter table stock add constraint fk_stock_item_9 foreign key (item_id) references item (id) on delete restrict on update restrict;
+create index ix_stock_item_9 on stock (item_id);
+alter table wishlist_item add constraint fk_wishlist_item_item_10 foreign key (item_id) references item (id) on delete restrict on update restrict;
+create index ix_wishlist_item_item_10 on wishlist_item (item_id);
+alter table wishlist_item add constraint fk_wishlist_item_owner_11 foreign key (owner_user_id) references user (user_id) on delete restrict on update restrict;
+create index ix_wishlist_item_owner_11 on wishlist_item (owner_user_id);
 
 
 
