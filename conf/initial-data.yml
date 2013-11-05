@@ -23,6 +23,7 @@ users:
         name:           Kurt
         roles: 
             - *buyerRole
+            - *adminRole
 
     - &userNaty !!models.User
         userId:         1406678834

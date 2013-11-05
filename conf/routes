@@ -13,6 +13,8 @@ POST	/authentication/logout      		controllers.Authentication.logout()
 GET		/user 				 				controllers.UserController.readCurrent()
 PUT		/user 				 				controllers.UserController.updateCurrent()
 GET		/userId 							controllers.UserController.readCurrentId()
+GET		/users 				 				controllers.UserController.readAll()
+DELETE	/user/:id							controllers.UserController.delete(id: Long)
 
 ####   Seller   ####
 GET		/seller 	 						controllers.SellerController.readCurrent()
