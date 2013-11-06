@@ -120,16 +120,21 @@ jQuery.fn.onlyDigits = function() {
 		var message= "";
 		var points =$("#pointsToUse").val();
 		
-		//Validate not using more points than available
 		if(! $.isNumeric(points)){
 			ok = false;
 			message = "<p>Ingresá un valor numérico de puntos</p>" ;
 		}
 		else{
 		
+		//Validate not using more points than available
 			if(points > @buyerPoints){
 				ok = false;
-				message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
+				if(@buyerPoints == 0){
+					message = "<p>No tenés puntos disponibles</p>" ;
+				}
+				else{
+					message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
+				}
 			}
 			
 			//Validate max 75% of item price
