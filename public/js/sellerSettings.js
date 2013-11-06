@@ -43,7 +43,7 @@ $(document).ready(function(){
 			mp_client_secret: $('#mp_client_secret').val(),
 			mp_client_id:  $('#mp_client_id').val()
 		}
-		$.ajax({url: '/seller', type:'PUT', data: sellerData}).done( function(d){console.log(d)})
+		$.ajax({url: '/seller', type:'PUT', data: sellerData}).done( function(json){$("#okResult").show();})
 		
 	});
 });
