@@ -69,32 +69,82 @@
 
 <!--App scrips TODO: take it to a separate file-->
 	<script>
+jQuery.fn.onlyDigits = function() {
+    var k;
+    // little trick just in case you want use this:
+    $('<span></span>').insertAfter(this);
+    var $dText = $(this).next('span').hide();
+    // Really cross-browser key event handler
+    function Key(e) {
+        if (!e.which && ((e.charCode ||
+        e.charCode === 0) ? e.charCode: e.keyCode)) {
+        e.which = e.charCode || e.keyCode;
+        } return e.which; }
+    return $(this).each(function() {
+        $(this).keydown(function(e) {
+            k = Key(e);
+            return (
+            // Allow CTRL+V , backspace, tab, delete, arrows,
+            // numbers and keypad numbers ONLY
+            ( k == 86 && e.ctrlKey ) || (k == 224 && e.metaKey) || k == 8 || k == 9 || k == 46 || (k >= 37 && k <= 40 && k !== 32 ) || (k >= 48 && k <= 57) || (k >= 96 && k <= 105));
+        }).keyup(function(e) {
+            var value = this.value.replace(/\s+/,'-');
+            // Check if pasted content is Number
+            if (isNaN(value)) {
+                // re-add stored digits if CTRL+V have non digits chars
+                $(this).val($dText.text());
+            } else { // store digits only of easy access
+                $dText.empty().append(value);
+            }
+        });
+    });
+};
 	$( document ).ready(function() {
+		$("#pointsToUse").onlyDigits();
 			$("#orderItemButton").click(function(){
 				$('.alert').fadeOut();
-				if (validateOK()){
+					//Deleted validations (just in server for now)-> problem with selected tab
 					$('#loadingModal').modal('show');
 					orderItem();
-				}
 			});
 		});
 		
+	function selectFirstTab(){
+		var tabs =$('.nav-pills').find('li');
+		$(tabs.get(0)).attr("class", "active");
+		$(tabs.get(1)).attr("class","");
+	
+	}
 	function validateOK(){
 		var ok= true;
 		var message= "";
 		var points =$("#pointsToUse").val();
 		
-		//Validate not using more points than available
-		if(points > @buyerPoints){
+		if(! $.isNumeric(points)){
 			ok = false;
-			message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
+			message = "<p>Ingresá un valor numérico de puntos</p>" ;
 		}
+		else{
 		
-		//Validate max 75% of item price
-		var maxPermitted = @item.price * 0.75;
-		if(points * @item.seller.pointMoneyRelation > maxPermitted){
-			ok = false;
-			message += "<p>Sólo podés pagar el 75% del precio con puntos!</p>";
+		//Validate not using more points than available
+			if(points > @buyerPoints){
+				ok = false;
+				if(@buyerPoints == 0){
+					message = "<p>No tenés puntos disponibles</p>" ;
+				}
+				else{
+					message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
+				}
+			}
+			
+			//Validate max 75% of item price
+			var maxPermitted = @item.price * 0.75;
+			if(points * @item.seller.pointMoneyRelation > maxPermitted){
+				ok = false;
+				message += "<p>Sólo podés pagar el 75% del precio con puntos!</p>";
+			}
+		
+		
 		}
 		
 		if(! $('label.active').get(0)){
@@ -103,6 +153,7 @@
 		}
 		if(!ok){
 			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+			selectFirstTab();
 		}
 		return ok;
 		
@@ -110,8 +161,8 @@
 	}
 	function orderItem(){
 		var selectedLabel = $('label.active').get(0);
-		var selectedSize= selectedLabel.innerText;
-		var selectedSizeId= selectedLabel.htmlFor;
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
 		
 		var points =$("#pointsToUse").val();
 		if(points== "" || !@item.seller.pointsEnabled){
@@ -138,10 +189,20 @@
 					$('#tab2').attr('class','tab-pane active');
 					$('#loadingModal').modal('hide');
 					
+				},
+				
+				error: function(xhr, status, error){
+						$('#loadingModal').modal('hide');
+				
+					if(xhr.status == 422 || xhr.status==400){
+						validateOK();					
+						
+					}
 				}
 			}
 		);
 	}
+	
 	</script>
 	
 
