@@ -72,13 +72,18 @@
 	$( document ).ready(function() {
 			$("#orderItemButton").click(function(){
 				$('.alert').fadeOut();
-				if (validateOK()){
+					//Deleted validations (just in server for now)-> problem with selected tab
 					$('#loadingModal').modal('show');
 					orderItem();
-				}
 			});
 		});
 		
+	function selectFirstTab(){
+		var tabs =$('.nav-pills').find('li');
+		$(tabs.get(0)).attr("class", "active");
+		$(tabs.get(1)).attr("class","");
+	
+	}
 	function validateOK(){
 		var ok= true;
 		var message= "";
@@ -103,6 +108,7 @@
 		}
 		if(!ok){
 			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+			selectFirstTab();
 		}
 		return ok;
 		
@@ -143,7 +149,11 @@
 				error: function(xhr, status, error){
 				
 					if(xhr.status == 422){
-						validateOK();
+					
+						validateOK();					
+						$('#loadingModal').modal('hide');
+						
+						
 					}
 				}
 			}
