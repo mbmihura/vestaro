@@ -110,8 +110,8 @@
 	}
 	function orderItem(){
 		var selectedLabel = $('label.active').get(0);
-		var selectedSize= selectedLabel.innerText;
-		var selectedSizeId= selectedLabel.htmlFor;
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
 		
 		var points =$("#pointsToUse").val();
 		if(points== "" || !@item.seller.pointsEnabled){
@@ -138,6 +138,13 @@
 					$('#tab2').attr('class','tab-pane active');
 					$('#loadingModal').modal('hide');
 					
+				},
+				
+				error: function(xhr, status, error){
+				
+					if(xhr.status == 422){
+						validateOK();
+					}
 				}
 			}
 		);

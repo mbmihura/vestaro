@@ -5,6 +5,7 @@ import java.util.List;
 import models.BuyOrder;
 import models.Buyer;
 import models.Collection;
+import models.InvalidBuyOrderException;
 import models.Item;
 import models.PaymentManager;
 
@@ -19,6 +20,7 @@ import views.html.items.item;
 
 public class ItemController extends BaseController {
     
+	private static final int UNPROCESSABLE_ENTITY = 422;
 	static Form<Item> itemForm = Form.form(Item.class);
 	
 	public static Result form() {
@@ -135,8 +137,14 @@ public class ItemController extends BaseController {
     	Item item = Item.find.byId(itemId);
     	
     	BuyOrder buyOrder  = new BuyOrder();
-    	buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
 
+    	try{
+    		buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
+
+    	}
+    	catch(InvalidBuyOrderException exception){
+    		return status(UNPROCESSABLE_ENTITY);
+    	}
     	PaymentManager manager = new PaymentManager();
     	
 		try {

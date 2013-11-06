@@ -80,13 +80,16 @@ public class BuyOrder extends Model{
 	public BuyOrder(){
 		
 	}
-	public BuyOrder create(BuyOrder order, Item item,Buyer buyer, String size, Integer pointsUsed){
+	public BuyOrder create(BuyOrder order, Item item,Buyer buyer, String size, Integer pointsUsed) throws InvalidBuyOrderException{
+		this.validateOk(item, buyer, size,pointsUsed);
+		
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
 		order.size = Stock.find.byId(size);
 		order.pointsUsed = pointsUsed;
 		this.buyer.points-=pointsUsed;
+		
 		this.buyer.save();
 		order.save();
 		
@@ -94,7 +97,39 @@ public class BuyOrder extends Model{
 	}
 
 	
-    public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
+    private void validateOk(Item item, Buyer buyer, String size, Integer pointsUsed) throws InvalidBuyOrderException {
+    	
+    	if(notEnoughPoints(buyer, pointsUsed) 	||
+    	   excededMaxPercentPermitted(item, pointsUsed) ||
+    	   notSelectedSize(size)
+    			){
+    		throw new InvalidBuyOrderException();
+    	}
+    	
+    	
+		
+	}
+	private boolean notSelectedSize(String size) {
+		return size.equals("null");
+	}
+	private boolean excededMaxPercentPermitted(Item item, Integer pointsUsed) {
+		return amountPayedWithPoints(item, pointsUsed) > maxAmountPermitted(item);
+	}
+	private boolean notEnoughPoints(Buyer buyer, Integer pointsUsed) {
+		return pointsUsed > buyer.points;
+	}
+	private double amountPayedWithPoints(Item item, Integer pointsUsed) {
+		return pointsUsed * item.seller.pointMoneyRelation;
+	}
+	private double maxAmountPermitted(Item item) {
+		return item.price * 0.75;
+	}
+    
+    
+
+
+
+	public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
 
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
