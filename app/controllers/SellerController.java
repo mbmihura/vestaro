@@ -3,12 +3,16 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Buyer;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
 import models.Seller;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
+import security.SubjectPresent;
 
 public class SellerController extends BaseController {
     
@@ -31,24 +35,50 @@ public class SellerController extends BaseController {
     public static Result findSellerById(Long sellerId) {
     	return ok(Json.toJson(Seller.find.byId(sellerId)));
     }
-    
-    public static Result findCurrentSeller(){
-    	return ok(Json.toJson(Seller.findSellerByUser(currentUserId())));
+        
+    @SubjectPresent
+	public static Result readCurrent(){
+        return ok(Json.toJson(Seller.findSellerByUser(currentUserId()))); 
     }
-    
-    public static Result update(String logoURL, String name, String pageURL,
-    							Boolean pointsEnabled, Double pointMoneyRelation, String mp_client_secret, String mp_client_id) {
-    	    	
-    	Seller seller = Seller.findSellerByUser(currentUserId());
+    @SubjectPresent
+    public static Result createOrUpdateCurrent() {
+    	Long currentUserId = currentUserId();
+    	Seller currentSeller = Seller.findSellerByUser(currentUserId());
     	
-    	seller.brandName = name;
-    	seller.logoUrl = logoURL;
-    	seller.webpageUrl = pageURL;
-    	seller.pointsEnabled = pointsEnabled;
-    	seller.pointMoneyRelation = pointMoneyRelation;
-    	seller.mp_client_secret = mp_client_secret;
-    	seller.mp_client_id = mp_client_id;
+    	if (currentSeller == null)
+    		currentSeller = Seller.createFor(currentUserId);
     	
-        return ok(Json.toJson(Seller.update(seller)));
+		DynamicForm data = Form.form().bindFromRequest();
+        
+		String brandName = data.get("brandName");
+		if (brandName != null && !brandName.isEmpty())
+			currentSeller.brandName = brandName;
+
+		String logoUrl = data.get("logoUrl");
+		if (logoUrl != null && !logoUrl.isEmpty())
+			currentSeller.logoUrl = logoUrl;
+		
+		String webpageUrl = data.get("webpageUrl");
+		if (webpageUrl != null && !webpageUrl.isEmpty())
+			currentSeller.webpageUrl = webpageUrl;
+		
+		String pointsEnabled = data.get("pointsEnabled");
+		if (pointsEnabled != null && !pointsEnabled.isEmpty())
+			currentSeller.pointsEnabled = Boolean.parseBoolean(pointsEnabled);
+		
+		String pointMoneyRelation = data.get("pointMoneyRelation");
+		if (pointMoneyRelation != null && !pointMoneyRelation.isEmpty())
+			currentSeller.pointMoneyRelation = Double.parseDouble(pointMoneyRelation);
+		
+		String mp_client_secret = data.get("mp_client_secret");
+		if (mp_client_secret != null && !mp_client_secret.isEmpty())
+			currentSeller.mp_client_secret = mp_client_secret;
+		
+		String mp_client_id = data.get("mp_client_id");      
+		if (mp_client_id != null && !mp_client_id.isEmpty())
+			currentSeller.mp_client_id = mp_client_id;
+
+		currentSeller.save();
+        return ok(Json.toJson(currentSeller));
     }
 }

@@ -23,6 +23,7 @@ users:
         name:           Kurt
         roles: 
             - *buyerRole
+            - *adminRole
 
     - &userNaty !!models.User
         userId:         1406678834
@@ -43,6 +44,7 @@ users:
         roles: 
             - *buyerRole
             - *sellerRole
+# Users
 
 # Sellers
 
@@ -243,6 +245,30 @@ items:
 
 stocks:
 
+
+    - !!models.Stock
+        id:          SCB3XS
+        size:        XS
+        stock:       1
+        item:        !!models.Item
+                        id: CB3
+                        
+                            
+    - !!models.Stock
+        id:          SCB3S
+        size:        S
+        stock:       2
+        item:        !!models.Item
+                        id: CB3
+                        
+                            
+    - !!models.Stock
+        id:          SCB3M
+        size:        M
+        stock:       22
+        item:        !!models.Item
+                        id: CB3    
+    
     - !!models.Stock
         id:          SCNL
         size:        L
@@ -250,6 +276,7 @@ stocks:
         item:        !!models.Item
                         id: CB1
 
+                                                
     - !!models.Stock
         id:          SCBM
         size:        M

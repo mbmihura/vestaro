@@ -45,7 +45,6 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
     
 }]);
 
-
 function SellerDashboardCtrl($scope){}
 function CollectionsCtrl(){}
 function SelletSettingsCtrl(){}

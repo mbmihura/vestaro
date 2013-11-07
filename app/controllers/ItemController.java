@@ -1,29 +1,26 @@
 package controllers;
 
-import models.Collection;
-
 import java.util.List;
-import java.util.ArrayList;
 
-import models.Item;
-import play.data.DynamicForm;
 import models.BuyOrder;
 import models.Buyer;
+import models.Collection;
+import models.InvalidBuyOrderException;
+import models.Item;
 import models.PaymentManager;
-import models.Stock;
 
-import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
 import org.codehaus.jettison.json.JSONException;
 
+import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import play.mvc.Http;
 import play.mvc.Result;
 import views.html.items.form;
 import views.html.items.item;
 
 public class ItemController extends BaseController {
     
+	private static final int UNPROCESSABLE_ENTITY = 422;
 	static Form<Item> itemForm = Form.form(Item.class);
 	
 	public static Result form() {
@@ -57,12 +54,49 @@ public class ItemController extends BaseController {
     }
     
     
-    public static Result index() {
+    public static Result readAll() {
     	return ok(Json.toJson(Item.find.all()));
     }
     
-    public static Result update(String itemId) {
-    	return TODO;
+    public static Result createOrUpdate(String id) {
+    	Item item = Item.find.byId(id);
+    	boolean created = false;
+    	
+    	if (item == null) {
+    		item = new Item(id);
+    		created = true;
+    	}
+    	
+		DynamicForm data = Form.form().bindFromRequest();
+        
+		String title = data.get("title");
+		if (title != null && !title.isEmpty())
+			item.title = title;
+
+		String description = data.get("description");
+		if (description != null && !description.isEmpty())
+			item.description = description;
+		
+		String imgUrl = data.get("imgUrl");
+		if (imgUrl != null && !imgUrl.isEmpty())
+			item.imgUrl = imgUrl;
+		
+		String price = data.get("price");
+		if (price != null && !price.isEmpty())
+			item.price = Long.parseLong(price);
+		
+		String sex = data.get("sex");
+		if (sex != null && !sex.isEmpty())
+			item.sex = sex;
+		
+		item.save();
+		if (created)
+		{
+			return created(Json.toJson(item));
+		}else
+		{
+        return ok(Json.toJson(item));
+		}
     }
 
     public static Result updateItem(Long collectionId, String itemId) {
@@ -92,9 +126,7 @@ public class ItemController extends BaseController {
         String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
     	if (item != null) {	
-	    	//TODO: Load AvailableStock
-	        //return ok(views.html.buyItem.render(item, item.getAvailableStock(),pointsAvailable));
-			return ok(views.html.buyItem.render(item, item.getMockAvailableStock(), Buyer.findBuyerByUser(currentUserId()).points));
+	        return ok(views.html.buyItem.render(item, item.getAvailableStock(),Buyer.findBuyerByUser(currentUserId()).points));
     	} else {
     		return badRequest("item not found");
     		// TODO: should be 422 as it's a smantic error not sintax. Does plays allow to return a 422?
@@ -105,8 +137,14 @@ public class ItemController extends BaseController {
     	Item item = Item.find.byId(itemId);
     	
     	BuyOrder buyOrder  = new BuyOrder();
-    	buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
 
+    	try{
+    		buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
+
+    	}
+    	catch(InvalidBuyOrderException exception){
+    		return status(UNPROCESSABLE_ENTITY);
+    	}
     	PaymentManager manager = new PaymentManager();
     	
 		try {
