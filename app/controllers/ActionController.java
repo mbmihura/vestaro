@@ -5,17 +5,18 @@ import java.util.List;
 
 import models.Action;
 import models.Item;
+import models.Seller;
 import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
 
-public class ActionController extends Controller {
+public class ActionController extends BaseController {
 	
 	public static Result actionsFrom(Long order, Long sellerId, Long actionDateBegin, Long actionDateEnd, String actionType){
+		Seller seller = Seller.findSellerByUser(currentUserId());
 		if(order > 0)
-			return mostActionsFrom(sellerId, actionDateBegin, actionDateEnd, actionType);
+			return mostActionsFrom(seller.id, actionDateBegin, actionDateEnd, actionType);
 		else
-			return lessActionsFrom(sellerId, actionDateBegin, actionDateEnd, actionType);
+			return lessActionsFrom(seller.id, actionDateBegin, actionDateEnd, actionType);
 	}
 	
 	private static Result mostActionsFrom(Long sellerId, Long actionDateBegin, Long actionDateEnd, String actionType){
