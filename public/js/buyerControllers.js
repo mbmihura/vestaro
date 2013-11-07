@@ -22,7 +22,7 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
   }
 
   $scope.shareItem = function(item){
-  	facebook.feedDialog(item,null);
+  	facebook.feedDialog(item, $scope);
   }
   
   var $container = $('#itemsContainer');

@@ -70,12 +70,13 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
                   type:'info',
                   body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
                   btns: {
-                    primary: {title: 'Continuar', href: ''},
-                    'default': {title: 'Ir a Wishlist', href: ''}
+                    primary: {order: 1, title: 'Continuar', type: 'info', href: ''},
+                    'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                   }
                 };
               $('#alertModal').modal('show');
-              facebook.likeItem(item, null);
+              // TODO: check status
+              // facebook.likeItem(item, null);
             })
             .error(function(data, status, headers, config){
               console.log(status);
@@ -90,8 +91,8 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
                       type:'warning',
                       body: 'La prenda ' + item.title + ' ya fue agregada a tu wishlist.',
                       btns: {
-                        primary: {title: 'Continuar', href: ''},
-                        'default': {title: 'Ir a Wishlist', href: ''}
+                        primary: {order: 1, title: 'Continuar', type: 'warning', href: ''},
+                        'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                       }
                     };
                   $('#alertModal').modal('show');
@@ -100,11 +101,11 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
                 default:
                   $scope.alert =
                     {title:'Oops, parece que hubo un problema',
-                      type:'error',
+                      type:'danger',
                       body: 'La prenda ' + item.title + ' no pudo ser agregada a tu wishlist.',
                       btns: {
-                        primary: {title: 'Continuar', href: ''},
-                        'default': {title: 'Ir a Wishlist', href: ''}
+                        primary: {order: 1, title: 'Continuar', type: 'danger', href: ''},
+                        'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                       }
                     };
                   $('#alertModal').modal('show');
@@ -119,17 +120,7 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
 
 vestaroMain.factory('facebook', ['$location', function($location){
   return {
-    feedDialog: function(item, callback){
-      if (callback == null){
-        callback = function(response) {
-          if (response && response.post_id) {
-            console.log('Facebook: Publicación exitosa. Post id:' + response.post_id);
-          } else {
-            alert('Post was not published.');
-            console.log(response);
-          }
-        }
-      }
+    feedDialog: function(item, $scope){
       FB.ui(
         {
          method: 'feed',
@@ -139,7 +130,21 @@ vestaroMain.factory('facebook', ['$location', function($location){
          link: $location.host() + '/garment/' + item.id,
          picture: item.imgUrl
         },
-        callback
+        function(response) {
+          if (response && response.post_id) {
+            console.log('Facebook: Publicación exitosa. Post id:' + response.post_id);
+          } else {
+            $scope.alert =
+              {title:'Oopss! Parece que hubo un problema.',
+                type:'danger',
+                body: 'La prenda ' + item.title + ' no pudo compartirse en Facebook.',
+                btns: {
+                  primary: {order: 1, title: 'Continuar', type: 'danger', href: ''}
+                }
+              };
+            $('#alertModal').modal('show');
+          }
+        }
       );
     },
     likeItem: function(item, callback){
