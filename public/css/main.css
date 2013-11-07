@@ -254,7 +254,21 @@ border-top-right-radius: 30px;
 
 .item-thumb .item-main .item-title {
   overflow-y: visible;
+  margin-top: 10px;
+  margin-bottom: 10px;
   height: 20px;
+}
+
+.item-thumb .item-main.wishlist {
+  height: 400px;
+}
+
+.item-thumb .item-main .item-img.wishlist {
+  max-height: 345px;
+}
+
+.item-thumb .item-main .item-title.wishlist {
+  margin-bottom: 15px;
 }
 
 .item-thumb .item-details .price {
