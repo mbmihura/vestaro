@@ -6,10 +6,9 @@
 	<div id="rootwizard">
 		<ul class="nav nav-pills">
 			<li class="active"><a href="#tab1" data-toggle="tab">Crear orden de compra</a></li>
-			<li class=""><a id="orderItemButton" href="#tab2"  data-toggle="tab" >Pagar orden de compra</a></li>
+			<li class=""><a id="orderItemButton" href="#"  data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
-					
-		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 800px;" >
+		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
 			
 				<div class="tab-pane active" id="tab1">
 						<div class="col-lg-5">
@@ -20,9 +19,9 @@
   						<p style="font-size: 30px; font-weight: bold;">Talles Disponibles</p>
    						
 							<div class="btn-group" data-toggle="buttons">
-							@for((sizeOption , value) <- sizeOptions ){
- 								 <label class="btn btn-primary" style="padding: 15px 25px;margin-left: 6px;">
-   								 <input type="radio" name="options" id="option1" > @sizeOption</input> 
+							@for((sizeOptionId , sizeOption) <- sizeOptions ){
+ 								 <label class="btn btn-primary" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;">
+   								 <input type="radio" name="options"  > @sizeOption</input> 
 						  	</label>
 							}
  							</div>
@@ -54,91 +53,157 @@
 				</div>
 
 				<div class="tab-pane" id="tab2">
-					<div class="control-group">
-						<h2 style="margin-bottom: 30px;">Detalle compra</h2>
-						<table class="table table-striped">
-  						<tr>
-								<td>Prenda</td>
-								<td>@item.title</td>
-							</tr>
-  						<tr>
-								<td>Descripción</td>
-								<td>@item.description</td>
-							</tr>
-  						<tr>
-								<td>Precio</td>
-								<td>@item.price</td>
-							</tr>
-							<tr>
-								<td>Talle</td>
-								<td id=selectedSize></td>
-							</tr>
-  						<tr>
-								<td>Vendedor</td>
-								<td>@item.seller.brandName</td>
-							</tr>
-  						<tr>
-								<td>Puntos usados</td>
-								<td id="usedPoints"></td>
-							</tr>
-  						<tr>
-								<td>Monto pendiente a pagar con MercadoPago</td>
-								<td id="pendingAmount"></td>
-							</tr>
-  						<tr>
-								<td>Puntos que se ganarán con la compra</td>
-								<td id="earnedPoints"></td>
-							</tr>
-
-						</table>
-						
-						<div class="form-group">	
-	    				<a id="mpButton" name="MP-Checkout" class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Pagar</a>
-				    </div>
-
-			 		</div>
+					@payOrder(item, "", 0,"")
 				</div>
 
 						
 		
 	</div>	
+
+
+@loadingModal("Creando tu órden de compra...", "loadingModal")
+
 	
 </div>
-<!--MP Script needed to give styles to payment button/modal-->
-   <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
+
 
 <!--App scrips TODO: take it to a separate file-->
 	<script>
+jQuery.fn.onlyDigits = function() {
+    var k;
+    // little trick just in case you want use this:
+    $('<span></span>').insertAfter(this);
+    var $dText = $(this).next('span').hide();
+    // Really cross-browser key event handler
+    function Key(e) {
+        if (!e.which && ((e.charCode ||
+        e.charCode === 0) ? e.charCode: e.keyCode)) {
+        e.which = e.charCode || e.keyCode;
+        } return e.which; }
+    return $(this).each(function() {
+        $(this).keydown(function(e) {
+            k = Key(e);
+            return (
+            // Allow CTRL+V , backspace, tab, delete, arrows,
+            // numbers and keypad numbers ONLY
+            ( k == 86 && e.ctrlKey ) || (k == 224 && e.metaKey) || k == 8 || k == 9 || k == 46 || (k >= 37 && k <= 40 && k !== 32 ) || (k >= 48 && k <= 57) || (k >= 96 && k <= 105));
+        }).keyup(function(e) {
+            var value = this.value.replace(/\s+/,'-');
+            // Check if pasted content is Number
+            if (isNaN(value)) {
+                // re-add stored digits if CTRL+V have non digits chars
+                $(this).val($dText.text());
+            } else { // store digits only of easy access
+                $dText.empty().append(value);
+            }
+        });
+    });
+};
 	$( document ).ready(function() {
+		$("#pointsToUse").onlyDigits();
 			$("#orderItemButton").click(function(){
-				orderItem();
+				$('.alert').fadeOut();
+					//Deleted validations (just in server for now)-> problem with selected tab
+					$('#loadingModal').modal('show');
+					orderItem();
 			});
 		});
 		
-	function orderItem(){
+	function selectFirstTab(){
+		var tabs =$('.nav-pills').find('li');
+		$(tabs.get(0)).attr("class", "active");
+		$(tabs.get(1)).attr("class","");
 	
-		var selectedSize=$('label.active').get(0).innerText;
+	}
+	function validateOK(){
+		var ok= true;
+		var message= "";
 		var points =$("#pointsToUse").val();
-		if(points== ""){
+		
+		if(! $.isNumeric(points)){
+			ok = false;
+			message = "<p>Ingresá un valor numérico de puntos</p>" ;
+		}
+		else{
+		
+		//Validate not using more points than available
+			if(points > @buyerPoints){
+				ok = false;
+				if(@buyerPoints == 0){
+					message = "<p>No tenés puntos disponibles</p>" ;
+				}
+				else{
+					message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
+				}
+			}
+			
+			//Validate max 75% of item price
+			var maxPermitted = @item.price * 0.75;
+			if(points * @item.seller.pointMoneyRelation > maxPermitted){
+				ok = false;
+				message += "<p>Sólo podés pagar el 75% del precio con puntos!</p>";
+			}
+		
+		
+		}
+		
+		if(! $('label.active').get(0)){
+			ok = false;
+			message +="<p>Por favor elegí tu talle</p>";
+		}
+		if(!ok){
+			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+			selectFirstTab();
+		}
+		return ok;
+		
+		
+	}
+	function orderItem(){
+		var selectedLabel = $('label.active').get(0);
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+		
+		var points =$("#pointsToUse").val();
+		if(points== "" || !@item.seller.pointsEnabled){
 			points = 0;
 		}
 		
-		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSize, points).ajax(
+		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
 			{
 				success:function(json){
-					var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+						var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+					if(@item.seller.pointsEnabled){
+						$("#earnedPoints").html(pending);
+					}
+					else{
+						$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
+					
+					}
 					$("#mpButton").attr("href", json);
 					$("#usedPoints").html(points);
-					$("#earnedPoints").html(pending);
+					
 					$("#pendingAmount").html("$"+ pending);
 					$("#selectedSize").html(selectedSize);
+					$('#tab1').attr('class','tab-pane');
+					$('#tab2').attr('class','tab-pane active');
+					$('#loadingModal').modal('hide');
 					
+				},
+				
+				error: function(xhr, status, error){
+						$('#loadingModal').modal('hide');
+				
+					if(xhr.status == 422 || xhr.status==400){
+						validateOK();					
+						
+					}
 				}
 			}
 		);
 	}
+	
 	</script>
 	
-
 
 

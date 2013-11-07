@@ -1,5 +1,6 @@
 @(orders : List[BuyOrder]) @import helper._
 
+<div >
 <div class="col-lg-8">
 	<legend>
 		<h2>Órdenes de compra</h2>
@@ -10,7 +11,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#@buyOrder.id"> <strong>
+					<a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" href="#@buyOrder.id"> <strong>
 							@buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state.getDescription()</span>
 					</a>
 				</h4>
@@ -22,14 +23,15 @@
 					</div>
 					<div class="col-lg-6">
 						<p>Descripción: @buyOrder.item.description</p>
-						<p>Talle: @buyOrder.size</p>
+						<p>Talle: @buyOrder.size.size</p>
 						<p>Precio: $@buyOrder.price</p>
+						<p>Fecha compra: @buyOrder.create_time</p>
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
-						<button type="button" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+						<button type="button" id="actionButton"  data-loading-text="Cambiando estado..." onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
 						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
-						<button type="button" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
+						<button type="button"  id="disputeButton"	 onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
 
 						} }
 					</div>
@@ -39,12 +41,101 @@
 		}
 
 	</div>
+	
+	
+	
+	
+	
+	
 </div>	
 
+@disputeModal()
+
+</div>
 <script>
 	$(document).ready(function() {
+	
 		$('.collapse').collapse('hide');
+	
 	});
+
+
+	function showDisputeModal(buyOrder){
+	 	$('#save').click(
+	 		function(){
+	 				openDispute(buyOrder);
+	 				}
+	 				);
+		$('#disputeModal').modal('show');
+	}
+
+	function openDispute(buyOrder){
+	$('#save').button('loading');
+	var disputeMessage = $('#disputeMessage').get(0).value;
+	jsRoutes.controllers.BuyerController.openDispute(buyOrder, disputeMessage).ajax(
+			{
+				success:function(json){
+						changeToInDispute(buyOrder);
+						$('#save').button('reset');
+						$('#disputeModal').modal('hide');
+					
+				}
+			}
+		);
+	}
+
+	function confirmReception(buyOrder){
+		$(actionButton(buyOrder)).button('loading');
+		jsRoutes.controllers.BuyerController.confirmReception(buyOrder).ajax(
+			{
+				success:function(){
+					changeToReceptionConfirmed(buyOrder);
+				}
+			}
+		);
+	}
+	function changeToInDispute(buyOrder){
+					//Change state text and colo r+ delete open dispute button
+					changeState(buyOrder, 'En disputa', 'IN_DISPUTE','disputeButton' );
+									
+	}
+	
+	function changeToReceptionConfirmed(buyOrder){
+		//Change state text and colo r+ delete button
+		changeState(buyOrder, 'Recepción confirmada','RECEPTION_CONFIRMED' , 'actionButton');
+		deleteButton(buyOrder,'disputeButton');
+					
+	}
+	
+	function changeState(buyOrder, stateMessage, stateClass, deletedButton){
+			var title=$($('#'+buyOrder).parent()).find('span');
+			$(title).text(stateMessage)
+			$(title).attr('class', 'badge active pull-right '+ stateClass)
+			deleteButton(buyOrder, deletedButton);
+	
+	}	
+	
+	function deleteButton(buyOrder, buttonId){
+		var button = $('#' + buyOrder).find('#'+ buttonId);
+		if(!button)return;//was already deleted
+		$(button).fadeOut('normal', function(){
+									$(this).remove();
+		});
+	}
+
+	function actionButton(buyOrder){
+		 return orderButton(buyOrder,'actionButton');
+	}
+	
+
+	function disputeButton(buyOrder){
+		return orderButton(buyOrder,'disputeButton');
+	}
+	
+	function orderButton(buyOrder, buttonId){
+		return $('#' + buyOrder).find('#'+buttonId);
+	}
+	
 </script>
 
 <style>
