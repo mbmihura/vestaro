@@ -253,10 +253,13 @@ border-top-right-radius: 30px;
 }
 
 .item-thumb .item-main .item-title {
-  overflow-y: visible;
   margin-top: 10px;
   margin-bottom: 10px;
   height: 20px;
+  /* To make the title fit. */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .item-thumb .item-main.wishlist {
