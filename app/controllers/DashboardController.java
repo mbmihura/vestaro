@@ -2,12 +2,16 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import models.Action;
+import models.BuyOrder;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
+import models.Seller;
 import models.Stock;
 import play.libs.Json;
 import play.mvc.Result;
@@ -56,6 +60,13 @@ public class DashboardController extends BaseController {
 		}
     	
     	return ok(Json.toJson(lowStockItems));
+    }
+    
+    public static Result sellerCommission(){
+    	
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+    	Calendar calendar = Calendar.getInstance();
+    	return ok(Json.toJson(BuyOrder.getSellerComissions(seller.id, calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)) ));
     }
 
 }
