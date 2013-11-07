@@ -8,14 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
-import com.avaje.ebean.annotation.CreatedTimestamp;
-
 import play.db.ebean.Model;
+
+import com.avaje.ebean.annotation.CreatedTimestamp;
 
 
 @Entity
 public class BuyOrder extends Model{
 	
+	private static final double COMMISSION_PERCENT = 0.04;
+
+
 	public enum State{
 		PAYMENT_PENDING("Pendiente de pago", "Pagar","window.location.href = '/#/buyer/pay?id="),
 		RECEPTION_PENDING("Pendiente de recepción", "Confirmar recepción","confirmReception"),
@@ -60,6 +63,7 @@ public class BuyOrder extends Model{
 	@OneToOne
 	public Item item;
 	public Long price;
+	public Double commission;
 	
 	@OneToOne
 	public Buyer buyer;
@@ -80,6 +84,7 @@ public class BuyOrder extends Model{
 	public BuyOrder(){
 		
 	}
+	public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
 	public BuyOrder create(BuyOrder order, Item item,Buyer buyer, String size, Integer pointsUsed) throws InvalidBuyOrderException{
 		this.validateOk(item, buyer, size,pointsUsed);
 		
@@ -88,9 +93,10 @@ public class BuyOrder extends Model{
 		order.buyer = buyer;
 		order.size = Stock.find.byId(size);
 		order.pointsUsed = pointsUsed;
-		this.buyer.points-=pointsUsed;
+		order.buyer.points-=pointsUsed;
+		order.commission = order.getCommision();
 		
-		this.buyer.save();
+		order.buyer.save();
 		order.save();
 		
 		return order;
@@ -129,7 +135,6 @@ public class BuyOrder extends Model{
 
 
 
-	public static Finder<Long,BuyOrder> find = new Finder<Long,BuyOrder>(Long.class, BuyOrder.class);
 
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
@@ -160,6 +165,27 @@ public class BuyOrder extends Model{
 		this.state=State.RECEPTION_CONFIRMED;
 		this.save();
 		
+	}
+	
+	public static Double getSellerComissions(Long sellerId, Integer month, Integer year){
+		//List<BuyOrder> orders= BuyOrder.find.select("item.id, item.title, item.collection.title, item.precio ,item.seller.pointMoneyRelation , pointsUsed")
+		List<BuyOrder> orders= BuyOrder.find.where()
+				.eq("item.seller.id", sellerId)
+				.ne("state", State.PAYMENT_PENDING)
+//				.eq("month(create_time)", month)
+//				.eq("year(create_time)",year)
+				.findList();
+		
+		Double amountToPay=0.0;
+		for (BuyOrder buyOrder : orders) {
+			amountToPay += buyOrder.commission;
+		}
+		return amountToPay;
+	}
+
+
+	private double getCommision() {
+		return (price - (pointsUsed* item.seller.pointMoneyRelation)) * COMMISSION_PERCENT;
 	}
 
 }
