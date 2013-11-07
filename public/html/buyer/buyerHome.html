@@ -51,19 +51,21 @@
 <!-- Recommended Items -->
 <div align="center">
 	<h1 class="page-header">Sabemos qué te gusta. <small>Recomendaciones adaptadas a vos.</small></h1>
+	<div class="progress progress-striped active" style="width: 70%">
+    	<div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
 	<div id="itemsContainer" class="items isotope row">
-		<div ng-repeat="item in items" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false"
-			class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope" align="center">
+		<div ng-repeat="item in items" class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope" align="center">
 			<div class="item-container">
 				<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.title}}">
-				<div class="item-actions" ng-show="actionsView">
+				<div class="item-actions">
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; margin: 0px;">
 						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
 						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
-				<div ng-show="actionsView" class="item-info-container">
+				<div class="item-info-container">
 					<div class="item-info" align="center">
 						<h3 class="title">{{item.title}}</h3>
 						<p><a href="{{item.seller.webpageUrl}}" class='sellerName'><strong>{{item.seller.brandName}}</strong></a></p>
@@ -86,10 +88,9 @@
 				<h3>Prendas populares</h3>
 			</div>
 			<div class="row" style="margin:0">
-			<div class="col-md-3 item-container" style="padding-right:10px; padding-left:10px;" ng-repeat="item in popularItems | limitTo:4"
-				ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false">
+			<div class="col-md-3 item-container" style="padding-right:10px; padding-left:10px;" ng-repeat="item in popularItems | limitTo:4">
 				<div class="thumbnail item-thumb">
-					<div class="item-actions" ng-show="actionsView">
+					<div class="item-actions">
 						<ol class="breadcrumb">
 							<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 							<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
@@ -98,7 +99,7 @@
 					</div>
 					<div class="item-main">
 						<h4 class="item-title">{{item.title}}</h4>
-						<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.description}}">
+						<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
 					</div>
 					<div class="item-details" align="center">
 						<div class="btn-group">
