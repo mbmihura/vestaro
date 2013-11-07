@@ -11,6 +11,14 @@ AmCharts.ready(function () {
 	}
 	
 	// ==================== Commission ====================
+
+	jsRoutes.controllers.DashboardController.sellerCommission().ajax({
+ 	success: 
+		function(commissionAmount){
+			$('#commission').text('$'+commissionAmount);
+		}
+		});
+	
 	var chart;
 	var date = new Date();
 	var remainingTime = (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate() - date.getDate();
