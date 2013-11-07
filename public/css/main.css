@@ -280,7 +280,7 @@ border-top-right-radius: 30px;
 }
 
 .item-thumb .item-main .item-title.wishlist {
-  margin-bottom: 15px;
+  height: 25px;
 }
 
 .item-thumb .item-details .price {
