@@ -66,7 +66,7 @@ create table rol (
 create table seller (
   id                        bigint not null,
   user_user_id              bigint,
-  name                      varchar(255),
+  brand_name                varchar(255),
   points_enabled            boolean,
   point_money_relation      double,
   mp_client_secret          varchar(255),
