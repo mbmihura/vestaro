@@ -58,16 +58,12 @@
         var authData = {};
         window.fbAsyncInit = function() {
           FB.init({
-            appId      : '578879162134484', // App id
+            appId      : '613594491995651', // App id
             channelUrl : '//localhost:9000/assets/html/authentication/channel.html', // Channel File
             status     : false, // check login status. HACK: Disable to avoid double login when user is logged into fb and app authorized.
             cookie     : true, // enable cookies to allow the server to access the session
             xfbml      : true  // parse XFBML
           });
-
-          
-
-          
 
           // Subscribe to the auth.authResponseChange JavaScript event. This event is fired
           // for any authentication related change, such as login, logout or session refresh. This means that
@@ -117,7 +113,6 @@
               $('.navbar .connectingWithFbLabel').hide();
               $('.navbar .loggedUserOptions').fadeIn();
 
-
               //If app is not allow, aparently callbackfunction is never call. 
               //} else if (response.status === 'not_authorized') {
               //  // In this case, the person is logged into Facebook, but not into the app, so we call
@@ -163,8 +158,7 @@
          ref.parentNode.insertBefore(js, ref);
        }(document));
 
-      function AuthenticateVestaro(selectedAccountUsage)
-      {
+      function AuthenticateVestaro(selectedAccountUsage){
         $.post("@routes.Authentication.login()", 
           {signedRequest: authData.signedRequest, accountUsage: selectedAccountUsage})
           .done(function(data) {
@@ -193,8 +187,7 @@
               //TODO: Load nav's user opts
         };
 
-      function SendUserName(username)
-      {
+      function SendUserName(username){
         $.post("@routes.Authentication.()", {fbName: username})
       };
     </script>
@@ -270,22 +263,8 @@
     <div class="modal fade" id="remoteModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     </div><!-- /.Remote Modal's div -->
 
-        <!-- Le javascript -->
-        <!-- Placed at the end of the document so the pages load faster -->
-
-    <!-- Delete if not necesary
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script> -->
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
-	function ($scope, buyerSession) {
-  $scope.hideAlertModal = buyerSession.hideAlertModal();
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
+	function ($scope, buyerSession, facebook) {
+
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
@@ -20,6 +20,10 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
   $scope.addToWishlist = function(item){
 	  buyerSession.addToWishlist(item, $scope);
   }
+
+  $scope.shareItem = function(item){
+  	facebook.feedDialog(item, $scope);
+  }
   
   var $container = $('#itemsContainer');
 	// Toggles item size
@@ -34,12 +38,6 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 		$container.isotope('reLayout');
 	});
 
-	// Toggles item information
-	$container.on('.item', 'mouseenter mouseleave', function(e) {
-		e.preventDefault();
-		$(this).find('.itemInformation').fadeToggle('fast');
-	});
-
 	// Toggle know more
 	$('#knowMoreBtn').click(function(){
 		$('#knowMore').slideToggle()
@@ -48,7 +46,7 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 }]);
 
 var isotopeHandling = function(ngRepeatFinishedEvent) {
-	
+
 	var $container = $('#itemsContainer');
 	var options = {
 		itemSelector : '.item',
@@ -64,6 +62,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	
 	// Wait until all images are loaded
 	$container.imagesLoaded(function() {
+		$('.progress.progress-striped.active').fadeOut();
 		$container.isotope(options);
 	});
 	
@@ -102,7 +101,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 
 vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
 	function ($scope, buyerSession) {
-  $scope.hideAlertModal = buyerSession.hideAlertModal();
+
   $scope.categories = buyerSession.getCategories();
   
   buyerSession.getItems().success(function(data) {
@@ -122,7 +121,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
 
 vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 	function ($scope, buyerSession, $http) {
-	$scope.hideAlertModal = buyerSession.hideAlertModal();
+
 	buyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
@@ -134,7 +133,7 @@ vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 			$scope.alert = {title:'Prenda eliminada de Wishlist',
 					type:'info',
 					body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
-					btns: {primary: {title: 'Seguir', href: ''},
+					btns: {primary: {title: 'Continuar', href: ''},
 						   'default': {title: 'Ir a Home', href: '#/'}
 					}
 			};
