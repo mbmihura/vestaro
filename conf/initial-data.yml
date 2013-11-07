@@ -30,6 +30,7 @@ users:
         name:           Naty
         roles: 
             - *buyerRole
+            - *sellerRole
 
     - &userAlan !!models.User
         userId:         100000262980862
@@ -72,6 +73,17 @@ sellers:
         webpageUrl:                 www.example.com
         user: *userPablo
 
+    - &ropaTop !!models.Seller
+        id:                         3
+        brandName:                       RopaTop
+        pointsEnabled:              true
+        pointMoneyRelation:         1.0
+        mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id:               1406963671517811
+        logoUrl:                    /assets/img/logo.jpg
+        webpageUrl:                 www.example.com
+        user: *userNaty
+        
 # Collections
 
 collections:
@@ -241,9 +253,62 @@ items:
         seller:        !!models.Seller
                         id: 1
 
+
+    - !!models.Item
+        id:           MV
+        title:        Malla verde fluor
+        description:  Malla de lycra para el verano verde fluor
+        imgUrl:       http://localhost:9000/assets/img/items/mallaVerde.jpg
+        price:        180
+        sex:        f
+        seller:        !!models.Seller
+                        id: 3
+
+    - !!models.Item
+        id:           MM
+        title:        Malla muchos colores
+        description:  Malla para el verano, color verde y violeta
+        imgUrl:       http://localhost:9000/assets/img/items/mallaMulticolor.jpg
+        price:        210
+        sex:        f
+        seller:        !!models.Seller
+                        id: 3
+
+
 # Stocks
 
 stocks:
+
+    - !!models.Stock
+        id:          SMMXS
+        size:        XS
+        stock:       3
+        item:        !!models.Item
+                        id: MM
+                        
+
+    - !!models.Stock
+        id:          SMMM
+        size:        M
+        stock:       1
+        item:        !!models.Item
+                        id: MM
+                        
+
+    - !!models.Stock
+        id:          SMVS
+        size:        S
+        stock:       5
+        item:        !!models.Item
+                        id: MV
+                        
+
+    - !!models.Stock
+        id:          SMVL
+        size:        L
+        stock:       10
+        item:        !!models.Item
+                        id: MV
 
 
     - !!models.Stock
