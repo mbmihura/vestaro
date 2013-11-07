@@ -38,12 +38,6 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
 		$container.isotope('reLayout');
 	});
 
-	// Toggles item information
-	$container.on('.item', 'mouseenter mouseleave', function(e) {
-		e.preventDefault();
-		$(this).find('.itemInformation').fadeToggle('fast');
-	});
-
 	// Toggle know more
 	$('#knowMoreBtn').click(function(){
 		$('#knowMore').slideToggle()
