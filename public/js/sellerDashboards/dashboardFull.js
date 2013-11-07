@@ -26,12 +26,12 @@ $(document).ready(function(){
 	
 	$('#view_album_filter').click(function(){
 		// All items from albums
-		jsRoutes.controllers.DashboardController.itemsViewedFromCollections(1, formatDate($('#view_album_filter_start').val()), formatDate($('#view_album_filter_end').val())).ajax({success:
+		jsRoutes.controllers.DashboardController.itemsViewedFromCollections( formatDate($('#view_album_filter_start').val()), formatDate($('#view_album_filter_end').val())).ajax({success:
 			function(json)
 			{
 				var selected;
 				
-				function generateChartData(){
+				function generateChartData(){	
 					var chartData = [];
 					
 					for (var i = 0; i < json.length; i++) {
@@ -90,7 +90,7 @@ $(document).ready(function(){
 	
 	$('#buy_filter').click(function(){
 		// Most purchases	
-		jsRoutes.controllers.ActionController.actionsFrom(1, 1, formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(1, formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -122,7 +122,7 @@ $(document).ready(function(){
 		});
 		
 		// Less purchases	
-		jsRoutes.controllers.ActionController.actionsFrom(0, 1, formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(0, formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -156,7 +156,7 @@ $(document).ready(function(){
 	
 	$('#view_filter').click(function(){
 		// Most views	
-		jsRoutes.controllers.ActionController.actionsFrom(1, 1, formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(1, formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -188,7 +188,7 @@ $(document).ready(function(){
 		});
 		
 		// Less views	
-		jsRoutes.controllers.ActionController.actionsFrom(0, 1, formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(0,  formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -244,7 +244,7 @@ $(document).ready(function(){
 		
 	AmCharts.ready(function () {
 		// Most purchases	
-		jsRoutes.controllers.ActionController.actionsFrom(1, 1, formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(1,  formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -276,7 +276,7 @@ $(document).ready(function(){
 		});
 		
 		// Most views	
-		jsRoutes.controllers.ActionController.actionsFrom(1, 1, formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(1,  formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -308,7 +308,7 @@ $(document).ready(function(){
 		});
 		
 		// Less purchases	
-		jsRoutes.controllers.ActionController.actionsFrom(0, 1, formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(0,  formatDate($('#buy_filter_start').val()), formatDate($('#buy_filter_end').val()), "BUY").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -340,7 +340,7 @@ $(document).ready(function(){
 		});
 		
 		// Less views	
-		jsRoutes.controllers.ActionController.actionsFrom(0, 1, formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
+		jsRoutes.controllers.ActionController.actionsFrom(0,  formatDate($('#view_filter_start').val()), formatDate($('#view_filter_end').val()), "VIEW").ajax({success: 
 			function(json)
 			{
 				var chart = new AmCharts.AmSerialChart();
@@ -372,7 +372,7 @@ $(document).ready(function(){
 		});
 		
 		// Biggest collections
-		jsRoutes.controllers.DashboardController.biggestCollections(1).ajax({success: 
+		jsRoutes.controllers.DashboardController.biggestCollections().ajax({success: 
 			function(json)
 			{
 		        chart = new AmCharts.AmSerialChart();
@@ -404,7 +404,7 @@ $(document).ready(function(){
 		});
 		
 		// All items from albums
-		jsRoutes.controllers.DashboardController.itemsViewedFromCollections(1, formatDate($('#view_album_filter_start').val()), formatDate($('#view_album_filter_end').val())).ajax({success:
+		jsRoutes.controllers.DashboardController.itemsViewedFromCollections( formatDate($('#view_album_filter_start').val()), formatDate($('#view_album_filter_end').val())).ajax({success:
 			function(json)
 			{
 				var selected;

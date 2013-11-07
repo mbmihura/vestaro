@@ -52,13 +52,13 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 
 
 # Dashboard
-GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
-GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
-GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections(sellerId: Long, actionDateBegin: Long, actionDateEnd: Long)
-GET		/commisionToPay					controllers.DashboardController.sellerCommission()
+GET		/littleItemsStock					controllers.DashboardController.littleItemsStock()
+GET		/biggestCollections					controllers.DashboardController.biggestCollections()
+GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
+GET		/commisionToPay						controllers.DashboardController.sellerCommission()
 
 # Actions
-GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
+GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
 # Buyer Profile
 GET		/buyerProfile			controllers.BuyerController.profile()

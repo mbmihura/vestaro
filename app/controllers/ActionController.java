@@ -11,16 +11,16 @@ import play.mvc.Result;
 
 public class ActionController extends BaseController {
 	
-	public static Result actionsFrom(Long order, Long sellerId, Long actionDateBegin, Long actionDateEnd, String actionType){
-		Seller seller = Seller.findSellerByUser(currentUserId());
+	public static Result actionsFrom(Long order,  Long actionDateBegin, Long actionDateEnd, String actionType){
 		if(order > 0)
-			return mostActionsFrom(seller.id, actionDateBegin, actionDateEnd, actionType);
+			return mostActionsFrom( actionDateBegin, actionDateEnd, actionType);
 		else
-			return lessActionsFrom(seller.id, actionDateBegin, actionDateEnd, actionType);
+			return lessActionsFrom( actionDateBegin, actionDateEnd, actionType);
 	}
 	
-	private static Result mostActionsFrom(Long sellerId, Long actionDateBegin, Long actionDateEnd, String actionType){
-		List<Item> items = Item.findItemsOwnedBy(sellerId);
+	private static Result mostActionsFrom( Long actionDateBegin, Long actionDateEnd, String actionType){
+		Seller seller = Seller.findSellerByUser(currentUserId());
+		List<Item> items = Item.findItemsOwnedBy(seller.id);
 		for(Item item : items){
 			if(actionType.equals("BUY"))
 				item.purchases = Action.findActionsFrom(actionType, actionDateBegin, actionDateEnd, item.id).size();
@@ -33,8 +33,9 @@ public class ActionController extends BaseController {
     	return ok(Json.toJson(items.size() > 5 ? items.subList(0, 5) : items));
     }
 	
-	private static Result lessActionsFrom(Long sellerId, Long actionDateBegin, Long actionDateEnd, String actionType){
-		List<Item> items = Item.findItemsOwnedBy(sellerId);
+	private static Result lessActionsFrom( Long actionDateBegin, Long actionDateEnd, String actionType){
+		Seller seller = Seller.findSellerByUser(currentUserId());
+		List<Item> items = Item.findItemsOwnedBy(seller.id);
 		for(Item item : items){
 			if(actionType.equals("BUY"))
 				item.purchases = Action.findActionsFrom(actionType, actionDateBegin, actionDateEnd, item.id).size();

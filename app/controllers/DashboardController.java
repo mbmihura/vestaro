@@ -18,7 +18,7 @@ import play.mvc.Result;
 /*TODO replace sellerId with this.currentUserId();*/
 public class DashboardController extends BaseController {
         
-    public static Result biggestCollections(Long sellerId){ 
+    public static Result biggestCollections(){ 
     	Seller seller = Seller.findSellerByUser(currentUserId());
     	List<Collection> collections = Collection.findCollectionsOwnedBy(seller.id);
     	List<CollectionItems> items = new ArrayList<CollectionItems>();
@@ -31,7 +31,7 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(items));
     }
     
-    public static Result itemsViewedFromCollections(Long sellerId, Long actionDateBegin, Long actionDateEnd){    	
+    public static Result itemsViewedFromCollections(Long actionDateBegin, Long actionDateEnd){    	
     	Seller seller = Seller.findSellerByUser(currentUserId());
 
     	List<Collection> collections = Collection.findCollectionsOwnedBy(seller.id);
@@ -50,7 +50,7 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(items));
     }
     
-    public static Result littleItemsStock(Long sellerId){
+    public static Result littleItemsStock(){
     	Seller seller = Seller.findSellerByUser(currentUserId());
 
     	List<Stock> lowStockItems = new ArrayList<Stock>();
