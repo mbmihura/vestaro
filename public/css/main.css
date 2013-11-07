@@ -5,7 +5,7 @@
 
 .vestaro-logo {
 	font-family: vivaldi;
-	color: background-color: rgba(41, 116, 185, 1);
+	color: rgba(41, 116, 185, 1);
 	letter-spacing: 3px;
 }
 
@@ -72,7 +72,12 @@
           transition: none;
 }
 
-/* photo style */
+/* Overrides bootstrap's page-header margin. */
+.page-header {
+margin: 20px 0 20px;
+}
+
+/* Items Home Buyer style */
 .items {
 padding-left: 20px;
 padding-right: 20px;
@@ -164,6 +169,7 @@ border-top-right-radius: 30px;
 	cursor: pointer;
 }
 
+/* Responsive Videos */
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -180,32 +186,7 @@ border-top-right-radius: 30px;
     height: 100%;
 }
 
-.animate-enter, 
-.animate-leave
-{ 
-    -webkit-transition: 200ms ease-in-out all;
-    -moz-transition: 200ms ease-in-out all;
-    -ms-transition: 200ms ease-in-out all;
-    -o-transition: 200ms ease-in-out all;
-    transition: 200ms ease-in-out all;
-    position: relative;
-    display: block;
-} 
-
-.animate-enter.animate-enter-active, 
-.animate-leave {
-    opacity: 1;
-    top: 0;
-    height: 30px;
-}
-
-.animate-leave.animate-leave-active,
-.animate-enter {
-    opacity: 0;
-    top: -50px;
-    height: 0px;
-}
-
+/* Search Item style */
 .item-thumb {
 	position: relative;
   margin-bottom: 10px;
