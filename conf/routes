@@ -37,6 +37,7 @@ GET		/garment							controllers.ItemController.readAll()
 GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
 DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
 PUT		/garment/:itemId					controllers.ItemController.createOrUpdate(itemId: String)
+GET 	/recommendedItems					controllers.ItemController.getItemsByList()
 # UI
 GET		/garment/new						controllers.ItemController.form()
 POST	/garment/							controllers.ItemController.submit()

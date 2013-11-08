@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.BuyOrder;
@@ -153,6 +154,24 @@ public class ItemController extends BaseController {
 			return badRequest();//TODO: think what to do when it fails
 		} catch (Exception e) {
 			return badRequest();//TODO: think what to do when it fails
+		}
+    }
+    
+    public static Result getItemsByList(){
+        try {
+			DynamicForm data = Form.form().bindFromRequest();
+			String itemsStr = data.get("items");
+			String[] itemsId = itemsStr.split(",");
+			List<Item> items = new ArrayList<Item>();
+			
+			for (int i = 0; i < itemsId.length; i++) {
+				items.add(Item.find.byId(itemsId[i]));
+			}
+			
+			return ok(Json.toJson(items));
+		} catch (Exception e) {
+			play.Logger.error(e.getMessage());
+			return badRequest(e.getMessage());
 		}
     }
 }
