@@ -62,7 +62,7 @@ AmCharts.ready(function () {
 	}
 	
 	function detailsTotal(){
-		var row = $('<tr></tr>');
+		var row = $('<tr></tr>').addClass('success');
 		var totalCommissionTitutlo= $('<td></td>').text("Total Comisión");
 		var totalCommission= $('<td></td>').text($('#commission').text());
  		var empty1 =$('<td></td>');
@@ -89,8 +89,7 @@ AmCharts.ready(function () {
  		row.append(commission);
  		
  		
-    	return row;
-	
+ 		return row;	
 	}
 	
 	var chart;
