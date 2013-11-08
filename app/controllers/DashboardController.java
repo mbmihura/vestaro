@@ -78,17 +78,20 @@ public class DashboardController extends BaseController {
     	Double commissionValue= BuyOrder.getSellerComissions(seller.id) ;
     	responseMap.put("commissionValue", commissionValue);
     	
-    	PaymentManager manager = new PaymentManager();
-    	try {
-    		String commissionCheckOutUrl= manager.commissionCheckoutUrl(commissionValue);
-    		responseMap.put("commissionCheckoutUrl", commissionCheckOutUrl);
+    	if(commissionValue >0){
+    		PaymentManager manager = new PaymentManager();
+    		try {
+    			String commissionCheckOutUrl= manager.commissionCheckoutUrl(commissionValue);
+    			responseMap.put("commissionCheckoutUrl", commissionCheckOutUrl);
+    			
+    		} catch (JSONException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}catch (Exception e) {
+    			// TODO: handle exception
+    		}
     		
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
+    	}
     	
     	return ok(Json.toJson(responseMap));
     }

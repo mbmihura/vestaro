@@ -32,7 +32,12 @@ AmCharts.ready(function () {
  	success: 
 		function(json){
 			$('#commission').text('$'+json.commissionValue);
-			$('#mpButton').attr('href',json.commissionCheckoutUrl);
+			if(json.commissionValue > 0){
+				$('#mpButton').attr('href',json.commissionCheckoutUrl);
+			}
+			else{
+				$('#payButton').attr('disabled',true);
+			}
 		}
 		});
 		
