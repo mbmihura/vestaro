@@ -1,6 +1,6 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
-	function ($scope, buyerSession) {
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
+	function ($scope, buyerSession, facebook) {
 
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;
@@ -20,6 +20,10 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
   $scope.addToWishlist = function(item){
 	  buyerSession.addToWishlist(item);
   }
+
+  $scope.shareItem = function(item){
+  	facebook.feedDialog(item, $scope);
+  }
   
   var $container = $('#itemsContainer');
 	// Toggles item size
@@ -32,12 +36,6 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 			$item.closest('.item').addClass('large');
 		}
 		$container.isotope('reLayout');
-	});
-
-	// Toggles item information
-	$container.on('.item', 'mouseenter mouseleave', function(e) {
-		e.preventDefault();
-		$(this).find('.itemInformation').fadeToggle('fast');
 	});
 
 	// Toggle know more
@@ -133,11 +131,11 @@ vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession', '$rootScope',
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
 			$rootScope.alert = {title:'Prenda eliminada de Wishlist',
-					type:'info',
-					body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
-					btns: {primary: {title: 'Seguir', href: ''},
-						   'default': {title: 'Ir a Home', href: '#/'}
-					}
+				type:'info',
+				body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
+				btns: {
+					primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+				}
 			};
 			$('#alertModal').modal('show');
 		});

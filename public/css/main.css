@@ -3,6 +3,10 @@
     src: url('../fonts/vivaldi.ttf');
 }
 
+.page-header {
+  cursor: default;
+}
+
 .vestaro-logo {
 	font-family: vivaldi;
 	color: rgba(41, 116, 185, 1);
