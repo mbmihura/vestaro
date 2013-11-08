@@ -17,22 +17,81 @@ AmCharts.ready(function () {
 	});
 	
 	function seeCommissionDetail(){
-		jsRoutes.controllers.DashboardController.commissionDetail().ajax({
- 			success: 
-			function(json){
-				$('#commissionDetailModal').modal('show');
-				
+		if( $('#commissionDetailModal').find('table').size() == 0 ) {
+			jsRoutes.controllers.DashboardController.commissionDetail().ajax({
+	 			success: 
+				function(details){
+					addDetailTable(details);
+					$('#commissionDetailModal').modal('show');
+					
+				}
+				});
 			}
-			});
 	}
 	jsRoutes.controllers.DashboardController.sellerCommission().ajax({
  	success: 
 		function(json){
 			$('#commission').text('$'+json.commissionValue);
-			$('#payValue').text('$'+json.commissionValue);
 			$('#mpButton').attr('href',json.commissionCheckoutUrl);
 		}
 		});
+		
+	
+	function addDetailTable(details){
+		var table = $('<table></table>').addClass('table table-striped')	;
+		table.append(detailsHeader());
+		$.each(details,function(){
+	 		var row = $('<tr></tr>');
+	 		var id= $('<td></td>').text(this.item.id);
+	 		var title= $('<td></td>').text(this.item.title);
+	 		var date= $('<td></td>').text(this.create_time);
+	 		var commission= $('<td></td>').text("$"+this.commission);
+	 		
+	 		row.append(id);
+	 		row.append(title);
+	 		row.append(date);
+	 		row.append(commission);
+	 		
+	 		
+	    	table.append(row);
+		
+		} );
+	    
+	    table.append(detailsTotal());
+		$('.modal-body').append(table);
+	}
+	
+	function detailsTotal(){
+		var row = $('<tr></tr>');
+		var totalCommissionTitutlo= $('<td></td>').text("Total Comisión");
+		var totalCommission= $('<td></td>').text($('#commission').text());
+ 		var empty1 =$('<td></td>');
+ 		var empty2 =$('<td></td>');
+ 		row.append(totalCommissionTitutlo);
+ 		row.append(empty1);
+ 		row.append(empty2);
+ 		row.append(totalCommission);
+ 		
+ 		return row;
+	}
+	
+	
+	function detailsHeader(){
+		var row = $('<tr></tr>');
+ 		var id= $('<td></td>').text("id Item");
+ 		var title= $('<td></td>').text("Título Item");
+ 		var date= $('<td></td>').text("Fecha pago");
+ 		var commission= $('<td></td>').text("Comisión");
+ 		
+ 		row.append(id);
+ 		row.append(title);
+ 		row.append(date);
+ 		row.append(commission);
+ 		
+ 		
+    	return row;
+	
+	}
 	
 	var chart;
 	var date = new Date();
