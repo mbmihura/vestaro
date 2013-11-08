@@ -173,10 +173,34 @@ vestaroMain.factory('facebook', [function(){
 
 vestaroMain.factory('easyrec', [function(){
   return {
-    mostViewedItems: function(options, callback){
+    /* recommendationType = { 'otherusersalsoviewed',
+        'otherusersalsobought',
+        'itemsratedgoodbyotherusers',
+        'recommendationsforuser',
+        'relateditems',
+        'actionhistoryforuser',
+      }
+      options = {
+        userId: authData.currentUser.id,
+        requesteditemtype = { 'male', 'female', 'unisex' }
+      }
+      */
+    getRecommendations: function(recommendationType, options, callback){
       drawingCallback = callback;
       options.drawingCallback = 'drawingCallback';
-      easyrec_mostViewedItems(options);
+      easyrec_getRecommendations(recommendationType, options);
+    },
+    /* options = {
+        itemId: '{{item.id}}',
+        itemUrl: '/garment/{{item.id}}',
+        itemDescription: '{{item.title}}',
+        itemImageUrl: '{{item.imgUrl}}'
+      } 
+      actionType = { 'buy', 'view', '...' }*/
+    sendAction: function(actionType, options, callback){
+      actionCallback = callback;
+      options.actionCallback = 'actionCallback';
+      easyrec_sendAction(actionType, options);
     }
   }
 }]);

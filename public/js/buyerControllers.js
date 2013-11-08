@@ -2,10 +2,10 @@
 vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook', 'easyrec',
 	function ($scope, buyerSession, facebook, easyrec) {
 
-  // DEBUG
-  console.log(authData.currentUser);
-
-  easyrec.mostViewedItems({requestedItemType: 'male'},
+  // TODO: replace with information of currentUser
+  easyrec.getRecommendations('recommendationsforuser',
+  	{requestedItemType: 'male',
+  	 userId: '206'},
   	function (data){
   		console.log(data);
   });
