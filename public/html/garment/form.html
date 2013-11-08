@@ -9,12 +9,12 @@
           <div class="form-group">
 		  <label class="control-label" for="title">Nombre</label>
 		  <div class="controls">
-		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="" value="">
+		    <input id="title" name="title" type="text" placeholder="Nombre de prenda..." class="form-control" required="" value="{{garment.title}}">
 		  </div>
 		</div><div class="form-group">
 		  <label class="control-label" for="description">Descripción</label>
 		  <div class="controls">                     
-		    <textarea id="description" name="description" class="form-control" required="" value=""></textarea>
+		    <textarea id="description" name="description" class="form-control" required="" value="">{{garment.description}}</textarea>
 		  </div>
 		</div>
 
@@ -29,7 +29,7 @@
     float: left;
                                     
     text-decoration: underline;
-">http://eretr.com/ertert.png</a> <button type="button" class="btn btn-default btn-xs" style="
+">{{garment.imgUrl}}</a> <button type="button" class="btn btn-default btn-xs" style="
     margin-top: 6px;
     margin-bottom: 5px;
 ">
@@ -38,7 +38,7 @@
 		  <div class="controls" style="
     text-align: center;
 ">
-		    <img src="http://a2.zassets.com/images/z/2/4/7/9/4/5/2479458-p-MULTIVIEW.jpg " alt="imagend de la prenda" style="
+		    <img src="{{garment.imgUrl}}" alt="imagend de la prenda" style="
     height: 200px;
 ">		    
 		  </div>
@@ -71,7 +71,7 @@
 ">Precio</label>
   <div class="controls">
 			  <label class="control-label">
-			    <input id="price" name="price" type="text" placeholder="100" class="form-control" required="" value=""></label>
+			    <input id="price" name="price" type="text" placeholder="100" class="form-control" required="" value="{{garment.price}}"></label>
 			  
 			  
 			</div>
@@ -109,17 +109,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr ng-repeat="stock in garment.availableStock">
             <td>1</td>
-            
-            
-<td><input type="text" id="stocks_0_" name="stocks[0]" value=""></td><td class="col-lg-4"><input class="col-lg-4" type="text" id="stocks_0_" name="stocks[0]" value=""></td>
-<td style="
-    text-align: center;
-"><button type="button" class="btn btn-danger btn-xs">
-  <span class="glyphicon glyphicon-remove"></span> Remover
-</button></td>
-            
+			<td><input type="text" id="stocks_0_" name="stocks[0]" value="{{stock}}"></td>
+			<td class="col-lg-4"><input class="col-lg-4" type="text" id="stocks_0_" name="stocks[0]" value="{{stock}}"></td>
+			<td style="text-align: center;"><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Remover</button></td>
           </tr>
 
           

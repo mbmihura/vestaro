@@ -25,8 +25,8 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
   }
 }])
 
-.controller('GarmentEditCtrl', ['$scope', function($scope){
-  
+.controller('GarmentEditCtrl', ['$scope', 'garmentsApi', '$routeParams', function($scope, garmentsApi, $routeParams){
+  $scope.garment = garmentsApi.get({id: $routeParams.id});
 }])
 
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
