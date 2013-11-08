@@ -12,7 +12,9 @@ public class PaymentManager {
 	private static final String PAYMENT_SUCCESS_URL = SITE_URL + "/#/payment/success/";
 	private static final String PAYMENT_ERROR_URL = SITE_URL + "/#/payment/error/";
 	private static final String PAYMENT_PENDING_URL = SITE_URL + "/#/payment/success/";
-
+	private static final String COMMISSION_PAYMENT_SUCCESS_URL = SITE_URL + "/#/commissionPayment/success/";
+	private static final String COMMISSION_PAYMENT_ERROR_URL = SITE_URL + "/#/commissionPayment/error/";
+	private static final String COMMISSION_PAYMENT_PENDING_URL = SITE_URL + "/#/commissionPayment/success/";
 	
 	private static final String CLIENT_SECRET_VESTARO = "uToiGVlNavrrbtjFX6ksHP51RQsG5and";
 	private static final String CLIENT_ID_VESTARO = "1406963671517811";
@@ -25,7 +27,62 @@ public class PaymentManager {
 		 		
 		 return buyPreferenceJson.getJSONObject("response").getString("sandbox_init_point");
 	}
+	
+	public String commissionCheckoutUrl(Double value) throws JSONException, Exception{
+		 MP mp = new MP(CLIENT_ID_VESTARO, CLIENT_SECRET_VESTARO);
+		 JSONObject commissionPreferenceJson= mp.createPreference(createCommissionJSONPreference(value));
 
+		 return commissionPreferenceJson.getJSONObject("response").getString("sandbox_init_point");
+	}
+
+
+	private JSONObject createCommissionJSONPreference(Double value) throws JSONException {
+		
+		JSONObject preferenceJson = new JSONObject();
+		 
+		 JSONObject itemJson = new JSONObject();
+		 itemJson.put("title","Pago Comisión");
+		 itemJson.put("description", "Pago comisión mes 10 año 2013");//TODO: get month and year
+		 itemJson.put("quantity", 1);
+		 itemJson.put("unit_price", value);
+		 itemJson.put("currency_id", "ARS");
+		 
+		 ArrayList<JSONObject> items = new ArrayList<JSONObject>();
+		 items.add(itemJson);
+		 
+		 
+		 JSONObject backUrlJson = new JSONObject();
+		 backUrlJson.put("success", COMMISSION_PAYMENT_SUCCESS_URL + 1);//TODO: associate to an id
+		 backUrlJson.put("error", COMMISSION_PAYMENT_ERROR_URL + 1);
+		 backUrlJson.put("pending", COMMISSION_PAYMENT_PENDING_URL + 1);
+		 
+		 
+		 JSONObject excludedPaymentMethodJSON = excudedTypesPreferences();
+		 
+		 preferenceJson.put("items", items);
+		 preferenceJson.put("back_urls", backUrlJson);
+		 preferenceJson.put("payment_methods", excludedPaymentMethodJSON);
+		 
+		return preferenceJson;
+
+	}
+
+	private JSONObject excudedTypesPreferences() throws JSONException {
+		JSONObject excludedPaymentMethodJSON = new JSONObject();
+		
+		 ArrayList<JSONObject> excludedTypes = new ArrayList<JSONObject>();
+		 JSONObject typeTicket = new JSONObject();
+		 typeTicket.put("id", "ticket");
+		 JSONObject typeTransfer = new JSONObject();
+		 typeTransfer.put("id", "Bank Transfer");
+		 JSONObject typeATM= new JSONObject();
+		 typeATM.put("id", "atm");
+		 excludedTypes.add(typeTicket);
+		 excludedTypes.add(typeTransfer);
+		 excludedTypes.add(typeATM);
+		 excludedPaymentMethodJSON.put("excluded_payment_types", excludedTypes);
+		return excludedPaymentMethodJSON;
+	}
 
 	private JSONObject createJSONPreference(BuyOrder buyOrder) throws JSONException {
 		double payamount= buyOrder.price - (buyOrder.pointsUsed * buyOrder.item.seller.pointMoneyRelation);
@@ -53,19 +110,7 @@ public class PaymentManager {
 		 JSONObject payerJSON = new JSONObject();
 		 payerJSON.put("email", buyOrder.buyer.mail);
 		 
-		 JSONObject excludedPaymentMethodJSON = new JSONObject();
-		
-		 ArrayList<JSONObject> excludedTypes = new ArrayList<JSONObject>();
-		 JSONObject typeTicket = new JSONObject();
-		 typeTicket.put("id", "ticket");
-		 JSONObject typeTransfer = new JSONObject();
-		 typeTransfer.put("id", "Bank Transfer");
-		 JSONObject typeATM= new JSONObject();
-		 typeATM.put("id", "atm");
-		 excludedTypes.add(typeTicket);
-		 excludedTypes.add(typeTransfer);
-		 excludedTypes.add(typeATM);
-		 excludedPaymentMethodJSON.put("excluded_payment_types", excludedTypes);
+		 JSONObject excludedPaymentMethodJSON = excudedTypesPreferences();
 		 
 		 preferenceJson.put("items", items);
 		 preferenceJson.put("back_urls", backUrlJson);

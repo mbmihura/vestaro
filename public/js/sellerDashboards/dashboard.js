@@ -19,8 +19,7 @@ AmCharts.ready(function () {
 	function seeCommissionDetail(){
 		jsRoutes.controllers.DashboardController.commissionDetail().ajax({
  			success: 
-			function(checkoutUrl){
-				$('#mpButton').attr('href','http://www.google.com');
+			function(json){
 				$('#commissionDetailModal').modal('show');
 				
 			}
@@ -28,9 +27,10 @@ AmCharts.ready(function () {
 	}
 	jsRoutes.controllers.DashboardController.sellerCommission().ajax({
  	success: 
-		function(commissionAmount){
-			$('#commission').text('$'+commissionAmount);
-			$('#payValue').text('$'+commissionAmount);
+		function(json){
+			$('#commission').text('$'+json.commissionValue);
+			$('#payValue').text('$'+json.commissionValue);
+			$('#mpButton').attr('href',json.commissionCheckoutUrl);
 		}
 		});
 	

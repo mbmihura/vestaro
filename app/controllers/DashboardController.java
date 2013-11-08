@@ -3,19 +3,25 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import models.Action;
 import models.BuyOrder;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
+import models.PaymentManager;
 import models.Seller;
 import models.Stock;
 import play.libs.Json;
 import play.mvc.Result;
+import play.mvc.Results;
 
-/*TODO replace sellerId with this.currentUserId();*/
 public class DashboardController extends BaseController {
         
     public static Result biggestCollections(){ 
@@ -66,11 +72,27 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(lowStockItems));
     }
     
-    public static Result sellerCommission(){
+    public static Result sellerCommission() {
     	
+    	HashMap<String, Object> responseMap = new LinkedHashMap<String, Object>();
     	Seller seller = Seller.findSellerByUser(currentUserId());
     	Calendar calendar = Calendar.getInstance();
-    	return ok(Json.toJson(BuyOrder.getSellerComissions(seller.id, calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)) ));
+    	Double commissionValue= BuyOrder.getSellerComissions(seller.id, calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)) ;
+    	responseMap.put("commissionValue", commissionValue);
+    	
+    	PaymentManager manager = new PaymentManager();
+    	try {
+    		String commissionCheckOutUrl= manager.commissionCheckoutUrl(commissionValue);
+    		responseMap.put("commissionCheckoutUrl", commissionCheckOutUrl);
+    		
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	return ok(Json.toJson(responseMap));
     }
 
     public static Result commissionDetail(){
@@ -80,4 +102,17 @@ public class DashboardController extends BaseController {
     	//TODO: return detail
     	return ok();
     }
+    
+    public static Result paymentSuccess(Long commissionId){
+    	
+    	//TODO: show success message
+    	return TODO;
+    }
+    
+    public static Result paymentError(Long commissionId){
+    	
+    	//TODO: show error message
+    	return TODO;
+    }
+    
 }

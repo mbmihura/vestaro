@@ -57,6 +57,8 @@ GET		/biggestCollections					controllers.DashboardController.biggestCollections(
 GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
 GET		/commisionToPay						controllers.DashboardController.sellerCommission()
 GET		/commissionDetail					controllers.DashboardController.commissionDetail()
+GET		/commissionPayment/success/:commissionId controllers.DashboardController.paymentSuccess(commissionId: Long)
+GET		/commissionPayment/error/:commissionId controllers.DashboardController.paymentError(commissionId: Long)
 
 # Actions
 GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
