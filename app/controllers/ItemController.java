@@ -22,11 +22,7 @@ public class ItemController extends BaseController {
     
 	private static final int UNPROCESSABLE_ENTITY = 422;
 	static Form<Item> itemForm = Form.form(Item.class);
-	
-	public static Result form() {
-		return ok(form.render(itemForm));
-	}
-	
+		
     public static Result submit() {
     	Form<Item> itemFilledForm = itemForm.bindFromRequest();
     	if(itemFilledForm.hasErrors()) {
@@ -45,23 +41,21 @@ public class ItemController extends BaseController {
     	} else {
     		return notFound();
     	}
-    	
     }
-    
     
     public static Result readAll() {
     	return ok(Json.toJson(Item.find.all()));
     }
     
     public static Result createOrUpdate(String id) {
-    	Item item = Item.find.byId(id);
+    	Item item = Item.find.byId(id); // validate item owner is current user, if not forbiden
     	boolean created = false;
     	
     	if (item == null) {
     		item = new Item(id);
     		created = true;
     	}
-    	
+            	
 		DynamicForm data = Form.form().bindFromRequest();
         
 		String title = data.get("title");
@@ -84,13 +78,12 @@ public class ItemController extends BaseController {
 		if (sex != null && !sex.isEmpty())
 			item.sex = sex;
 		
+        // if .save fails return correct http status code: return badRequest();
 		item.save();
-		if (created)
-		{
+		if (created) {
 			return created(Json.toJson(item));
-		}else
-		{
-        return ok(Json.toJson(item));
+		} else {
+            return ok(Json.toJson(item));
 		}
     }
 
