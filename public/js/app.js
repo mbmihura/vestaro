@@ -43,7 +43,7 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 /* Data Factory */
-vestaroMain.factory('buyerSession', function($http){
+vestaroMain.factory('buyerSession', function($http, $rootScope){
     return {
         getWishlist: function() {
             return $http.get('/wishlist');
@@ -61,11 +61,11 @@ vestaroMain.factory('buyerSession', function($http){
                      {id: 1, name: 'Camisa', sexo: 'Mujer'},
                      {id: 2, name: 'Campera', sexo: 'Hombre'}];
         },
-        addToWishlist: function(item, $scope) {
+        addToWishlist: function(item) {
             return $http.post('/wishlist', {'itemId': item.id})
                 .success(function(data){
                   console.log(data);
-                  $scope.alert =
+                  $rootScope.alert =
                     {title:'Prenda agregada a Wishlist',
                       type:'info',
                       body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
@@ -84,7 +84,7 @@ vestaroMain.factory('buyerSession', function($http){
                       break;
 
                     case 400: // TODO: change server response from badRequest to sth mor appropiate.
-                      $scope.alert =
+                      $rootScope.alert =
                         {title:'La prenda ya está en tu Wishlist',
                           type:'warning',
                           body: 'La prenda ' + item.title + ' ya fue agregada a tu wishlist.',
@@ -97,7 +97,7 @@ vestaroMain.factory('buyerSession', function($http){
                       break;
 
                     default:
-                      $scope.alert =
+                      $rootScope.alert =
                         {title:'<strong>Oops</strong>, parece que hubo un problema',
                           type:'error',
                           body: 'La prenda ' + item.title + ' no pudo ser agregada a tu wishlist.',

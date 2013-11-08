@@ -235,12 +235,15 @@ border-top-right-radius: 30px;
   text-align: center;
   padding: 4px;
   height: 210px;
+  /*Hack to center verically the img.*/
+  line-height: 160px;
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
   max-height: 160px;
-  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 .item-thumb .item-main .item-title {
@@ -256,6 +259,7 @@ border-top-right-radius: 30px;
 
 .item-thumb .item-main.wishlist {
   height: 400px;
+  line-height: 345px;
 }
 
 .item-thumb .item-main .item-img.wishlist {
