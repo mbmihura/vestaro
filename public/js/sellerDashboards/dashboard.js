@@ -31,7 +31,8 @@ AmCharts.ready(function () {
 	jsRoutes.controllers.DashboardController.sellerCommission().ajax({
  	success: 
 		function(json){
-			$('#commission').text('$'+json.commissionValue);
+			$('#commission').text('$'+json.commissionValue.toFixed(2));
+			
 			if(json.commissionValue > 0){
 				$('#mpButton').attr('href',json.commissionCheckoutUrl);
 			}
