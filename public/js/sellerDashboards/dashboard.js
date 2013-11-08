@@ -41,6 +41,19 @@ AmCharts.ready(function () {
 		}
 		});
 		
+
+	function formatJsonDate(dateJson){
+	 	var d = new Date(dateJson);
+	    var day = d.getDate();
+	    var month = d.getMonth() + 1;
+	    var year = d.getFullYear();
+	
+	    if (month < 10) {
+	        month = "0" + month;
+	     }
+	     
+	    return year + "." + month + "." + day;
+	}
 	
 	function addDetailTable(details){
 		var table = $('<table></table>').addClass('table table-striped')	;
@@ -49,7 +62,7 @@ AmCharts.ready(function () {
 	 		var row = $('<tr></tr>');
 	 		var id= $('<td></td>').text(this.item.id);
 	 		var title= $('<td></td>').text(this.item.title);
-	 		var date= $('<td></td>').text(this.create_time);
+	 		var date= $('<td></td>').text(formatJsonDate(this.pay_time));
 	 		var commission= $('<td></td>').text("$"+this.commission);
 	 		
 	 		row.append(id);

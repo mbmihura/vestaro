@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,7 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
+import play.data.format.Formats.DateTime;
 import play.db.ebean.Model;
+import play.api.data.format.*;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
@@ -78,6 +81,9 @@ public class BuyOrder extends Model{
 	
 	 @CreatedTimestamp
 	public Timestamp create_time;
+	  
+	@DateTime(pattern = "dd-mm-yyyy hh:MM") 
+	public Date pay_time;
 	
 	 @Version
 	 public Timestamp update_time;
@@ -140,6 +146,7 @@ public class BuyOrder extends Model{
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
 		this.assignCredits();
+		this.pay_time = new Date();
 		this.size.consumeStock();
 		this.buyer.save();
 		this.save();
@@ -179,7 +186,7 @@ public class BuyOrder extends Model{
 	}
 
 	public static List<BuyOrder> getCommissionsDetail(Long sellerId){
-		return  getCommissionsNotPayed(sellerId,"item.id, commission, item.title, create_time");
+		return  getCommissionsNotPayed(sellerId,"item.id, commission, item.title, create_time, pay_time");
 
 	}
 	
