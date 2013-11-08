@@ -139,11 +139,11 @@ vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
 			$scope.alert = {title:'Prenda eliminada de Wishlist',
-					type:'info',
-					body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
-					btns: {primary: {title: 'Continuar', href: ''},
-						   'default': {title: 'Ir a Home', href: '#/'}
-					}
+				type:'info',
+				body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
+				btns: {
+					primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+				}
 			};
 			$('#alertModal').modal('show');
 		});
