@@ -2,14 +2,19 @@ package controllers;
 
 import models.BuyOrder;
 import models.Seller;
-import play.mvc.Controller;
+import models.BuyOrder.State;
 import play.mvc.Result;
 
 public class PaymentController extends BaseController{
 
 	public static Result success(Long orderId){
+
 		BuyOrder buyOrder= BuyOrder.find.byId(orderId);
-		buyOrder.successfulPayment();
+		if(buyOrder.state == State.PAYMENT_PENDING){
+		//To avoid assigning the same points more than once
+			buyOrder.successfulPayment();
+			buyOrder.registerPurchase();
+		}
 		return ok(views.html.successfulPayment.render(buyOrder, (buyOrder.pointsEarned >0)));
 
 		

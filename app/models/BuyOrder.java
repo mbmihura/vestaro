@@ -11,7 +11,6 @@ import javax.persistence.Version;
 
 import play.data.format.Formats.DateTime;
 import play.db.ebean.Model;
-import play.api.data.format.*;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
@@ -150,8 +149,19 @@ public class BuyOrder extends Model{
 		this.size.consumeStock();
 		this.buyer.save();
 		this.save();
+		
 	}
 	
+	public void registerPurchase() {
+	   Action newAction = new Action("BUY", buyer.user.userId, item.id, new Date());
+		newAction.save();
+
+
+			
+		
+	}
+
+
 	private void assignCredits() {
 		if(this.item.seller.pointsEnabled){
 			this.pointsEarned = (int) (this.price - (this.item.seller.pointMoneyRelation *this.pointsUsed));

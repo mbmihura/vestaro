@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,11 +31,29 @@ public class Action extends Model {
 
     public static Finder<Long,Action> find = new Finder<Long,Action>(Long.class, Action.class);
 
-    public static List<Action> findActionsFrom(String actionType, Long actionDateBegin, Long actionDateEnd, String itemId){
+    public Action(String actionType, Long userId, String itemId, Date date) {
+    	this.action_type = actionType;
+    	this.userId=userId;
+    	this.itemId = itemId;
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	this.date =  (long) (cal.get(Calendar.YEAR)*10000 + (cal.get(Calendar.MONTH)+1)*100) + cal.get(Calendar.DAY_OF_MONTH);
+    	
+    }
+
+
+	public Action() {
+	}
+
+
+	public static List<Action> findActionsFrom(String actionType, Long actionDateBegin, Long actionDateEnd, String itemId){
         return Action.find.where()
 	    		.eq("itemId", itemId)
 	    		.eq("action_type", actionType)
 	    		.between("date", actionDateBegin == null ? 0L : actionDateBegin, actionDateEnd == null ? 29991231L : actionDateEnd)
 		        .findList();
     }
+    
+    
+    
 }

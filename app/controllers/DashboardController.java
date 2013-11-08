@@ -15,7 +15,6 @@ import models.PaymentManager;
 import models.Seller;
 import models.Stock;
 
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jettison.json.JSONException;
 
 import play.libs.Json;
