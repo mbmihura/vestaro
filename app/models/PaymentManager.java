@@ -42,7 +42,6 @@ public class PaymentManager {
 		 
 		 JSONObject itemJson = new JSONObject();
 		 itemJson.put("title","Pago Comisión");
-		 itemJson.put("description", "Pago comisión mes 10 año 2013");//TODO: get month and year
 		 itemJson.put("quantity", 1);
 		 itemJson.put("unit_price", value);
 		 itemJson.put("currency_id", "ARS");
@@ -52,9 +51,9 @@ public class PaymentManager {
 		 
 		 
 		 JSONObject backUrlJson = new JSONObject();
-		 backUrlJson.put("success", COMMISSION_PAYMENT_SUCCESS_URL + 1);//TODO: associate to an id
-		 backUrlJson.put("error", COMMISSION_PAYMENT_ERROR_URL + 1);
-		 backUrlJson.put("pending", COMMISSION_PAYMENT_PENDING_URL + 1);
+		 backUrlJson.put("success", COMMISSION_PAYMENT_SUCCESS_URL );
+		 backUrlJson.put("error", COMMISSION_PAYMENT_ERROR_URL);
+		 backUrlJson.put("pending", COMMISSION_PAYMENT_PENDING_URL);
 		 
 		 
 		 JSONObject excludedPaymentMethodJSON = excudedTypesPreferences();

@@ -101,17 +101,6 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(BuyOrder.getCommissionsDetail(seller.id)) );
     }
     
-    public static Result paymentSuccess(Long commissionId){
-    	Seller seller = Seller.findSellerByUser(currentUserId());
-    	BuyOrder buyOrderManager = new BuyOrder();
-    	buyOrderManager.markCommissionsAsPayed(seller.id);
-    	return ok("Pago exitoso!");
-    }
-    
-    public static Result paymentError(Long commissionId){
-    	
-    	//TODO: show error message
-    	return TODO;
-    }
+  
     
 }

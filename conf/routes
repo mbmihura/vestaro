@@ -55,10 +55,8 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 GET		/littleItemsStock					controllers.DashboardController.littleItemsStock()
 GET		/biggestCollections					controllers.DashboardController.biggestCollections()
 GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
-GET		/commisionToPay						controllers.DashboardController.sellerCommission()
+GET		/commissionToPay					controllers.DashboardController.sellerCommission()
 GET		/commissionDetail					controllers.DashboardController.commissionDetail()
-GET		/commissionPayment/success/:commissionId controllers.DashboardController.paymentSuccess(commissionId: Long)
-GET		/commissionPayment/error/:commissionId controllers.DashboardController.paymentError(commissionId: Long)
 
 # Actions
 GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
@@ -83,8 +81,10 @@ GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
 
 # Payment Process
-GET		/buy				controllers.ItemController.buy()
-POST	/orderItem					controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
-GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
-GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)
+GET		/buy								controllers.ItemController.buy()
+POST	/orderItem							controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
+GET 	/payment/success/:orderId 			controllers.PaymentController.success(orderId:Long)
+GET 	/payment/error/:orderId 			controllers.PaymentController.error(orderId:Long)
+GET		/commissionPayment/success/			controllers.PaymentController.commissionPaymentSuccess()
+GET		/commissionPayment/error/ 			controllers.PaymentController.commissionPaymentError()
 
