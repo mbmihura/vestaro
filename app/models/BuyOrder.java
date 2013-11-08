@@ -74,6 +74,7 @@ public class BuyOrder extends Model{
 	public Integer pointsEarned=0;
 	public State state =State.PAYMENT_PENDING;
 	public String disputeMessage;
+	public boolean commissionPayed =false;
 	
 	 @CreatedTimestamp
 	public Timestamp create_time;
@@ -167,13 +168,11 @@ public class BuyOrder extends Model{
 		
 	}
 	
-	public static Double getSellerComissions(Long sellerId, Integer month, Integer year){
-		//List<BuyOrder> orders= BuyOrder.find.select("item.id, item.title, item.collection.title, item.precio ,item.seller.pointMoneyRelation , pointsUsed")
-		List<BuyOrder> orders= BuyOrder.find.where()
+	public static Double getSellerComissions(Long sellerId){
+		List<BuyOrder> orders= BuyOrder.find.select("commission").where()
 				.eq("item.seller.id", sellerId)
 				.ne("state", State.PAYMENT_PENDING)
-//				.eq("month(create_time)", month)
-//				.eq("year(create_time)",year)
+				.eq("commissionPayed", false)
 				.findList();
 		
 		Double amountToPay=0.0;

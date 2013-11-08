@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-
 import models.Action;
 import models.BuyOrder;
 import models.Collection;
@@ -18,9 +15,11 @@ import models.Item;
 import models.PaymentManager;
 import models.Seller;
 import models.Stock;
+
+import org.codehaus.jettison.json.JSONException;
+
 import play.libs.Json;
 import play.mvc.Result;
-import play.mvc.Results;
 
 public class DashboardController extends BaseController {
         
@@ -76,8 +75,7 @@ public class DashboardController extends BaseController {
     	
     	HashMap<String, Object> responseMap = new LinkedHashMap<String, Object>();
     	Seller seller = Seller.findSellerByUser(currentUserId());
-    	Calendar calendar = Calendar.getInstance();
-    	Double commissionValue= BuyOrder.getSellerComissions(seller.id, calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)) ;
+    	Double commissionValue= BuyOrder.getSellerComissions(seller.id) ;
     	responseMap.put("commissionValue", commissionValue);
     	
     	PaymentManager manager = new PaymentManager();
