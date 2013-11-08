@@ -7,6 +7,7 @@
 	font-family: vivaldi;
 	color: rgba(41, 116, 185, 1);
 	letter-spacing: 3px;
+  cursor: default;
 }
 
 /**** Isotope Filtering ****/
@@ -246,6 +247,7 @@ border-top-right-radius: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
   height: 20px;
+  cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
   overflow: hidden;
