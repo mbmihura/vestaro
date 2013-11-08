@@ -18,7 +18,7 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item, $scope);
+	  buyerSession.addToWishlist(item);
   }
 
   $scope.shareItem = function(item){
@@ -114,13 +114,13 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item, $scope);
+	  buyerSession.addToWishlist(item);
   }
   
 }]);
 
-vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
-	function ($scope, buyerSession, $http) {
+vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession', '$rootScope',
+	function ($scope, buyerSession, $rootScope) {
 
 	buyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
@@ -130,7 +130,7 @@ vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 		buyerSession.removeFromWishlist(item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
-			$scope.alert = {title:'Prenda eliminada de Wishlist',
+			$rootScope.alert = {title:'Prenda eliminada de Wishlist',
 				type:'info',
 				body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
 				btns: {

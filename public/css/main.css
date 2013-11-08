@@ -3,10 +3,15 @@
     src: url('../fonts/vivaldi.ttf');
 }
 
+.page-header {
+  cursor: default;
+}
+
 .vestaro-logo {
 	font-family: vivaldi;
 	color: rgba(41, 116, 185, 1);
 	letter-spacing: 3px;
+  cursor: default;
 }
 
 /**** Isotope Filtering ****/
@@ -234,18 +239,22 @@ border-top-right-radius: 30px;
   text-align: center;
   padding: 4px;
   height: 210px;
+  /*Hack to center verically the img.*/
+  line-height: 160px;
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
   max-height: 160px;
-  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 .item-thumb .item-main .item-title {
   margin-top: 10px;
   margin-bottom: 10px;
   height: 20px;
+  cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
   overflow: hidden;
@@ -254,6 +263,7 @@ border-top-right-radius: 30px;
 
 .item-thumb .item-main.wishlist {
   height: 400px;
+  line-height: 345px;
 }
 
 .item-thumb .item-main .item-img.wishlist {
