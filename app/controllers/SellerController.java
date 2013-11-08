@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Buyer;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;

@@ -169,11 +169,7 @@ public class BuyOrder extends Model{
 	}
 	
 	public static Double getSellerComissions(Long sellerId){
-		List<BuyOrder> orders= BuyOrder.find.select("commission").where()
-				.eq("item.seller.id", sellerId)
-				.ne("state", State.PAYMENT_PENDING)
-				.eq("commissionPayed", false)
-				.findList();
+		List<BuyOrder> orders= getCommissionsNotPayed(sellerId,"commission");
 		
 		Double amountToPay=0.0;
 		for (BuyOrder buyOrder : orders) {
@@ -182,6 +178,10 @@ public class BuyOrder extends Model{
 		return amountToPay;
 	}
 
+	public static List<BuyOrder> getCommissionsDetail(Long sellerId){
+		return  getCommissionsNotPayed(sellerId,"item.id, commission, item.title, create_time");
+
+	}
 	
 	private double getCommision() {
 		return (price - (pointsUsed* item.seller.pointMoneyRelation)) * COMMISSION_PERCENT;
@@ -189,16 +189,22 @@ public class BuyOrder extends Model{
 
 
 	public void markCommissionsAsPayed(Long sellerId) {
-		List<BuyOrder> orders= BuyOrder.find.select("id, commissionPayed").where()
-				.eq("item.seller.id", sellerId)
-				.ne("state", State.PAYMENT_PENDING)
-				.eq("commissionPayed", false)
-				.findList();
+		List<BuyOrder> orders = getCommissionsNotPayed(sellerId,"id, commissionPayed");
 		
 		for (BuyOrder buyOrder : orders) {
 			buyOrder.commissionPayed= true;
 			buyOrder.save();
 		}
+	}
+
+
+	private static List<BuyOrder> getCommissionsNotPayed(Long sellerId, String select) {
+		List<BuyOrder> orders= BuyOrder.find.select(select).where()
+				.eq("item.seller.id", sellerId)
+				.ne("state", State.PAYMENT_PENDING)
+				.eq("commissionPayed", false)
+				.findList();
+		return orders;
 	}
 
 }

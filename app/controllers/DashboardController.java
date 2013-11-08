@@ -2,7 +2,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,6 +15,7 @@ import models.PaymentManager;
 import models.Seller;
 import models.Stock;
 
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jettison.json.JSONException;
 
 import play.libs.Json;
@@ -94,11 +94,8 @@ public class DashboardController extends BaseController {
     }
 
     public static Result commissionDetail(){
-    	
     	Seller seller = Seller.findSellerByUser(currentUserId());
-    	Calendar calendar = Calendar.getInstance();
-    	//TODO: return detail
-    	return ok();
+    	return ok(Json.toJson(BuyOrder.getCommissionsDetail(seller.id)) );
     }
     
     public static Result paymentSuccess(Long commissionId){
