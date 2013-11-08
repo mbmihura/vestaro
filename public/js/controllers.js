@@ -26,7 +26,22 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
 }])
 
 .controller('GarmentEditCtrl', ['$scope', 'garmentsApi', '$routeParams', function($scope, garmentsApi, $routeParams){
-  $scope.garment = garmentsApi.get({id: $routeParams.id});
+  $scope.garment = garmentsApi.get({id: $routeParams.id})
+  
+  $scope.hasChanged = function() {
+    return !angular.equals($scope.remote, $scope.project);
+  }
+  
+  $scope.destroy = function() {
+    garmentsApi.delete({id: $scope.remote});
+      // go back or $location.path('/');
+    };
+  
+  $scope.save = function() {
+    garmentsApi.save({},$scope.garment);
+    // go back
+  };
+
 }])
 
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
