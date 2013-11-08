@@ -99,6 +99,7 @@
               
               // Load user's name
               FB.api('/me', function(response) {
+                authData.currentUser = response;
                 $('.navbar .nav .currentUsername').text(response.name).show();
                 console.log('Good to see you, ' + response.name + '.');
                 if (FB.VestaroData.registrationMode)

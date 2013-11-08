@@ -1,6 +1,14 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
-	function ($scope, buyerSession, facebook) {
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook', 'easyrec',
+	function ($scope, buyerSession, facebook, easyrec) {
+
+  // DEBUG
+  console.log(authData.currentUser);
+
+  easyrec.mostViewedItems({requestedItemType: 'male'},
+  	function (data){
+  		console.log(data);
+  });
 
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;

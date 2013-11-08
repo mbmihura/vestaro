@@ -118,7 +118,7 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
     };
 }]);
 
-vestaroMain.factory('facebook', ['$location', function($location){
+vestaroMain.factory('facebook', [function(){
   return {
     feedDialog: function(item, $scope){
       FB.ui(
@@ -170,3 +170,14 @@ vestaroMain.factory('facebook', ['$location', function($location){
     }
   };
 }]);
+
+vestaroMain.factory('easyrec', [function(){
+  return {
+    mostViewedItems: function(options, callback){
+      drawingCallback = callback;
+      options.drawingCallback = 'drawingCallback';
+      easyrec_mostViewedItems(options);
+    }
+  }
+}]);
+
