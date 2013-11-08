@@ -182,9 +182,23 @@ public class BuyOrder extends Model{
 		return amountToPay;
 	}
 
-
+	
 	private double getCommision() {
 		return (price - (pointsUsed* item.seller.pointMoneyRelation)) * COMMISSION_PERCENT;
+	}
+
+
+	public void markCommissionsAsPayed(Long sellerId) {
+		List<BuyOrder> orders= BuyOrder.find.select("id, commissionPayed").where()
+				.eq("item.seller.id", sellerId)
+				.ne("state", State.PAYMENT_PENDING)
+				.eq("commissionPayed", false)
+				.findList();
+		
+		for (BuyOrder buyOrder : orders) {
+			buyOrder.commissionPayed= true;
+			buyOrder.save();
+		}
 	}
 
 }

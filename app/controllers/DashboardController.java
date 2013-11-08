@@ -102,9 +102,10 @@ public class DashboardController extends BaseController {
     }
     
     public static Result paymentSuccess(Long commissionId){
-    	
-    	//TODO: show success message
-    	return TODO;
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+    	BuyOrder buyOrderManager = new BuyOrder();
+    	buyOrderManager.markCommissionsAsPayed(seller.id);
+    	return ok("Pago exitoso!");
     }
     
     public static Result paymentError(Long commissionId){
