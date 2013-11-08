@@ -11,11 +11,26 @@ AmCharts.ready(function () {
 	}
 	
 	// ==================== Commission ====================
-
+	$('#payButton').click(function(){
+		
+		seeCommissionDetail();
+	});
+	
+	function seeCommissionDetail(){
+		jsRoutes.controllers.DashboardController.commissionDetail().ajax({
+ 			success: 
+			function(checkoutUrl){
+				$('#mpButton').attr('href','http://www.google.com');
+				$('#commissionDetailModal').modal('show');
+				
+			}
+			});
+	}
 	jsRoutes.controllers.DashboardController.sellerCommission().ajax({
  	success: 
 		function(commissionAmount){
 			$('#commission').text('$'+commissionAmount);
+			$('#payValue').text('$'+commissionAmount);
 		}
 		});
 	

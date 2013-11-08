@@ -70,6 +70,7 @@ public class Application extends BaseController {
                 controllers.routes.javascript.DashboardController.littleItemsStock(),
                 controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
                 controllers.routes.javascript.DashboardController.sellerCommission(),
+                controllers.routes.javascript.DashboardController.commissionDetail(),
 
                 // Routes for Actions
                 controllers.routes.javascript.ActionController.actionsFrom(),

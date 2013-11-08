@@ -73,4 +73,11 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(BuyOrder.getSellerComissions(seller.id, calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)) ));
     }
 
+    public static Result commissionDetail(){
+    	
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+    	Calendar calendar = Calendar.getInstance();
+    	//TODO: return detail
+    	return ok();
+    }
 }
