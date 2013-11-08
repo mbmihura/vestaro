@@ -119,7 +119,13 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
 }]);
 
 vestaroMain.factory('garmentsApi', ['$resource', function($resource) {
-  return $resource('/garment/:id');
+  return $resource('/garment/:id', null, { 
+      save: { 
+        method: 'PUT', 
+        params: { id: '@id' }, 
+        isArray: false 
+      } 
+    });
 }]);
 
 vestaroMain.factory('facebook', ['$location', function($location){
