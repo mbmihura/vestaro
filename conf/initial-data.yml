@@ -131,7 +131,7 @@ items:
         id:           CB1
         title:        Camisa Blanca
         description:  Camisa blanca a cuadros manga larga
-        imgUrl:       http://localhost:9000/assets/img/items/camisa_a_cuadros_blanca.jpg
+        imgUrl:       /assets/img/items/camisa_a_cuadros_blanca.jpg
         price:        200
         sex:        m
         seller:        !!models.Seller
@@ -142,7 +142,7 @@ items:
         id:           CB2
         title:        Camisa Blanca Lisa
         description:  Camisa blanca lisa manga larga
-        imgUrl:       http://localhost:9000/assets/img/items/camisa_lisa_blanca.jpg
+        imgUrl:       /assets/img/items/camisa_lisa_blanca.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -153,7 +153,7 @@ items:
         id:           CG1
         title:        Camisa Gris
         description:  Camisa gris manga larga de seda
-        imgUrl:       http://localhost:9000/assets/img/items/camisa_lisa_gris.jpg
+        imgUrl:       /assets/img/items/camisa_lisa_gris.jpg
         price:        150
         sex:        m
         seller:        !!models.Seller
@@ -164,7 +164,7 @@ items:
         id:           CAB1
         title:        Camisa Azul y Blanca
         description:  Camisa azul y blanca a cuadros manga larga
-        imgUrl:       http://localhost:9000/assets/img/items/camisa_a_cuadros_azul.jpg
+        imgUrl:       /assets/img/items/camisa_a_cuadros_azul.jpg
         price:        100
         sex:        m
         seller:        !!models.Seller
@@ -175,7 +175,7 @@ items:
         id:           CB3
         title:        Camisa Blanca Beso
         description:  Camisa blanca beso manga larga
-        imgUrl:       http://localhost:9000/assets/img/items/camisa_blanca_beso_mujer.jpg
+        imgUrl:       /assets/img/items/camisa_blanca_beso_mujer.jpg
         price:        120
         sex:        f
         seller:        !!models.Seller
@@ -187,7 +187,7 @@ items:
         id:           CL1
         title:        Camisa Leopardo
         description:  Camisa leopardo manga larga
-        imgUrl:       http://localhost:9000/assets/img/items/camisa_leopardo_mujer.jpg
+        imgUrl:       /assets/img/items/camisa_leopardo_mujer.jpg
         price:        70
         sex:        f
         seller:        !!models.Seller
@@ -199,7 +199,7 @@ items:
         id:           CR1
         title:        Campera Abrigo Rosa
         description:  Campera abrigo rosa de mujer
-        imgUrl:       http://localhost:9000/assets/img/items/campera_abrigo_rosa.jpg
+        imgUrl:       /assets/img/items/campera_abrigo_rosa.jpg
         price:        240
         sex:        f
         seller:        !!models.Seller
@@ -211,7 +211,7 @@ items:
         id:           CY1
         title:        Capri Yoga Negro
         description:  Capri yoga negro de mujer
-        imgUrl:       http://localhost:9000/assets/img/items/capri_yoga_negro.jpg
+        imgUrl:       /assets/img/items/capri_yoga_negro.jpg
         price:        300
         sex:        f
         seller:        !!models.Seller
@@ -223,7 +223,7 @@ items:
         id:           PR1
         title:        Pañuelo Rojo
         description:  Pañuelo rojo floreado de mujer
-        imgUrl:       http://localhost:9000/assets/img/items/paniuelo_rojo_floreado.jpg
+        imgUrl:       /assets/img/items/paniuelo_rojo_floreado.jpg
         price:        310
         sex:        f
         seller:        !!models.Seller
@@ -235,7 +235,7 @@ items:
         id:           GR1
         title:        Gorro Rojo
         description:  Gorro rojo de lana
-        imgUrl:       http://localhost:9000/assets/img/items/gorro_lana_rojo.jpg
+        imgUrl:       /assets/img/items/gorro_lana_rojo.jpg
         price:        250
         sex:        f
         seller:        !!models.Seller
@@ -247,7 +247,7 @@ items:
         id:           CRMC
         title:        Camisa Roja
         description:  Camisa Roja Manga Larga
-        imgUrl:       http://localhost:9000/assets/img/items/Camisa-Roja-Slim-Fit-Hombre-Moda-Casual.png
+        imgUrl:       /assets/img/items/Camisa-Roja-Slim-Fit-Hombre-Moda-Casual.png
         price:        310
         sex:        m
         seller:        !!models.Seller

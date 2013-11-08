@@ -1,7 +1,7 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
-	function ($scope, buyerSession) {
-  $scope.hideAlertModal = buyerSession.hideAlertModal();
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
+	function ($scope, buyerSession, facebook) {
+
   buyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
@@ -18,7 +18,11 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item, $scope);
+	  buyerSession.addToWishlist(item);
+  }
+
+  $scope.shareItem = function(item){
+  	facebook.feedDialog(item, $scope);
   }
   
   var $container = $('#itemsContainer');
@@ -34,12 +38,6 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 		$container.isotope('reLayout');
 	});
 
-	// Toggles item information
-	$container.on('.item', 'mouseenter mouseleave', function(e) {
-		e.preventDefault();
-		$(this).find('.itemInformation').fadeToggle('fast');
-	});
-
 	// Toggle know more
 	$('#knowMoreBtn').click(function(){
 		$('#knowMore').slideToggle()
@@ -48,7 +46,7 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession',
 }]);
 
 var isotopeHandling = function(ngRepeatFinishedEvent) {
-	
+
 	var $container = $('#itemsContainer');
 	var options = {
 		itemSelector : '.item',
@@ -64,6 +62,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	
 	// Wait until all images are loaded
 	$container.imagesLoaded(function() {
+		$('.progress.progress-striped.active').fadeOut();
 		$container.isotope(options);
 	});
 	
@@ -102,7 +101,7 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 
 vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
 	function ($scope, buyerSession) {
-  $scope.hideAlertModal = buyerSession.hideAlertModal();
+
   $scope.categories = buyerSession.getCategories();
   
   buyerSession.getItems().success(function(data) {
@@ -115,14 +114,14 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item, $scope);
+	  buyerSession.addToWishlist(item);
   }
   
 }]);
 
-vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
-	function ($scope, buyerSession, $http) {
-	$scope.hideAlertModal = buyerSession.hideAlertModal();
+vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession', '$rootScope',
+	function ($scope, buyerSession, $rootScope) {
+
 	buyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
@@ -131,12 +130,12 @@ vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession',
 		buyerSession.removeFromWishlist(item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
-			$scope.alert = {title:'Prenda eliminada de Wishlist',
-					type:'info',
-					body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
-					btns: {primary: {title: 'Seguir', href: ''},
-						   'default': {title: 'Ir a Home', href: '#/'}
-					}
+			$rootScope.alert = {title:'Prenda eliminada de Wishlist',
+				type:'info',
+				body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
+				btns: {
+					primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+				}
 			};
 			$('#alertModal').modal('show');
 		});

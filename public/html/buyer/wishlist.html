@@ -12,18 +12,18 @@
 </div>
 
 <div class="row">
-<div ng-repeat="wishItem in wishlistItems" ng-mouseenter="actionsView=true" ng-mouseleave="actionsView=false" class="col-md-4">
+<div ng-repeat="wishItem in wishlistItems" class="col-md-4">
 	<div class="thumbnail item-thumb">
-		<div class="item-actions" ng-show="actionsView">
+		<div class="item-actions">
 			<ol class="breadcrumb">
 				<li ng-click="removeFromWishlist(wishItem.item, $index)" class="has-tooltip action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
 				<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
 				<li ng-click="showBuyItemModal(wishItem.item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 			</ol>
 		</div>
-		<div class="item-main">
-			<h3 class="item-title">{{wishItem.item.title}}</h3>
-			<img class="item-img img-responsive" src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
+		<div class="item-main wishlist">
+			<h3 class="item-title wishlist">{{wishItem.item.title}}</h3>
+			<img class="item-img wishlist" src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
 		</div>
 		<div class="item-details" align="center">
 			<div class="btn-group">
