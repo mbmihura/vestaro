@@ -40,15 +40,10 @@ public class ItemController extends BaseController {
     
     public static Result read(String itemId) {
     	Item item = Item.find.byId(itemId);
-    	if(item != null) {
-    		/*
-    		 * TODO It would be better (RESTfull) if the server returned a json,
-    		 * giving the client the power to handle the object the way it wants.
-    		 */
-    		
-    		return ok(views.html.items.item.render(item));
+    	if(item != null) {    		
+    		return ok(Json.toJson(item));
     	} else {
-    		return badRequest();
+    		return notFound();
     	}
     	
     }
