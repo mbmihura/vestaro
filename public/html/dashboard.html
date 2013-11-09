@@ -4,12 +4,12 @@
     <p>Información de pagos pendientes</p>
     <br>
     <h3>Monto a pagar »</h3>
-    <span style="font-family: 'vivaldi'; font-size: 90px;color: #2974B9; letter-spacing: 3px;">$100</span>
+    <span id="commission" style="font-family: 'vivaldi'; font-size: 80px;color: #2974B9; letter-spacing: 3px;"></span>
     <h3>Días restantes »</h3>
 	<div id="chartdiv_commission" class="col-md-3" style="width: 200px; height: 130px;"></div>
 	<div align="right">
 		<br>
-    	<p><a style="text-indent: 0cm" class="btn btn-primary btn-large">Pagar ahora »</a></p>
+    	<p><a id="payButton" style="text-indent: 0cm" class="btn btn-primary btn-large">Pagar ahora »</a></p>
     </div>
   </div>
   <div class="col-md-9 well">
@@ -31,7 +31,27 @@
         </div>
     </div>
   </div>
-  
   <hr>
+
+
+<div class="modal fade" id="commissionDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Detalle de comisiones por ventas</h4>
+      </div>
+			<div class="modal-body" style="text-align: center">
+	    </div>
+ 			<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  			<a id="mpButton" class="btn btn-primary " name="MP-Checkout" class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Confirmar pago</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
   <script src="/assets/lib/amcharts/amcharts.js" type="text/javascript"></script>
   <script src="/assets/js/sellerDashboards/dashboard.js" type="text/javascript"></script>
+
