@@ -30,6 +30,7 @@ users:
         name:           Naty
         roles: 
             - *buyerRole
+            - *sellerRole
 
     - &userAlan !!models.User
         userId:         100000262980862
@@ -72,6 +73,17 @@ sellers:
         webpageUrl:                 www.example.com
         user: *userPablo
 
+    - &ropaTop !!models.Seller
+        id:                         3
+        brandName:                       RopaTop
+        pointsEnabled:              true
+        pointMoneyRelation:         1.0
+        mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id:               1406963671517811
+        logoUrl:                    /assets/img/logo.jpg
+        webpageUrl:                 www.example.com
+        user: *userNaty
+        
 # Collections
 
 collections:
@@ -241,9 +253,62 @@ items:
         seller:        !!models.Seller
                         id: 1
 
+
+    - !!models.Item
+        id:           MV
+        title:        Malla verde fluor
+        description:  Malla de lycra para el verano verde fluor
+        imgUrl:       /assets/img/items/mallaVerde.jpg
+        price:        180
+        sex:        f
+        seller:        !!models.Seller
+                        id: 3
+
+    - !!models.Item
+        id:           MM
+        title:        Malla muchos colores
+        description:  Malla para el verano, color verde y violeta
+        imgUrl:       /assets/img/items/mallaMulticolor.jpg
+        price:        210
+        sex:        f
+        seller:        !!models.Seller
+                        id: 3
+
+
 # Stocks
 
 stocks:
+
+    - !!models.Stock
+        id:          SMMXS
+        size:        XS
+        stock:       3
+        item:        !!models.Item
+                        id: MM
+                        
+
+    - !!models.Stock
+        id:          SMMM
+        size:        M
+        stock:       1
+        item:        !!models.Item
+                        id: MM
+                        
+
+    - !!models.Stock
+        id:          SMVS
+        size:        S
+        stock:       5
+        item:        !!models.Item
+                        id: MV
+                        
+
+    - !!models.Stock
+        id:          SMVL
+        size:        L
+        stock:       10
+        item:        !!models.Item
+                        id: MV
 
 
     - !!models.Stock
@@ -310,266 +375,266 @@ stocks:
 actions:
     
     - !!models.Action
-        id:          1
+        id:          999991
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB1
                         
     - !!models.Action
-        id:          2
+        id:          999992
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB1
                         
     - !!models.Action
-        id:          3
+        id:          999993
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB1
                         
     - !!models.Action
-        id:          4
+        id:          999994
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB1
 
     - !!models.Action
-        id:          5
+        id:          999995
         action_type: BUY
         date:        20131015
         userId:      1335414847
         itemId:      CB1
                         
     - !!models.Action
-        id:          6
+        id:          999996
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CB1
 
     - !!models.Action
-        id:          7
+        id:          999997
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          8
+        id:          999998
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CB2
         
     - !!models.Action
-        id:          9
+        id:          999999
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          10
+        id:          9999910
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          11
+        id:          9999911
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          12
+        id:          9999912
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          13
+        id:          9999913
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          14
+        id:          9999914
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CG1
         
     - !!models.Action
-        id:          15
+        id:          9999915
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CG1
         
     - !!models.Action
-        id:          16
+        id:          9999916
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CL1
         
     - !!models.Action
-        id:          17
+        id:          9999917
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      PR1
         
     - !!models.Action
-        id:          18
+        id:          9999918
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      PR1
         
     - !!models.Action
-        id:          19
+        id:          9999919
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      GR1
   
     - !!models.Action
-        id:          20
+        id:          9999920
         action_type: BUY
         date:        20131018
         userId:      1335414847
         itemId:      CY1
         
     - !!models.Action
-        id:          21
+        id:          9999921
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          22
+        id:          9999922
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          23
+        id:          9999923
         action_type: VIEW
         date:        20130915
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          24
+        id:          9999924
         action_type: VIEW
         date:        20130905
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          25
+        id:          9999925
         action_type: VIEW
         date:        20131021
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          26
+        id:          9999926
         action_type: VIEW
         date:        20131024
         userId:      1335414847
         itemId:      CB1
         
     - !!models.Action
-        id:          27
+        id:          9999927
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      GR1
         
     - !!models.Action
-        id:          28
+        id:          9999928
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      GR1
         
     - !!models.Action
-        id:          29
+        id:          9999929
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      GR1
         
     - !!models.Action
-        id:          30
+        id:          9999930
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CG1
         
     - !!models.Action
-        id:          31
+        id:          9999931
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CG1
         
     - !!models.Action
-        id:          32
+        id:          9999932
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          33
+        id:          9999933
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          34
+        id:          9999934
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          35
+        id:          9999935
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CAB1
         
     - !!models.Action
-        id:          36
+        id:          9999936
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB2
         
     - !!models.Action
-        id:          37
+        id:          9999937
         action_type: VIEW
         date:        20131015
         userId:      1335414847
         itemId:      CB2
         
     - !!models.Action
-        id:          38
+        id:          9999938
         action_type: VIEW
         date:        20131015
         userId:      1335414847

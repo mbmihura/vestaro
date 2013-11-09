@@ -4,11 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import controllers.routes;
-
-import play.api.mvc.Call;
 import play.db.ebean.Model;
 import security.Roles;
+import controllers.routes;
 
 @Entity
 public class Seller extends Model {
