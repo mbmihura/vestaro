@@ -70,35 +70,7 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(lowStockItems));
     }
     
-    public static Result sellerCommission() {
-    	
-    	HashMap<String, Object> responseMap = new LinkedHashMap<String, Object>();
-    	Seller seller = Seller.findSellerByUser(currentUserId());
-    	Double commissionValue= BuyOrder.getSellerComissions(seller.id) ;
-    	responseMap.put("commissionValue", commissionValue);
-    	
-    	if(commissionValue >0){
-    		PaymentManager manager = new PaymentManager();
-    		try {
-    			String commissionCheckOutUrl= manager.commissionCheckoutUrl(commissionValue);
-    			responseMap.put("commissionCheckoutUrl", commissionCheckOutUrl);
-    			
-    		} catch (JSONException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}catch (Exception e) {
-    			// TODO: handle exception
-    		}
-    		
-    	}
-    	
-    	return ok(Json.toJson(responseMap));
-    }
 
-    public static Result commissionDetail(){
-    	Seller seller = Seller.findSellerByUser(currentUserId());
-    	return ok(Json.toJson(BuyOrder.getCommissionsDetail(seller.id)) );
-    }
     
   
     

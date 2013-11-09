@@ -55,8 +55,8 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 GET		/littleItemsStock					controllers.DashboardController.littleItemsStock()
 GET		/biggestCollections					controllers.DashboardController.biggestCollections()
 GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
-GET		/commissionToPay					controllers.DashboardController.sellerCommission()
-GET		/commissionDetail					controllers.DashboardController.commissionDetail()
+GET		/commissionToPay					controllers.SellerController.sellerCommission()
+GET		/commissionDetail					controllers.SellerController.commissionDetail()
 
 # Actions
 GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)

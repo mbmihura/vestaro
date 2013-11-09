@@ -18,7 +18,7 @@ AmCharts.ready(function () {
 	
 	function seeCommissionDetail(){
 		if( $('#commissionDetailModal').find('table').size() == 0 ) {
-			jsRoutes.controllers.DashboardController.commissionDetail().ajax({
+			jsRoutes.controllers.SellerController.commissionDetail().ajax({
 	 			success: 
 				function(details){
 					addDetailTable(details);
@@ -28,7 +28,7 @@ AmCharts.ready(function () {
 				});
 			}
 	}
-	jsRoutes.controllers.DashboardController.sellerCommission().ajax({
+	jsRoutes.controllers.SellerController.sellerCommission().ajax({
  	success: 
 		function(json){
 			$('#commission').text('$'+json.commissionValue.toFixed(2));

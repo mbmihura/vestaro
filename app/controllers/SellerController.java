@@ -1,11 +1,17 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.codehaus.jettison.json.JSONException;
+
+import models.BuyOrder;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
+import models.PaymentManager;
 import models.Seller;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -80,4 +86,37 @@ public class SellerController extends BaseController {
 		currentSeller.save();
         return ok(Json.toJson(currentSeller));
     }
+    
+    public static Result sellerCommission() {
+    	
+    	HashMap<String, Object> responseMap = new LinkedHashMap<String, Object>();
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+    	Double commissionValue= BuyOrder.getSellerComissions(seller.id) ;
+    	responseMap.put("commissionValue", commissionValue);
+    	
+    	if(commissionValue >0){
+    		PaymentManager manager = new PaymentManager();
+    		try {
+    			String commissionCheckOutUrl= manager.commissionCheckoutUrl(commissionValue);
+    			responseMap.put("commissionCheckoutUrl", commissionCheckOutUrl);
+    			
+    		} catch (JSONException e) {
+    			play.Logger.error(e.getMessage());
+    			return badRequest();
+    		}catch (Exception e) {
+    			play.Logger.error(e.getMessage());
+    			return badRequest();
+
+    		}
+    		
+    	}
+    	
+    	return ok(Json.toJson(responseMap));
+    }
+
+    public static Result commissionDetail(){
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+    	return ok(Json.toJson(BuyOrder.getCommissionsDetail(seller.id)) );
+    }
 }
+
