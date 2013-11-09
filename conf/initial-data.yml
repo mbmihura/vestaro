@@ -121,7 +121,13 @@ collections:
     - !!models.Collection
         id:             6
         title:          Pantalones para Hombre
-        description:    Verano 2013
+        description:    Invierno 2013
+        seller:  *ropaTop
+
+    - !!models.Collection
+        id:             7
+        title:          "Trajes de Baño"
+        description:    Verano 2014
         seller:  *ropaTop
 
 
@@ -268,14 +274,76 @@ items:
 
     - !!models.Item
         id:           MM
-        title:        Malla muchos colores
-        description:  Malla para el verano, color verde y violeta
+        title:        Malla Multicolor
+        description:  "Malla para el verano, color verde y violeta"
         imgUrl:       /assets/img/items/mallaMulticolor.jpg
         price:        210
         sex:        f
         seller:        !!models.Seller
                         id: 3
 
+    - !!models.Item
+        id:           CC1
+        title:        Camisa Celeste
+        description:  Camisa Celeste manga larga
+        imgUrl:       /assets/img/items/camisa_celeste.jpg
+        price:        275
+        sex:        m
+        seller:        *ropaCool
+
+    - !!models.Item
+        id:           CAM_B
+        title:        Campera Beige
+        description:  Campera Beige con capucha
+        imgUrl:       /assets/img/items/campera_beige.jpg
+        price:        560
+        sex:        u
+        seller:        *ropaCool
+
+    - !!models.Item
+        id:           CAM_R
+        title:        Campera Roja
+        description:  Campera Roja estilo NY
+        imgUrl:       /assets/img/items/campera_roja.jpg
+        price:        210
+        sex:        m
+        seller:        *ropaCool
+
+    - !!models.Item
+        id:           CHOM_A
+        title:        Chomba Azul
+        description:  Chomba Azul con interior blanco
+        imgUrl:       /assets/img/items/chomba_azul.jpg
+        price:        299
+        sex:        m
+        seller:        *ropaCool
+
+    - !!models.Item
+        id:           CHOM_N
+        title:        Chomba Negra
+        description:  Chomba Negra con interior rosa
+        imgUrl:       /assets/img/items/chomba_negra.jpg
+        price:        299
+        sex:        m
+        seller:        *ropaCool
+
+    - !!models.Item
+        id:           PAN_B
+        title:        "Pantalón Beige"
+        description:  "Pantalón Beige achupinado"
+        imgUrl:       /assets/img/items/pantalon_beige_hombre.jpg
+        price:        399
+        sex:        m
+        seller:        *ropaCool
+
+    - !!models.Item
+        id:           PAN_C
+        title:        "Pantalón Charcoal"
+        description:  "Pantalón Charcoal abolsado"
+        imgUrl:       /assets/img/items/pantalon_charcoal_hombre.jpg
+        price:        299
+        sex:        m
+        seller:        *ropaCool
 
 # Stocks
 
@@ -287,7 +355,6 @@ stocks:
         stock:       3
         item:        !!models.Item
                         id: MM
-                        
 
     - !!models.Stock
         id:          SMMM
@@ -295,7 +362,6 @@ stocks:
         stock:       1
         item:        !!models.Item
                         id: MM
-                        
 
     - !!models.Stock
         id:          SMVS
@@ -303,7 +369,6 @@ stocks:
         stock:       5
         item:        !!models.Item
                         id: MV
-                        
 
     - !!models.Stock
         id:          SMVL
@@ -312,30 +377,27 @@ stocks:
         item:        !!models.Item
                         id: MV
 
-
     - !!models.Stock
         id:          SCB3XS
         size:        XS
         stock:       1
         item:        !!models.Item
                         id: CB3
-                        
-                            
+
     - !!models.Stock
         id:          SCB3S
         size:        S
         stock:       2
         item:        !!models.Item
                         id: CB3
-                        
-                            
+
     - !!models.Stock
         id:          SCB3M
         size:        M
         stock:       22
         item:        !!models.Item
                         id: CB3    
-    
+
     - !!models.Stock
         id:          SCNL
         size:        L
@@ -343,7 +405,6 @@ stocks:
         item:        !!models.Item
                         id: CB1
 
-                                                
     - !!models.Stock
         id:          SCBM
         size:        M
@@ -375,7 +436,7 @@ stocks:
 # Actions
 
 actions:
-    
+
     - !!models.Action
         id:          999991
         action_type: VIEW
