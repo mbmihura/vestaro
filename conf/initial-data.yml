@@ -258,7 +258,7 @@ items:
         id:           MV
         title:        Malla verde fluor
         description:  Malla de lycra para el verano verde fluor
-        imgUrl:       http://localhost:9000/assets/img/items/mallaVerde.jpg
+        imgUrl:       /assets/img/items/mallaVerde.jpg
         price:        180
         sex:        f
         seller:        !!models.Seller
@@ -268,7 +268,7 @@ items:
         id:           MM
         title:        Malla muchos colores
         description:  Malla para el verano, color verde y violeta
-        imgUrl:       http://localhost:9000/assets/img/items/mallaMulticolor.jpg
+        imgUrl:       /assets/img/items/mallaMulticolor.jpg
         price:        210
         sex:        f
         seller:        !!models.Seller
