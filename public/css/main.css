@@ -279,3 +279,26 @@ font-color: #2974B9;
 font-weight: bold;
 font-size: 14px;
 }
+
+/* To fill the container and nothing else */
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+width: 100% !important;
+}
+ 
+.embed-container {
+position: relative;
+padding-bottom: 56.25%; /* 16/9 ratio */ 
+height: 100px;
+overflow: hidden;
+}
+ 
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+/* end of facebook responsive */
