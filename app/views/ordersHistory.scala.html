@@ -19,13 +19,13 @@
 			<div id=@buyOrder.id class="panel-collapse collapse in">
 				<div class="panel-body">
 					<div class="col-lg-3">
-						<img src=@buyOrder.item.imgUrl style="width: 80%;">
+						<img src=@buyOrder.item.imgUrl style="border-radius: 4px; max-height: 160px; max-width: 100%;">
 					</div>
 					<div class="col-lg-6">
-						<p>Descripción: @buyOrder.item.description</p>
-						<p>Talle: @buyOrder.size.size</p>
-						<p>Precio: $@buyOrder.price</p>
-						<p>Fecha compra: @buyOrder.create_time</p>
+						<div><label>Descripción:</label> @buyOrder.item.description</div>
+						<div><label>Talle:</label> @buyOrder.size.size</div>
+						<div><label>Precio:</label> $@buyOrder.price</div>
+						<div><label>Fecha compra:</label> @buyOrder.create_time</div>
 					</div>
 					<div class="col-lg-3">
 						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
