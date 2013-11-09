@@ -53,18 +53,18 @@ sellers:
 
     - &ropaCool !!models.Seller
         id:                         1
-        brandName:                       RopaCool
+        brandName:                  RopaCool
         pointsEnabled:              true
-        pointMoneyRelation:         1.0
+        pointMoneyRelation:         0.5
         mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
         mp_client_id:               1406963671517811
-        logoUrl:                    /assets/img/logo.jpg
+        logoUrl:                    http://d19xsiuv7qbvzf.cloudfront.net/AcuCustom/Sitename/DAM/003/logo_element1_MDisplay.jpg
         webpageUrl:                 www.example.com
         user: *userAlan
 
     - &ropaHot !!models.Seller
         id:                         2
-        brandName:                       RopaHot
+        brandName:                  RopaHot
         pointsEnabled:              false
         pointMoneyRelation:         0.0
         mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
@@ -75,7 +75,7 @@ sellers:
 
     - &ropaTop !!models.Seller
         id:                         3
-        brandName:                       RopaTop
+        brandName:                  RopaTop
         pointsEnabled:              true
         pointMoneyRelation:         1.0
         mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
@@ -83,7 +83,7 @@ sellers:
         logoUrl:                    /assets/img/logo.jpg
         webpageUrl:                 www.example.com
         user: *userNaty
-        
+
 # Collections
 
 collections:
@@ -92,36 +92,38 @@ collections:
         id:             1
         title:          Camisas Manga Larga Hombre
         description:    Camisas para Hombre
-        seller:  !!models.Seller
-                    id: 1
+        seller:  *ropaCool
 
     - !!models.Collection
         id:             2
         title:          Camisas Manga Larga Mujer
         description:    Camisas para Mujer
-        seller:  !!models.Seller
-                    id: 1
+        seller:  *ropaHot
 
     - !!models.Collection
         id:             3
         title:          Camperas Abrigo
-        description:    Camperas para Mujer
-        seller:  !!models.Seller
-                    id: 1
+        description:    Camperas para el Invierno
+        seller:  *ropaHot
 
     - !!models.Collection
         id:             4
         title:          Sport
         description:    Ropa Deportiva
-        seller:  !!models.Seller
-                    id: 1
+        seller:  *ropaCool
 
     - !!models.Collection
         id:             5
         title:          Accesorios
         description:    Accesorios de vestimenta
-        seller:  !!models.Seller
-                    id: 1
+        seller:  *ropaTop
+
+    - !!models.Collection
+        id:             6
+        title:          Pantalones para Hombre
+        description:    Verano 2013
+        seller:  *ropaTop
+
 
 # Items
 
