@@ -120,7 +120,7 @@ public class ItemController extends BaseController {
     public static Result updateItem(Long collectionId, String itemId) {
     	// validate item owner is current user, if not forbiden
     	Item item = Item.find.byId(itemId);
-    	item.collection = collectionId == null ? null : Collection.findCollectionsById(collectionId).get(0);
+    	item.collection = collectionId == null ? null : Collection.find.byId(collectionId);
         return ok(views.html.items.item.render(Item.update(item)));
     }
     
