@@ -269,62 +269,62 @@ items:
 stocks:
 
 
-    - !!models.Stock
-        id:          SCB3XS
+    - !!models.StockPerSize
+        id:          1
         size:        XS
-        stock:       1
+        quantity:       1
         item:        !!models.Item
                         id: CB3
                         
                             
-    - !!models.Stock
-        id:          SCB3S
+    - !!models.StockPerSize
+        id:          2
         size:        S
-        stock:       2
+        quantity:       2
         item:        !!models.Item
                         id: CB3
                         
                             
-    - !!models.Stock
-        id:          SCB3M
+    - !!models.StockPerSize
+        id:          3
         size:        M
-        stock:       22
+        quantity:       22
         item:        !!models.Item
                         id: CB3    
     
-    - !!models.Stock
-        id:          SCNL
+    - !!models.StockPerSize
+        id:          4
         size:        L
-        stock:       5
+        quantity:       5
         item:        !!models.Item
                         id: CB1
 
                                                 
-    - !!models.Stock
-        id:          SCBM
+    - !!models.StockPerSize
+        id:          5
         size:        M
-        stock:       4
+        quantity:       4
         item:        !!models.Item
                         id: CB1
 
-    - !!models.Stock
-        id:          SCBS
+    - !!models.StockPerSize
+        id:          6
         size:        S
-        stock:       1
+        quantity:       1
         item:        !!models.Item
                         id: CB2
 
-    - !!models.Stock
-        id:          SCABM
+    - !!models.StockPerSize
+        id:          7
         size:        M
-        stock:       0
+        quantity:       0
         item:        !!models.Item
                         id: CAB1
 
-    - !!models.Stock
-        id:          SCABL
+    - !!models.StockPerSize
+        id:          8
         size:        L
-        stock:       7
+        quantity:       7
         item:        !!models.Item
                         id: CAB1
 

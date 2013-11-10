@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import models.BuyOrder;
@@ -8,6 +9,7 @@ import models.Collection;
 import models.InvalidBuyOrderException;
 import models.Item;
 import models.PaymentManager;
+import models.StockPerSize;
 
 import org.codehaus.jettison.json.JSONException;
 
@@ -153,7 +155,11 @@ public class ItemController extends BaseController {
         String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
     	if (item != null) {	
-	        return ok(views.html.buyItem.render(item, item.getAvailableStock(),Buyer.findBuyerByUser(currentUserId()).points));
+    		LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+    	    for(StockPerSize sizeStock: item.getAvailableStock()) {
+    	    	options.put(sizeStock.id.toString(), sizeStock.size);
+    	    }    	        
+	        return ok(views.html.buyItem.render(item,options ,Buyer.findBuyerByUser(currentUserId()).points));
     	} else {
     		return badRequest("item not found");
     		// TODO should be 422 as it's a smantic error not sintax. Does plays allow to return a 422?

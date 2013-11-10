@@ -8,7 +8,7 @@ import models.Action;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
-import models.Stock;
+import models.StockPerSize;
 import play.libs.Json;
 import play.mvc.Result;
 
@@ -45,12 +45,12 @@ public class DashboardController extends BaseController {
     }
     
     public static Result littleItemsStock(Long sellerId){
-    	List<Stock> lowStockItems = new ArrayList<Stock>();
+    	List<StockPerSize> lowStockItems = new ArrayList<StockPerSize>();
     	List<Item> items = Item.findItemsOwnedBy(sellerId);
     	
 		for(Item item : items){
-			for(Stock stock : Stock.findStockOfItem(item.id)){
-				if(stock.stock <= 5)
+			for(StockPerSize stock : StockPerSize.findStockForItem(item.id)){
+				if(stock.quantity <= 5)
 					lowStockItems.add(stock);
 			}
 		}

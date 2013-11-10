@@ -65,7 +65,7 @@ public class BuyOrder extends Model{
 	public Buyer buyer;
 	
 	@OneToOne
-	public Stock size;
+	public StockPerSize size;
 	public Integer pointsUsed =0;
 	public Integer pointsEarned=0;
 	public State state =State.PAYMENT_PENDING;
@@ -86,7 +86,7 @@ public class BuyOrder extends Model{
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
-		order.size = Stock.find.byId(size);
+		order.size = StockPerSize.find.byId(size);
 		order.pointsUsed = pointsUsed;
 		this.buyer.points-=pointsUsed;
 		
@@ -134,7 +134,7 @@ public class BuyOrder extends Model{
 	public void successfulPayment() {
 		this.state = State.RECEPTION_PENDING;
 		this.assignCredits();
-		this.size.consumeStock();
+		this.size.consumeStockUnit();
 		this.buyer.save();
 		this.save();
 	}

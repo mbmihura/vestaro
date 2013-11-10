@@ -20,43 +20,84 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 public class Item extends Model {
     @Id
     public String id;
-
     @Constraints.Required
     @Constraints.MaxLength(30)
     public String title;
-
     @Constraints.Required
     @Constraints.MaxLength(100)
     public String description;
-
     @Constraints.Required
-    public String imgUrl;
-    
+    public String imgUrl;  
     @Constraints.Required
     public Long price;
-    
     @Constraints.Required
     @Constraints.MaxLength(10)
     public String sex;
-    
-    //TODO Change Object type to Stock
-//    public List<String> stocks = new ArrayList<>();
-
+    @CreatedTimestamp
+    Timestamp create_time;
+    @Version
+    Timestamp update_time;
+    public Integer views;
+    public Integer purchases;
     @OneToOne
     public Seller seller;
-
     @OneToOne
     public Collection collection;
     
-    @CreatedTimestamp
-    Timestamp create_time;
-
-    @Version
-    Timestamp update_time;
-
-	public Integer views;
-	public Integer purchases;
+    public Item(String id) //TODO Diff entre id y Title?
+    {
+    	this.id = id;
+    }
+    
+    public List<StockPerSize> getStock(){
+    	return StockPerSize.findStockForItem(id);
+    }
+    
+    public List<StockPerSize> getAvailableStock(){
+    	return StockPerSize.findAvailableStockForItem(id);
+    }
+    
+    public void deleteCascade() {
+    	List<StockPerSize> stocks = StockPerSize.findStockForItem(id);
+    	if (stocks != null){
+    		for(StockPerSize s : stocks)
+    		{
+    			s.delete();
+    		}
+    	};
+    	delete();
+    }
 	
+    //TODO remove this
+    @Deprecated
+    public LinkedHashMap<String, String> getMockAvailableStock() {
+    	LinkedHashMap<String, String> availableStockSize = new LinkedHashMap<String,String>();
+    	availableStockSize.put("S", "Small");
+    	availableStockSize.put("M", "Medium");
+    	availableStockSize.put("L", "Large");
+    	return availableStockSize;
+    }
+    
+    public String toString() {
+    	StringBuilder builder = new StringBuilder();
+    	builder.append("Item [id=")
+    	.append(id)
+    	.append(", title=")
+    	.append(title)
+    	.append(", owner=")
+    	.append(seller.brandName)
+    	.append(", price=")
+    	.append(price)
+    	.append(", sex=")
+    	.append(sex)
+    	.append(", create_time=")
+    	.append(create_time)
+    	.append(", update_time=")
+    	.append(update_time)
+    	.append("]");
+    	return builder.toString();
+    }
+    
     public static Finder<String,Item> find = new Finder<String,Item>(String.class, Item.class);
 
     public static List<Item> findItemsOwnedBy(Long sellerId){
@@ -74,10 +115,6 @@ public class Item extends Model {
                 .findList();
     }
     
-    public Item(String id) //TODO Diff entre id y Title?
-    {
-    	this.id = id;
-    }
     public static List<Item> findItemsFromCollection(Long collectionId){
     	return Item.find.where()
                 .eq("collection.id", collectionId)
@@ -104,8 +141,6 @@ public class Item extends Model {
         return item;
     }
     
-    
-
     public static Item update(Item item) {
     	item.update();
     	return item;
@@ -119,28 +154,6 @@ public class Item extends Model {
     	return item;
     }
     
-    public LinkedHashMap<String, String> getAvailableStock(){
-    	return Stock.findAvailableSizeOptions(id);
-    }
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Item [id=")
-                .append(id)
-                .append(", title=")
-                .append(title)
-                .append(", owner=")
-                .append(seller.brandName)
-                .append(", price=")
-                .append(price)
-                .append(", sex=")
-                .append(sex)
-                .append(", create_time=")
-                .append(create_time)
-                .append(", update_time=")
-                .append(update_time)
-                .append("]");
-        return builder.toString();
-    }
     
     public static class Comparators {
 
@@ -173,23 +186,5 @@ public class Item extends Model {
         };
     }
 
-	public LinkedHashMap<String, String> getMockAvailableStock() {
-		LinkedHashMap<String, String> availableStockSize = new LinkedHashMap<String,String>();
-		availableStockSize.put("S", "Small");
-		availableStockSize.put("M", "Medium");
-		availableStockSize.put("L", "Large");
-		return availableStockSize;
-	}
-
-	public void deleteCascade() {
-    	List<Stock> stocks = Stock.findStockOfItem(id);
-    	if (stocks != null){
-    		for(Stock s : stocks)
-    		{
-    			s.delete();
-    		}
-    	};
-    	delete();
-	}
 
 }
