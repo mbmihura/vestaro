@@ -7,10 +7,20 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
   $scope.templateUrl = $location.$$url;
 }])
 
-.controller('GarmentListCtrl', ['$scope','$http', function($scope, $http){
-  	$http.get('/garment').success(function(list) {
-		$scope.list = list;
-	});;
+.controller('GarmentListCtrl', ['$scope','garmentsApi', function($scope, garmentsApi){
+  $scope.list = garmentsApi.query({ownerUser: 'currentUser'});
+
+  $scope.setToDelete = function(id, title){
+    // TODO: retrieve from list;
+    $scope.toDelete = { id: id, title: title};
+  };
+
+  $scope.destroy = function(id)
+  {
+    garmentsApi.delete({id: id});
+    $scope.list = $.grep($scope.list,function(i){ return i.id != id;});
+  };
+	
 }])
 
 .controller('GarmentListCCtrl', ['$scope','$http', function($scope, $http){
