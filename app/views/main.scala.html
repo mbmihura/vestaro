@@ -74,6 +74,10 @@
           FB.Event.subscribe('auth.authResponseChange', function(response) {
             if (response.status === 'connected') {
               authData.signedRequest = response.authResponse.signedRequest;
+              if (!authData.fbUser) {
+                authData.fbUser = {};
+                authData.fbUser.id = response.authResponse.userID;
+              }
               console.log('Event detected: User connected & app accepted. Fetching your information.... ');
 
               // If login was trigger by registration button...
@@ -101,6 +105,7 @@
               FB.api('/me', function(response) {
                 $('.navbar .nav .currentUsername').text(response.name).show();
                 console.log('Good to see you, ' + response.name + '.');
+                authData.fbUser = response;
                 if (FB.VestaroData.registrationMode)
                 {
                   console.log('RegistrationMode On: sending username to vestaro.');
