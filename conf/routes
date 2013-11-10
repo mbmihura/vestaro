@@ -38,7 +38,6 @@ GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
 DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
 PUT		/garment/:itemId					controllers.ItemController.createOrUpdate(itemId: String)
 # UI
-GET		/garment/new						controllers.ItemController.form()
 POST	/garment/							controllers.ItemController.submit()
 
 

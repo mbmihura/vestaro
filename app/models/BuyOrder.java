@@ -74,10 +74,10 @@ public class BuyOrder extends Model {
 	public Buyer buyer;
 
 	@OneToOne
-	public Stock size;
+	public StockPerSize size;
 	public Integer pointsUsed = 0;
-	public Integer pointsEarned = 0;
-	public State state = State.PAYMENT_PENDING;
+	public Integer pointsEarned= 0;
+	public State state =State.PAYMENT_PENDING;
 	public String disputeMessage;
 	public boolean commissionPayed = false;
 
@@ -104,7 +104,7 @@ public class BuyOrder extends Model {
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
-		order.size = Stock.find.byId(size);
+		order.size = StockPerSize.find.byId(size);
 		order.pointsUsed = pointsUsed;
 		order.buyer.points -= pointsUsed;
 		order.commission = order.getCommision();
@@ -150,7 +150,7 @@ public class BuyOrder extends Model {
 		this.state = State.RECEPTION_PENDING;
 		this.assignCredits();
 		this.pay_time = new Date();
-		this.size.consumeStock();
+		this.size.consumeStockUnit();
 		this.buyer.save();
 		this.save();
 

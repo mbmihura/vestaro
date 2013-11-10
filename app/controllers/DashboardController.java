@@ -11,9 +11,9 @@ import models.BuyOrder;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
+import models.StockPerSize;
 import models.PaymentManager;
 import models.Seller;
-import models.Stock;
 
 import org.codehaus.jettison.json.JSONException;
 
@@ -57,12 +57,12 @@ public class DashboardController extends BaseController {
     public static Result littleItemsStock(){
     	Seller seller = Seller.findSellerByUser(currentUserId());
 
-    	List<Stock> lowStockItems = new ArrayList<Stock>();
+    	List<StockPerSize> lowStockItems = new ArrayList<StockPerSize>();
     	List<Item> items = Item.findItemsOwnedBy(seller.id);
     	
 		for(Item item : items){
-			for(Stock stock : Stock.findStockOfItem(item.id)){
-				if(stock.stock <= 5)
+			for(StockPerSize stock : StockPerSize.findStockForItem(item.id)){
+				if(stock.quantity <= 5)
 					lowStockItems.add(stock);
 			}
 		}

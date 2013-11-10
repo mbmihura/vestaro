@@ -1,7 +1,7 @@
 'use strict';
 
 /* Defines Vestaro main module */
-var vestaroMain = angular.module('vestaroMain', []);
+var vestaroMain = angular.module('vestaroMain', ['ngResource']);
 
 /* Configurations */
 vestaroMain.config(['$httpProvider', function ($httpProvider) {
@@ -116,6 +116,16 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
             return $http.delete('/wishlist/' + itemId);
         }
     };
+}]);
+
+vestaroMain.factory('garmentsApi', ['$resource', function($resource) {
+  return $resource('/garment/:id', null, { 
+      save: { 
+        method: 'PUT', 
+        params: { id: '@id' }, 
+        isArray: false 
+      } 
+    });
 }]);
 
 vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location, $rootScope){

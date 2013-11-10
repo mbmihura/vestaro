@@ -23,6 +23,7 @@ users:
         name:           Kurt
         roles: 
             - *buyerRole
+            - *sellerRole
             - *adminRole
 
     - &userNaty !!models.User
@@ -84,6 +85,17 @@ sellers:
         webpageUrl:                 www.example.com
         user: *userNaty
 
+    - &ropaKurt !!models.Seller
+        id:                         4
+        brandName:                       RopaKurt
+        pointsEnabled:              false
+        pointMoneyRelation:         0.0
+        mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id:               1406963671517811
+        logoUrl:                    /assets/img/logo.jpg
+        webpageUrl:                 www.example.com
+        user: *userKurt
+
 # Collections
 
 collections:
@@ -137,6 +149,17 @@ items:
 
     - !!models.Item
         id:           CB1
+        title:        Camisa Blanca
+        description:  Camisa blanca a cuadros manga larga
+        imgUrl:       /assets/img/items/camisa_a_cuadros_blanca.jpg
+        price:        200
+        sex:        m
+        seller:        !!models.Seller
+                        id: 3
+        collection:   !!models.Collection
+                        id: 1
+    - !!models.Item
+        id:           cb2
         title:        Camisa Blanca
         description:  Camisa blanca a cuadros manga larga
         imgUrl:       /assets/img/items/camisa_a_cuadros_blanca.jpg
@@ -349,89 +372,117 @@ items:
 
 stocks:
 
-    - !!models.Stock
-        id:          SMMXS
+    - !!models.StockPerSize
+        id:          1
         size:        XS
-        stock:       3
-        item:        !!models.Item
-                        id: MM
-
-    - !!models.Stock
-        id:          SMMM
-        size:        M
-        stock:       1
-        item:        !!models.Item
-                        id: MM
-
-    - !!models.Stock
-        id:          SMVS
-        size:        S
-        stock:       5
-        item:        !!models.Item
-                        id: MV
-
-    - !!models.Stock
-        id:          SMVL
-        size:        L
-        stock:       10
-        item:        !!models.Item
-                        id: MV
-
-    - !!models.Stock
-        id:          SCB3XS
-        size:        XS
-        stock:       1
+        quantity:       1
         item:        !!models.Item
                         id: CB3
 
-    - !!models.Stock
-        id:          SCB3S
+    - !!models.StockPerSize
+        id:          2
         size:        S
-        stock:       2
+        quantity:       2
         item:        !!models.Item
                         id: CB3
 
-    - !!models.Stock
-        id:          SCB3M
+    - !!models.StockPerSize
+        id:          3
         size:        M
-        stock:       22
+        quantity:       22
         item:        !!models.Item
                         id: CB3    
 
-    - !!models.Stock
-        id:          SCNL
+    - !!models.StockPerSize
+        id:          4
         size:        L
-        stock:       5
+        quantity:       5
         item:        !!models.Item
                         id: CB1
 
-    - !!models.Stock
-        id:          SCBM
+    - !!models.StockPerSize
+        id:          5
         size:        M
-        stock:       4
+        quantity:       4
         item:        !!models.Item
                         id: CB1
 
-    - !!models.Stock
-        id:          SCBS
+    - !!models.StockPerSize
+        id:          6
         size:        S
-        stock:       1
+        quantity:       1
         item:        !!models.Item
                         id: CB2
 
-    - !!models.Stock
-        id:          SCABM
+    - !!models.StockPerSize
+        id:          7
         size:        M
-        stock:       0
+        quantity:       0
         item:        !!models.Item
                         id: CAB1
 
-    - !!models.Stock
-        id:          SCABL
+    - !!models.StockPerSize
+        id:          8
         size:        L
-        stock:       7
+        quantity:       7
         item:        !!models.Item
                         id: CAB1
+
+    - !!models.StockPerSize
+        id:          9
+        size:        XS
+        quantity:       3
+        item:        !!models.Item
+                        id: MM
+
+    - !!models.StockPerSize
+        id:          10
+        size:        M
+        quantity:       1
+        item:        !!models.Item
+                        id: MM
+
+    - !!models.StockPerSize
+        id:          11
+        size:        S
+        quantity:       5
+        item:        !!models.Item
+                        id: MV
+
+    - !!models.StockPerSize
+        id:          12
+        size:        L
+        quantity:       10
+        item:        !!models.Item
+                        id: MV
+
+    - !!models.StockPerSize
+        id:          13
+        size:        XS
+        quantity:       3
+        item:        !!models.Item
+                        id: MM
+
+    - !!models.StockPerSize
+        id:          14
+        size:        M
+        quantity:       1
+        item:        !!models.Item
+                        id: MM
+
+    - !!models.StockPerSize
+        id:          15
+        size:        S
+        quantity:       5
+        item:        !!models.Item
+                        id: MV
+
+    - !!models.StockPerSize
+        id:          16
+        size:        L
+        quantity:       10
+        item:        !!models.Item
+                        id: MV
 
 # Actions
 
