@@ -203,7 +203,6 @@ border-top-right-radius: 30px;
 }
 .masonry .item-container { /* apply before masonry add class */
     position: absolute; /* important to add it before enter animation start */
-    padding: 0px 15px;
     -webkit-transition-duration: .7s;
     transition-duration: .7s;
     -webkit-transition-property: all;
@@ -234,6 +233,8 @@ border-top-right-radius: 30px;
   display: inline-block;
   width: 25%;
   margin-bottom: 15px;
+  padding: 0px 15px;
+
 }
 
 .item-thumb {
@@ -318,6 +319,10 @@ border-top-right-radius: 30px;
 }
 
 /* Wishlist */
+.item-container.wishlist {
+  width: 33.33333333333333%;
+}
+
 .item-thumb.wishlist {
   height: 400px;
   /*line-height: 345px;*/
