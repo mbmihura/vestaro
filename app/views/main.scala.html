@@ -197,6 +197,7 @@
       };
     </script>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="min-height: 0px;">
+      <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -217,14 +218,6 @@
             </a>
           </li>
         </ul>
-        <form class="navbar-form navbar-left" role="search" style="margin-bottom: 3px; margin-top: 3px;">
-          <div class="form-group">
-            <input type="text" class="form-control search-input" placeholder="Codigo de prenda...">
-          </div>
-          <button type="button" class="btn btn-default search-btn">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </form>
         <ul class="nav navbar-nav navbar-right loggedUserOptions" style="display: none;">
           <li>
             <a style="padding: 9px 15px 6px;">
@@ -258,6 +251,7 @@
         <div ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
       </div>
         <!-- /.navbar-collapse -->
+    </div>
     </nav>
     <!-- /container -->
     <div id="main" class="container">

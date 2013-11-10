@@ -43,7 +43,7 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 /* Data Factory */
-vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebook){
+vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function ($http, $rootScope, facebook){
     return {
         getWishlist: function(){
             return $http.get('/wishlist');
@@ -61,11 +61,11 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
                      {id: 1, name: 'Camisa', sexo: 'Mujer'},
                      {id: 2, name: 'Campera', sexo: 'Hombre'}];
         },
-        addToWishlist: function(item, $scope){
+        addToWishlist: function(item){
           return $http.post('/wishlist', {'itemId': item.id})
             .success(function(data){
               console.log(data);
-              $scope.alert =
+              $rootScope.alert =
                 {title:'Prenda agregada a Wishlist',
                   type:'info',
                   body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
@@ -86,7 +86,7 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
                   break;
 
                 case 400: // TODO: change server response from badRequest to sth mor appropiate.
-                  $scope.alert =
+                  $rootScope.alert =
                     {title:'La prenda ya está en tu Wishlist',
                       type:'warning',
                       body: 'La prenda ' + item.title + ' ya fue agregada a tu wishlist.',
@@ -99,7 +99,7 @@ vestaroMain.factory('buyerSession', ['$http', 'facebook', function($http, facebo
                   break;
 
                 default:
-                  $scope.alert =
+                  $rootScope.alert =
                     {title:'Oops, parece que hubo un problema',
                       type:'danger',
                       body: 'La prenda ' + item.title + ' no pudo ser agregada a tu wishlist.',
@@ -128,23 +128,23 @@ vestaroMain.factory('garmentsApi', ['$resource', function($resource) {
     });
 }]);
 
-vestaroMain.factory('facebook', ['$location', function($location){
+vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location, $rootScope){
   return {
-    feedDialog: function(item, $scope){
+    feedDialog: function(item){
       FB.ui(
         {
          method: 'feed',
          name: item.title,
          caption: item.seller.brandName,
-         description: (item.description),
+         description: item.description,
          link: $location.host() + '/garment/' + item.id,
-         picture: item.imgUrl
+         picture: $location.host() + item.imgUrl
         },
         function(response) {
           if (response && response.post_id) {
             console.log('Facebook: Publicación exitosa. Post id:' + response.post_id);
           } else {
-            $scope.alert =
+            $rootScope.alert =
               {title:'Oopss! Parece que hubo un problema.',
                 type:'danger',
                 body: 'La prenda ' + item.title + ' no pudo compartirse en Facebook.',

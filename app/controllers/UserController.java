@@ -1,21 +1,18 @@
 package controllers;
 
+import models.Buyer;
+import models.Seller;
+import models.User;
+
 import org.codehaus.jackson.JsonNode;
 
-import play.Play;
-import play.mvc.Controller;
-import play.mvc.Result;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import models.Buyer;
-import models.Rol;
-import models.Seller;
-import models.User;
+import play.mvc.Result;
 import security.RestrictTo;
 import security.Roles;
 import security.SubjectPresent;
-import utils.Crypto;
 
 
 public class UserController extends BaseController {

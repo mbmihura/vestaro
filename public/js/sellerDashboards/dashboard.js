@@ -11,6 +11,106 @@ AmCharts.ready(function () {
 	}
 	
 	// ==================== Commission ====================
+	$('#payButton').click(function(){
+		
+		seeCommissionDetail();
+	});
+	
+	function seeCommissionDetail(){
+		if( $('#commissionDetailModal').find('table').size() == 0 ) {
+			jsRoutes.controllers.SellerController.commissionDetail().ajax({
+	 			success: 
+				function(details){
+					addDetailTable(details);
+					$('#commissionDetailModal').modal('show');
+					
+				}
+				});
+			}
+	}
+	jsRoutes.controllers.SellerController.sellerCommission().ajax({
+ 	success: 
+		function(json){
+			$('#commission').text('$'+json.commissionValue.toFixed(2));
+			
+			if(json.commissionValue > 0){
+				$('#mpButton').attr('href',json.commissionCheckoutUrl);
+			}
+			else{
+				$('#payButton').attr('disabled',true);
+			}
+		}
+		});
+		
+
+	function formatJsonDate(dateJson){
+	 	var d = new Date(dateJson);
+	    var day = d.getDate();
+	    var month = d.getMonth() + 1;
+	    var year = d.getFullYear();
+	
+	    if (month < 10) {
+	        month = "0" + month;
+	     }
+	     
+	    return year + "." + month + "." + day;
+	}
+	
+	function addDetailTable(details){
+		var table = $('<table></table>').addClass('table table-striped')	;
+		table.append(detailsHeader());
+		$.each(details,function(){
+	 		var row = $('<tr></tr>');
+	 		var id= $('<td></td>').text(this.item.id);
+	 		var title= $('<td></td>').text(this.item.title);
+	 		var date= $('<td></td>').text(formatJsonDate(this.pay_time));
+	 		var commission= $('<td></td>').text("$"+this.commission);
+	 		
+	 		row.append(id);
+	 		row.append(title);
+	 		row.append(date);
+	 		row.append(commission);
+	 		
+	 		
+	    	table.append(row);
+		
+		} );
+	    
+	    table.append(detailsTotal());
+		$('.modal-body').append(table);
+	}
+	
+	function detailsTotal(){
+		var row = $('<tr></tr>').addClass('success');
+		var totalCommissionTitutlo= $('<td></td>').text("Total Comisión");
+		var totalCommission= $('<td></td>').text($('#commission').text());
+ 		var empty1 =$('<td></td>');
+ 		var empty2 =$('<td></td>');
+ 		row.append(totalCommissionTitutlo);
+ 		row.append(empty1);
+ 		row.append(empty2);
+ 		row.append(totalCommission);
+ 		
+ 		return row;
+	}
+	
+	
+	function detailsHeader(){
+		var row = $('<tr></tr>');
+ 		var id= $('<td></td>').text("id Item");
+ 		var title= $('<td></td>').text("Título Item");
+ 		var date= $('<td></td>').text("Fecha pago");
+ 		var commission= $('<td></td>').text("Comisión");
+ 		
+ 		row.append(id);
+ 		row.append(title);
+ 		row.append(date);
+ 		row.append(commission);
+ 		
+ 		
+ 		return row;	
+	}
+	
 	var chart;
 	var date = new Date();
 	var remainingTime = (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate() - date.getDate();
@@ -62,7 +162,7 @@ AmCharts.ready(function () {
     chart.write("chartdiv_commission");
 	
     // ==================== Stock ====================
-    jsRoutes.controllers.DashboardController.littleItemsStock(1).ajax({success: 
+    jsRoutes.controllers.DashboardController.littleItemsStock().ajax({success: 
 		function(json)
 		{
 			chart = new AmCharts.AmSerialChart();
@@ -94,7 +194,7 @@ AmCharts.ready(function () {
 	});
     
     // ==================== Monthly boughts ====================
-    jsRoutes.controllers.ActionController.actionsFrom(1, 1, formatDate(new Date(date.getFullYear(), date.getMonth(), 1)), formatDate(new Date(date.getFullYear(), date.getMonth() + 1, 0)), "BUY").ajax({success: 
+    jsRoutes.controllers.ActionController.actionsFrom(1, formatDate(new Date(date.getFullYear(), date.getMonth(), 1)), formatDate(new Date(date.getFullYear(), date.getMonth() + 1, 0)), "BUY").ajax({success: 
 		function(json)
 		{
 			var chart = new AmCharts.AmSerialChart();

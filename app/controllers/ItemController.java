@@ -183,9 +183,11 @@ public class ItemController extends BaseController {
 		try {
 			return ok(Json.toJson(manager.checkout(buyOrder)));
 		} catch (JSONException e) {
-			return badRequest();//TODO: think what to do when it fails
+			play.Logger.error(e.getMessage());
+			return badRequest();
 		} catch (Exception e) {
-			return badRequest();//TODO: think what to do when it fails
+			play.Logger.error(e.getMessage());
+			return badRequest();
 		}
     }
 }

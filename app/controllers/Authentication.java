@@ -1,23 +1,21 @@
 package controllers;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
+import models.Buyer;
+import models.Rol;
+import models.Seller;
+import models.User;
+
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.joda.time.DateTime;
 
 import play.Play;
-import play.mvc.Controller;
-import play.mvc.Result;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import models.Buyer;
-import models.Rol;
-import models.Seller;
-import models.User;
+import play.mvc.Controller;
+import play.mvc.Result;
 import security.Roles;
-import security.SubjectPresent;
 import utils.Crypto;
 
 

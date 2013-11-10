@@ -51,12 +51,14 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 
 
 # Dashboard
-GET		/littleItemsStock/:sellerId			controllers.DashboardController.littleItemsStock(sellerId: Long)
-GET		/biggestCollections/:sellerId		controllers.DashboardController.biggestCollections(sellerId: Long)
-GET		/itemsViewedFromCollections/:sellerId/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections(sellerId: Long, actionDateBegin: Long, actionDateEnd: Long)
+GET		/littleItemsStock					controllers.DashboardController.littleItemsStock()
+GET		/biggestCollections					controllers.DashboardController.biggestCollections()
+GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
+GET		/commissionToPay					controllers.SellerController.sellerCommission()
+GET		/commissionDetail					controllers.SellerController.commissionDetail()
 
 # Actions
-GET		/actions/:order/:sellerId/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, sellerId: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
+GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
 
 # Buyer Profile
 GET		/buyerProfile			controllers.BuyerController.profile()
@@ -78,8 +80,10 @@ GET     /assets/*file        				controllers.Assets.at(path="/public", file)
 GET		/javascriptRoutes     				controllers.Application.javascriptRoutes
 
 # Payment Process
-GET		/buy				controllers.ItemController.buy()
-POST	/orderItem					controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
-GET 	/payment/success/:orderId 	controllers.Payment.success(orderId:Long)
-GET 	/payment/error/:orderId 	controllers.Payment.error(orderId:Long)
+GET		/buy								controllers.ItemController.buy()
+POST	/orderItem							controllers.ItemController.orderItem(itemId: String, size: String, pointsUsed: Integer)
+GET 	/payment/success/:orderId 			controllers.PaymentController.success(orderId:Long)
+GET 	/payment/error/:orderId 			controllers.PaymentController.error(orderId:Long)
+GET		/commissionPayment/success/			controllers.PaymentController.commissionPaymentSuccess()
+GET		/commissionPayment/error/ 			controllers.PaymentController.commissionPaymentError()
 
