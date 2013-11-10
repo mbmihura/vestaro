@@ -1,68 +1,68 @@
 <div class="well" style="padding-bottom: 5px; padding-top: 5px;">
-<div class="row">
-	<div align="center" style="margin-bottom: 15px">
-		<h1 class="vestaro-logo" style="font-size: 100px">Vestaro</h1>
-		<button id="knowMoreBtn" type="button" class="btn btn-primary">Conocer más!</button>
-	</div>
-	<div id="knowMore" style="display: none">
-		<div class="col-md-6">
-			<div class="video-container"><iframe width="320" height="160" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></div>
+	<div class="row">
+		<div align="center" style="margin-bottom: 15px">
+			<h1 class="vestaro-logo" style="font-size: 100px">Vestaro</h1>
+			<button id="knowMoreBtn" type="button" class="btn btn-primary">Conocer más!</button>
 		</div>
-		<div class="col-md-6">
-		<div class="panel panel-info" style="border-color: #2974B9">
-	        <div class="panel-heading" style="background-color: #2974B9; color: white;">
-	          <h3 class="panel-title">¿Por qué elegir Vestaro?</h3>
-	        </div>
-			<div class="panel-body">
-				<div class="media">
-					<a class="pull-left" href="https://www.facebook.com/vestaro" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
-						src="/assets/img/vestaro/facebook.jpg"
-						style="width: 60px; height: 60px;">
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading">Accedé con Facebook.</h4>
+		<div id="knowMore" style="display: none">
+			<div class="col-md-6">
+				<div class="video-container"><iframe width="320" height="160" src="//www.youtube.com/embed/cz6CkquHV04?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-info" style="border-color: #2974B9">
+					<div class="panel-heading" style="background-color: #2974B9; color: white;">
+						<h3 class="panel-title">¿Por qué elegir Vestaro?</h3>
 					</div>
-				</div>
-				<div class="media">
-					<a class="pull-left" href="http://easyrec.org/" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
-						src="/assets/img/vestaro/gustos.jpg"
-						style="width: 50px; height: 64px;">
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading">Recomendaciones adaptadas a <strong>tus</strong> gustos.</h4>
-					</div>
-				</div>
-				<div class="media">
-					<a class="pull-left" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
-						src="/assets/img/vestaro/puntos.jpg"
-						style="width: 64px; height: 64px;">
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading">Acumulá puntos!</h4>
+					<div class="panel-body">
+						<div class="media">
+							<a class="pull-left" href="https://www.facebook.com/vestaro" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+								src="/assets/img/vestaro/facebook.jpg"
+								style="width: 60px; height: 60px;">
+							</a>
+							<div class="media-body">
+								<h4 class="media-heading">Accedé con Facebook.</h4>
+							</div>
+						</div>
+						<div class="media">
+							<a class="pull-left" href="http://easyrec.org/" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+								src="/assets/img/vestaro/gustos.jpg"
+								style="width: 50px; height: 64px;">
+							</a>
+							<div class="media-body">
+								<h4 class="media-heading">Recomendaciones adaptadas a <strong>tus</strong> gustos.</h4>
+							</div>
+						</div>
+						<div class="media">
+							<a class="pull-left" style="width: 64px; height: 64px;"> <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+								src="/assets/img/vestaro/puntos.jpg"
+								style="width: 64px; height: 64px;">
+							</a>
+							<div class="media-body">
+								<h4 class="media-heading">Acumulá puntos!</h4>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 <!-- Recommended Items -->
 <div align="center">
 	<h1 class="page-header">Sabemos qué te gusta. <small>Recomendaciones adaptadas a vos.</small></h1>
 	<div class="progress progress-striped active" style="width: 70%">
-    	<div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-    </div>
+		<div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+	</div>
 	<div id="itemsContainer" class="items isotope row">
 		<div ng-repeat="item in items | limitTo:10" class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope" align="center">
-			<div class="item-container">
+			<div class="item-isotope">
 				<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.title}}">
 				<div class="item-actions">
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; margin: 0px;">
-						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
-						<li ng-click="shareItem(item)" class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						<li ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+						<li ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+						<li ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
 					</ol>
 				</div>
 				<div class="item-info-container">
@@ -88,37 +88,35 @@
 				<h3>Prendas populares</h3>
 			</div>
 			<div class="row" style="margin:0">
-			<div class="col-md-3 item-container" style="padding-right:10px; padding-left:10px;" ng-repeat="item in popularItems | limitTo:4">
-				<div class="thumbnail item-thumb">
-					<div class="item-actions">
-						<ol class="breadcrumb">
-							<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
-							<li ng-click="shareItem(item)" class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-							<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
-						</ol>
-					</div>
-					<div class="item-main">
-						<h4 class="item-title">{{item.title}}</h4>
-						<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
-					</div>
-					<div class="item-details" align="center">
-						<div class="btn-group">
-							<div class="btn btn-default disabled price">${{item.price}}</div>
-							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+				<div class="col-md-3 item-container" style="padding-right:10px; padding-left:10px;" ng-repeat="item in popularItems | limitTo:4">
+					<div class="thumbnail item-thumb">
+						<div class="item-actions">
+							<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
+							<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+							<div ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+						</div>
+						<div class="item-main">
+							<h4 class="item-title">{{item.title}}</h4>
+							<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
+						</div>
+						<div class="item-details" align="center">
+							<div class="btn-group">
+								<div class="btn btn-default disabled price">${{item.price}}</div>
+								<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 	</div>
 	
 	<!-- Facebook Activity Plugin -->
 	<div class="col-md-4">
-	<div class="well" style="padding: 10px;" align="center">
-		<label>Tus amigos y Vestaro</label>
-		<div class="fb-activity" data-site="developers.facebook.com" data-colorscheme="light" data-header="true"></div>
-	</div>
+		<div class="well" style="padding: 10px;" align="center">
+			<label>Tus amigos y Vestaro</label>
+			<div class="fb-activity" data-site="developers.facebook.com" data-colorscheme="light" data-header="true"></div>
+		</div>
 	</div>
 </div>
 

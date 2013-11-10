@@ -70,8 +70,8 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
                   type:'info',
                   body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
                   btns: {
-                    primary: {order: 1, title: 'Continuar', type: 'info', href: ''},
-                    'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
+                    primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+                    // ,'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                   }
                 };
               $('#alertModal').modal('show');
@@ -81,18 +81,19 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
             .error(function(data, status, headers, config){
               console.log(status);
               switch(status) {
+                // TODO: centralize error handling.
                 case 401: // Unauthorized
                   $('#loginBtn').popover('show');
                   break;
 
-                case 400: // TODO: change server response from badRequest to sth mor appropiate.
+                case 409: // Confilct: duplicate item
                   $rootScope.alert =
                     {title:'La prenda ya está en tu Wishlist',
                       type:'warning',
                       body: 'La prenda ' + item.title + ' ya fue agregada a tu wishlist.',
                       btns: {
-                        primary: {order: 1, title: 'Continuar', type: 'warning', href: ''},
-                        'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
+                        primary: {order: 1, title: 'Continuar', type: 'warning', href: ''}
+                        // ,'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                       }
                     };
                   $('#alertModal').modal('show');
@@ -104,8 +105,8 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
                       type:'danger',
                       body: 'La prenda ' + item.title + ' no pudo ser agregada a tu wishlist.',
                       btns: {
-                        primary: {order: 1, title: 'Continuar', type: 'danger', href: ''},
-                        'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
+                        primary: {order: 1, title: 'Continuar', type: 'danger', href: ''}
+                        // ,'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                       }
                     };
                   $('#alertModal').modal('show');
@@ -143,17 +144,12 @@ vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location,
         function(response) {
           if (response && response.post_id) {
             console.log('Facebook: Publicación exitosa. Post id:' + response.post_id);
-          } else {
-            $rootScope.alert =
-              {title:'Oopss! Parece que hubo un problema.',
-                type:'danger',
-                body: 'La prenda ' + item.title + ' no pudo compartirse en Facebook.',
-                btns: {
-                  primary: {order: 1, title: 'Continuar', type: 'danger', href: ''}
-                }
-              };
-            $('#alertModal').modal('show');
-          }
+          } else if (response.error) {
+            alert('Facebook: Error occurred.');
+            console.log('Error: ' + response.error.message);
+           } else {
+            console.log('Facebook: Error occurred.');
+           }
         }
       );
     },
@@ -166,7 +162,7 @@ vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location,
             alert('Facebook: Error occurred.');
             console.log('Error: ' + response.error.message);
            } else {
-            alert('Facebook: Error occurred.');
+            console.log('Facebook: Error occurred.');
            }
          }
       }
