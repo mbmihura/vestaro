@@ -35,21 +35,21 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
   }
 }])
 
-.controller('GarmentEditCtrl', ['$scope', 'garmentsApi', '$routeParams', function($scope, garmentsApi, $routeParams){
+.controller('GarmentEditCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', function($scope, garmentsApi, $routeParams, $location){
   $scope.garment = garmentsApi.get({id: $routeParams.id})
   
+  // TODO check if item has change and if so, enable save button.
   $scope.hasChanged = function() {
     return !angular.equals($scope.remote, $scope.project);
   }
-  
-  $scope.destroy = function() {
-    garmentsApi.delete({id: $scope.remote});
-      // go back or $location.path('/');
-    };
-  
+    
   $scope.save = function() {
     garmentsApi.save({},$scope.garment);
-    // go back
+    $scope.cancel();
+  };
+
+  $scope.cancel = function() {
+      $location.path('/garments');
   };
 
 }])
