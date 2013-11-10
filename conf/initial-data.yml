@@ -23,6 +23,7 @@ users:
         name:           Kurt
         roles: 
             - *buyerRole
+            - *sellerRole
             - *adminRole
 
     - &userNaty !!models.User
@@ -72,6 +73,17 @@ sellers:
         webpageUrl:                 www.example.com
         user: *userPablo
 
+    - &ropaKurt !!models.Seller
+        id:                         3
+        brandName:                       RopaKurt
+        pointsEnabled:              false
+        pointMoneyRelation:         0.0
+        mp_client_secret:           uToiGVlNavrrbtjFX6ksHP51RQsG5and
+        mp_client_id:               1406963671517811
+        logoUrl:                    /assets/img/logo.jpg
+        webpageUrl:                 www.example.com
+        user: *userKurt
+
 # Collections
 
 collections:
@@ -117,6 +129,17 @@ items:
 
     - !!models.Item
         id:           CB1
+        title:        Camisa Blanca
+        description:  Camisa blanca a cuadros manga larga
+        imgUrl:       /assets/img/items/camisa_a_cuadros_blanca.jpg
+        price:        200
+        sex:        m
+        seller:        !!models.Seller
+                        id: 3
+        collection:   !!models.Collection
+                        id: 1
+    - !!models.Item
+        id:           cb2
         title:        Camisa Blanca
         description:  Camisa blanca a cuadros manga larga
         imgUrl:       /assets/img/items/camisa_a_cuadros_blanca.jpg
