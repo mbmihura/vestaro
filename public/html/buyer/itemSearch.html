@@ -42,28 +42,29 @@
 	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
-		<div ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems"
-			class="item-container col-md-3" ng-animate="'animate'">
-			<div class="thumbnail item-thumb">
-				<div class="item-actions">
-					<ol class="breadcrumb">
-						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
-						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
-					</ol>
-				</div>
-				<div class="item-main">
-					<h4 class="item-title">{{item.title}}</h4>
-					<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
-				</div>
-				<div class="item-details" align="center">
-					<div class="btn-group">
-						<div class="btn btn-default disabled price">${{item.price}}</div>
-						<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+		<ul masonry="true">
+			<li class="item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
+				<div class="item-thumb">
+<!-- 					<div class="item-actions">
+						<ol>
+							<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
+							<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
+							<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						</ol>
+					</div> -->
+					<div class="item-main">
+						<h4 class="item-title">{{item.title}}</h4>
+						<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
+					</div>
+					<div class="item-details" align="center">
+						<div class="btn-group">
+							<div class="btn btn-default disabled price">${{item.price}}</div>
+							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</li>
+		</ul>
 	</div>
 </div>
 

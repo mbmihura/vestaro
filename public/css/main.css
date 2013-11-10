@@ -111,7 +111,7 @@ cursor: pointer;
 border-top-right-radius: 15px;
 }
 
-.item .item-container {
+.item .item-isotope {
 position: relative;
 }
 
@@ -192,10 +192,59 @@ border-top-right-radius: 30px;
 }
 
 /* Search Item style */
+/* Masonry */
+.masonry {
+    position: absolute; /* important to add it before enter animation start */
+    padding: 0px;
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+.masonry .item-container { /* apply before masonry add class */
+    position: absolute; /* important to add it before enter animation start */
+    padding: 0px 15px;
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+
+.masonry .masonry-enter { /* limit animated properties for entering elements */
+    -webkit-transition-property: -webkit-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.masonry-enter,
+.masonry-leave.masonry-leave-active {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+}
+
+.masonry-leave,
+.masonry-enter.masonry-enter-active {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+/* Item */
+.item-container {
+  display: inline-block;
+  width: 25%;
+  margin-bottom: 15px;
+}
+
 .item-thumb {
+  border-radius: 4px;
+  display: block;
+  height: 250px;
+  max-width: 100%;
+  background-color: white;
+  border: 1.5px solid #ddd;
 	position: relative;
-  margin-bottom: 10px;
-	padding-top: 0px;
+	padding: 4px;
 	-webkit-transition: 200ms ease-in-out all;
     -moz-transition: 200ms ease-in-out all;
     -ms-transition: 200ms ease-in-out all;
@@ -216,14 +265,6 @@ border-top-right-radius: 30px;
 	top: 0px;
 	right: 0px;
 	opacity: 0;
-  -webkit-transition: 200ms ease-in-out all;
-  -moz-transition: 200ms ease-in-out all;
-  -ms-transition: 200ms ease-in-out all;
-  -o-transition: 200ms ease-in-out all;
-  transition: 200ms ease-in-out all;
-}
-
-.item-thumb .item-actions .breadcrumb {
   background-color: rgba(66, 139, 202, 0.9);
 	border-radius: 0px;
 	border-bottom-left-radius: 4px;
@@ -231,53 +272,62 @@ border-top-right-radius: 30px;
   margin: 0px;
 }
 
-.item-thumb .item-actions .breadcrumb .action {
+.item-thumb .item-actions .action {
+  display: inline-block;
+  position: relative;
   color: white;
 }
 
 .item-thumb .item-main {
   text-align: center;
   padding: 4px;
-  height: 210px;
   /*Hack to center verically the img.*/
-  line-height: 160px;
+  height: 85%;
+  margin-bottom: 2px;
+  /*line-height: 160px;*/
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
-  max-height: 160px;
+  max-height: 80%;
   max-width: 100%;
   vertical-align: middle;
 }
 
 .item-thumb .item-main .item-title {
   margin-top: 10px;
-  margin-bottom: 10px;
-  height: 20px;
   cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-
-.item-thumb .item-main.wishlist {
-  height: 400px;
-  line-height: 345px;
-}
-
-.item-thumb .item-main .item-img.wishlist {
-  max-height: 345px;
-}
-
-.item-thumb .item-main .item-title.wishlist {
-  height: 25px;
-}
+ .item-thumb .item-details {
+  height: 15%;
+ }
 
 .item-thumb .item-details .price {
-font-color: #2974B9;
-font-weight: bold;
-font-size: 14px;
+  font-color: #2974B9;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Wishlist */
+.item-thumb.wishlist {
+  height: 400px;
+  /*line-height: 345px;*/
+}
+
+.item-thumb.wishlist .item-main {
+  height: 90%;
+}
+
+.item-thumb.wishlist .item-main .item-img{
+  max-height: 85%;
+}
+
+.item-thumb.wishlist .item-details {
+  height: 10%;
 }
 
 /* To fill the container and nothing else */
@@ -349,5 +399,3 @@ height: 100%;
 .dialog-header-confirm span, .dialog-header-confirm h4 { 
     color: #ffffff; 
 }
-
-/**** End of Custom dialog/modal headers ****/
