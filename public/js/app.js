@@ -81,11 +81,12 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
             .error(function(data, status, headers, config){
               console.log(status);
               switch(status) {
+                // TODO: centralize error handling.
                 case 401: // Unauthorized
                   $('#loginBtn').popover('show');
                   break;
 
-                case 400: // TODO: change server response from badRequest to sth mor appropiate.
+                case 409: // Confilct: duplicate item
                   $rootScope.alert =
                     {title:'La prenda ya está en tu Wishlist',
                       type:'warning',
