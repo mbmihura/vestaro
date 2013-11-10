@@ -67,6 +67,12 @@ public class Item extends Model {
                 	.eq("seller.id", sellerId)
                 .findList();
     }
+    public static List<Item> findItemsOwnedByUser(Long userId){
+        return Item.find
+        		.where()
+                	.eq("seller.user.userId", userId)
+                .findList();
+    }
     
     public Item(String id) //TODO Diff entre id y Title?
     {
@@ -173,6 +179,17 @@ public class Item extends Model {
 		availableStockSize.put("M", "Medium");
 		availableStockSize.put("L", "Large");
 		return availableStockSize;
+	}
+
+	public void deleteCascade() {
+    	List<Stock> stocks = Stock.findStockOfItem(id);
+    	if (stocks != null){
+    		for(Stock s : stocks)
+    		{
+    			s.delete();
+    		}
+    	};
+    	delete();
 	}
 
 }
