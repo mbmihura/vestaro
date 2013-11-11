@@ -36,16 +36,21 @@ public class StockPerSize extends Model {
     @Version
     Timestamp update_time;
 
-    /***
+	public StockPerSize(Long id, String size, Integer quantity) {
+		this.id = id;
+		this.size = size;
+		this.quantity = quantity;
+	}
+
+	/***
      * Decrease by one the size's stock quantity and save in db. 
      */
     public void consumeStockUnit() {
     	this.quantity --;
-    	this.save();
-    	
+    	this.save();    	
     }
     
-    public static Finder<String,StockPerSize> find = new Finder<String,StockPerSize>(String.class, StockPerSize.class);
+    public static Finder<Long,StockPerSize> find = new Finder<Long,StockPerSize>(Long.class, StockPerSize.class);
 
     /***
      * Returns the amounts per size for a given item.
@@ -68,5 +73,13 @@ public class StockPerSize extends Model {
                 	.eq("item.id", itemId)
                 	.gt("quantity", 0)
                 .findList();
-    }  
+    }
+
+	public static StockPerSize findBySize(String itemId, String size) {
+		return StockPerSize.find
+                .where()
+                	.eq("item.id", itemId)
+                	.eq("size", size)
+                .findUnique();
+	}
 }

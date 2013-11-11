@@ -104,7 +104,7 @@ public class BuyOrder extends Model {
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
-		order.size = StockPerSize.find.byId(size);
+		order.size = StockPerSize.findBySize(item.id, size);
 		order.pointsUsed = pointsUsed;
 		order.buyer.points -= pointsUsed;
 		order.commission = order.getCommision();
