@@ -254,7 +254,7 @@ border-top-right-radius: 30px;
 }
 
 .item-thumb:HOVER {
-	border: 1.5px solid rgba(66, 139, 202, 0.9);
+	border: 1.5px solid rgba(221, 72, 20, 0.9);
 }
 
 .item-thumb:HOVER .item-actions {
@@ -266,7 +266,7 @@ border-top-right-radius: 30px;
 	top: 0px;
 	right: 0px;
 	opacity: 0;
-  background-color: rgba(66, 139, 202, 0.9);
+  background-color: rgba(221, 72, 20, 0.9);
 	/* Breadcrumb */
 	border-bottom-left-radius: 4px;
   padding: 5px 10px;
@@ -288,9 +288,8 @@ border-top-right-radius: 30px;
   text-align: center;
   padding: 4px;
   /*Hack to center verically the img.*/
-  height: 85%;
-  margin-bottom: 2px;
-  /*line-height: 160px;*/
+  height: 82%;
+  line-height: 150px;
 }
 
 .item-thumb .item-main .item-img {
@@ -301,16 +300,15 @@ border-top-right-radius: 30px;
 }
 
 .item-thumb .item-main .item-title {
-  margin-top: 10px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 2px;
   cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
- .item-thumb .item-details {
-  height: 15%;
- }
 
 .item-thumb .item-details .price {
   font-color: #2974B9;
@@ -329,15 +327,12 @@ border-top-right-radius: 30px;
 }
 
 .item-thumb.wishlist .item-main {
-  height: 90%;
+  height: 88%;
+  line-height: 300px;
 }
 
 .item-thumb.wishlist .item-main .item-img{
   max-height: 85%;
-}
-
-.item-thumb.wishlist .item-details {
-  height: 10%;
 }
 
 /* To fill the container and nothing else */
