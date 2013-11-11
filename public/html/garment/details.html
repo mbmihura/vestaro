@@ -1,0 +1,67 @@
+<link rel="stylesheet" media="screen" href="/assets/css/garmentDetail.css">
+<div id="garmentDetail_boxContainer">
+	<div class="innerContainer">
+		<div class="imageContainer">
+			
+				<h1 class="title item" id="H1_10" style="margin-bottom: 20px;">
+					<a class="brand" id="A_11">{{garment.title}}</a>
+				</h1>
+				<div id="DIV_46" class="curtains-up">
+					<div id="DIV_47">
+						<img src="{{garment.imgUrl}}" id="garmentDetailImg" alt='garment image' />
+					</div>
+				</div>					
+			
+		</div>
+		<div id="garmentDetail_brandLogo">
+			<a href="">
+				<img src="assets/img/users-data/levisBrandLogo.jpg" alt="brand logo" id="" />
+			</a>
+		</div>
+		<div id="garmentDetail_detailsContainer">
+			<div id="DIV_346">
+				<form id="garmentDetail_form">
+					<div>
+						<span class="sale" id="SPAN_352">Now on SALE!</span>
+						<span class="oldPrice" id="SPAN_353" ng-show="garment.oldprice">$50.00</span>
+						<span class="price salePrice" id="SPAN_354" ng-show="garment.price">${{garment.price}}</span>
+					</div>
+					<div style="padding-right: 10px;padding-left: 10px;font-size: 24px;font-weight:bolder;margin-bottom: 10px;">{{garment.seller.brandName}}</div>
+					<div style="padding-right: 10px;padding-left: 10px;padding-bottom: 15px;}">{{garment.description}}</div>
+					<div id="garmentDetail_stockSize_container">
+						<span id="garmentDetail_stockSizes">Talles Disponibles: {{garment.availableStocks}}</span>
+					</div>
+					<div style="padding: 10px;">
+						<button type="button" class="btn btn-lg btn-success" style="width: 190px;">Comprar</button>
+					</div>
+					<div style="padding: 10px;">
+						<button type="button" class="btn btn-lg btn-warning" style="width: 190px;">Agregar a favoritos</button>
+					</div>
+				</form>
+
+				<div id="socialButtonsArea">
+					<span id="SPAN_400">Share:</span>
+					<div class="share-box custom-style" id="DIV_401">
+						<div class="inner" id="DIV_402">
+							<div class="fb-like" id="DIV_403">
+							</div><span class="spinner" id="SPAN_404"></span><a class="fake-button popup-995-500-center gae-click*Product-Page*Social-Sharing*Facebook" href="https://www.facebook.com/dialog/feed?app_id=2357918308&amp;link=http%3A%2F%2Fwww.zappos.com%2Fproduct%2F8131819%2Fcolor%2F424432%3Futm_term%3DSKU-8131819%26utm_campaign%3Dproduct_page_badge%26utm_medium%3Dsocialearned%26utm_source%3Dfacebook&amp;picture=http%3A%2F%2Fa1.zassets.com%2Fimages%2Fz%2F2%2F2%2F2%2F9%2F7%2F4%2F2229748-p-MULTIVIEW.jpg&amp;name=Levi's%26%23174%3B%20Mens%20Ace%20I%20Cargo%20Short&amp;caption=Timberwolf%20Twill&amp;description=Levi's%26%23174%3B%20Mens%20Ace%20I%20Cargo%20Short&amp;redirect_uri=http%3A%2F%2Fzappos.com%2Fproduct%2FfacebookThankYou.zml" id="A_405"></a>
+						</div>
+					</div>
+					<div class="share-box custom-style" id="DIV_406">
+						<div class="inner" id="DIV_407">
+							<a href="https://twitter.com/share" class="twitter-share-button" id="A_408">Tweet</a><span class="spinner" id="SPAN_409"></span><a class="fake-button popup-600-400-center gae-click*Product-Page*Social-Sharing*Twitter" href="https://twitter.com/share?url=http%3A%2F%2Fzapp.me%2F8131819%2F424432&amp;text=Levi's%26%23174%3B%20Mens%20Ace%20I%20Cargo%20Short" id="A_410"></a>
+						</div>
+					</div>
+					<div class="share-box custom-style" id="DIV_411">
+						<div class="inner" id="DIV_412">
+							<a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.zappos.com%2Fproduct%2F8131819%2Fcolor%2F424432%3Futm_term%3DSKU-8131819%26utm_campaign%3Dproduct_page_badge%26utm_medium%3Dsocialearned%26utm_source%3Dpinterest&amp;media=http%3A%2F%2Fa1.zassets.com%2Fimages%2Fz%2F2%2F2%2F2%2F9%2F7%2F4%2F2229748-p-MULTIVIEW.jpg&amp;description=Levi's%26%23174%3B%20Mens%20Ace%20I%20Cargo%20Short" class="pin-it-button" id="A_413">Pin It</a><span class="spinner" id="SPAN_414"></span><a class="fake-button popup-600-300-center gae-click*Product-Page*Social-Sharing*Pinterest" href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.zappos.com%2Fproduct%2F8131819%2Fcolor%2F424432%3Futm_term%3DSKU-8131819%26utm_campaign%3Dproduct_page_badge%26utm_medium%3Dsocialearned%26utm_source%3Dpinterest&amp;media=http%3A%2F%2Fa1.zassets.com%2Fimages%2Fz%2F2%2F2%2F2%2F9%2F7%2F4%2F2229748-p-MULTIVIEW.jpg&amp;description=Levi's%26%23174%3B%20Mens%20Ace%20I%20Cargo%20Short" id="A_415"></a>
+						</div>
+					</div>
+					<div class="share-box custom-style" id="DIV_416">
+						<a class="gae-click*Product-Page*Social-Sharing*Tell-A-Friend popup-463-475-center" title="Tell a friend" href="/tellAFriend.do?productId=8131819&amp;colorId=424432" id="A_417">Email</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+

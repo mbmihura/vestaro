@@ -54,6 +54,19 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
 
 }])
 
+.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', function($scope, garmentsApi, $routeParams, $location){
+  $scope.garment = garmentsApi.get({id: $routeParams.id}, function() {
+    $scope.garment.availableStocks = "";
+    $scope.garment.stock.forEach(function(s) {
+      if(s.quantity > 0)
+        $scope.garment.availableStocks += s.size + ", ";
+    });
+    $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
+});
+
+
+}])
+
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [
       {path: '/', title: 'Inicio', icon: 'home'},
