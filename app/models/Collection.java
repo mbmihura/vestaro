@@ -37,14 +37,8 @@ public class Collection extends Model {
 	}
     
     public static List<Collection> findCollectionsOwnedBy(Long sellerId){
-        return Collection.find.where()
+        return find.where()
                 .eq("seller.id", sellerId)
-                .findList();
-    }
-    
-    public static List<Collection> findCollectionsById(Long collectionId){
-        return Collection.find.where()
-                .eq("id", collectionId)
                 .findList();
     }
     
@@ -52,8 +46,6 @@ public class Collection extends Model {
     	if(collection.seller == null){
     		collection.seller = Seller.find.byId((long)1);
     	}
-    	
-    	collection.id = Long.parseLong(((Integer) (findCollectionsOwnedBy(1L).size() + 1)).toString());
     	collection.save();
     	return collection;
     }
@@ -64,7 +56,7 @@ public class Collection extends Model {
     }
     
     public static Collection delete(Long collectionId) {
-    	Collection collection = findCollectionsById(collectionId).get(0);
+    	Collection collection = find.byId(collectionId);
     	collection.delete();
     	return new Collection(collectionId, null, null);
     }
