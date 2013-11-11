@@ -1,0 +1,73 @@
+<!-- Register Modal -->
+<div class="modal-dialog">
+  <div class="modal-content" style="
+">
+    <div class="modal-header" style="
+    padding-bottom: 10px;
+">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h4 class="modal-title" id="myModalLabel">Por último...</h4>
+    </div>
+    <div class="modal-body row" style="
+    padding-top: 10px;
+"><div class="col-md-12" style="
+    padding-bottom: 7px;
+">Selecciona el uso principal que le daras a tu cuenta de Vestaro:</div>
+   
+   <div class="col-md-6" style="
+    font-size: 12px;   
+    /* padding-bottom: 15px; */; 
+    /* border-radius: 6px; */
+    /* border-radius: 1px; */
+    /* border: black; */
+"><div onclick="ModaleBuyerSellerSelectChoice()" style="
+    border: 1px solid rgba(0,0,0,0.2); border-radius: 6px;
+    min-height: 110px;
+    padding-top: 5px;
+    cursor: pointer;
+">
+       <!-- Your first column here --><img src="assets/img/globals-business/shoppingBagGreen.ico" alt="Shopping Bag" style="
+    float: left;
+    width: 100px;
+"><div style="
+    font-size: 24px;
+    padding-left: 115px;
+              ">Comprar</div>Busca y encuentra todo la ropa que te gusta en Vestaro.</div></div><div class="col-md-6" style="
+    font-size: 12px;   
+    /* padding-bottom: 15px; */
+"><div onclick="ModaleBuyerSellerSelectChoice()" style="
+    border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; 
+    min-height: 110px;
+    padding-top: 5px;
+    cursor: pointer;
+">
+       <!-- Your first column here --><img src="http://www.highervisibility.com/wp-content/uploads/2011/05/FacebookTagBlue.jpg?0dfd67" alt="Shopping Bag" style="
+    float: left;
+    width: 100px;
+    padding-top: 14px;
+    padding-bottom: 20px;
+"><div style="
+    font-size: 24px;
+    padding-left: 115px;
+">Vender</div>Da a conocer tu marca o negocio a millones de personas en un solo lugar.</div></div>
+</div>
+  <div class="modal-footer" style="
+    margin-top: 0px;
+">
+  <div style="
+    text-align: left;
+    font-size: 12px;
+">Recuerda que puede cambiar tu eleccion en cualquier momento desde las configuraciones de tu cuenta.</div>
+  
+  </div> 
+  </div><!-- /.modal-content -->
+</div>
+
+<script type="text/javascript">
+function ModaleBuyerSellerSelectChoice()
+{
+  AuthenticateVestaro(FB.VestaroData.selectedAccountUsage);
+  $('#remoteModal').modal('hide');
+}
+</script>
+

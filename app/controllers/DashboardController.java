@@ -2,21 +2,29 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import models.Action;
+import models.BuyOrder;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
-import models.Stock;
+import models.StockPerSize;
+import models.PaymentManager;
+import models.Seller;
+
+import org.codehaus.jettison.json.JSONException;
+
 import play.libs.Json;
 import play.mvc.Result;
 
-/*TODO replace sellerId with this.currentUserId();*/
 public class DashboardController extends BaseController {
         
-    public static Result biggestCollections(Long sellerId){    	
-    	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
+    public static Result biggestCollections(){ 
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+    	List<Collection> collections = Collection.findCollectionsOwnedBy(seller.id);
     	List<CollectionItems> items = new ArrayList<CollectionItems>();
     	
 		for(Collection collection : collections){
@@ -27,8 +35,10 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(items));
     }
     
-    public static Result itemsViewedFromCollections(Long sellerId, Long actionDateBegin, Long actionDateEnd){    	
-    	List<Collection> collections = Collection.findCollectionsOwnedBy(sellerId);
+    public static Result itemsViewedFromCollections(Long actionDateBegin, Long actionDateEnd){    	
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+
+    	List<Collection> collections = Collection.findCollectionsOwnedBy(seller.id);
     	List<CollectionItems> items = new ArrayList<CollectionItems>();
     	
 		for(Collection collection : collections){
@@ -44,18 +54,24 @@ public class DashboardController extends BaseController {
     	return ok(Json.toJson(items));
     }
     
-    public static Result littleItemsStock(Long sellerId){
-    	List<Stock> lowStockItems = new ArrayList<Stock>();
-    	List<Item> items = Item.findItemsOwnedBy(sellerId);
+    public static Result littleItemsStock(){
+    	Seller seller = Seller.findSellerByUser(currentUserId());
+
+    	List<StockPerSize> lowStockItems = new ArrayList<StockPerSize>();
+    	List<Item> items = Item.findItemsOwnedBy(seller.id);
     	
 		for(Item item : items){
-			for(Stock stock : Stock.findStockOfItem(item.id)){
-				if(stock.stock <= 5)
+			for(StockPerSize stock : StockPerSize.findStockForItem(item.id)){
+				if(stock.quantity <= 5)
 					lowStockItems.add(stock);
 			}
 		}
     	
     	return ok(Json.toJson(lowStockItems));
     }
+    
 
+    
+  
+    
 }

@@ -1,0 +1,406 @@
+@font-face {
+    font-family: VivaldiF;
+    src: url('../fonts/vivaldi.ttf');
+}
+
+.page-header {
+  cursor: default;
+}
+
+.vestaro-logo {
+	font-family: vivaldi;
+	color: rgba(41, 116, 185, 1);
+	letter-spacing: 3px;
+  cursor: default;
+}
+
+/**** Isotope Filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity, box-shadow;
+     -moz-transition-property:    -moz-transform, opacity, box-shadow;
+      -ms-transition-property:     -ms-transform, opacity, box-shadow;
+       -o-transition-property:      -o-transform, opacity, box-shadow;
+          transition-property:         transform, opacity, box-shadow;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+      -ms-transition-duration: 0s;
+       -o-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+/* End: Recommended Isotope styles */
+
+
+
+/* disable CSS transitions for containers with infinite scrolling*/
+.isotope.infinite-scrolling {
+  -webkit-transition: none;
+     -moz-transition: none;
+      -ms-transition: none;
+       -o-transition: none;
+          transition: none;
+}
+
+/* Overrides bootstrap's page-header margin. */
+.page-header {
+margin: 20px 0 20px;
+}
+
+/* Items Home Buyer style */
+.items {
+padding-left: 20px;
+padding-right: 20px;
+margin-bottom: 10px;
+}
+
+.items .item {
+margin: 2px;
+float: left;
+width: 220px;
+position: relative;
+}
+
+.items .item:HOVER .item-actions {
+  opacity: 1;
+}
+
+.items .item:HOVER .item-info-container {
+  opacity: 1;
+}
+
+.items .item-img {
+cursor: pointer;
+-webkit-border-top-right-radius: 15px;
+-moz-border-radius-topright: 15px;
+border-top-right-radius: 15px;
+}
+
+.item .item-isotope {
+position: relative;
+}
+
+.item .item-actions {
+-webkit-transition: 200ms ease-in-out all;
+-moz-transition: 200ms ease-in-out all;
+-ms-transition: 200ms ease-in-out all;
+-o-transition: 200ms ease-in-out all;
+transition: 200ms ease-in-out all;
+position: absolute;
+right: 0px;
+top: 0px;
+opacity: 0;
+}
+
+.item .item-actions .breadcrumb {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.item .item-info-container {
+-webkit-transition: 200ms ease-in-out all;
+-moz-transition: 200ms ease-in-out all;
+-ms-transition: 200ms ease-in-out all;
+-o-transition: 200ms ease-in-out all;
+transition: 200ms ease-in-out all;
+position: absolute;
+padding: 4px;
+bottom: 0px;
+width: 100%;
+opacity: 0;
+}
+
+.item .item-info {
+background-color: rgba(255, 255, 255, 0.85);
+padding: 4px;
+-webkit-border-top-left-radius: 10px;
+-moz-border-radius-topleft: 10px;
+border-top-left-radius: 10px;
+}
+
+.item .item-info .price {
+font-color: #2974B9;
+font-weight: bold;
+font-size: 14px;
+}
+
+.item .item-info .title {
+	margin-top:0px;
+	cursor: default;
+}
+
+.item.large {
+width: 350px;
+-webkit-border-top-right-radius: 30px;
+-moz-border-radius-topright: 30px;
+border-top-right-radius: 30px;
+}
+
+.action {
+	cursor: pointer;
+}
+
+/* Responsive Videos */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Search Item style */
+/* Masonry */
+.masonry {
+    position: absolute; /* important to add it before enter animation start */
+    padding: 0px;
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+.masonry .item-container { /* apply before masonry add class */
+    position: absolute; /* important to add it before enter animation start */
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+
+.masonry .masonry-enter { /* limit animated properties for entering elements */
+    -webkit-transition-property: -webkit-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.masonry-enter,
+.masonry-leave.masonry-leave-active {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+}
+
+.masonry-leave,
+.masonry-enter.masonry-enter-active {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+/* Item */
+.item-container {
+  display: inline-block;
+  width: 25%;
+  margin-bottom: 15px;
+  padding: 0px 15px;
+
+}
+
+.item-thumb {
+  border-radius: 4px;
+  display: block;
+  height: 250px;
+  max-width: 100%;
+  background-color: white;
+  border: 1.5px solid #ddd;
+	position: relative;
+	padding: 4px;
+	-webkit-transition: 200ms ease-in-out all;
+    -moz-transition: 200ms ease-in-out all;
+    -ms-transition: 200ms ease-in-out all;
+    -o-transition: 200ms ease-in-out all;
+    transition: 200ms ease-in-out all;
+}
+
+.item-thumb:HOVER {
+	border: 1.5px solid rgba(66, 139, 202, 0.9);
+}
+
+.item-thumb:HOVER .item-actions {
+  opacity: 1;
+}
+
+.item-thumb .item-actions {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	opacity: 0;
+  background-color: rgba(66, 139, 202, 0.9);
+	/* Breadcrumb */
+	border-bottom-left-radius: 4px;
+  padding: 5px 10px;
+  -webkit-transition: 200ms ease-in-out all;
+  -moz-transition: 200ms ease-in-out all;
+  -ms-transition: 200ms ease-in-out all;
+  -o-transition: 200ms ease-in-out all;
+  transition: 200ms ease-in-out all;
+}
+
+.item-thumb .item-actions .action {
+  display: inline-block;
+  position: relative;
+  color: white;
+  margin: 4px;
+}
+
+.item-thumb .item-main {
+  text-align: center;
+  padding: 4px;
+  /*Hack to center verically the img.*/
+  height: 85%;
+  margin-bottom: 2px;
+  /*line-height: 160px;*/
+}
+
+.item-thumb .item-main .item-img {
+	border-radius: 4px;
+  max-height: 80%;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.item-thumb .item-main .item-title {
+  margin-top: 10px;
+  cursor: default;
+  /* To make the title fit. */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+ .item-thumb .item-details {
+  height: 15%;
+ }
+
+.item-thumb .item-details .price {
+  font-color: #2974B9;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Wishlist */
+.item-container.wishlist {
+  width: 33.33333333333333%;
+}
+
+.item-thumb.wishlist {
+  height: 400px;
+  /*line-height: 345px;*/
+}
+
+.item-thumb.wishlist .item-main {
+  height: 90%;
+}
+
+.item-thumb.wishlist .item-main .item-img{
+  max-height: 85%;
+}
+
+.item-thumb.wishlist .item-details {
+  height: 10%;
+}
+
+/* To fill the container and nothing else */
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+width: 100% !important;
+}
+ 
+.embed-container {
+position: relative;
+padding-bottom: 56.25%; /* 16/9 ratio */ 
+height: 100px;
+overflow: hidden;
+}
+ 
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+/* end of facebook responsive */
+
+.animate-enter, 
+.animate-leave
+{ 
+    -webkit-transition: 300ms ease-in-out all;
+    -moz-transition: 300ms ease-in-out all;
+    -ms-transition: 300ms ease-in-out all;
+    -o-transition: 300ms ease-in-out all;
+    transition: 300ms ease-in-out all;
+    position: relative;
+    display: block;
+} 
+
+.animate-enter.animate-enter-active, 
+.animate-leave {
+    opacity: 1;
+}
+
+.animate-leave.animate-leave-active,
+.animate-enter {
+    opacity: 0;
+}
+
+/**** Custom dialog/modal headers ****/
+
+.dialog-header-error {
+    background-color: #d2322d; 
+}
+.dialog-header-wait { 
+    background-color: #428bca; 
+}
+.dialog-header-notify { 
+    background-color: #eeeeee; 
+}
+.dialog-header-confirm { 
+    background-color: #333333; 
+}
+.dialog-header-error span, .dialog-header-error h4,
+.dialog-header-wait span, .dialog-header-wait h4,
+.dialog-header-confirm span, .dialog-header-confirm h4 { 
+    color: #ffffff; 
+}

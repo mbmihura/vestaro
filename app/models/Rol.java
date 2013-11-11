@@ -55,8 +55,13 @@ public class Rol extends Model
 
     public static Rol findByName(Roles role)
     {
+        return findByName(role.getName());
+    }
+    
+    public static Rol findByName(String roleName)
+    {
         return find.where()
-                   .eq("name",role.getName())
+                   .eq("name",roleName)
                    .findUnique();
     }
 
