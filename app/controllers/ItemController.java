@@ -118,7 +118,7 @@ public class ItemController extends BaseController {
 		if (stocksJson != null){				
 		    Form<StockPerSize> stock = Form.form(StockPerSize.class);
 		    Iterator<JsonNode> it = stocksJson.iterator();
-		    List<StockPerSize> newStocks = new ArrayList<>();
+		    List<StockPerSize> newStocks = new ArrayList<StockPerSize>();
 		    while (it.hasNext()) {
 		    	JsonNode jn = it.next();
 		    	Form<Dynamic> s = Form.form().bind(jn);
