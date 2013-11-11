@@ -67,10 +67,10 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
               console.log(data);
               $rootScope.alert =
                 {title:'Prenda agregada a Wishlist',
-                  type:'info',
+                  type:'success',
                   body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
                   btns: {
-                    primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+                    primary: {order: 1, title: 'Continuar', type: 'success', href: ''}
                     // ,'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                   }
                 };
