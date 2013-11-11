@@ -18,7 +18,7 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
   $scope.destroy = function(id)
   {
     garmentsApi.delete({id: id});
-    $scope.list = $.grep($scope.list,function(i){ return i.id != id;});
+    $scope.list = $.grep($scope.list,function(g){ return g.id != id;});
   };
 	
 }])
@@ -30,28 +30,55 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
 }])
 
 .controller('GarmentNewCtrl', ['$scope', function($scope){
+
+  /* size table methods */
+  $scope.removeSize = function(index)
+  {
+    $scope.garment.stock.splice(index, 1);
+  };
+  $scope.addSize = function()
+  {
+    $scope.garment.stock.push({id: "", size:"", quantity: 0});
+  };
+
   $scope.save = function() {
     //TODO:
   }
 }])
 
 .controller('GarmentEditCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', function($scope, garmentsApi, $routeParams, $location){
-  $scope.garment = garmentsApi.get({id: $routeParams.id})
+  $scope.garment = garmentsApi.get({id: $routeParams.id}, function(){
+    $scope.garment.imgUrlNew = $scope.garment.imgUrl;
+  });
+
+  $scope.updateImgUrlSave = function()
+  {
+    $scope.garment.imgUrl = $scope.garment.imgUrlNew;
+  };
+  $scope.updateImgUrlCancel = function()
+  {
+    $scope.garment.imgUrlNew = $scope.garment.imgUrl;
+  };
   
-  // TODO check if item has change and if so, enable save button.
-  $scope.hasChanged = function() {
-    return !angular.equals($scope.remote, $scope.project);
-  }
-    
+  /* size table methods */
+  $scope.removeSize = function(index)
+  {
+    $scope.garment.stock.splice(index, 1);
+  };
+  $scope.addSize = function()
+  {
+    $scope.garment.stock.push({id: "", size:"", quantity: 0});
+  };
+
   $scope.save = function() {
-    garmentsApi.save({},$scope.garment);
-    $scope.cancel();
+    garmentsApi.save({},$scope.garment,
+      //success
+      function( value ){$location.path('/garments');},
+      //error
+      function( error ){
+      /*TODO: Do something with error*/}
+   );
   };
-
-  $scope.cancel = function() {
-      $location.path('/garments');
-  };
-
 }])
 
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {

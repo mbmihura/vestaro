@@ -1,7 +1,7 @@
 <form id="itemForm" class="form-horizontal" role="form">
 	<fieldset>
 		<legend>Nueva Prenda</legend>
-		<div class="col-lg-6">
+		<div class="col-lg-7">
 			<div class="form-group">
 				<label class="control-label" for="title">Nombre</label>
 				<div class="controls">
@@ -14,14 +14,20 @@
 					<textarea id="description" name="description" class="form-control" ng-model="garment.description" required="" value=""></textarea>
 				</div>
 			</div>
-			<div class="form-group" style="text-align: right;">
-				<label class="control-label" for="imgUrl" style="float: left;">URL de Imágen:</label>
-				<a class="control-label" style="margin-left: 10px;float: left;text-decoration: underline;">{{garment.imgUrl}}</a>
-				<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#urlEditor" style="margin-top: 6px;margin-bottom: 5px;">
-					<span class="glyphicon glyphicon-edit"></span> Cambiar imagen
-				</button>
-				<div class="controls" style="text-align: center;">
-					<img ng-src="{{garment.imgUrl}}" alt="imagend de la prenda" style="height: 200px;">		    
+			<div class="form-group">
+				<img ng-src="{{garment.imgUrl}}" alt="Cargando..." style="width: 140px;float: left;">
+				<div style="margin-left: 143px;">
+					<div style="margin-right: 10px;float: right;">
+						<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#urlEditor" style="margin-top: 6px;margin-bottom: 5px;">
+							<span class="glyphicon glyphicon-edit"></span> Cambiar imagen
+						</button>
+					</div>
+					<div style="padding-left: 10px;">
+						<label class="control-label" for="imgUrl">URL de Imágen:</label>
+					</div>
+					<div style="margin-top: 5px;margin-bottom: 4px;">
+						<a class="control-label" style="margin-left: 10px;text-decoration: underline;">{{garment.imgUrl}}</a>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -45,7 +51,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-5">
 			<h4>Talles disponibles</h4>
 			<p>Ingresa cuantos tienes de cada talle:</p>
 			<table class="table table-condensed" style="margin-left: 10px;">
@@ -53,25 +59,31 @@
 					<tr>
 						<th></th>
 						<th>Talle</th>
-						<th class="col-lg-4">Cantidad</th>
+						<th class="col-sm-1" style="text-align: center;">Cantidad</th>
 						<th style="text-align: center;">
-							<button type="button" class="btn btn-default btn-xs">
+							<button type="button" ng-click="addSize()" class="btn btn-default btn-xs">
 								<span class="glyphicon glyphicon-plus"></span> Agregar
 							</button>
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="stock in garment.availableStock">
-						<td>1</td>
-						<td><input type="text" id="stocks_0_" name="stocks[0]" ng-model="stock.SCNL" value=""></td>
-						<td class="col-lg-4"><input class="col-lg-4" type="text" ng-model="stock.SCNL" id="stocks_0_" name="stocks[0]" value=""></td>
-						<td style="text-align: center;"><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Remover</button></td>
+					<tr ng-repeat="stock in garment.stock">
+						<td style="vertical-align: middle;">{{$index + 1}}</td>
+						<td>
+							<input type="text" ng-model="stock.size" class="form-control" required="" value="" placeholder="Talle">
+						</td>
+						<td >
+							<input type="text" ng-model="stock.quantity" class="form-control" required="" value="" style="text-align: center; width: 60px;">
+						</td>
+						<td style="text-align: center; vertical-align: middle;">
+							<button type="button" class="btn btn-danger btn-xs" ng-click="removeSize($index)"><span class="glyphicon glyphicon-remove"></span> Remover</button>
+						</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td style="font-weight: bold;">Total</td>
-						<td class="col-lg-2">0</td>
+						<td class="col-lg-2" style="text-align: center;">0</td>
 						<td></td>
 					</tr>
 				</tbody>
@@ -80,7 +92,7 @@
 	</fieldset>
 	<div class="form-group" style="padding-top: 10px;padding-left: 15px;text-align: center;border-top: 1px solid #e5e5e5;">
 		<button type="button" ng-click="save()" class="btn btn-primary">Publicar</button>
-		<button type="submit" ng-click="cancel()" class="btn btn-default">Cancelar</button>
+		<a href="#/garments" class="btn btn-default">Cancelar</a>
 	</div>
 </form>
 <div class="modal fade in" id="urlEditor" tabindex="-1" role="dialog" aria-labelledby="urlEditor" aria-hidden="false" style="display: none;">
@@ -92,16 +104,16 @@
 			</div>
 			<div class="modal-body row">
 				<div class="col-md-4" style="text-align: center;">
-					<img ng-src="/assets/img/items/camisa_a_cuadros_blanca.jpg" alt="imagend de la prenda" style="height: 200px;" >
+					<img ng-src="{{garment.imgUrlNew}}" alt="Cargando..." style="width: 140px;" >
 				</div>
 				<div class="col-md-8">
 					Ingrese la url de la imagen de la prenda:
-					<input id="newImgUrl" name="newUrl" type="text" placeholder="url de la imagen" ng-model="garment.imgUrl" class="form-control" required="" value="">
+					<input id="newImgUrl" name="newUrl" type="text" placeholder="Url de la imagen" ng-model="garment.imgUrlNew" class="form-control" required="" value="">
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-primary">Guardar</button>
+				<button type="button" ng-click="updateImgUrlCancel()" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" ng-click="updateImgUrlSave()" class="btn btn-primary" data-dismiss="modal">Guardar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
