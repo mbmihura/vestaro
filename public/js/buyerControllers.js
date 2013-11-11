@@ -62,8 +62,8 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	
 	// Wait until all images are loaded
 	$container.imagesLoaded(function() {
-		$('.progress.progress-striped.active').fadeOut();
 		$container.isotope(options);
+		$('.progress.progress-striped.active').fadeOut();
 	});
 	
 	var $optionSets = $('#itemsControls .option-set'),

@@ -11,7 +11,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" href="#@buyOrder.id"> <strong>
+					<a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" data-target="#@buyOrder.id" style="cursor:pointer"> <strong>
 							@buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state.getDescription()</span>
 					</a>
 				</h4>
@@ -19,7 +19,7 @@
 			<div id=@buyOrder.id class="panel-collapse collapse in">
 				<div class="panel-body">
 					<div class="col-lg-3">
-						<img src=@buyOrder.item.imgUrl style="border-radius: 4px; max-height: 160px; max-width: 100%;">
+						<img src=@buyOrder.item.imgUrl style="border-radius: 4px; max-height: 140px; max-width: 100%;">
 					</div>
 					<div class="col-lg-6">
 						<div><label>Descripción:</label> @buyOrder.item.description</div>
