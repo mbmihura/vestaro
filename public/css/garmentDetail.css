@@ -7702,3 +7702,83 @@
     width: 160px;
 }/*#SPAN_523*/
 
+#share {
+    width: 230px;
+    position: relative;
+    padding: 0 0 20px 0;
+    height: 30px;
+    margin-left: 39px;
+    margin-top: -5px;
+    top: 10px;
+    left: -2px;
+}
+
+#sharePrefix {
+float: left;
+padding: 9px 8px 0 10px;
+color: #777;
+font-size: 12px;
+}
+
+.share-box.custom-style {
+margin-right: -13px;
+}
+
+.share-box {
+float: left;
+padding: 15px;
+margin: -10px -14px -10px -16px;
+text-indent: -300em;
+}
+
+#share-facebook.custom-style .inner, #share-twitter.custom-style .inner, #share-pinterest.custom-style .inner, #share-email.custom-style a {
+width: 24px;
+height: 24px;
+overflow: hidden;
+}
+
+.share-box .inner {
+position: relative;
+height: 20px;
+overflow: hidden;
+}
+
+.share-box .fake-button {
+z-index: 1;
+top: 0;
+left: 0;
+height: 100%;
+width: 100%;
+overflow: hidden;
+position: absolute;
+background: url(/assets/img/garment/garmentDetail.png) no-repeat;
+}
+
+#share-facebook.custom-style .fake-button {
+background-position: 0 -292px;
+}
+
+#share-twitter.custom-style .fake-button {
+background-position: -24px -292px;
+}
+
+#share-pinterest.custom-style .fake-button {
+background-position: -48px -292px;
+}
+
+#share-email.custom-style a {
+background-position: -72px -292px;
+}
+
+.share-box.custom-style {
+margin-right: -13px;
+}
+
+#share-email a {
+display: block;
+background: url(/assets/img/garment/garmentDetail.png) no-repeat -40px -112px;
+width: 26px;
+height: 20px;
+text-indent: -20em;
+overflow: hidden;
+}
