@@ -45,7 +45,8 @@
 						<div class="inner">
 						<div class="fb-like" data-href="" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div>
 							<span class="spinner"></span>
-							<a class="fake-button popup-995-500-center gae-click*Product-Page*Social-Sharing*Facebook" href="https://www.facebook.com/dialog/feed?app_id=2357918308&amp;link=http%3A%2F%2Fwww.zappos.com%2Fproduct%2F8286873%2Fcolor%2F3%3Futm_term%3DSKU-8286873%26utm_campaign%3Dproduct_page_badge%26utm_medium%3Dsocialearned%26utm_source%3Dfacebook&amp;picture=http%3A%2F%2Fa3.zassets.com%2Fimages%2Fz%2F2%2F5%2F9%2F8%2F0%2F3%2F2598035-p-MULTIVIEW.jpg&amp;name=DKNYC%20Plus%20Size%20S%2FS%20V-Neck%20Short%20Sleeve%20Metallic%20Panel%20Dress&amp;caption=Black&amp;description=DKNYC%20Plus%20Size%20S%2FS%20V-Neck%20Short%20Sleeve%20Metallic%20Panel%20Dress&amp;redirect_uri=http%3A%2F%2Fzappos.com%2Fproduct%2FfacebookThankYou.zml"></a>
+							<!-- TODO: when alan's fb service ready, check if it cna be use. -->
+							<div class="fake-button" onclick="FB.ui({  method: 'feed',  caption: 'Compartir {{garment.title}}'}, function(response){});"></div>
 						</div>
 					</div>
 					<div class="share-box custom-style" id="share-twitter" data-add-class="popup-600-400-center gae-click*Product-Page*Social-Sharing*Twitter">
