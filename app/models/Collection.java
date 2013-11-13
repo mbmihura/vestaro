@@ -20,18 +20,44 @@ public class Collection extends Model {
     @Formats.NonEmpty
     public String title;
 
+    @Constraints.Required
+    @Formats.NonEmpty
     public String description;
-    
-    public Integer item_count;
 
     @OneToOne
     public Seller seller;
 
     public static Finder<Long,Collection> find = new Finder<Long,Collection>(Long.class,Collection.class);
     
+    public Collection(Long collectionId, String collectionTitle, String collectionDescription){
+		super();
+		this.id = collectionId;
+		this.title = collectionTitle;
+		this.description = collectionDescription;
+	}
+    
     public static List<Collection> findCollectionsOwnedBy(Long sellerId){
-        return Collection.find.where()
+        return find.where()
                 .eq("seller.id", sellerId)
                 .findList();
+    }
+    
+    public static Collection submit(Collection collection) {
+    	if(collection.seller == null){
+    		collection.seller = Seller.find.byId((long)1);
+    	}
+    	collection.save();
+    	return collection;
+    }
+    
+    public static Collection update(Collection collection) {
+    	collection.update();
+    	return collection;
+    }
+    
+    public static Collection delete(Long collectionId) {
+    	Collection collection = find.byId(collectionId);
+    	collection.delete();
+    	return new Collection(collectionId, null, null);
     }
 }

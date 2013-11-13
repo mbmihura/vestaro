@@ -1,12 +1,21 @@
 package controllers;
 
+import models.Buyer;
+import models.Rol;
+import models.Seller;
+import models.User;
+
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
+import org.joda.time.DateTime;
+
 import play.Play;
-import play.mvc.Controller;
-import play.mvc.Result;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
-import models.User;
+import play.mvc.Controller;
+import play.mvc.Result;
+import security.Roles;
 import utils.Crypto;
 
 
@@ -32,12 +41,49 @@ public class Authentication extends Controller {
             if(expectedSignature.equals(signature)) {
                 String signedData = Crypto.getBase64UrlDecode(payload);
 
-                // Retrieve userId and create a session for it.
-                String userId = Json.parse(signedData).get("user_id").getTextValue();
+                // Retrieve userId, register if necessary and create a session for it.
+                String userIdText = Json.parse(signedData).get("user_id").getTextValue();
+                Long userId = Long.parseLong(userIdText);
+                User user = User.findById(userId);
+                
+                ObjectNode response = Json.newObject();
+                ArrayNode userRoles = response.putArray("userRoles");
+                                
+                if (user == null)
+                {
+                	// Define main account usage: Seller, Buyer?
+                	String accountUsage = data.get("accountUsage");
+                	
+                	// TODO: define how to manage situavion with no roles, shouldn't normally happend but it could.
+                	if (accountUsage == null || accountUsage.isEmpty())
+                		accountUsage = Roles.BUYER.getName();
+                	
+                	// Define user's name
+                	String userFbname = data.get("fbName");
+                	
+                	// Register user in.
+                	user = User.create(userId, userFbname);
+                	
+                	if (Roles.BUYER.getName() == accountUsage)
+                		Buyer.createFor(userId);
+                	else if (Roles.SELLER.getName() == accountUsage)
+                		Seller.createFor(userId);
+                } else {
+                	user.lastLogin = DateTime.now();
+                	user.save();
+                }
+                
+            	if (user.name == null || user.name.isEmpty())
+            		response.put("requestUserName", true); 
+            	for(Rol rol : user.getRoles())
+            	{
+            		userRoles.add(rol.getName());
+            	}
+                
                 session().clear();
-                session(currentUserIdKey, userId);
-            
-                return ok(Json.parse(signedData));
+                session(currentUserIdKey, userIdText);                      
+                
+                return ok(response);
             } else {
                 return forbidden();
             }
@@ -57,9 +103,9 @@ public class Authentication extends Controller {
     public static Long currentUserId() {
         String userId = session(currentUserIdKey);
         return userId != null? Long.parseLong(userId) : null;
-   }
+    }
     
     public static User currentUser() {
-        return User.findById(Authentication.currentUserId());
+        return currentUserId() != null? User.findById(Authentication.currentUserId()): null;
     }
 }

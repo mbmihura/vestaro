@@ -36,37 +36,47 @@ public class Application extends BaseController {
         return ok(aboutPlay.render("Your new application is ready."));
     }
     
-    public static Result facebookPlugins(){
-    	return ok(views.html.facebookPlugins.render());
-    }
-    
     // -- Javascript routing
     public static Result javascriptRoutes() {
         response().setContentType("text/javascript");
         return ok(
             Routes.javascriptRouter("jsRoutes",
-            
+
                 // Routes for Collections
-                //controllers.routes.javascript.Collections.add(), 
+                controllers.routes.javascript.CollectionController.form(),
+                controllers.routes.javascript.CollectionController.submit(),
+                controllers.routes.javascript.CollectionController.update(),
+                controllers.routes.javascript.CollectionController.delete(),
+                controllers.routes.javascript.CollectionController.getItemsFromCollection(),
+                controllers.routes.javascript.CollectionController.getItemsWithNoCollection(),
+                controllers.routes.javascript.CollectionController.deleteCollectionId(),
                 
                 // Routes for Items
-            	controllers.routes.javascript.Items.form(),
-                controllers.routes.javascript.Items.submit(), 
-                controllers.routes.javascript.Items.read(),
-                controllers.routes.javascript.Items.update(),
-                controllers.routes.javascript.Items.delete(),
+                controllers.routes.javascript.ItemController.submit(), 
+                controllers.routes.javascript.ItemController.read(),
+                controllers.routes.javascript.ItemController.createOrUpdate(),
+                controllers.routes.javascript.ItemController.delete(),
+                controllers.routes.javascript.ItemController.orderItem(),
                 
                 // Routes for Sellers
-                controllers.routes.javascript.Sellers.itemsOwnedBy(),
-                                
+                controllers.routes.javascript.SellerController.itemsOwnedBy(),
+                controllers.routes.javascript.SellerController.listCollections(),
+                controllers.routes.javascript.SellerController.findSellerById(),
+                controllers.routes.javascript.SellerController.createOrUpdateCurrent(), 
+                controllers.routes.javascript.SellerController.readCurrent(), 
+                controllers.routes.javascript.SellerController.sellerCommission(),
+                controllers.routes.javascript.SellerController.commissionDetail(),
                 // Routes for Dashboard
-                controllers.routes.javascript.Dashboard.biggestCollections(),
-                controllers.routes.javascript.Dashboard.littleItemsStock(),
-                controllers.routes.javascript.Dashboard.itemsViewedFromCollections(),
+                controllers.routes.javascript.DashboardController.biggestCollections(),
+                controllers.routes.javascript.DashboardController.littleItemsStock(),
+                controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
 
                 // Routes for Actions
-                controllers.routes.javascript.Actions.actionsFrom()
+                controllers.routes.javascript.ActionController.actionsFrom(),
                 
+                //Routes for Buyers
+                controllers.routes.javascript.BuyerController.openDispute(),
+                controllers.routes.javascript.BuyerController.confirmReception()
             )
         );
     }
