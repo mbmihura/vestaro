@@ -452,108 +452,113 @@ actions:
 
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         id:          999994
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CB2
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CL1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      PR1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      PR1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131115
         userId:      1335414847
         itemId:      GR1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131115
         userId:      1335414847
         itemId:      CY1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
+        userId:      1335414847
+        itemId:      CB1
+    - !!models.Action
+        action_type: VIEW
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
@@ -563,22 +568,17 @@ actions:
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20130915
+        date:        20131005
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20130905
+        date:        20131121
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20131021
-        userId:      1335414847
-        itemId:      CB1
-    - !!models.Action
-        action_type: VIEW
-        date:        20131024
+        date:        20131124
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
@@ -593,51 +593,51 @@ actions:
         itemId:      GR1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      GR1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB2
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB2
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CL1

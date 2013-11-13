@@ -45,7 +45,7 @@ public class ActionController extends BaseController {
 		
 		Collections.sort(items, actionType.equals("BUY") ? Item.Comparators.lessPurchases : Item.Comparators.lessViews);
 		
-    	return ok(Json.toJson(items.subList(0, 5)));
+    	return ok(Json.toJson(items.size() > 5 ? items.subList(0, 5) : items));
     }
 	
 }
