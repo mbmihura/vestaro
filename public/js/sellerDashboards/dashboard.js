@@ -181,8 +181,8 @@ AmCharts.ready(function () {
 			valueAxis.dashLength = 5;
 			chart.addValueAxis(valueAxis);
 			var graph = new AmCharts.AmGraph();
-			graph.valueField = "stock";
-			graph.balloonText = "Stock disponible del talle [[size]]: [[stock]]";
+			graph.valueField = "quantity";
+			graph.balloonText = "Stock disponible del talle [[size]]: [[quantity]]";
 			graph.type = "column";
 			graph.lineAlpha = 0;
 			graph.fillColors = generateRandomColor();
