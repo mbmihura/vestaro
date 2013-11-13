@@ -1,0 +1,17 @@
+<div id="alertModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="alert alert-block alert-{{alert.type}}">
+					<h3>{{alert.title}}</h3>
+					<p style="margin-bottom:10px">{{alert.body}}</p>
+					<p>
+						<a ng-repeat="btn in alert.btns | orderBy:'order'" type="button" class="btn btn-{{btn.type}}" data-dismiss="modal" aria-hidden="true" href="{{btn.href}}" style="margin-right: 5px">{{btn.title}}</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

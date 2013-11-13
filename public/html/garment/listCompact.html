@@ -1,0 +1,72 @@
+<legend class="ng-scope">Mis prendas publicadas
+    <a type="button" href="#/garments/new" class="btn btn-primary btn-xs" style="float: right;margin-right: 50px;margin-top: 4px;">
+        <span class="glyphicon glyphicon-plus"></span> Nueva prenda
+    </a>
+</legend>
+<table class="table table-condensed ng-scope">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Prenda</th>
+            <th style="text-align: center;">Precio</th>
+            <th style="text-align: center;">Stock</th>
+            <th style="text-align: center;">Colección</th>
+            <th class="col-lg-2" style="text-align: center;">
+                <div class="btn-group" style="float: right;">
+                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="float: left;">Vista <span class="caret"></span></button>
+                    <ul class="dropdown-menu" style="font-size: 13px;">
+                        <li><a >Compacta</a></li>
+                        <li><a >Detallada</a></li>
+                    </ul>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="g in list" >
+            <td><span class="glyphicon glyphicon-chevron-ritgh"></span></td>
+            <td>{{g.title}}</td>
+            <td style="vertical-align: middle; text-align: center;">$ {{g.price}}</td>
+            <td style="font-size: 12px; text-align: center; vertical-align: middle;">
+                <p style="/* text-decoration: underline; */ margin: 0;">8</p>
+            </td>
+            <td style="font-size: 12px; text-align: center; vertical-align: middle;">{{g.collection.title}}
+          <!--       <div class="btn-group">
+                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="float: left;">Verano 2014 <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a >Compacta</a></li>
+                        <li><a >Detallada</a></li>
+                    </ul>
+                </div> -->
+            </td>
+            <td style="vertical-align: middle;text-align: center;">
+                <a href="#/garments/edit/{{g.id}}" type="button" class="btn btn-link btn-xs" style="margin-right: 2px;">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                </a>
+                <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#garmentDelete" ng-click="setToDelete(g.id, g.title)">
+                    <span class="glyphicon glyphicon-remove"></span> Remover
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Garment delete modal -->
+<div class="modal fade in" id="garmentDelete" tabindex="-1" role="dialog" aria-labelledby="garmentDelete" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header dialog-header-confirm">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title ng-binding"><span class="glyphicon glyphicon-check"></span> Confirmación</h4>
+            </div>
+            <div class="modal-body">Seguro que desea eliminar la prenda {{toDelete.title}}?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="destroy(toDelete.id)">Si</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--$('#w').popover({
+    trigger: 'hover',title:'Stock por talle',html:true,content:'XL: <i>50 u.</i><br>L: <i>50 u.</i><br>M: <i>33 u.</i>',
+        'placement': 'right'
+});-->

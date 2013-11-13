@@ -1,0 +1,49 @@
+<div class="page-header" align="center">
+	<h1>Wishlist. <small>Tus prendas favoritas.</small></h1>
+</div>
+
+<div class="alert alert-block alert-info" ng-hide="wishlistItems.length">
+	<h4>No tienes prendas en tu wishlist.</h4>
+	<p style="margin-bottom:10px">Para agregar prendas a la wishlist puedes hacer click en <span class="badge"><span class="glyphicon glyphicon-star-empty"></span></span></p>
+	<p>
+		<a type="button" class="btn btn-info" href="#/">Ver recomendaciones</a>
+		<a type="button" class="btn btn-default" href="#/itemSearch">Buscar ropa</a>
+	</p>
+</div>
+
+<div class="row">
+	<form class="form-horizontal" ng-hide="!wishlistItems.length">
+		<div class="form-group">
+			<div class="col-md-10">
+				<label for="search-item" class="col-md-4 control-label">Buscar</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control" id="search-item" placeholder="Buscar..." ng-model="search.$">
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- <div masonry="false"> -->
+		<div class="item-container wishlist" ng-repeat="wishItem in wishlistItems | filter:search">
+			<div class="item-thumb wishlist">
+				<div class="item-actions">
+					<li ng-click="removeFromWishlist(wishItem.item, $index)" class="action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
+					<div ng-click="shareItem(wishItem.item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					<div ng-click="showBuyItemModal(wishItem.item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+				</div>
+				<div class="item-main">
+					<h3 class="item-title wishlist">{{wishItem.item.title}}</h3>
+					<img class="item-img wishlist" src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
+				</div>
+				<div class="item-details" align="center">
+					<div class="btn-group">
+						<div class="btn btn-default disabled price">${{wishItem.item.price}}</div>
+						<a type="button" href="#/buy?id={{wishItem.item.id}}" class="btn btn-primary">Comprar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- </div> -->
+</div>
+
+<!-- Alert Modal -->
+<div ng-include="'/assets/html/alertModal.html'"></div>

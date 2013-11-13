@@ -52,25 +52,31 @@ public class Application extends BaseController {
                 controllers.routes.javascript.CollectionController.deleteCollectionId(),
                 
                 // Routes for Items
-            	controllers.routes.javascript.ItemController.form(),
                 controllers.routes.javascript.ItemController.submit(), 
                 controllers.routes.javascript.ItemController.read(),
-                controllers.routes.javascript.ItemController.update(),
+                controllers.routes.javascript.ItemController.createOrUpdate(),
                 controllers.routes.javascript.ItemController.delete(),
-                controllers.routes.javascript.ItemController.updateItem(),
+                controllers.routes.javascript.ItemController.orderItem(),
                 
                 // Routes for Sellers
                 controllers.routes.javascript.SellerController.itemsOwnedBy(),
                 controllers.routes.javascript.SellerController.listCollections(),
-                                
+                controllers.routes.javascript.SellerController.findSellerById(),
+                controllers.routes.javascript.SellerController.createOrUpdateCurrent(), 
+                controllers.routes.javascript.SellerController.readCurrent(), 
+                controllers.routes.javascript.SellerController.sellerCommission(),
+                controllers.routes.javascript.SellerController.commissionDetail(),
                 // Routes for Dashboard
                 controllers.routes.javascript.DashboardController.biggestCollections(),
                 controllers.routes.javascript.DashboardController.littleItemsStock(),
                 controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
 
                 // Routes for Actions
-                controllers.routes.javascript.ActionController.actionsFrom()
+                controllers.routes.javascript.ActionController.actionsFrom(),
                 
+                //Routes for Buyers
+                controllers.routes.javascript.BuyerController.openDispute(),
+                controllers.routes.javascript.BuyerController.confirmReception()
             )
         );
     }
