@@ -14,12 +14,28 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
             }
 
             function error(response) {
+              //TODO: replace with angular new pattern
                 if (response.status === 404 && response.config.url.indexOf(".html")) {
 
                     // get $http via $injector because of circular dependency problem
                     $http = $http || $injector.get('$http');
                     var defer = $q.defer();
                     $http.get('/assets/html/server/404NotFound.html')
+                        .then(function (result) {
+                            response.status = 200;
+                            response.data = result.data;
+                            defer.resolve(response);
+                        }, function () {
+                            defer.reject(response);
+                        });
+
+                    return defer.promise;// response;
+                if (response.status === 500 && response.config.url.indexOf(".html")) {
+
+                    // get $http via $injector because of circular dependency problem
+                    $http = $http || $injector.get('$http');
+                    var defer = $q.defer();
+                    $http.get('/assets/html/server/500InternalError.html')
                         .then(function (result) {
                             response.status = 200;
                             response.data = result.data;
