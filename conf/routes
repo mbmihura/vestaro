@@ -22,6 +22,7 @@ PUT		/seller 							controllers.SellerController.createOrUpdateCurrent()
 GET     /seller/:sellerId	     			controllers.SellerController.findSellerById(sellerId: Long)
 GET     /seller/:sellerId/items  	    	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
+GET 	/notifications						controllers.NotificationController.getNotifications()
 
 ####   Buyer   ####
 GET 	/buyer 								controllers.BuyerController.readCurrent()
