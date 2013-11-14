@@ -2,21 +2,14 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import models.Action;
-import models.BuyOrder;
 import models.Collection;
 import models.CollectionItems;
 import models.Item;
-import models.StockPerSize;
-import models.PaymentManager;
 import models.Seller;
-
-import org.codehaus.jettison.json.JSONException;
-
+import models.StockPerSize;
 import play.libs.Json;
 import play.mvc.Result;
 

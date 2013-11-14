@@ -1,7 +1,6 @@
 package models;
 
 import java.sql.Timestamp;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
