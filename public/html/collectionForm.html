@@ -6,7 +6,7 @@
 		</button>
 	</div>
 </div>
-<div class="well container-fluid" style="width:1180px;">
+<div style="padding-top:10px;" class="well container-fluid" style="width:1180px;">
 	<div class="row-fluid">
 		<div id="albums" class="row"></div>
 	</div>
@@ -22,14 +22,19 @@
 	</ul>
 </div>
   
-  	<div style="width: 500px; height: 465px; margin-top: 100px; margin-left: 450px;" class="modal fade well container-fluid" id="create">
+<div style="width: 500px; height: 400px; margin-top: 100px; margin-left: 450px;" class="modal fade well container-fluid" id="create">
 	<div class="row-fluid">
 		<div class="modal-header">
 			<a class="close" data-dismiss="modal">&times;</a>
 		    <h3>Crear Álbum</h3>
 		</div>
-		<div class="modal-body">
-			<iframe id="create_collection" style="width: 400px; height: 175px;" src="collection"></iframe>
+		<div style="margin-left: 10px;" class="row">
+		  	<h4 class="control-label">Nombre</h4>
+		  	<input id="create_title" type="text" placeholder="Nombre de colección..." class="form-control">
+		</div>
+		<div style="margin-left: 10px;" class="row">
+		  	<h4 class="control-label">Descripción</h4>
+		  	<textarea id="create_description" name="description" class="form-control"></textarea>
 		</div>
 		<div class="modal-footer">
 		    <a id="confirmCreate" class="btn btn-primary" data-dismiss="modal">Crear</a>
@@ -55,17 +60,22 @@
 	</div>
 </div>
 
-<div style="width: 500px; height: 465px; margin-top: 100px; margin-left: 450px;" class="modal fade well container-fluid" id="edit">
+<div style="width: 500px; height: 400px; margin-top: 100px; margin-left: 450px;" class="modal fade well container-fluid" id="edit">
 	<div class="row-fluid">
 		<div class="modal-header">
 			<a class="close" data-dismiss="modal">&times;</a>
 		    <h3>Editar Álbum</h3>
 		</div>
-		<div class="modal-body">
-			<iframe id="iframe_edit" style="width: 400px; height: 175px;" src="collection"></iframe>
+		<div style="margin-left: 10px;" class="row">
+		  	<h4 class="control-label">Nombre</h4>
+		  	<input id="edit_title" type="text" placeholder="Nombre de colección..." class="form-control">
+		</div>
+		<div style="margin-left: 10px;" class="row">
+		  	<h4 class="control-label">Descripción</h4>
+		  	<textarea id="edit_description" name="description" class="form-control"></textarea>
 		</div>
 		<div class="modal-footer">
-		    <a id="confirmUpdate" class="btn btn-primary" data-dismiss="modal">Guardar cambios</a>
+		    <a id="confirmUpdate" class="btn btn-primary" data-dismiss="modal">Crear</a>
 		    <a class="btn" data-dismiss="modal">Cancelar</a>
 		</div>
 	</div>

@@ -90,8 +90,8 @@ $(document).ready(function(){
 						"<br>" +
 						"<br>" +
 						"</div>" +
-						"<p><a href='#edit' data-toggle='modal' class='btn btn-primary button_edit'>Editar</a>" +
-						"<a class='btn btn-default button_delete' href='#delete' data-toggle='modal' style='float: right;'>Eliminar</a></p>" +
+						"<p><button class='btn btn-md btn-primary'><div href='#edit' data-toggle='modal' class='button_edit'>Editar</div></button>" +
+						"<button class='btn btn-md btn-default btn-primary' style='float: right;'><div class='button_delete' href='#delete' data-toggle='modal'>Eliminar</div></button></p>" +
 						"</div>" +
 						"</div>"
 					);
@@ -104,8 +104,8 @@ $(document).ready(function(){
 					
 					$(".button_edit").click(function(){
 						$('#edit').val($(this).parent().parent().parent().val());
-						$("#iframe_edit").contents().find("#title").val($(this).parent().parent().find('.title').text());
-						$("#iframe_edit").contents().find("#description").text($(this).parent().parent().find('.description').text());
+						$("#edit_title").val($(this).parent().parent().find('.title').text());
+						$("#edit_description").text($(this).parent().parent().find('.description').text());
 					});
 					
 					$(".album").click(function(){
@@ -177,10 +177,8 @@ $(document).ready(function(){
 //		});
 	});
 		
-	$('#confirmCreate').click(function(){
-		//$("#create_collection").contents().find("#button_create").click();
-		
-		$.post('/collection', {title: $("#create_collection").contents().find("#title").val(), description: $("#create_collection").contents().find("#description").val()});
+	$('#confirmCreate').click(function(){		
+		$.post('/collection', {title: $("#create_title").val(), description: $("#create_description").val()});
 		
 		listAlbums();
 	});
