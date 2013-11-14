@@ -53,15 +53,17 @@ DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishli
 # Dashboard
 GET		/littleItemsStock					controllers.DashboardController.littleItemsStock()
 GET		/biggestCollections					controllers.DashboardController.biggestCollections()
-GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd		controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
+GET		/itemsViewedFromCollections/:actionDateBegin/:actionDateEnd				controllers.DashboardController.itemsViewedFromCollections( actionDateBegin: Long, actionDateEnd: Long)
 GET		/commissionToPay					controllers.SellerController.sellerCommission()
 GET		/commissionDetail					controllers.SellerController.commissionDetail()
 
 # Actions
-GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType		controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
+GET		/actionHistory/:actionType				controllers.ActionController.getAllTimeActions(actionType: String)
+GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType				controllers.ActionController.actionsFrom(order: Long, actionDateBegin: Long, actionDateEnd: Long, actionType: String)
+
 
 # Buyer Profile
-GET		/buyerProfile			controllers.BuyerController.profile()
+GET		/buyerProfile						controllers.BuyerController.profile()
 
 # Recommendations
 GET     /reco	           					controllers.RecommendationEngine.recoExample()
