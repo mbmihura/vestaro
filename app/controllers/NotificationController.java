@@ -13,4 +13,9 @@ public class NotificationController extends BaseController {
 				.getNotifications(Seller.findSellerByUser(currentUserId()).id);
 		return ok(views.html.notifications.render(notifications));
 	}
+
+	public static Result markAsSeen(Long id) {
+		Notification.find.byId(id).markAsSeen();
+		return ok();
+	}
 }

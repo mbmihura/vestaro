@@ -127,4 +127,10 @@ public class Notification extends Model {
 		String stringDate = day + " de " + month;
 		return stringDate;
 	}
+
+	public void markAsSeen() {
+		this.seen = true;
+		this.save();
+
+	}
 }
