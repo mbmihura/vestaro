@@ -69,6 +69,7 @@ public class Application extends BaseController {
 				controllers.routes.javascript.DashboardController.itemsViewedFromCollections(),
 
 				// Routes for Actions
+				controllers.routes.javascript.ActionController.getAllTimeActions(),
 				controllers.routes.javascript.ActionController.actionsFrom(),
 
 				// Routes for Buyers
@@ -77,5 +78,6 @@ public class Application extends BaseController {
 
 				// Routes for Notifications
 				controllers.routes.javascript.NotificationController.markAsSeen()));
+
 	}
 }
