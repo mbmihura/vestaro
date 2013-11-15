@@ -17,10 +17,13 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
               //TODO: replace with angular new pattern
               switch (response.status) {
                 case 401:
-                    register();
+                    // TODO: replace 
+                    $('#loginBtn').popover('show');
                     return $q.reject(response);
                     break;
                 case 403:
+                    if (response.config.url.indexOf(".html"))
+                    {
                       // get $http via $injector because of circular dependency problem
                       $http = $http || $injector.get('$http');
                       var defer = $q.defer();
@@ -33,6 +36,10 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
                           defer.reject(response);
                           });
                       return defer.promise;// response;
+                    } else {
+                      //TODO; show remote modal with 403 page.
+                      return $q.reject(response);
+                    }
                     break;
                 case 404:
                     if (response.config.url.indexOf(".html"))
@@ -122,7 +129,7 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
               switch(status) {
                 // TODO: centralize error handling.
                 case 401: // Unauthorized
-                  $('#loginBtn').popover('show');
+                  $('#registerAsBuyerBtn').popover('show');
                   break;
 
                 case 409: // Confilct: duplicate item
