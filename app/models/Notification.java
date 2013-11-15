@@ -18,8 +18,7 @@ import play.db.ebean.Model;
 public class Notification extends Model {
 
 	public enum NotificationType {
-		SALE("Nueva Venta", " compró el item "), DISPUTE("Venta en Disputa",
-				" abrió una disputa por el item ");
+		SALE("Nueva Venta", " compró el item "), DISPUTE("Venta en Disputa", " abrió una disputa por el item ");
 
 		private String message;
 		private String action;
@@ -49,11 +48,15 @@ public class Notification extends Model {
 	public String itemTitle;
 	public Long sellerId;
 	public Long buyerFBId;
+	public Integer pointsUsed;
+	public double ammountPayed;
+	public String disputeMessage;
 
 	public Date create_time;
 
-	public static Finder<Long, Notification> find = new Finder<Long, Notification>(
-			Long.class, Notification.class);
+	private Long buyOrderId;
+
+	public static Finder<Long, Notification> find = new Finder<Long, Notification>(Long.class, Notification.class);
 
 	public Notification() {
 
@@ -66,6 +69,10 @@ public class Notification extends Model {
 		this.itemTitle = order.item.title;
 		this.sellerId = order.item.seller.id;
 		this.buyerFBId = order.buyer.user.userId;
+		this.disputeMessage = order.disputeMessage;
+		this.pointsUsed = order.pointsUsed;
+		this.ammountPayed = order.price - order.pointsEarned;
+		this.buyOrderId = order.id;
 
 	}
 
@@ -85,17 +92,15 @@ public class Notification extends Model {
 	}
 
 	public static Map<String, List<Notification>> getNotifications(Long sellerId) {
-		List<Notification> notificationList = Notification.find.where()
-				.eq("sellerId", sellerId).orderBy("create_time DESC")
-				.findList();
+		List<Notification> notificationList = Notification.find.where().eq("sellerId", sellerId)
+				.orderBy("create_time DESC").findList();
 
 		Map<String, List<Notification>> groupByNotifications = groupByNotifications(notificationList);
 		return groupByNotifications;
 
 	}
 
-	private static Map<String, List<Notification>> groupByNotifications(
-			List<Notification> notificationList) {
+	private static Map<String, List<Notification>> groupByNotifications(List<Notification> notificationList) {
 
 		Map<String, List<Notification>> groupByNotifications = new LinkedHashMap<String, List<Notification>>();
 		if (notificationList.size() == 0) {
@@ -106,8 +111,7 @@ public class Notification extends Model {
 		ArrayList<Notification> notifications = new ArrayList<>();
 
 		for (Notification notification : notificationList) {
-			if (stringFormatDate(notification.create_time).equalsIgnoreCase(
-					stringDate)) {
+			if (stringFormatDate(notification.create_time).equalsIgnoreCase(stringDate)) {
 				notifications.add(notification);
 			} else {
 				groupByNotifications.put(stringDate, notifications);
@@ -132,5 +136,29 @@ public class Notification extends Model {
 		this.seen = true;
 		this.save();
 
+	}
+
+	public String modalMessage() {
+		String message;
+		if (this.notificationType == NotificationType.DISPUTE) {
+			message = this.buyerName + " abrió una disputa en la órden de compra con id #" + this.buyOrderId
+					+ " correspondiente al item \"" + this.itemTitle + "\".";
+			if (this.disputeMessage.length() > 0) {
+				message += " El comprador dejó el siguiente mensaje: \"" + this.disputeMessage + "\".";
+			}
+			message += " Por favor comunicate con " + this.buyerName + ".";
+		} else {
+			message = this.buyerName + " compró tu item \"" + this.itemTitle + "\"."
+					+ " La órden de compra correspondiente es la número #:  " + this.buyOrderId + ".";
+			message += " El comprador pagó $" + this.ammountPayed + " por la prenda. ";
+			if (this.pointsUsed > 0) {
+				message += "El resto (" + this.pointsUsed + ") fue pagado con puntos. ";
+			}
+
+			message += "Recordá que el 4% del monto recibido por esta venta deberá ser pagado en concepto de comisión a Vestaro desde "
+					+ "tu Dashboard. ";
+		}
+
+		return message;
 	}
 }

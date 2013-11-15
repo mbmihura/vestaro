@@ -26,6 +26,9 @@
     		</a>			
     	
 			<div class="media-body">
+				<div class="modalText" style="visibility: hidden; position:absolute;">
+					@notification.modalMessage()
+				</div>
       	<h4 class="media-heading"> @notification.notificationType.getMessage()</h4>
 	    <p ><strong>@notification.buyerName</strong> @notification.notificationType.getAction()<strong>@notification.itemTitle</strong></p>
     </div>
@@ -45,7 +48,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
-			<div class="modal-body" style="text-align: center">
+			<div class="modal-body" style="text-align: left">
 				
       </div>
 			<div class="modal-footer">
@@ -120,10 +123,11 @@ background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rg
 
 		var notification = $('.'+nclass);
 		var title = $(notification).find('h4').get(0).innerText;
+		var text = $(notification).find('.modalText').html();
 		
 		var modal=$('#notificationModal');
 		$(modal).find('h4').text( title);
-		$(modal).find('.modal-body').text( 'TEXTOOOO');
+		$(modal).find('.modal-body').text( text);
 		modal.modal('show');
 		
 		
