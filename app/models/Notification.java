@@ -48,6 +48,7 @@ public class Notification extends Model {
 	public String buyerName;
 	public String itemTitle;
 	public Long sellerId;
+	public Long buyerFBId;
 
 	public Date create_time;
 
@@ -64,6 +65,7 @@ public class Notification extends Model {
 		this.buyerName = order.buyer.user.name;
 		this.itemTitle = order.item.title;
 		this.sellerId = order.item.seller.id;
+		this.buyerFBId = order.buyer.user.userId;
 
 	}
 

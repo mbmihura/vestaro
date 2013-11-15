@@ -13,7 +13,7 @@
 	<ul class="media-list " style="margin-left:40px; margin-top:5px;">
 
 		@for(notification <- notificationList){
-			<li class="media  " >
+			<li id=@notification.buyerFBId class="media  " >
     		<a class="pull-left" href="javascript:void(0);" >
 					<div 
 							@if(notification.seen){
@@ -22,7 +22,7 @@
 							@if(!notification.seen){
 								id="notSeen" 							
 							}class="circle" style=" margin-top: 14px;"></div>
-					<img style="height:40px; margin-left: 25px;margin-top: -30px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
+					<img style="height:50px; margin-left: 25px;margin-top: -40px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
     		</a>			
     	
 			<div class="media-body">
@@ -72,6 +72,32 @@ background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rg
 
 <script>
 	
+
+	
+
+		$( document ).ready(function() {
+			showUsersPhotos();
+				
+		});
+
+	function showUsersPhotos(){
+    var notifications =$('.media');
+		
+		 var len = notifications.length;
+
+    for (var i = 0; i < len; i++) {
+        (function() {
+            var j = i;             
+            FB.api($(notifications[i]).attr("id")+'/picture', function(response) {
+									var photo= $(notifications[j]).find('img');
+									$(photo).attr('src',response.data.url);
+                
+            });
+        })();
+    }
+	
+	}
+
 	function seeNotification(){
 		alert("notification");
 	}
