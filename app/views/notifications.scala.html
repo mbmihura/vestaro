@@ -13,8 +13,8 @@
 	<ul class="media-list " style="margin-left:40px; margin-top:5px;">
 
 		@for(notification <- notificationList){
-			<li id=@notification.buyerFBId class="media  " >
-    		<a class="pull-left" href="javascript:void(0);" >
+			<li id=@notification.buyerFBId class="media @notification.id " >
+    		<a class="pull-left " href="javascript:seeNotification(@notification.id);" >
 					<div 
 							@if(notification.seen){
 								id="seen" 
@@ -37,6 +37,24 @@
 	</li>
 	
 	}
+
+<!-- Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+			<div class="modal-body" style="text-align: center">
+				
+      </div>
+			<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 
@@ -98,8 +116,15 @@ background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rg
 	
 	}
 
-	function seeNotification(){
-		alert("notification");
+	function seeNotification(nclass){
+
+		var notification = $('.'+nclass);
+		var title = $(notification).find('h4').get(0).innerText;
+		
+		var modal=$('#notificationModal');
+		$(modal).find('h4').text( title);
+		$(modal).find('.modal-body').text( 'TEXTOOOO');
+		modal.modal('show');
 	}
 
 </script>
