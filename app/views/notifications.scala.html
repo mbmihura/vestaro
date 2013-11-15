@@ -27,7 +27,27 @@
     	
 			<div class="media-body">
 				<div class="modalText" style="visibility: hidden; position:absolute;">
-					@notification.modalMessage()
+					@if(notification.notificationType.getMessage() == "Venta en Disputa"){
+						<p><strong>@notification.buyerName</strong> abrió una disputa en la órden de compra de id 
+						<strong>#@notification.buyOrderId</strong> correspondiente al item <strong>@notification.itemTitle.</strong></p>
+						<p>El comprador dejó el siguiente mensaje:</p>
+							<blockquote><i>"@notification.disputeMessage"</i></blockquote> 
+						<p>Por favor comunicate con <strong>@notification.buyerName</strong>.</p>
+						}
+					
+					@if(notification.notificationType.getMessage() == "Nueva Venta"){
+						<p><strong>@notification.buyerName</strong> compró tu item <strong>@notification.itemTitle.</strong>
+						La órden de compra correspondiente es la número <strong>#@notification.buyOrderId</strong>.</p>
+						<p>El comprador pagó <strong>$@notification.ammountPayed</strong>
+							@if(notification.pointsUsed > 0){
+								y usó <strong> @notification.pointsUsed </strong> puntos
+							}
+							.</p>
+							<i>Recordá que el 4% del monto recibido por esta venta deberá ser pagado en 
+								concepto de comisión a <strong><a onClick="closeModal();" href="/">Vestaro</a></strong> desde tu <strong><a onClick="closeModal();" href="/dashboard">Dashboard</a></strong>.</i>
+					}
+								
+
 				</div>
       	<h4 class="media-heading"> @notification.notificationType.getMessage()</h4>
 	    <p ><strong>@notification.buyerName</strong> @notification.notificationType.getAction()<strong>@notification.itemTitle</strong></p>
@@ -48,7 +68,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
-			<div class="modal-body" style="text-align: left">
+			<div class="modal-body" style="text-align: left;font-size:15px;">
 				
       </div>
 			<div class="modal-footer">
@@ -127,13 +147,17 @@ background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rg
 		
 		var modal=$('#notificationModal');
 		$(modal).find('h4').text( title);
-		$(modal).find('.modal-body').text( text);
+		$(modal).find('.modal-body').html( text);
 		modal.modal('show');
 		
 		
 		if(notification.find('circle').attr('id') != 'seen'){
 			markAsSeen(nclass);
 		}
+	}
+	
+	function closeModal(){
+		$('#notificationModal').modal('hide');
 	}
 	
 	function markAsSeen(id){

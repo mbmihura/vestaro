@@ -54,7 +54,7 @@ public class Notification extends Model {
 
 	public Date create_time;
 
-	private Long buyOrderId;
+	public Long buyOrderId;
 
 	public static Finder<Long, Notification> find = new Finder<Long, Notification>(Long.class, Notification.class);
 
@@ -138,27 +138,4 @@ public class Notification extends Model {
 
 	}
 
-	public String modalMessage() {
-		String message;
-		if (this.notificationType == NotificationType.DISPUTE) {
-			message = this.buyerName + " abrió una disputa en la órden de compra con id #" + this.buyOrderId
-					+ " correspondiente al item \"" + this.itemTitle + "\".";
-			if (this.disputeMessage.length() > 0) {
-				message += " El comprador dejó el siguiente mensaje: \"" + this.disputeMessage + "\".";
-			}
-			message += " Por favor comunicate con " + this.buyerName + ".";
-		} else {
-			message = this.buyerName + " compró tu item \"" + this.itemTitle + "\"."
-					+ " La órden de compra correspondiente es la número #:  " + this.buyOrderId + ".";
-			message += " El comprador pagó $" + this.ammountPayed + " por la prenda. ";
-			if (this.pointsUsed > 0) {
-				message += "El resto (" + this.pointsUsed + ") fue pagado con puntos. ";
-			}
-
-			message += "Recordá que el 4% del monto recibido por esta venta deberá ser pagado en concepto de comisión a Vestaro desde "
-					+ "tu Dashboard. ";
-		}
-
-		return message;
-	}
 }
