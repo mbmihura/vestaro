@@ -1,57 +1,48 @@
+@(groupedNotifications: Map[String, List[Notification]])
+
 
 <div class="page-header ng-scope" align="center">
 	<h1>Notificaciones. <small>Tus ventas y disputas.</small></h1>
 </div>
 
-<li = class= "list-group-item" style="width:55%;">
-	<strong >15 Octubre </strong>
- 
-<ul class="media-list " style="margin-left:40px; margin-top:5px;">
-	<li class="media  " >
-    <a class="pull-left" href="javascript:void(0);" >
-			<div id="notSeen" class="circle" style=" margin-top: 14px;"></div>
-			<img style="height:40px; margin-left: 25px;margin-top: -30px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
-    </a>			
-    <div class="media-body">
-      <h4 class="media-heading">Venta nueva</h4>
-	    <p ><strong>Natasha Ponzo</strong> compró el ítem <strong>Camisa verde verano</strong></p>
+
+	@for((date , notificationList) <- groupedNotifications ){
+ 								
+	<li = class= "list-group-item" style="width:55%;">
+	<strong >@date </strong>
+	<ul class="media-list " style="margin-left:40px; margin-top:5px;">
+
+		@for(notification <- notificationList){
+			<li class="media  " >
+    		<a class="pull-left" href="javascript:void(0);" >
+					<div 
+							@if(notification.seen){
+								id="seen" 
+							}
+							@if(!notification.seen){
+								id="notSeen" 							
+							}class="circle" style=" margin-top: 14px;"></div>
+					<img style="height:40px; margin-left: 25px;margin-top: -30px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
+    		</a>			
+    	
+			<div class="media-body">
+      	<h4 class="media-heading"> @notification.notificationType.getMessage()</h4>
+	    <p ><strong>@notification.buyerName</strong> @notification.notificationType.getAction()<strong>@notification.itemTitle</strong></p>
     </div>
 	</li>
-    
-	<li class="media  " >
-    <a class="pull-left" href="javascript:void(0);" >
-			<div id="notSeen" class="circle" style=" margin-top: 14px;"></div>
-			<img style="height:40px; margin-left: 25px;margin-top: -30px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
-    </a>			
-    <div class="media-body">
-      <h4 class="media-heading">Venta nueva</h4>
-	    <p ><strong>Natasha Ponzo</strong> compró el ítem <strong>Camisa verde verano</strong></p>
-    </div>
+			
+		}
+
+	</ul>
 	</li>
-</ul>
+	
+	}
 
-</li>
 
 
-<li = class= "list-group-item" style="width:55%;">
-	<strong >15 Septiembre </strong> 
-<ul class="media-list" style="margin-left:40px; margin-top:5px;">
 
-  <li class="media ">
-    <a class="pull-left" href="javascript:void(0);" >
-			<div id="seen" class="circle" style=" margin-top: 14px;"></div>
-			<img style="height:40px; margin-left: 25px;margin-top: -30px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading">Venta en disputa</h4>
-	    <p ><strong>Pablo Nadal </strong>abrió una disputa por el item <strong>Remera palermo sucks</strong></p>
-    </div>
 
-	</li>    
 
-</ul>
-
-</li>
 
 <style>
 
