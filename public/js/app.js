@@ -15,12 +15,24 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
 
             function error(response) {
               //TODO: replace with angular new pattern
-              switch (errorResponse.status) {
+              switch (response.status) {
                 case 401:
-                    //TODO
+                    register();
+                    return $q.reject(response);
                     break;
                 case 403:
-                    //TODO
+                      // get $http via $injector because of circular dependency problem
+                      $http = $http || $injector.get('$http');
+                      var defer = $q.defer();
+                      $http.get('/assets/html/server/403Forbidden.html')
+                        .then(function (result) {
+                          response.status = 200;
+                          response.data = result.data;
+                          defer.resolve(response);
+                        }, function () {
+                          defer.reject(response);
+                          });
+                      return defer.promise;// response;
                     break;
                 case 404:
                     if (response.config.url.indexOf(".html"))
