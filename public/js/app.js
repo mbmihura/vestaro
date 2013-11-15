@@ -173,6 +173,30 @@ vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location,
            privacy: {'value': 'SELF'} }, // TODO: remove when in production.
          callback
       );
+    },
+    // Returns fbid, name and picture of friends that are using the application
+    getFriendsUsingApp: function(){
+      var friends = [];
+      FB.api(
+        {
+            method: 'fql.query',
+            query: 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user=1'
+        },
+        function(users) {
+          angular.forEach(users, function(user){
+            var friend = {};
+            friend.id = user.uid;
+            friend.name = user.name;
+            FB.api('/' + user.uid + '?fields=picture',
+              function(userPic){
+                friend.picture = userPic.picture.data.url;
+            });
+            friends.push(friend);
+          });
+          console.log(friends);
+          return friends;
+        }
+      );
     }
   };
 }]);

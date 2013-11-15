@@ -99,10 +99,11 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	});	
 }
 
-vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
-	function ($scope, buyerSession) {
+vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession', 'facebook',
+	function ($scope, buyerSession, facebook) {
 
   $scope.categories = buyerSession.getCategories();
+  $scope.friends = facebook.getFriendsUsingApp();
   
   buyerSession.getItems().success(function(data) {
 	  $scope.items = data;

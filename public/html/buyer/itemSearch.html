@@ -2,6 +2,12 @@
 	<h1>Encontrá la mejor ropa. <small>En un solo lugar.</small></h1>
 </div>
 
+<div ng-repeat="friend in friends">
+	{{friend.id}}
+	{{friend.name}}
+	<img src="{{friend.picture}}">
+</div>
+
 <div class="row">
 	<!-- FILTERS -->
 	<div class="col-md-2">
