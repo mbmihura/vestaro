@@ -108,7 +108,7 @@ public class Notification extends Model {
 		}
 
 		String stringDate = stringFormatDate(notificationList.get(0).create_time);
-		ArrayList<Notification> notifications = new ArrayList<>();
+		ArrayList<Notification> notifications = new ArrayList<Notification>();
 
 		for (Notification notification : notificationList) {
 			if (stringFormatDate(notification.create_time).equalsIgnoreCase(stringDate)) {
