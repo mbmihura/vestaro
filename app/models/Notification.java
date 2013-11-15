@@ -17,6 +17,8 @@ import play.db.ebean.Model;
 @Entity
 public class Notification extends Model {
 
+	private static final int LAST_NOTIFICATIONS = 25;
+
 	public enum NotificationType {
 		SALE("Nueva Venta", " compró el item "), DISPUTE("Venta en Disputa", " abrió una disputa por el item ");
 
@@ -71,7 +73,7 @@ public class Notification extends Model {
 		this.buyerFBId = order.buyer.user.userId;
 		this.disputeMessage = order.disputeMessage;
 		this.pointsUsed = order.pointsUsed;
-		this.ammountPayed = order.price - (order.pointsEarned * order.item.seller.pointMoneyRelation);
+		this.ammountPayed = order.price - (order.pointsUsed * order.item.seller.pointMoneyRelation);
 		this.buyOrderId = order.id;
 
 	}
@@ -91,9 +93,13 @@ public class Notification extends Model {
 		createNotification(order, NotificationType.SALE);
 	}
 
+	/**
+	 * Gets last 25 seller notifications grouped by date, returning a map <date,
+	 * notifications>
+	 **/
 	public static Map<String, List<Notification>> getNotifications(Long sellerId) {
 		List<Notification> notificationList = Notification.find.where().eq("sellerId", sellerId)
-				.orderBy("create_time DESC").findList();
+				.orderBy("create_time DESC").setMaxRows(LAST_NOTIFICATIONS).findList();
 
 		Map<String, List<Notification>> groupByNotifications = groupByNotifications(notificationList);
 		return groupByNotifications;
