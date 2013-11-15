@@ -71,7 +71,7 @@ public class Notification extends Model {
 		this.buyerFBId = order.buyer.user.userId;
 		this.disputeMessage = order.disputeMessage;
 		this.pointsUsed = order.pointsUsed;
-		this.ammountPayed = order.price - order.pointsEarned;
+		this.ammountPayed = order.price - (order.pointsEarned * order.item.seller.pointMoneyRelation);
 		this.buyOrderId = order.id;
 
 	}

@@ -30,8 +30,10 @@
 					@if(notification.notificationType.getMessage() == "Venta en Disputa"){
 						<p><strong>@notification.buyerName</strong> abrió una disputa en la órden de compra de id 
 						<strong>#@notification.buyOrderId</strong> correspondiente al item <strong>@notification.itemTitle.</strong></p>
-						<p>El comprador dejó el siguiente mensaje:</p>
-							<blockquote><i>"@notification.disputeMessage"</i></blockquote> 
+						@if(notification.disputeMessage != ""){
+								<p>El comprador dejó el siguiente mensaje:</p>
+								<blockquote><i>"@notification.disputeMessage"</i></blockquote> 
+						}
 						<p>Por favor comunicate con <strong>@notification.buyerName</strong>.</p>
 						}
 					
@@ -44,7 +46,7 @@
 							}
 							.</p>
 							<i>Recordá que el 4% del monto recibido por esta venta deberá ser pagado en 
-								concepto de comisión a <strong><a onClick="closeModal();" href="/">Vestaro</a></strong> desde tu <strong><a onClick="closeModal();" href="/dashboard">Dashboard</a></strong>.</i>
+								concepto de comisión a <strong><a onClick="return closeModal();" href="/">Vestaro</a></strong> desde tu <strong><a onClick="return closeModal();" href="/dashboard">Dashboard</a></strong>.</i>
 					}
 								
 
@@ -158,6 +160,7 @@ background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rg
 	
 	function closeModal(){
 		$('#notificationModal').modal('hide');
+		return true;
 	}
 	
 	function markAsSeen(id){
