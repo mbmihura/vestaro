@@ -385,8 +385,7 @@ height: 100%;
     opacity: 0;
 }
 
-/**** Custom dialog/modal headers ****/
-
+/****    Custom dialog/modal headers  ****/
 .dialog-header-error {
     background-color: #d2322d; 
 }
@@ -404,3 +403,4 @@ height: 100%;
 .dialog-header-confirm span, .dialog-header-confirm h4 { 
     color: #ffffff; 
 }
+/**** END Custom dialog/modal headers ****/
