@@ -44,8 +44,10 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
   }
     
   $scope.save = function() {
-    garmentsApi.save({},$scope.garment);
-    $scope.cancel();
+    garmentsApi.save($scope.garment, function(r)
+      {
+        $scope.cancel();
+      });
   };
 
   $scope.cancel = function() {
