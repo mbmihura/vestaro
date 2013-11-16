@@ -3,14 +3,30 @@
 </div>
 
 <div class="row">
+	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
+	<div class="alert alert-dismissable alert-warning" ng-show="!friendHasRecommendations">
+		<button type="button" class="close" ng-click="friendHasRecommendations=true">×</button>
+		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
+		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
+	</div>
 	<!-- FILTERS -->
 	<div class="col-md-2">
 		<div class="well well-sm">
 			
 			<div class="form-group">
 				<label>Filtrar:</label>
-				<input type="search" ng-model="search.title" class="form-control" placeholder="Search">
+				<input type="search" ng-model="search.title" class="form-control" placeholder="Buscar...">
 			</div>
+			<hr>
+			<button type="button" title="Haz click para elegir un amigo." class="btn btn-primary btn-block" ng-click="getFriends()">Regalar</button>
+			<div class="list-group" ng-show="selectedFriend">
+				<a style="padding-left:2px" class="list-group-item active">
+					<img class="pull-left fb-img" src="{{selectedFriend.pic_square}}">
+					<div style="padding-top:2px" class="list-group-item-heading">{{selectedFriend.name}}</div>
+					<button style="position: absolute;right: 8px;top: 16px;" type="button" class="close" ng-click="cancelPresent()">×</button>
+				</a>
+			</div>
+			<hr>
 			<div class="form-group">
 				<div class="btn-group-vertical" style ="width:100%">
 					<label>Ordenar por:</label>
@@ -19,26 +35,25 @@
 					<button type="button" class="btn btn-default" ng-click="order='category'">Categoría</button>
 				</div>
 			</div>
-			
+			<hr>
 			<div class="form-group">
 				<label>Precio entre:</label>
 				<input type="number" min="1" ng-model="minPrice" ng-init="minPrice = 1" class="form-control" placeholder="Precio mínimo...">
 				<input type="number" min="1" ng-model="maxPrice" ng-init="maxPrice = 100000000" class="form-control" placeholder="Precio máximo...">
 			</div>
-			
+			<hr>
 			<div class="form-group">
 				<label>Categoría:</label>
 				<select class="form-control" ng-model="selectedCategory" ng-init="selectedCategory = categories[0]"
 				ng-options="category.name for category in categories" style ="width:100%"></select>
 			</div>
-
+			<hr>
 			<div class="form-inline">
 				<div class="form-group">
 					<label for="numItems">Cantidad de items:</label>
 					<input id="numItems" type="number" min="8" ng-model="numItems" ng-init="numItems = 20" class="form-control">
 				</div>
 			</div>
-			
 		</div>
 	</div>
 	<!-- ITEMS CONTAINER -->
@@ -65,6 +80,34 @@
 			</li>
 		</ul>
 	</div>
+</div>
+
+<!-- FRIENDS LIST -->
+<div id="friendsListModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Elige un amigo para hacerle un regalo.</h4>
+			</div>
+			<div class="modal-body">
+				<div class="list-group">
+					<a style="cursor: pointer" class="list-group-item" ng-repeat="friend in friends" ng-click="setFriend(friend)" ng-class="{active: isSelected(friend)}">
+						<img class="pull-left fb-img" src="{{friend.pic_square}}">
+						<h4 class="list-group-item-heading">{{friend.name}}</h4>
+					</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="makePresent()">Regalar</button>
+			</div>
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
 </div>
 
 <!-- Alert Modal -->
