@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import models.Action;
+import models.DateActions;
 import models.Item;
 import models.Seller;
 import play.data.DynamicForm;
@@ -20,12 +22,12 @@ public class ActionController extends BaseController {
 	
 	public static Result actionsFrom(Long order,  Long actionDateBegin, Long actionDateEnd, String actionType){
 		if(order > 0)
-			return mostActionsFrom( actionDateBegin, actionDateEnd, actionType);
+			return mostActionsFrom(actionDateBegin, actionDateEnd, actionType);
 		else
-			return lessActionsFrom( actionDateBegin, actionDateEnd, actionType);
+			return lessActionsFrom(actionDateBegin, actionDateEnd, actionType);
 	}
 	
-	private static Result mostActionsFrom( Long actionDateBegin, Long actionDateEnd, String actionType){
+	private static Result mostActionsFrom(Long actionDateBegin, Long actionDateEnd, String actionType){
 		Seller seller = Seller.findSellerByUser(currentUserId());
 		List<Item> items = Item.findItemsOwnedBy(seller.id);
 		for(Item item : items){
@@ -40,7 +42,7 @@ public class ActionController extends BaseController {
     	return ok(Json.toJson(items.size() > 5 ? items.subList(0, 5) : items));
     }
 	
-	private static Result lessActionsFrom( Long actionDateBegin, Long actionDateEnd, String actionType){
+	private static Result lessActionsFrom(Long actionDateBegin, Long actionDateEnd, String actionType){
 		Seller seller = Seller.findSellerByUser(currentUserId());
 		List<Item> items = Item.findItemsOwnedBy(seller.id);
 		for(Item item : items){
@@ -52,7 +54,7 @@ public class ActionController extends BaseController {
 		
 		Collections.sort(items, actionType.equals("BUY") ? Item.Comparators.lessPurchases : Item.Comparators.lessViews);
 		
-    	return ok(Json.toJson(items.subList(0, 5)));
+    	return ok(Json.toJson(items.size() > 5 ? items.subList(0, 5) : items));
     }
 	
 	public static Result getAllTimeActions(String actionType){
@@ -73,7 +75,7 @@ public class ActionController extends BaseController {
 		
     	return ok(Json.toJson(actions_history));
 	}
-	
+
 	 /***
      * Creates an action for the given item.
      */

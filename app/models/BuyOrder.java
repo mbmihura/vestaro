@@ -76,8 +76,8 @@ public class BuyOrder extends Model {
 	@OneToOne
 	public StockPerSize size;
 	public Integer pointsUsed = 0;
-	public Integer pointsEarned= 0;
-	public State state =State.PAYMENT_PENDING;
+	public Integer pointsEarned = 0;
+	public State state = State.PAYMENT_PENDING;
 	public String disputeMessage;
 	public boolean commissionPayed = false;
 
