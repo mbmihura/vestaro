@@ -32,7 +32,7 @@
 					<label>Ordenar por:</label>
 					<button type="button" class="btn btn-default" ng-click="order='title'">Nombre</button>
 					<button type="button" class="btn btn-default" ng-click="order='price'">Precio</button>
-					<button type="button" class="btn btn-default" ng-click="order='category'">Categoría</button>
+					<button type="button" class="btn btn-default" ng-click="order='category.title'">Categoría</button>
 				</div>
 			</div>
 			<hr>
@@ -45,7 +45,7 @@
 			<div class="form-group">
 				<label>Categoría:</label>
 				<select class="form-control" ng-model="selectedCategory" 
-				ng-options="category.title for category in categories" style ="width:100%">
+				ng-options="category.title for category in categories | orderBy:'title'" style ="width:100%">
 				</select>
 			</div>
 			<hr>
