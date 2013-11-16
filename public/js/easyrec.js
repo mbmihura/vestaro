@@ -1,7 +1,7 @@
 /* Si es servicio de Koding... */ var easyrecApiUrl="http://vestaro.kd.io:8080/easyrec-web/api/1.0/json/";
 /* Si es instancia local...    */ //var easyrecApiUrl="http://localhost:8080/easyrec-web/api/1.0/json/";
 
-var tenantId = "Vestaro";
+var tenantId = "VestaroPROD";
 var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
 
 $(document).ready(function(){

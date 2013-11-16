@@ -192,9 +192,10 @@ vestaroMain.factory('easyrec', [function(){
     },
     /* options = {
         itemId: '{{item.id}}',
-        itemUrl: '/garment/{{item.id}}',
+        itemUrl: '/#/garment/{{item.id}}',
         itemDescription: '{{item.title}}',
-        itemImageUrl: '{{item.imgUrl}}'
+        itemImageUrl: '{{item.imgUrl}}',
+        itemType: '{{item.sex}}'
       } 
       actionType = { 'buy', 'view', '...' }*/
     sendAction: function(actionType, options, callback){
