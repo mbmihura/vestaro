@@ -263,19 +263,22 @@ vestaroMain.factory('Easyrec', ['$http', function($http){
         'recommendationsforuser',
         'relateditems',
         'actionhistoryforuser',
+        'mostvieweditems',
+        'mostboughtitems'
       }
       options = {
         userId: authData.currentUser.id,
         requesteditemtype = { 'male', 'female', 'unisex' }
       }
       */
-      getRecommendations: function(recommendationType){
+      getRecommendations: function(recommendationType, fbUser){
         var options = {};
-        options.userId = 100000262980862;
-        options.requestedItemType = 'male';
-        //options.userId = authData.fbUser.id;
-        // options.requestedItemType = authData.fbUser.gender;
-        // options.itemType = authData.fbUser.gender;
+        if(fbUser){
+          options.userId = fbUser.id;
+          options.requestedItemType = fbUser.gender;
+        } else {
+          options.requestedItemType = 'unisex';
+        };
 
         var o = easyrec.extend(options, defaults);
 
@@ -296,8 +299,11 @@ vestaroMain.factory('Easyrec', ['$http', function($http){
       /* actionType = { 'buy', 'view', '...' } */
       sendAction: function(actionType, item){
         var options = {};
-        options.userId = 100000262980862;
-        //options.userId = authData.fbUser.id;
+        if(authData.fbUser){
+          options.userId = authData.fbUser.id;
+        } else {
+          options.userId = 0;
+        }
         options.itemId = item.id;
         options.itemUrl = '/#/garment/' + item.id;
         options.itemDescription = item.title;

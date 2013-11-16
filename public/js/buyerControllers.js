@@ -2,14 +2,15 @@
 vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'BuyerSession', 'Facebook', 'Easyrec',
 	function ($scope, BuyerSession, Facebook, Easyrec) {
 
-  console.log(authData.fbUser);
-
-  BuyerSession.getItems().success(function(data){
-	  $scope.items = data;
-  });
-  
-  Easyrec.getRecommendations('mostvieweditems').
+  // Get Most Viewed Items.
+  // If user is not logged in the app, this will get unisex items only.
+  Easyrec.getRecommendations('mostvieweditems', authData.fbUser).
   	success(function(data){
+  		console.log(data);
+  		if(!data.recommendeditems){
+  			$scope.mostViewedItems = null;
+  			return;
+  		}
   		BuyerSession.getItemsByList(data.recommendeditems.item).
   			success(function(data){
   				$scope.mostViewedItems = data;
@@ -17,9 +18,33 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'BuyerSession', 'Facebook', '
   	}).
   	error(function(data){
   		console.log(data);
-  	});
+  });
   
-  $scope.$on('isotope', isotopeHandling);
+  // Get Recommendations For User.
+  // If user is not logged in the app, this will get all items.
+  Easyrec.getRecommendations('recommendationsforuser', authData.fbUser).
+  	success(function(data){
+  		console.log(data);
+  		if(!data.recommendeditems){
+  			// User has no recommendations.
+  			$scope.userHasRecommendations = false;
+  			BuyerSession.getItems().success(function(data){
+  				$scope.recommendedItems = data;
+  				$scope.$on('isotope', isotopeHandling);
+  			});
+  		} else {
+  			$scope.userHasRecommendations = true;
+	  		BuyerSession.getItemsByList(data.recommendeditems.item).
+	  			success(function(data){
+	  				console.log(data);
+	  				$scope.recommendedItems = data;
+	  				$scope.$on('isotope', isotopeHandling);
+	  		});
+	  	}
+  	}).
+  	error(function(data){
+  		console.log(data);
+  });
   
   $scope.showBuyItemModal = function(item){
 	  $scope.item = item;
@@ -64,9 +89,10 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 				return parseFloat($elem.find('.price').text().replace('$', ''));
 			},
 			title : function($elem) {
-				return $elem.find('.title').text();
+				return $elem.find('.item-title').text();
 			}
-		}
+		},
+		sortBy : 'title'
 	};
 	
 	// Wait until all images are loaded
