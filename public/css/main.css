@@ -318,6 +318,25 @@ border-top-right-radius: 30px;
   font-size: 14px;
 }
 
+/* Friends List */
+
+.list-group-item-heading {
+  padding-top: 12px;
+}
+
+.list-group-item {
+  height: 50px;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+.fb-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  margin-right: 10px;
+}
+
 /* Wishlist */
 .item-container.wishlist {
   width: 33.33333333333333%;

@@ -103,7 +103,33 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession', 'facebook',
 	function ($scope, buyerSession, facebook) {
 
   $scope.categories = buyerSession.getCategories();
-  $scope.friends = facebook.getFriendsUsingApp();
+  $scope.getFriends = function(){
+  	FB.api(
+  	{
+  		method: 'fql.query',
+  		query: 'SELECT uid, name, pic_square FROM user WHERE is_app_user=1' +
+  			'AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
+  	},
+  	function(result) {
+  		if(result.error){
+  			alert(result.error);
+  		} else {
+	  		$scope.$apply(function() {
+	  			$scope.friends = result;
+	  			$('#friendsListModal').modal('show');
+	  		});
+  		}
+  	}
+  	);
+  };
+
+    $scope.setFriend = function(friend) {
+        $scope.selectedFriend = friend;
+    }
+
+    $scope.isSelected = function(friend) {
+        return $scope.selectedFriend === friend;
+    }
   
   buyerSession.getItems().success(function(data) {
 	  $scope.items = data;
