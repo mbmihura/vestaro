@@ -138,16 +138,6 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 	function ($scope, BuyerSession, Easyrec) {
 
   $scope.categories = BuyerSession.getCategories();
-
-  $scope.viewItem = function(item){
-  	Easyrec.sendAction('view', item).
-	  	success(function(data) {
-	        console.log(data);
-	      }).
-	      error(function(data) {
-	        console.log(data);
-	    });;
-  }
   
   BuyerSession.getItems().success(function(data) {
 	  $scope.items = data;

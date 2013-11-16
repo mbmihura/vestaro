@@ -28,7 +28,7 @@
 				<div class="item-actions">
 					<li ng-click="removeFromWishlist(wishItem.item, $index)" class="action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
 					<div ng-click="shareItem(wishItem.item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-					<div ng-click="showBuyItemModal(wishItem.item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+					<a ng-href="#/garments/{{wishItem.item.id}}" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></a>
 				</div>
 				<div class="item-main">
 					<h3 class="item-title wishlist">{{wishItem.item.title}}</h3>

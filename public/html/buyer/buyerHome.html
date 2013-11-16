@@ -67,7 +67,7 @@
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; margin: 0px;">
 						<li ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
 						<li ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						<li class="action" title="Ver más"><a ng-href="#/garments/{{item.id}}"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
 					</ol>
 				</div>
 				<div class="item-info-container">
@@ -98,7 +98,7 @@
 						<div class="item-actions">
 							<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
 							<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-							<div ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+							<div ng-href="#/garments/{{item.id}}" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
 						</div>
 						<div class="item-main">
 							<h4 class="item-title">{{item.title}}</h4>
@@ -124,9 +124,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- BUY MODAL -->
-<div ng-include="'/assets/html/buyItemModal.html'"></div>
 
 <!-- Alert Modal -->
 <div ng-include="'/assets/html/alertModal.html'"></div>
