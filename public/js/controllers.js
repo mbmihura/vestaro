@@ -54,7 +54,7 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
 
 }])
 
-.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', function($scope, garmentsApi, $routeParams, $location){
+.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location','$http', function($scope, garmentsApi, $routeParams, $location, $http){
   $scope.garment = garmentsApi.get({id: $routeParams.id}, function() {
     $scope.garment.availableStocks = "";
     $scope.garment.stock.forEach(function(s) {
@@ -62,6 +62,7 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
         $scope.garment.availableStocks += s.size + ", ";
     });
     $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
+    $http.post('/garment/' + $routeParams.id + '/actions', {type:'VIEW'});
 });
 
 
