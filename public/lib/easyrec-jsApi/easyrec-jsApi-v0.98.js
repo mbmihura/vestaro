@@ -17,9 +17,6 @@
  * along with easyrec.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var tenantId = "Vestaro";
-var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
-
 var defaults = {
     drawingCallback: "drawRecommendationList",
     actionCallback: "void",

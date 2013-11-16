@@ -1,25 +1,23 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook', 'easyrec',
-	function ($scope, buyerSession, facebook, easyrec) {
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'BuyerSession', 'Facebook', 'Easyrec',
+	function ($scope, BuyerSession, Facebook, Easyrec) {
 
-  // TODO: replace with information of currentUser
-  easyrec.getRecommendations('recommendationsforuser',
-  	{requestedItemType: 'male',
-  	 userId: 100000262980862},
-  	function (data){
-  		console.log(data);
-  		if(data.recommendeditems === null){
-  			alert('No tienes recomendaciones.');
-  		}
-  });
+  console.log(authData.fbUser);
 
-  buyerSession.getItems().success(function(data){
+  BuyerSession.getItems().success(function(data){
 	  $scope.items = data;
   });
   
-  buyerSession.getPopularItems().success(function(data){
-	  $scope.popularItems = data;
-  });
+  Easyrec.getRecommendations('mostvieweditems').
+  	success(function(data){
+  		BuyerSession.getItemsByList(data.recommendeditems.item).
+  			success(function(data){
+  				$scope.mostViewedItems = data;
+  			});
+  	}).
+  	error(function(data){
+  		console.log(data);
+  	});
   
   $scope.$on('isotope', isotopeHandling);
   
@@ -29,11 +27,11 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook', '
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item);
+	  BuyerSession.addToWishlist(item);
   }
 
   $scope.shareItem = function(item){
-  	facebook.feedDialog(item, $scope);
+  	Facebook.feedDialog(item, $scope);
   }
   
   var $container = $('#itemsContainer');
@@ -110,18 +108,22 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	});	
 }
 
-vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession','easyrec',
-	function ($scope, buyerSession, easyrec) {
+vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
+	function ($scope, BuyerSession, Easyrec) {
 
-  $scope.categories = buyerSession.getCategories();
+  $scope.categories = BuyerSession.getCategories();
 
   $scope.viewItem = function(item){
-  	easyrec.sendAction('view', item, function(data){
-  		console.log(data);
-  	});
+  	Easyrec.sendAction('view', item).
+	  	success(function(data) {
+	        console.log(data);
+	      }).
+	      error(function(data) {
+	        console.log(data);
+	    });;
   }
   
-  buyerSession.getItems().success(function(data) {
+  BuyerSession.getItems().success(function(data) {
 	  $scope.items = data;
   });
   
@@ -131,20 +133,28 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession','easyrec',
   }
   
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item);
+	  BuyerSession.addToWishlist(item);
+  }
+
+  $scope.shareItem = function(item){
+  	Facebook.feedDialog(item, $scope);
   }
   
 }]);
 
-vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession', '$rootScope',
-	function ($scope, buyerSession, $rootScope) {
+vestaroMain.controller('WishlistCtrl', ['$scope', 'BuyerSession', '$rootScope',
+	function ($scope, BuyerSession, $rootScope) {
 
-	buyerSession.getWishlist().success(function(data) {
+	BuyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
+
+	$scope.shareItem = function(item){
+  		Facebook.feedDialog(item, $scope);
+  	}
 	
 	$scope.removeFromWishlist = function(item, idx) {
-		buyerSession.removeFromWishlist(item.id).success(function(data) {
+		BuyerSession.removeFromWishlist(item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
 			$rootScope.alert = {title:'Prenda eliminada de Wishlist',
