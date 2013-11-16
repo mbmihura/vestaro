@@ -44,8 +44,9 @@
 			<hr>
 			<div class="form-group">
 				<label>Categoría:</label>
-				<select class="form-control" ng-model="selectedCategory" ng-init="selectedCategory = categories[0]"
-				ng-options="category.name for category in categories" style ="width:100%"></select>
+				<select class="form-control" ng-model="selectedCategory" 
+				ng-options="category.title for category in categories" style ="width:100%">
+				</select>
 			</div>
 			<hr>
 			<div class="form-inline">

@@ -20,39 +20,6 @@ public class Global extends GlobalSettings {
 
     	@SuppressWarnings("unchecked")
 		public static void insert() {
-
-//    		if (Rol.find.findRowCount() == 0)
-//    		{
-//    			for (Roles roleEnum : Roles.values())
-//    			{
-//    				Rol role = new Rol();
-//    				role.name = roleEnum.getName();
-//    				role.save();
-//    			}
-//    		}
-        	
-//          // If test user isn't set, create it.
-//    		if (User.find.findRowCount() == 0)
-//    		{
-//    			User user;
-//            	Buyer buyer;
-//           		Seller seller;
-//            	
-//            	user = User.create(563729055L,"testUserKurt");
-//            	Buyer.createFor(user.userId);
-//              Seller.createFor(user.userId);
-//
-//              user = User.create(1406678834L,"testUserNaty");
-//              Buyer.createFor(user.userId);
-//                   
-//              user = User.create(100000262980862L,"testUserAlan");
-//              Buyer.createFor(user.userId);
-//              Seller.create(new Seller(user, 2L, "/assets/img/logo.jpg", "RopaHot", "www.example.com", false, 0.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
-//                
-//              user = User.create(1335414847L,"testUserPablo");
-//              Buyer.createFor(user.userId);
-//              Seller.create(new Seller(user, 1L, "/assets/img/logo.jpg", "RopaCool", "www.example.com", true, 1.0, "uToiGVlNavrrbtjFX6ksHP51RQsG5and", "1406963671517811"));
-//          }
             
             if(Ebean.find(Seller.class).findRowCount() == 0) {
             	
@@ -74,7 +41,10 @@ public class Global extends GlobalSettings {
                 
                 // Insert collections
                 Ebean.save(all.get("collections"));
-
+                
+                // Insert categories
+                Ebean.save(all.get("categories"));
+                
                 // Insert items
                 Ebean.save(all.get("items"));
                 

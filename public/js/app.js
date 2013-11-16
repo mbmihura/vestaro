@@ -69,9 +69,7 @@ vestaroMain.factory('BuyerSession', ['$http', '$rootScope', 'Facebook', function
         },
         // TODO: replace with server request for categories.
         getCategories: function(){
-            return [ {id: 0, name: 'Todas', sexo: 'Todos'},
-                     {id: 1, name: 'Camisa', sexo: 'Mujer'},
-                     {id: 2, name: 'Campera', sexo: 'Hombre'}];
+            return $http.get('/categories');
         },
         addToWishlist: function(item){
           return $http.post('/wishlist', {'itemId': item.id})
