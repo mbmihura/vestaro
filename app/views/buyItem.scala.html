@@ -43,14 +43,18 @@
 						
 
 						<div class="jumbotron " style="text-align: center;   background: #D9D9DB;">
-						@if(item.seller.pointsEnabled){
+						@if(item.seller.pointsEnabled && buyerPoints>0){
 	  						<p style="font-size: 30px; font-weight: bold;">Puntos Disponibles</p>
 	   						<h1 style=" color: #428bca;  font-size: 120px;">@buyerPoints</h1>
 						    <p>Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor</p>
 								<p>Puntos a utilizar</p>
 	     					<input type="text" id="pointsToUse"   style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
 	  						<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
-						} else {
+						} @if(buyerPoints==0){
+							<p >No tenés puntos para usar. </p>
+							<p class= 'disabledPointsLegend'>Luego de pagar esta prenda podrás utilizar los puntos ganados en tus futuras compras!</p>
+							
+						}else{
 							<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>
 						}
 						</div>
@@ -172,7 +176,7 @@ jQuery.fn.onlyDigits = function() {
 		var message= "";
 		var points =$("#pointsToUse").val();
 		
-		if(! $.isNumeric(points) && points !=""){
+		if(! $.isNumeric(points) && points !="" && points !=undefined){
 			ok = false;
 			message = "<p>Ingresá un valor numérico de puntos</p>" ;
 		}
