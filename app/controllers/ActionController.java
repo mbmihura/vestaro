@@ -2,14 +2,21 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import models.Action;
 import models.DateActions;
 import models.Item;
 import models.Seller;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
+import security.RestrictTo;
+import security.Roles;
 
 public class ActionController extends BaseController {
 	
@@ -68,5 +75,18 @@ public class ActionController extends BaseController {
 		
     	return ok(Json.toJson(actions_history));
 	}
-	
+
+	 /***
+     * Creates an action for the given item.
+     */
+    @RestrictTo(Roles.BUYER)
+    public static Result create(String itemId) {
+		DynamicForm data = Form.form().bindFromRequest();
+		String type = data.get("type");
+		if (type != null && ( type.equals("VIEW") || type.equals("BUY"))){
+			new Action(type, currentUserId(), itemId, new Date()).save();
+			return noContent();
+		} else
+			return badRequest();
+    }
 }
