@@ -5,9 +5,12 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook', '
   // TODO: replace with information of currentUser
   easyrec.getRecommendations('recommendationsforuser',
   	{requestedItemType: 'male',
-  	 userId: '206'},
+  	 userId: 100000262980862},
   	function (data){
   		console.log(data);
+  		if(data.recommendeditems === null){
+  			alert('No tienes recomendaciones.');
+  		}
   });
 
   buyerSession.getItems().success(function(data){
@@ -107,10 +110,16 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	});	
 }
 
-vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
-	function ($scope, buyerSession) {
+vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession','easyrec',
+	function ($scope, buyerSession, easyrec) {
 
   $scope.categories = buyerSession.getCategories();
+
+  $scope.viewItem = function(item){
+  	easyrec.sendAction('view', item, function(data){
+  		console.log(data);
+  	});
+  }
   
   buyerSession.getItems().success(function(data) {
 	  $scope.items = data;

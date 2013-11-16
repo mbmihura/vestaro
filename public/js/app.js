@@ -144,9 +144,6 @@ vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location,
         function(response) {
           if (response && response.post_id) {
             console.log('Facebook: Publicación exitosa. Post id:' + response.post_id);
-          } else if (response.error) {
-            alert('Facebook: Error occurred.');
-            console.log('Error: ' + response.error.message);
            } else {
             console.log('Facebook: Error occurred.');
            }
@@ -192,20 +189,29 @@ vestaroMain.factory('easyrec', [function(){
       }
       */
     getRecommendations: function(recommendationType, options, callback){
-      drawingCallback = callback;
+      var drawingCallback = callback;
       options.drawingCallback = 'drawingCallback';
       easyrec_getRecommendations(recommendationType, options);
     },
     /* options = {
+        userId: authData.currentUser.id,
         itemId: '{{item.id}}',
         itemUrl: '/#/garment/{{item.id}}',
         itemDescription: '{{item.title}}',
         itemImageUrl: '{{item.imgUrl}}',
-        itemType: '{{item.sex}}'
+        itemType: '{{item.sex}}=='m'?'male':{{item.sex}}=='f'?'female':'unisex''
       } 
       actionType = { 'buy', 'view', '...' }*/
-    sendAction: function(actionType, options, callback){
-      actionCallback = callback;
+    sendAction: function(actionType, item, callback){
+      var actionCallback = callback;
+      var options = {};
+      // TODO: change with authData.currentUser.id or similar way of getting userId
+      options.userId = 100000262980862;
+      options.itemId = item.id;
+      options.itemUrl = '/#/garment/' + item.id;
+      options.itemDescription = item.title;
+      options.itemImageUrl = item.imgUrl;
+      options.itemType = item.sex=='m'?'male':(item.sex=='f'?'female':'unisex');
       options.actionCallback = 'actionCallback';
       easyrec_sendAction(actionType, options);
     }
