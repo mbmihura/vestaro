@@ -22,6 +22,8 @@ PUT		/seller 							controllers.SellerController.createOrUpdateCurrent()
 GET     /seller/:sellerId	     			controllers.SellerController.findSellerById(sellerId: Long)
 GET     /seller/:sellerId/items  	    	controllers.SellerController.itemsOwnedBy(sellerId: Long)
 GET     /seller/:sellerId/collections     	controllers.SellerController.listCollections(sellerId: Long)
+GET 	/notifications						controllers.NotificationController.getNotifications()
+PUT		/notifications						controllers.NotificationController.markAsSeen(id: Long )
 
 ####   Buyer   ####
 GET 	/buyer 								controllers.BuyerController.readCurrent()
@@ -37,6 +39,7 @@ GET		/garment							controllers.ItemController.readAll()
 GET		/garment/:itemId					controllers.ItemController.read(itemId: String)
 DELETE	/garment/:itemId					controllers.ItemController.delete(itemId: String)
 PUT		/garment/:itemId					controllers.ItemController.createOrUpdate(itemId: String)
+POST 	/getItemsByList					controllers.ItemController.getItemsByList()
 # UI
 POST	/garment/							controllers.ItemController.submit()
 
@@ -46,8 +49,6 @@ POST	/garment/							controllers.ItemController.submit()
 GET		/wishlist							controllers.WishlistController.userWishlistItems()
 POST	/wishlist							controllers.WishlistController.addItemToWishlist()
 DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
-
-
 
 
 # Dashboard
