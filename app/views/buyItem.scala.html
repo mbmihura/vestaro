@@ -4,10 +4,12 @@
 <div data-id="@item.id">
  
 	<div id="rootwizard">
+@if(! sizeOptions.isEmpty()){	
 		<ul class="nav nav-pills">
 			<li class="active"><a href="javascript:void(0);"  id="modifyOrderButton" data-toggle="tab">Crear orden de compra</a></li>
 			<li class=""><a id="orderItemButton" href="javascript:void(0)" data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
+		}
 		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
 			
 				<div class="tab-pane active" id="tab1">
