@@ -1,10 +1,12 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import models.BuyOrder;
 import models.Buyer;
+import models.Category;
 import models.Collection;
 import models.InvalidBuyOrderException;
 import models.Item;
@@ -116,7 +118,7 @@ public class ItemController extends BaseController {
 		}
     }
 
-    //TODO shouldn't only be restricted to sellers? 
+    @RestrictTo(Roles.SELLER)
     public static Result updateItem(Long collectionId, String itemId) {
     	// validate item owner is current user, if not forbiden
     	Item item = Item.find.byId(itemId);
@@ -151,7 +153,8 @@ public class ItemController extends BaseController {
     	return ok(Json.toJson(items));
     }
 
-     public static Result buy(){
+    @RestrictTo(Roles.BUYER)
+    public static Result buy(){
         String itemId = Form.form().bindFromRequest().get("id");
     	Item item = Item.find.byId(itemId);
     	if (item != null) {	
@@ -166,6 +169,7 @@ public class ItemController extends BaseController {
     	}
     }
     
+    @RestrictTo(Roles.BUYER)
     public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception{
     	Item item = Item.find.byId(itemId);
     	
@@ -189,5 +193,27 @@ public class ItemController extends BaseController {
 			play.Logger.error(e.getMessage());
 			return badRequest();
 		}
+    }
+    
+    public static Result getItemsByList(){
+        try {
+			DynamicForm data = Form.form().bindFromRequest();
+			String itemsStr = data.get("items");
+			String[] itemsId = itemsStr.split(",");
+			List<Item> items = new ArrayList<Item>();
+			
+			for (int i = 0; i < itemsId.length; i++) {
+				items.add(Item.find.byId(itemsId[i]));
+			}
+			
+			return ok(Json.toJson(items));
+		} catch (Exception e) {
+			play.Logger.error(e.getMessage());
+			return badRequest(e.getMessage());
+		}
+    }
+
+    public static Result getCategories(){
+        return ok(Json.toJson(Category.find.all()));
     }
 }

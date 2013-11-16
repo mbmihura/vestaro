@@ -15,7 +15,7 @@
 
     <!-- Basic 3rd parties libraries -->
     <script src="@routes.Assets.at("lib/jQuery/2.0.3/jquery-2.0.3.min.js")" type="text/javascript"></script> 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("lib/jQuery/2.0.3/jquery-ui.css")"> <!-- jquery shuld be load before angular, so angular uses it instead of jqLite. jQuery suppoprt <script> tag which jqLite doesn't. https://github.com/angular/angular.js/issues/369 -->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("lib/jQuery-plugins/jQuery-ui/jquery-ui.css")"> <!-- jquery shuld be load before angular, so angular uses it instead of jqLite. jQuery suppoprt <script> tag which jqLite doesn't. https://github.com/angular/angular.js/issues/369 -->
 
     <script src="@routes.Assets.at("lib/angularjs/1.1.5/angular.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("lib/angularjs/1.1.5/angular-resource.min.js")" type="text/javascript"></script>
@@ -56,6 +56,14 @@
     <div id="fb-root"></div>
     <!-- FACEBOOK AUTH, se tiene que cargar lo mas rapido posible por eso esta antes en el body-->
     <script>
+        /* EasyRec */
+        /* Si es servicio de Koding... */ var easyrecApiUrl="http://vestaro.kd.io:8080/easyrec-web/api/1.0/json/";
+        /* Si es instancia local...    */ //var easyrecApiUrl="http://localhost:8080/easyrec-web/api/1.0/json/";
+
+        var tenantId = "VestaroPROD";
+        var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
+
+        /* Facebook */
         var authData = {};
         window.fbAsyncInit = function() {
           FB.init({
@@ -104,6 +112,7 @@
               
               // Load user's name
               FB.api('/me', function(response) {
+                authData.currentUser = response;
                 $('.navbar .nav .currentUsername').text(response.name).show();
                 console.log('Good to see you, ' + response.name + '.');
                 authData.fbUser = response;

@@ -131,6 +131,48 @@ collections:
         description:    Verano 2014
         seller:  *ropaTop
 
+# Categories
+categories:
+    - !!models.Category
+        title:  Todas
+    - &Accesorios !!models.Category
+        title:  Accesorios
+    - &Abrigos !!models.Category
+        title:  Abrigos y Chaquetas
+    - &Sudaderas !!models.Category
+        title:  Sudaderas
+    - &Jeans !!models.Category
+        title:  Jeans
+    - &Pantalones !!models.Category
+        title:  Pantalones
+    - &Camisas !!models.Category
+        title:  Camisas
+    - &Remeras !!models.Category
+        title:  Chombas y Remeras
+    - &Shorts !!models.Category
+        title:  Shorts
+    - &Pijamas !!models.Category
+        title:  Pijamas
+    - &Calcetines !!models.Category
+        title:  Calcetines
+    - &Buzos !!models.Category
+        title:  Buzos
+    - &Sweaters !!models.Category
+        title:  Sweaters
+    - &Mallas !!models.Category
+        title:  Mallas
+    - &Interior !!models.Category
+        title:  Ropa Interior
+    - &Vestidos !!models.Category
+        title:  Vestidos
+    - &Gorros !!models.Category
+        title:  Gorros
+    - &Guantes !!models.Category
+        title:  Guantes
+    - &Calzas !!models.Category
+        title:  Calzas
+    - &Capris !!models.Category
+        title:  Capris
 
 # Items
 
@@ -144,6 +186,7 @@ items:
         price:        200
         sex:        m
         seller:        *ropaTop
+        category:   *Camisas
     - !!models.Item
         id:           CB2
         title:        Camisa Blanca Lisa
@@ -153,6 +196,7 @@ items:
         sex:        m
         seller:        *ropaCool
         collection:   *camisasHombre
+        category:   *Camisas
     - !!models.Item
         id:           CG1
         title:        Camisa Gris
@@ -162,6 +206,7 @@ items:
         sex:        m
         seller:        *ropaCool
         collection:   *camisasHombre
+        category:   *Camisas
     - !!models.Item
         id:           CAB1
         title:        Camisa Azul y Blanca
@@ -171,6 +216,7 @@ items:
         sex:        m
         seller:        *ropaCool
         collection:   *camisasHombre
+        category:   *Camisas
     - !!models.Item
         id:           CB3
         title:        Camisa Blanca Beso
@@ -180,7 +226,7 @@ items:
         sex:        f
         seller:        *ropaHot
         collection:   *camisasMujer
-
+        category:   *Camisas
     - !!models.Item
         id:           CL1
         title:        Camisa Leopardo
@@ -190,7 +236,7 @@ items:
         sex:        f
         seller:        *ropaHot
         collection:   *camisasMujer
-
+        category:   *Camisas
     - !!models.Item
         id:           CR1
         title:        Campera Abrigo Rosa
@@ -200,7 +246,7 @@ items:
         sex:        f
         seller:        *ropaHot
         collection:   *camperasAbrigo
-
+        category:   *Abrigos
     - !!models.Item
         id:           CY1
         title:        Capri Yoga Negro
@@ -210,7 +256,7 @@ items:
         sex:        f
         seller:        *ropaCool
         collection:   *sport
-
+        category:   *Capris
     - !!models.Item
         id:           PR1
         title:        Pañuelo Rojo
@@ -220,7 +266,7 @@ items:
         sex:        f
         seller:        *ropaCool
         collection:   *accesorios
-
+        category:   *Accesorios
     - !!models.Item
         id:           GR1
         title:        Gorro Rojo
@@ -230,7 +276,7 @@ items:
         sex:        f
         seller:        *ropaCool
         collection:   *accesorios
-
+        category:   *Gorros
     - !!models.Item
         id:           CRMC
         title:        Camisa Roja
@@ -239,8 +285,7 @@ items:
         price:        310
         sex:        m
         seller:        *ropaCool
-
-
+        category:   *Camisas
     - !!models.Item
         id:           MV
         title:        Malla verde fluor
@@ -249,7 +294,7 @@ items:
         price:        180
         sex:        f
         seller:        *ropaTop
-
+        category:   *Mallas
     - !!models.Item
         id:           MM
         title:        Malla Multicolor
@@ -258,7 +303,7 @@ items:
         price:        210
         sex:        f
         seller:        *ropaTop
-
+        category:   *Mallas
     - !!models.Item
         id:           CC1
         title:        Camisa Celeste
@@ -267,7 +312,7 @@ items:
         price:        275
         sex:        m
         seller:        *ropaCool
-
+        category:   *Camisas
     - !!models.Item
         id:           CAM_B
         title:        Campera Beige
@@ -276,7 +321,7 @@ items:
         price:        560
         sex:        u
         seller:        *ropaCool
-
+        category:   *Abrigos
     - !!models.Item
         id:           CAM_R
         title:        Campera Roja
@@ -285,7 +330,7 @@ items:
         price:        210
         sex:        m
         seller:        *ropaCool
-
+        category:   *Abrigos
     - !!models.Item
         id:           CHOM_A
         title:        Chomba Azul
@@ -294,7 +339,7 @@ items:
         price:        299
         sex:        m
         seller:        *ropaCool
-
+        category:   *Remeras
     - !!models.Item
         id:           CHOM_N
         title:        Chomba Negra
@@ -303,7 +348,7 @@ items:
         price:        299
         sex:        m
         seller:        *ropaCool
-
+        category:   *Remeras
     - !!models.Item
         id:           PAN_B
         title:        "Pantalón Beige"
@@ -312,7 +357,7 @@ items:
         price:        399
         sex:        m
         seller:        *ropaCool
-
+        category:   *Pantalones
     - !!models.Item
         id:           PAN_C
         title:        "Pantalón Charcoal"
@@ -321,6 +366,7 @@ items:
         price:        299
         sex:        m
         seller:        *ropaCool
+        category:   *Pantalones
     - !!models.Item
         id:           cb2
         title:        Camisa Blanca
@@ -329,6 +375,7 @@ items:
         price:        200
         sex:        m
         seller:        *ropaKurt
+        category:   *Camisas
 
 # Stocks
 
@@ -452,108 +499,113 @@ actions:
 
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         id:          999994
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CB2
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      CL1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      PR1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131118
         userId:      1335414847
         itemId:      PR1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131115
         userId:      1335414847
         itemId:      GR1
     - !!models.Action
         action_type: BUY
-        date:        20131018
+        date:        20131115
         userId:      1335414847
         itemId:      CY1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
+        userId:      1335414847
+        itemId:      CB1
+    - !!models.Action
+        action_type: VIEW
+        date:        20131115
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
@@ -563,22 +615,17 @@ actions:
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20130915
+        date:        20131005
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20130905
+        date:        20131121
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
         action_type: VIEW
-        date:        20131021
-        userId:      1335414847
-        itemId:      CB1
-    - !!models.Action
-        action_type: VIEW
-        date:        20131024
+        date:        20131124
         userId:      1335414847
         itemId:      CB1
     - !!models.Action
@@ -593,51 +640,51 @@ actions:
         itemId:      GR1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      GR1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CG1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CAB1
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB2
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CB2
     - !!models.Action
         action_type: VIEW
-        date:        20131015
+        date:        20131115
         userId:      1335414847
         itemId:      CL1
