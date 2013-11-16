@@ -2,6 +2,8 @@
 vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'BuyerSession', 'Facebook', 'Easyrec',
 function ($scope, BuyerSession, Facebook, Easyrec) {
 
+	$scope.userHasRecommendations = true;
+	
   // Get Most Viewed Items.
   // If user is not logged in the app, this will get unisex items only.
   Easyrec.getRecommendations('mostvieweditems', authData.fbUser).
@@ -135,6 +137,8 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 	function ($scope, BuyerSession, Easyrec) {
 
+		$scope.friendHasRecommendations = true;
+		
 		$scope.categories = BuyerSession.getCategories();
 
 		$scope.getFriends = function(){
@@ -198,6 +202,16 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 				error(function(data){
 					console.log(data);
 				});
+		}
+
+		$scope.cancelPresent = function(){
+			$scope.selectedFriend = null;
+			$scope.friendHasRecommendations = true;
+			if($scope.friendHasRecommendations){
+				BuyerSession.getItems().success(function(data) {
+					$scope.items = data;
+				});
+			}
 		}
 
 		BuyerSession.getItems().success(function(data) {

@@ -322,12 +322,13 @@ border-top-right-radius: 30px;
 
 .list-group-item-heading {
   padding-top: 12px;
+  cursor: default;
 }
 
 .list-group-item {
   height: 50px;
-  padding-top: 3px;
-  padding-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 3px;
 }
 
 .fb-img {
