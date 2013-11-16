@@ -32,12 +32,12 @@
 				</div>
 				<div class="item-main">
 					<h3 class="item-title wishlist">{{wishItem.item.title}}</h3>
-					<img class="item-img wishlist" src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
+					<img class="item-img wishlist" ng-src="{{wishItem.item.imgUrl}}" alt="{{wishItem.item.description}}">
 				</div>
 				<div class="item-details" align="center">
 					<div class="btn-group">
 						<div class="btn btn-default disabled price">${{wishItem.item.price}}</div>
-						<a type="button" href="#/buy?id={{wishItem.item.id}}" class="btn btn-primary">Comprar</a>
+						<a type="button" ng-href="#/buy?id={{wishItem.item.id}}" class="btn btn-primary">Comprar</a>
 					</div>
 				</div>
 			</div>

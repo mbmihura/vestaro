@@ -63,7 +63,7 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
         $scope.garment.availableStocks += s.size + ", ";
     });
     $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2);
-    Easyrec.sendAction('view', item).
+    Easyrec.sendAction('view', $scope.garment).
       success(function(data) {
           console.log(data);
         }).

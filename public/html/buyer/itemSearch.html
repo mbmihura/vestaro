@@ -53,12 +53,12 @@
 					</div>
 					<div class="item-main">
 						<h4 class="item-title">{{item.title}}</h4>
-						<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
+						<img class="item-img" ng-src="{{item.imgUrl}}" alt="{{item.description}}">
 					</div>
 					<div class="item-details" align="center">
 						<div class="btn-group">
 							<div class="btn btn-default disabled price">${{item.price}}</div>
-							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+							<a type="button" ng-href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 						</div>
 					</div>
 				</div>
