@@ -3,12 +3,13 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.joda.time.DateTime;
 
-import models.Buyer;
-import play.db.ebean.*;
+import play.db.ebean.Model;
 import security.Roles;
 
 @SuppressWarnings("serial")

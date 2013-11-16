@@ -26,7 +26,8 @@ public class WishlistController extends BaseController {
 					.eq("owner.userId", currentUserId())
 					.eq("item.id", itemId).findUnique();
 			// Cannot have duplicates.
-			if(wishItem != null) return badRequest();
+			if(wishItem != null)
+				return status(409,"Duplicate wishlist item.");
 			
 			WishlistItem wish = new WishlistItem(Item.find.byId(itemId), currentUser());
 			wish.save();

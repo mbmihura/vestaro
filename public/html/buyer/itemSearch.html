@@ -1,5 +1,5 @@
 <div class="page-header" align="center">
-<h1>Encontrá la mejor ropa. <small>En un solo lugar.</small></h1>
+	<h1>Encontrá la mejor ropa. <small>En un solo lugar.</small></h1>
 </div>
 
 <div class="row">
@@ -8,9 +8,16 @@
 		<div class="well well-sm">
 			
 			<div class="form-group">
-				<label>Filtrar</label>
+				<label>Filtrar:</label>
 				<input type="search" ng-model="search.title" class="form-control" placeholder="Search">
-				<input type="text" ng-model="order" class="form-control" placeholder="Order">
+			</div>
+			<div class="form-group">
+				<div class="btn-group-vertical" style ="width:100%">
+					<label>Ordenar por:</label>
+					<button type="button" class="btn btn-default" ng-click="order='title'">Nombre</button>
+					<button type="button" class="btn btn-default" ng-click="order='price'">Precio</button>
+					<button type="button" class="btn btn-default" ng-click="order='category'">Categoría</button>
+				</div>
 			</div>
 			
 			<div class="form-group">
@@ -20,44 +27,43 @@
 			</div>
 			
 			<div class="form-group">
-				<label>Categoría</label>
-				<select class="selectpicker" ng-model="selectedCategory" ng-init="selectedCategory = categories[0]"
-					ng-options="category.name for category in categories"></select>
+				<label>Categoría:</label>
+				<select class="form-control" ng-model="selectedCategory" ng-init="selectedCategory = categories[0]"
+				ng-options="category.name for category in categories" style ="width:100%"></select>
 			</div>
 
 			<div class="form-inline">
-			<div class="form-group">
-				<label for="numItems">Cantidad de items:</label>
-				<input id="numItems" type="number" min="8" ng-model="numItems" ng-init="numItems = 20" class="form-control">
-			</div>
+				<div class="form-group">
+					<label for="numItems">Cantidad de items:</label>
+					<input id="numItems" type="number" min="8" ng-model="numItems" ng-init="numItems = 20" class="form-control">
+				</div>
 			</div>
 			
 		</div>
 	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
-		<div ng-animate="'animate'" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems"
-			class="item-container col-md-3">
-			<div class="thumbnail item-thumb">
-				<div class="item-actions">
-					<ol class="breadcrumb">
-						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
-						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
-					</ol>
-				</div>
-				<div class="item-main">
-					<h4 class="item-title">{{item.title}}</h4>
-					<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
-				</div>
-				<div class="item-details" align="center">
-					<div class="btn-group">
-						<div class="btn btn-default disabled price">${{item.price}}</div>
-						<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+		<ul masonry="true">
+			<li class="item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
+				<div class="item-thumb">
+					<div class="item-actions">
+						<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
+						<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+						<div ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+					</div>
+					<div class="item-main">
+						<h4 class="item-title">{{item.title}}</h4>
+						<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
+					</div>
+					<div class="item-details" align="center">
+						<div class="btn-group">
+							<div class="btn btn-default disabled price">${{item.price}}</div>
+							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</li>
+		</ul>
 	</div>
 </div>
 
@@ -66,6 +72,3 @@
 
 <!-- Alert Modal -->
 <div ng-include="'/assets/html/alertModal.html'"></div>
-
-<script src="/assets/lib/bootstrap-plugins/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="/assets/lib/bootstrap-plugins/bootstrap-select/bootstrap-select.min.css"></script>
