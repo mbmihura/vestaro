@@ -50,8 +50,6 @@ POST	/wishlist							controllers.WishlistController.addItemToWishlist()
 DELETE	/wishlist/:itemId					controllers.WishlistController.removeItemFromWishlist(itemId: String)
 
 
-
-
 # Dashboard
 GET		/littleItemsStock					controllers.DashboardController.littleItemsStock()
 GET		/biggestCollections					controllers.DashboardController.biggestCollections()
