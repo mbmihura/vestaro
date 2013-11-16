@@ -48,11 +48,6 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
   	console.log(data);
   });
   
-  $scope.showBuyItemModal = function(item){
-	  $scope.item = item;
-	  $('#buyItemModal').modal('show');
-  }
-  
   $scope.addToWishlist = function(item){
 	  BuyerSession.addToWishlist(item);
   }
@@ -217,11 +212,6 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 		BuyerSession.getItems().success(function(data) {
 			$scope.items = data;
 		});
-
-		$scope.showBuyItemModal = function(item){
-			$scope.item = item;
-			$('#buyItemModal').modal('show');
-		}
 
 		$scope.addToWishlist = function(item){
 			BuyerSession.addToWishlist(item);

@@ -64,16 +64,16 @@
 					<div class="item-actions">
 						<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
 						<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-						<div ng-click="viewItem(item)" class="action" title="Ver más..."><span class="glyphicon glyphicon-zoom-in"></span></div>
+						<a ng-href="#/garments/{{item.id}}" class="action" title="Ver más..."><span class="glyphicon glyphicon-zoom-in"></span></a>
 					</div>
 					<div class="item-main">
 						<h4 class="item-title">{{item.title}}</h4>
-						<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
+						<img class="item-img" ng-src="{{item.imgUrl}}" alt="{{item.description}}">
 					</div>
 					<div class="item-details" align="center">
 						<div class="btn-group">
 							<div class="btn btn-default disabled price">${{item.price}}</div>
-							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+							<a type="button" ng-href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 						</div>
 					</div>
 				</div>
@@ -109,9 +109,6 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
-<!-- BUY MODAL -->
-<div ng-include="'/assets/html/buyItemModal.html'"></div>
 
 <!-- Alert Modal -->
 <div ng-include="'/assets/html/alertModal.html'"></div>

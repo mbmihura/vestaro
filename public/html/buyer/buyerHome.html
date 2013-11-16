@@ -62,21 +62,21 @@
 	<div id="itemsContainer" class="items isotope row">
 		<div ng-repeat="item in recommendedItems | limitTo:10" class="item camisa" data-item-id="{{item.id}}" data-category="camisa" on-finish-render="isotope" align="center">
 			<div class="item-isotope">
-				<img class="item-img img-responsive" src="{{item.imgUrl}}" alt="{{item.title}}">
+				<img class="item-img img-responsive" ng-src="{{item.imgUrl}}" alt="{{item.title}}">
 				<div class="item-actions">
 					<ol class="breadcrumb" style="border-radius: 0px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; margin: 0px;">
-						<li ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
-						<li ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
+						<li ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><a><span class="glyphicon glyphicon-star-empty"></span></a></li>
+						<li ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><a><span class="glyphicon glyphicon-thumbs-up"></span></a></li>
+						<li class="action" title="Ver más"><a ng-href="#/garments/{{item.id}}"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
 					</ol>
 				</div>
 				<div class="item-info-container">
 					<div class="item-info" align="center">
 						<h3 class="title">{{item.title}}</h3>
-						<p><a href="{{item.seller.webpageUrl}}" class='sellerName'><strong>{{item.seller.brandName}}</strong></a></p>
+						<p><a ng-href="{{item.seller.webpageUrl}}" class='sellerName'><strong>{{item.seller.brandName}}</strong></a></p>
 						<div class="btn-group">
 							<div class="btn btn-default disabled price">${{item.price}}</div>
-							<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+							<a type="button" ng-href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 						</div>
 					</div>
 				</div>
@@ -98,16 +98,16 @@
 						<div class="item-actions">
 							<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
 							<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-							<div ng-click="showBuyItemModal(item)" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+							<div ng-href="#/garments/{{item.id}}" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
 						</div>
 						<div class="item-main">
 							<h4 class="item-title">{{item.title}}</h4>
-							<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
+							<img class="item-img" ng-src="{{item.imgUrl}}" alt="{{item.description}}">
 						</div>
 						<div class="item-details" align="center">
 							<div class="btn-group">
 								<div class="btn btn-default disabled price">${{item.price}}</div>
-								<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+								<a type="button" ng-href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
 							</div>
 						</div>
 					</div>
@@ -124,9 +124,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- BUY MODAL -->
-<div ng-include="'/assets/html/buyItemModal.html'"></div>
 
 <!-- Alert Modal -->
 <div ng-include="'/assets/html/alertModal.html'"></div>
