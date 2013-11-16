@@ -5,7 +5,7 @@
 <div class="row">
 	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
 	<div class="alert alert-dismissable alert-warning" ng-show="!friendHasRecommendations">
-		<button type="button" class="close" data-dismiss="alert">×</button>
+		<button type="button" class="close" ng-click="friendHasRecommendations=true">×</button>
 		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
 		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
 	</div>
