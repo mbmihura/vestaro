@@ -4,19 +4,19 @@
 <div data-id="@item.id">
  
 	<div id="rootwizard">
-@if(! sizeOptions.isEmpty()){	
+	@if(! sizeOptions.isEmpty()){	
 		<ul class="nav nav-pills">
 			<li class="active"><a href="javascript:void(0);"  id="modifyOrderButton" data-toggle="tab">Crear orden de compra</a></li>
 			<li class=""><a id="orderItemButton" href="javascript:void(0)" data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
-		}
-		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
+		<div class="tab-content jumbotron container" style="margin-top: 5px; min;" >
 			
 				<div class="tab-pane active" id="tab1">
 						<div class="col-lg-5">
 
     				<img src="@item.imgUrl" alt="@item.title" class="img-responsive" >
 						
+
 						<div class="jumbotron " style="text-align: center;   background: #D9D9DB; margin-top:25px;">
   						<p style="font-size: 30px; font-weight: bold;">Talles Disponibles</p>
    						
@@ -30,6 +30,8 @@
 							</span>
 						</div>
 							</div>
+							
+							
   				<div class="col-lg-7">
 						<div class="control-group">
 				  		<p class="control-label" for="Title">Prenda: @item.title</p>
@@ -39,6 +41,7 @@
 
 						</div>
 						
+
 						<div class="jumbotron " style="text-align: center;   background: #D9D9DB;">
 						@if(item.seller.pointsEnabled){
 	  						<p style="font-size: 30px; font-weight: bold;">Puntos Disponibles</p>
@@ -51,6 +54,9 @@
 							<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>
 						}
 						</div>
+						
+
+					
 	    		</div>
 				</div>
 
@@ -58,15 +64,38 @@
 					@payOrder(item, "", 0,"")
 				</div>
 
+@loadingModal("Creando tu órden de compra...", "loadingModal")
+		}
+					@if(sizeOptions.isEmpty()){
+					<div class="jumbotron container">
+						<div class="col-lg-5">
+	    				<img src="@item.imgUrl" alt="@item.title" class="img-responsive" >
+						</div>
+  				<div class="col-lg-7 ">
+						<div class="control-group">
+				  		<p class="control-label" for="Title">Prenda: @item.title</p>
+        			<p class="control-label" for="description">Descripción: @item.description</p>
+							<p class="control-label" for="price">Precio: $@item.price</p>
+							<p class="control-label" for="sellerName">Vendedor: <a href= @item.seller.webpageUrl>@item.seller.brandName</a></p>
+
+						</div>
 						
+
+						<div class="jumbotron " style="text-align: center;   background: #D9D9DB;">
+	  						<p style="padding:55px; font-size: 30px; font-weight: bold;">No hay stock disponible</p>
+						</div>
+
+	    		</div>
+
+				</div>
+					
+					}	
 		
 	</div>	
 
 
-@loadingModal("Creando tu órden de compra...", "loadingModal")
 
 	
-</div>
 
 
 <!--App scrips TODO: take it to a separate file-->
@@ -102,8 +131,9 @@ jQuery.fn.onlyDigits = function() {
     });
 };
 	$( document ).ready(function() {
+	
 		$("#pointsToUse").onlyDigits();
-			
+		
 		$("#orderItemButton").click(function(){
 			$('.alert').fadeOut();
 				//Deleted validations (just in server for now)-> problem with selected tab
