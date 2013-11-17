@@ -52,7 +52,7 @@
 	  						<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
 						} @if(buyerPoints==0){
 							<p >No tenés puntos para usar. </p>
-							<p class= 'disabledPointsLegend'>Luego de pagar esta prenda podrás utilizar los puntos ganados en tus futuras compras!</p>
+							<p class= 'disabledPointsLegend'>Después de pagar esta prenda usá los puntos ganados en tus futuras compras!</p>
 							
 						}else{
 							<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>
@@ -108,9 +108,9 @@
 				<span><i>¿Querés modificar tu órden o crear una nueva?</i></span>
       </div>
 			<div class="modal-footer">
-        <button type="button" id="save" class="btn btn-primary">Cambiar órden</button>
-        <button type="button" id="save" class="btn btn-info" 	>Crear nueva órden</button>
-				<button type="button" id="save" class="btn btn-success" 	>Eliminar cambios</button>
+        <button type="button" class="btn btn-primary" id="modify">Cambiar órden</button>
+        <button type="button"  class="btn btn-info" id="new"	>Crear nueva órden</button>
+				<button type="button" class="btn btn-success" >Eliminar cambios</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div><!-- /.modal-content -->
@@ -159,9 +159,15 @@ jQuery.fn.onlyDigits = function() {
 	
 		$("#pointsToUse").onlyDigits();
 		
+		$("#new").click(function(){
+			createNewOrder();
+		});
+		$("#modify").click(function(){
+			persistModifications();
+		});
+		
 		$("#orderItemButton").click(function(){
 			$('.alert').fadeOut();
-				//Deleted validations (just in server for now)-> problem with selected tab
 				orderItem();
 		});
 		
@@ -236,6 +242,9 @@ jQuery.fn.onlyDigits = function() {
 		
 	}
 	
+	function persistModifications(){
+		$('#loadingModal').modal('show');
+	} 	
 
 	function modifyOrder(){
 		if(!firstTabSelected()){
@@ -284,6 +293,8 @@ jQuery.fn.onlyDigits = function() {
 	}	
 
 	function createNewOrder(){
+		$('#confirmModal').modal('hide');
+		$('#loadingModal').modal('show');
 		var selectedLabel = $('label.active').get(0);
 		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
 		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
@@ -299,7 +310,7 @@ jQuery.fn.onlyDigits = function() {
 					orderCreationSuccess(points, json);
 				},
 				error: function(xhr, status, error){
-						orderCreationErro(xhr);
+						orderCreationError(xhr);
 				}
 			}
 		);
@@ -311,7 +322,7 @@ jQuery.fn.onlyDigits = function() {
 			confirmModifyOrder();
 		}
 		else{
-			$('#loadingModal').modal('show');
+			
 			createNewOrder();
 		}
 	}
