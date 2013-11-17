@@ -243,6 +243,7 @@ jQuery.fn.onlyDigits = function() {
 	}
 	
 	function persistModifications(){
+	
 		$('#confirmModal').modal('hide');
 		$('#loadingModal').modal('show');
 		var selectedLabel = $('label.active').get(0);
@@ -266,6 +267,7 @@ jQuery.fn.onlyDigits = function() {
 				}
 			}
 			);
+			
 			
 	} 	
 
@@ -341,6 +343,11 @@ jQuery.fn.onlyDigits = function() {
 	}
 	
 	function orderItem(){
+		if(!firstTabSelected()){
+			return;
+		}
+			 
+		
 		if(orderCreated()){
 			confirmModifyOrder();
 		}
