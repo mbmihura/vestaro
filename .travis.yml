@@ -9,7 +9,7 @@ services:
   - memcache
 
 env:
-  - PLAY_VERSION=2.1.3
+  - PLAY_VERSION=2.0.1
 
 before_script:
   - wget http://download.playframework.org/releases/play-${PLAY_VERSION}.zip
