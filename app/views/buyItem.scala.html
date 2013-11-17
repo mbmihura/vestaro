@@ -230,7 +230,7 @@ jQuery.fn.onlyDigits = function() {
 		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
 		
 		var points =$("#pointsToUse").val();
-		if(points== "" || !@item.seller.pointsEnabled){
+		if(points == undefined || points== "" || !@item.seller.pointsEnabled){
 			points = 0;
 		}
 		
