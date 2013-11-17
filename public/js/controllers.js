@@ -92,8 +92,6 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
       return false;
     };
     
-}]);
+}])
 
-function SellerDashboardCtrl(){}
-function CollectionsCtrl(){}
-function SelletSettingsCtrl(){}
+.controller('NullCtrl', [function (){}]);
