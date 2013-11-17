@@ -219,7 +219,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul ng-controller="NavCtrl" class="nav navbar-nav">
             <li ng-repeat="view in views" ng-class="{active: isActive(view)}">
-              <a style="padding-bottom: 10px; padding-top: 10px;" href="#{{view.path}}">
+              <a style="padding-bottom: 10px; padding-top: 10px;" ng-href="#{{view.path}}">
                 <span class="glyphicon glyphicon-{{view.icon}}"></span> {{view.title}}
               </a>
             </li>
@@ -251,6 +251,9 @@
                   <a onclick="FB.logout(function(response) {$('.navbar .loggedUserOptions').fadeOut();});">Salir</a>
                 </li>
               </ul>
+            </li>
+            <li>
+              <a style="padding: 10px 15px;" href="#/contact" title="Contacto Vestaro"><span class="glyphicon glyphicon-envelope"></span></a>
             </li>
           </ul>
 
