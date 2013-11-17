@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -14,6 +15,7 @@ import security.Roles;
 
 @SuppressWarnings("serial")
 @Entity
+@Table(name="v_user")
 public class User extends Model {
 
     @Id
