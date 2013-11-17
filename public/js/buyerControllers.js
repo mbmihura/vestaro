@@ -136,11 +136,8 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 		
 		BuyerSession.getCategories().success(function(data){
 			$scope.categories = data;
+			$scope.selectedCategory = $scope.categories[0];
 		});
-
-		$scope.selectedCategory = {};
-		$scope.selectedCategory.id = 1;
-		$scope.selectedCategory.title = 'Todas';
 
 		$scope.getFriends = function(){
 			FB.api(
