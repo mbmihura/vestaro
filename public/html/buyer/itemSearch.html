@@ -60,7 +60,7 @@
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
 		<ul masonry="true">
-			<li class="item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
+			<li class="col-md-3 item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
 				<div class="item-thumb">
 					<div class="item-actions">
 						<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>

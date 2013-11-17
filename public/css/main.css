@@ -230,11 +230,8 @@ border-top-right-radius: 30px;
 
 /* Item */
 .item-container {
-  display: inline-block;
-  width: 25%;
   margin-bottom: 15px;
   padding: 0px 15px;
-
 }
 
 .item-thumb {
@@ -338,10 +335,6 @@ border-top-right-radius: 30px;
 }
 
 /* Wishlist */
-.item-container.wishlist {
-  width: 33.33333333333333%;
-}
-
 .item-thumb.wishlist {
   height: 400px;
   /*line-height: 345px;*/
