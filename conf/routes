@@ -31,7 +31,7 @@ PUT 	/buyer 								controllers.BuyerController.createOrUpdateCurrent()
 POST	/buyer/openDispute/					controllers.BuyerController.openDispute(buyOrder: Long, disputeMessage: String)
 POST	/buyer/confirmReception/			controllers.BuyerController.confirmReception(buyOrder: Long)
 GET		/buyer/pay							controllers.BuyerController.payOrder()
-
+PUT		/buyer/modifyOrder					controllers.BuyerController.modifyOrder(orderId: Long, selectedSize: String, pointsUsed: Integer)
 
 ####   Items - Garments   ####
 # API
