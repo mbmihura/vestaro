@@ -6,9 +6,11 @@ import mercadopago.MP;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import play.Play;
 public class PaymentManager {
 
-	private static final String SITE_URL = "http://localhost:9000";
+	private static final String SITE_URL = Play.application().configuration().getString("vestaro.domain");
 	private static final String PAYMENT_SUCCESS_URL = SITE_URL + "/#/payment/success/";
 	private static final String PAYMENT_ERROR_URL = SITE_URL + "/#/payment/error/";
 	private static final String PAYMENT_PENDING_URL = SITE_URL + "/#/payment/success/";
