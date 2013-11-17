@@ -1,108 +1,71 @@
-AmCharts.ready(function () {
-	var chartData = [];
-	var chart;
-	   
-	Number.prototype.padLeft =
-	function(base, chr){
-	   var len = (String(base || 10).length - String(this).length) + 1;
-	   return len > 0 ? new Array(len).join(chr || '0') + this : this;
-	}
+var chartData = [];
+var chart;
+   
+Number.prototype.padLeft =
+function(base, chr){
+   var len = (String(base || 10).length - String(this).length) + 1;
+   return len > 0 ? new Array(len).join(chr || '0') + this : this;
+}
+
+function formatDate(date){
+    return date.getFullYear() + (date.getMonth() + 1).padLeft() + date.getDate().padLeft();
+}
+
+// ==================== Commission ====================
+$('#payButton').click(function(){
 	
-	function formatDate(date){
-	    return date.getFullYear() + (date.getMonth() + 1).padLeft() + date.getDate().padLeft();
-	}
-	
-	// ==================== Commission ====================
-	$('#payButton').click(function(){
+	seeCommissionDetail();
+});
+
+function seeCommissionDetail(){
+	if( $('#commissionDetailModal').find('table').size() == 0 ) {
+		jsRoutes.controllers.SellerController.commissionDetail().ajax({
+ 			success: 
+			function(details){
+				addDetailTable(details);
+				$('#commissionDetailModal').modal('show');
+				
+			}
+			});
+		}
+}
+jsRoutes.controllers.SellerController.sellerCommission().ajax({
+	success: 
+	function(json){
+		$('#commission').text('$'+json.commissionValue.toFixed(2));
 		
-		seeCommissionDetail();
+		if(json.commissionValue > 0){
+			$('#mpButton').attr('href',json.commissionCheckoutUrl);
+		}
+		else{
+			$('#payButton').attr('disabled',true);
+		}
+	}
 	});
 	
-	function seeCommissionDetail(){
-		if( $('#commissionDetailModal').find('table').size() == 0 ) {
-			jsRoutes.controllers.SellerController.commissionDetail().ajax({
-	 			success: 
-				function(details){
-					addDetailTable(details);
-					$('#commissionDetailModal').modal('show');
-					
-				}
-				});
-			}
-	}
-	jsRoutes.controllers.SellerController.sellerCommission().ajax({
- 	success: 
-		function(json){
-			$('#commission').text('$'+json.commissionValue.toFixed(2));
-			
-			if(json.commissionValue > 0){
-				$('#mpButton').attr('href',json.commissionCheckoutUrl);
-			}
-			else{
-				$('#payButton').attr('disabled',true);
-			}
-		}
-		});
-		
 
-	function formatJsonDate(dateJson){
-	 	var d = new Date(dateJson);
-	    var day = d.getDate();
-	    var month = d.getMonth() + 1;
-	    var year = d.getFullYear();
-	
-	    if (month < 10) {
-	        month = "0" + month;
-	     }
-	     
-	    return year + "." + month + "." + day;
-	}
-	
-	function addDetailTable(details){
-		var table = $('<table></table>').addClass('table table-striped')	;
-		table.append(detailsHeader());
-		$.each(details,function(){
-	 		var row = $('<tr></tr>');
-	 		var id= $('<td></td>').text(this.item.id);
-	 		var title= $('<td></td>').text(this.item.title);
-	 		var date= $('<td></td>').text(formatJsonDate(this.pay_time));
-	 		var commission= $('<td></td>').text("$"+this.commission);
-	 		
-	 		row.append(id);
-	 		row.append(title);
-	 		row.append(date);
-	 		row.append(commission);
-	 		
-	 		
-	    	table.append(row);
-		
-		} );
-	    
-	    table.append(detailsTotal());
-		$('.modal-body').append(table);
-	}
-	
-	function detailsTotal(){
-		var row = $('<tr></tr>').addClass('success');
-		var totalCommissionTitutlo= $('<td></td>').text("Total Comisión");
-		var totalCommission= $('<td></td>').text($('#commission').text());
- 		var empty1 =$('<td></td>');
- 		var empty2 =$('<td></td>');
- 		row.append(totalCommissionTitutlo);
- 		row.append(empty1);
- 		row.append(empty2);
- 		row.append(totalCommission);
- 		
- 		return row;
-	}
-	
-	
-	function detailsHeader(){
-		var row = $('<tr></tr>');
- 		var id= $('<td></td>').text("id Item");
- 		var title= $('<td></td>').text("Título Item");
- 		var date= $('<td></td>').text("Fecha pago");
- 		var commission= $('<td></td>').text("Comisión");
+function formatJsonDate(dateJson){
+ 	var d = new Date(dateJson);
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+
+    if (month < 10) {
+        month = "0" + month;
+     }
+     
+    return year + "." + month + "." + day;
+}
+
+function addDetailTable(details){
+	var table = $('<table></table>').addClass('table table-striped')	;
+	table.append(detailsHeader());
+	$.each(details,function(){
+ 		var row = $('<tr></tr>');
+ 		var id= $('<td></td>').text(this.item.id);
+ 		var title= $('<td></td>').text(this.item.title);
+ 		var date= $('<td></td>').text(formatJsonDate(this.pay_time));
+ 		var commission= $('<td></td>').text("$"+this.commission);
  		
  		row.append(id);
  		row.append(title);
@@ -110,8 +73,44 @@ AmCharts.ready(function () {
  		row.append(commission);
  		
  		
- 		return row;	
-	}
+    	table.append(row);
+	
+	} );
+    
+    table.append(detailsTotal());
+	$('.modal-body').append(table);
+}
+
+function detailsTotal(){
+	var row = $('<tr></tr>').addClass('success');
+	var totalCommissionTitutlo= $('<td></td>').text("Total Comisión");
+	var totalCommission= $('<td></td>').text($('#commission').text());
+		var empty1 =$('<td></td>');
+		var empty2 =$('<td></td>');
+		row.append(totalCommissionTitutlo);
+		row.append(empty1);
+		row.append(empty2);
+		row.append(totalCommission);
+		
+		return row;
+}
+
+
+function detailsHeader(){
+	var row = $('<tr></tr>');
+		var id= $('<td></td>').text("id Item");
+		var title= $('<td></td>').text("Título Item");
+		var date= $('<td></td>').text("Fecha pago");
+		var commission= $('<td></td>').text("Comisión");
+		
+		row.append(id);
+		row.append(title);
+		row.append(date);
+		row.append(commission);
+		
+		
+		return row;	
+}
 
 //	var chart;
 //	var date = new Date();
@@ -162,94 +161,93 @@ AmCharts.ready(function () {
 //    graph2.balloonText = "Días restantes: " + remainingTime;
 //    chart.addGraph(graph2);
 //    chart.write("chartdiv_commission");
-	
-    // ==================== Stock ====================
-    jsRoutes.controllers.DashboardController.littleItemsStock().ajax({success: 
-		function(json)
-		{
-			chart = new AmCharts.AmSerialChart();
-			chart.dataProvider = json;
-			chart.categoryField = "id";
-			chart.marginRight = 0;
-			chart.marginTop = 0;
-			chart.autoMarginOffset = 0;
-			chart.depth3D = 20;
-			chart.angle = 30;
-			var categoryAxis = chart.categoryAxis;
-			categoryAxis.labelRotation = 90;
-			categoryAxis.dashLength = 5;
-			categoryAxis.gridPosition = "start";
-			var valueAxis = new AmCharts.ValueAxis();
-			valueAxis.dashLength = 5;
-			chart.addValueAxis(valueAxis);
-			var graph = new AmCharts.AmGraph();
-			graph.valueField = "quantity";
-			graph.balloonText = "Stock disponible del talle [[size]]: [[quantity]]";
-			graph.type = "column";
-			graph.lineAlpha = 0;
-			graph.fillColors = generateRandomColor();
-			graph.lineColor = "#000000";
-			graph.fillAlphas = 1;
-			chart.addGraph(graph);
-			chart.write("chartdiv_stock");
-		}
-	});
-    
-    function zoomChart() {
-        chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
-    }
-        
-    function generateChartData(json) {
-        for (var i = 0; i < json.length; i++) {            
-            chartData.push({
-                date: new Date(json[i].date.toString().substring(0, 4), json[i].date.toString().substring(4, 6) - 1, json[i].date.toString().substring(6, 8)),
-                actions_count: json[i].actions_count
-            });
-		}
-        
-        return chartData;
+
+// ==================== Stock ====================
+jsRoutes.controllers.DashboardController.littleItemsStock().ajax({success: 
+	function(json)
+	{
+		chart = new AmCharts.AmSerialChart();
+		chart.dataProvider = json;
+		chart.categoryField = "id";
+		chart.marginRight = 0;
+		chart.marginTop = 0;
+		chart.autoMarginOffset = 0;
+		chart.depth3D = 20;
+		chart.angle = 30;
+		var categoryAxis = chart.categoryAxis;
+		categoryAxis.labelRotation = 90;
+		categoryAxis.dashLength = 5;
+		categoryAxis.gridPosition = "start";
+		var valueAxis = new AmCharts.ValueAxis();
+		valueAxis.dashLength = 5;
+		chart.addValueAxis(valueAxis);
+		var graph = new AmCharts.AmGraph();
+		graph.valueField = "quantity";
+		graph.balloonText = "Stock disponible del talle [[size]]: [[quantity]]";
+		graph.type = "column";
+		graph.lineAlpha = 0;
+		graph.fillColors = generateRandomColor();
+		graph.lineColor = "#000000";
+		graph.fillAlphas = 1;
+		chart.addGraph(graph);
+		chart.write("chartdiv_stock");
 	}
-        
-    // ==================== History boughts ====================
-    jsRoutes.controllers.ActionController.getAllTimeActions("BUY").ajax({success: 
-		function(json)
-		{
-		        chart = new AmCharts.AmSerialChart();
-		        chart.pathToImages = "/assets/img/";
-		        chart.dataProvider = generateChartData(json);
-		        chart.categoryField = "date";
-		
-		        chart.addListener("dataUpdated", zoomChart);
-		
-		        var categoryAxis = chart.categoryAxis;
-		        categoryAxis.parseDates = true;			 
-		        categoryAxis.gridAlpha = 0.07;
-		        categoryAxis.axisColor = "#DADADA";
-		
-		        var valueAxis = new AmCharts.ValueAxis();
-		        valueAxis.gridAlpha = 0.07;
-		        chart.addValueAxis(valueAxis);
-		
-		        var graph = new AmCharts.AmGraph();
-		        graph.type = "line";
-		        graph.title = "red line";
-		        graph.valueField = "actions_count";
-		        graph.lineAlpha = 1;
-		        graph.lineColor = "#d1cf2a";
-		        graph.fillAlphas = 0.3;
-		        chart.addGraph(graph);
-		
-		        // CURSOR
-		        var chartCursor = new AmCharts.ChartCursor();
-		        chartCursor.cursorPosition = "mouse";
-		        chartCursor.categoryBalloonDateFormat = "DD/MM/YYYY";
-		        chart.addChartCursor(chartCursor);
-		
-		        // SCROLLBAR
-		        var chartScrollbar = new AmCharts.ChartScrollbar();
-		        chart.addChartScrollbar(chartScrollbar);
-		
-		        chart.write("chartdiv_history");
-		}
-	});
+});
+
+function zoomChart() {
+    chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
+}
+    
+function generateChartData(json) {
+    for (var i = 0; i < json.length; i++) {            
+        chartData.push({
+            date: new Date(json[i].date.toString().substring(0, 4), json[i].date.toString().substring(4, 6) - 1, json[i].date.toString().substring(6, 8)),
+            actions_count: json[i].actions_count
+        });
+	}
+    
+    return chartData;
+}
+    
+// ==================== History boughts ====================
+jsRoutes.controllers.ActionController.getAllTimeActions("BUY").ajax({success: 
+	function(json)
+	{
+	        chart = new AmCharts.AmSerialChart();
+	        chart.pathToImages = "/assets/img/";
+	        chart.dataProvider = generateChartData(json);
+	        chart.categoryField = "date";
+	
+	        chart.addListener("dataUpdated", zoomChart);
+	
+	        var categoryAxis = chart.categoryAxis;
+	        categoryAxis.parseDates = true;			 
+	        categoryAxis.gridAlpha = 0.07;
+	        categoryAxis.axisColor = "#DADADA";
+	
+	        var valueAxis = new AmCharts.ValueAxis();
+	        valueAxis.gridAlpha = 0.07;
+	        chart.addValueAxis(valueAxis);
+	
+	        var graph = new AmCharts.AmGraph();
+	        graph.type = "line";
+	        graph.title = "red line";
+	        graph.valueField = "actions_count";
+	        graph.lineAlpha = 1;
+	        graph.lineColor = "#d1cf2a";
+	        graph.fillAlphas = 0.3;
+	        chart.addGraph(graph);
+	
+	        // CURSOR
+	        var chartCursor = new AmCharts.ChartCursor();
+	        chartCursor.cursorPosition = "mouse";
+	        chartCursor.categoryBalloonDateFormat = "DD/MM/YYYY";
+	        chart.addChartCursor(chartCursor);
+	
+	        // SCROLLBAR
+	        var chartScrollbar = new AmCharts.ChartScrollbar();
+	        chart.addChartScrollbar(chartScrollbar);
+	
+	        chart.write("chartdiv_history");
+	}
 });

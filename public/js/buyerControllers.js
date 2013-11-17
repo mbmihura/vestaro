@@ -156,11 +156,9 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 					if(!data.recommendeditems){
 						// If last friend selected had recommendations.
 						if($scope.friendHasRecommendations){
-							BuyerSession.getItemsByList(data.recommendeditems.item).
-				  			success(function(data){
-				  				console.log(data);
-				  				$scope.items = data;
-				  			});
+							BuyerSession.getItems().success(function(data) {
+								$scope.items = data;
+							});
 						}
 			  			// Friend has no recommendations.
 			  			$scope.friendHasRecommendations = false;
