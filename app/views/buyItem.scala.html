@@ -22,7 +22,7 @@
    						
 							<div class="btn-group" data-toggle="buttons">
 							@for((sizeOptionId , sizeOption) <- sizeOptions ){
- 								 <label class="btn btn-primary" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;margin-bottom: 6px;">
+ 								 <label class="btn btn-primary options" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;margin-bottom: 6px;">
    								 <input type="radio" name="options"  > @sizeOption</input> 
 						  	</label>
 							}
@@ -110,7 +110,7 @@
 			<div class="modal-footer">
         <button type="button" class="btn btn-primary" id="modify">Cambiar órden</button>
         <button type="button"  class="btn btn-info" id="new"	>Crear nueva órden</button>
-				<button type="button" class="btn btn-success" >Eliminar cambios</button>
+				<button type="button" class="btn btn-success" id="discard">Eliminar cambios</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div><!-- /.modal-content -->
@@ -162,6 +162,9 @@ jQuery.fn.onlyDigits = function() {
 		$("#new").click(function(){
 			createNewOrder();
 		});
+		$("#discard").click(function(){
+			discardChanges();
+		});
 		$("#modify").click(function(){
 			persistModifications();
 		});
@@ -177,6 +180,12 @@ jQuery.fn.onlyDigits = function() {
 		
 	});
 		
+	function discardChanges(){
+		$('#confirmModal').modal('hide');
+		loadFirstTab();
+		selectSecondTab();
+		
+	}
 	function firstTabSelected(){
 		return $('#tab1').attr('class') == "tab-pane active";
 	}
@@ -275,6 +284,28 @@ jQuery.fn.onlyDigits = function() {
 		if(!firstTabSelected()){
 			selectFirstTab();
 		}
+	}
+	
+	function loadFirstTab(){
+		if(@item.seller.pointsEnabled){
+			var usedPoints= $("#usedPoints").html();
+			$("#pointsToUse").val(usedPoints);
+		}
+		var selectedSize=	$("#selectedSize").html();
+		
+		$('.options').each(function(){
+			if(this.innerText == selectedSize){
+				$(this).addClass('active');
+			}else{
+				$(this).removeClass('active');
+			}	
+		
+		});
+		
+		var selectedLabel = $('label.active').get(0);
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+		
 	}
 	
 	function orderCreated(){
