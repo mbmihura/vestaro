@@ -1,8 +1,3 @@
-@font-face {
-    font-family: VivaldiF;
-    src: url('../fonts/vivaldi.ttf');
-}
-
 body {
   /* 60px to make the container go all the way to the bottom of the topbar */
   padding-top: 45px;
@@ -12,7 +7,7 @@ body {
   cursor: default;
 }
 
-.vestaro-logo {
+.vestaro-logo, .navbar-brand.vestaro-logo {
 	font-family: vivaldi;
 	color: rgba(41, 116, 185, 1);
 	letter-spacing: 3px;
@@ -259,7 +254,7 @@ border-top-right-radius: 30px;
 }
 
 .item-thumb:HOVER {
-	border: 1.5px solid rgba(221, 72, 20, 0.9);
+	border: 1.5px solid rgba(66, 139, 202, 0.9);
 }
 
 .item-thumb:HOVER .item-actions {
@@ -271,7 +266,7 @@ border-top-right-radius: 30px;
 	top: 0px;
 	right: 0px;
 	opacity: 0;
-  background-color: rgba(221, 72, 20, 0.9);
+  background-color: rgba(66, 139, 202, 0.9);
 	/* Breadcrumb */
 	border-bottom-left-radius: 4px;
   padding: 5px 10px;
