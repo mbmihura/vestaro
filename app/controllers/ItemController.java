@@ -1,11 +1,13 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import models.BuyOrder;
 import models.Buyer;
+import models.Category;
 import models.Collection;
 import models.InvalidBuyOrderException;
 import models.Item;
@@ -194,5 +196,27 @@ public class ItemController extends BaseController {
 			play.Logger.error(e.getMessage());
 			return badRequest();
 		}
+	}
+
+	public static Result getItemsByList() {
+		try {
+			DynamicForm data = Form.form().bindFromRequest();
+			String itemsStr = data.get("items");
+			String[] itemsId = itemsStr.split(",");
+			List<Item> items = new ArrayList<Item>();
+
+			for (int i = 0; i < itemsId.length; i++) {
+				items.add(Item.find.byId(itemsId[i]));
+			}
+
+			return ok(Json.toJson(items));
+		} catch (Exception e) {
+			play.Logger.error(e.getMessage());
+			return badRequest(e.getMessage());
+		}
+	}
+
+	public static Result getCategories() {
+		return ok(Json.toJson(Category.find.all()));
 	}
 }

@@ -3,8 +3,12 @@
 /* Controllers */
 vestaroMain.
 
-controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
-  $scope.templateUrl = $location.$$url;
+controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$route', '$compile', '$http',
+  function($scope, $routeParams, $location, $route, $compile, $http){
+  $route.current.templateUrl = $location.$$url;
+  $http.get($route.current.templateUrl).then(function (msg) {
+    $('#views').html($compile(msg.data)($scope));
+  });
 }])
 
 .controller('GarmentListCtrl', ['$scope','garmentsApi', function($scope, garmentsApi){
@@ -54,14 +58,25 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
 
 }])
 
-.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', function($scope, garmentsApi, $routeParams, $location){
+.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', '$http','Easyrec',
+  function($scope, garmentsApi, $routeParams, $location, $http, Easyrec){
   $scope.garment = garmentsApi.get({id: $routeParams.id}, function() {
     $scope.garment.availableStocks = "";
     $scope.garment.stock.forEach(function(s) {
       if(s.quantity > 0)
         $scope.garment.availableStocks += s.size + ", ";
     });
+
     $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
+    $http.post('/garment/' + $routeParams.id + '/actions', {type:'VIEW'});
+    $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2);
+    Easyrec.sendAction('view', $scope.garment).
+      success(function(data) {
+          console.log(data);
+        }).
+        error(function(data) {
+          console.log(data);
+    });;
 });
 
 
@@ -83,6 +98,6 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
     
 }]);
 
-function SellerDashboardCtrl($scope){}
+function SellerDashboardCtrl(){}
 function CollectionsCtrl(){}
 function SelletSettingsCtrl(){}
