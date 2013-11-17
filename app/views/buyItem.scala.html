@@ -264,7 +264,7 @@ jQuery.fn.onlyDigits = function() {
 		$('#confirmModal').modal('show');
 	}
 	
-	function orderCreationSuccess(points,  json){
+	function orderCreationSuccess(points, selectedSize, json){
 						var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
 					if(@item.seller.pointsEnabled){
 						$("#earnedPoints").html(pending);
@@ -307,7 +307,7 @@ jQuery.fn.onlyDigits = function() {
 		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
 			{
 				success:function(json){
-					orderCreationSuccess(points, json);
+					orderCreationSuccess(points,selectedSize, json);
 				},
 				error: function(xhr, status, error){
 						orderCreationError(xhr);
