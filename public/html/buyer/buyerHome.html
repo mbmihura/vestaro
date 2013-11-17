@@ -90,7 +90,12 @@
 	<div class="col-md-8">
 		<div class="well" style="padding: 5px">
 			<div class="page-header" align="center" style="margin-top: -15px">
-				<h3>Prendas populares</h3>
+				<h3>Prendas Populares</h3>
+			</div>
+			<div class="alert alert-dismissable alert-warning" ng-show="!mostViewedItems">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<h4>No se pudieron obtener las prendas populares!</h4>
+				<p>Parece que hubo un problema al obtener las prendas populares. Por favor, intentalo más tarde.</p>
 			</div>
 			<div class="row" style="margin:0">
 				<div class="col-md-3 item-container" style="padding-right:10px; padding-left:10px;" ng-repeat="item in mostViewedItems | limitTo:4">
