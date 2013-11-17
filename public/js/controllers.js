@@ -3,8 +3,12 @@
 /* Controllers */
 vestaroMain.
 
-controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
-  $scope.templateUrl = $location.$$url;
+controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$route', '$compile', '$http',
+  function($scope, $routeParams, $location, $route, $compile, $http){
+  $route.current.templateUrl = $location.$$url;
+  $http.get($route.current.templateUrl).then(function (msg) {
+    $('#views').html($compile(msg.data)($scope));
+  });
 }])
 
 .controller('GarmentListCtrl', ['$scope','garmentsApi', function($scope, garmentsApi){
