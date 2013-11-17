@@ -321,6 +321,7 @@ border-top-right-radius: 30px;
 .list-group-item-heading {
   padding-top: 12px;
   cursor: default;
+  overflow: hidden;
 }
 
 .list-group-item {
