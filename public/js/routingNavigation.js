@@ -3,7 +3,6 @@
 /* Rounting Configuration */
 vestaroMain.config(function($routeProvider) {
   var template = '<div ng-include="templateUrl">Loading...</div>';
-  var contactTemplate = '<div><iframe src="https://docs.google.com/forms/d/1T7IKi-iuleyWXDEiRJT0bIU6InUl6rXdaXMloykBbyg/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando...</iframe></div>';
   $routeProvider.
 	  when('/', {controller:'BuyerHomeCtrl', templateUrl:'assets/html/buyer/buyerHome.html'}).
 	  when('/itemSearch', {controller:'ItemSearchCtrl', templateUrl:'assets/html/buyer/itemSearch.html'}).
@@ -17,7 +16,7 @@ vestaroMain.config(function($routeProvider) {
 	  when('/garments/new', {controller:'GarmentNewCtrl', templateUrl:'assets/html/garment/form.html'}).
 	  when('/garments/edit/:id', {controller:'GarmentEditCtrl', templateUrl:'assets/html/garment/form.html'}).
 	  when('/garments/:id', {controller:'GarmentViewCtrl', templateUrl:'assets/html/garment/details.html'}).
-	  when('/contact', {controller: 'NullCtrl', template: contactTemplate}).
+	  when('/contact', {controller: 'NullCtrl', templateUrl: 'assets/html/contact.html'}).
 	  otherwise({controller: 'serverPageRoutingCtrl', template: template});
 });
 
