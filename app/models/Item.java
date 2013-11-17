@@ -43,6 +43,8 @@ public class Item extends Model {
     public Seller seller;
     @OneToOne
     public Collection collection;
+    @OneToOne
+    public Category category;
     
     public Item(String id) //TODO Diff entre id y Title?
     {

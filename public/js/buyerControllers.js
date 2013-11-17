@@ -134,7 +134,13 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 
 		$scope.friendHasRecommendations = true;
 		
-		$scope.categories = BuyerSession.getCategories();
+		BuyerSession.getCategories().success(function(data){
+			$scope.categories = data;
+		});
+
+		$scope.selectedCategory = {};
+		$scope.selectedCategory.id = 1;
+		$scope.selectedCategory.title = 'Todas';
 
 		$scope.getFriends = function(){
 			FB.api(
