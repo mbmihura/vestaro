@@ -68,13 +68,15 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 var isotopeHandling = function(ngRepeatFinishedEvent) {
 
 	var $container = $('#itemsContainer');
+	var $loadContainer = $('#itemsLoadContainer');
 	var options = {
 		itemSelector : '.item'
 	};
 	
 	// Wait until all images are loaded
-	$container.imagesLoaded(function() {
-		$container.isotope(options);
+	$loadContainer.imagesLoaded(function() {
+		$container.isotope(options)
+			.isotope('insert', $loadContainer.find('.item'));
 		$('.progress.progress-striped.active').fadeOut();
 	});
 
