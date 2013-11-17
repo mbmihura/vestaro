@@ -154,6 +154,14 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 				success(function(data){
 					console.log(data);
 					if(!data.recommendeditems){
+						// If last friend selected had recommendations.
+						if($scope.friendHasRecommendations){
+							BuyerSession.getItemsByList(data.recommendeditems.item).
+				  			success(function(data){
+				  				console.log(data);
+				  				$scope.items = data;
+				  			});
+						}
 			  			// Friend has no recommendations.
 			  			$scope.friendHasRecommendations = false;
 			  		} else {
@@ -166,13 +174,14 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 			  		}
 				}).
 				error(function(data){
+					// Friend has no recommendations.
+			  		$scope.friendHasRecommendations = false;
 					console.log(data);
 			});
 		}
 
 		$scope.cancelPresent = function(){
 			$scope.selectedFriend = null;
-			$scope.friendHasRecommendations = true;
 			if($scope.friendHasRecommendations){
 				BuyerSession.getItems().success(function(data) {
 					$scope.items = data;
@@ -181,6 +190,8 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 					console.log(data);
 					// TODO: alert Easyrec not working.
 				});
+			} else {
+				$scope.friendHasRecommendations = true;
 			}
 		}
 

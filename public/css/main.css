@@ -285,13 +285,13 @@ border-top-right-radius: 30px;
   text-align: center;
   padding: 4px;
   /*Hack to center verically the img.*/
-  height: 82%;
-  line-height: 150px;
+  height: 85%;
+  line-height: 155px;
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
-  max-height: 80%;
+  max-height: 82%;
   max-width: 100%;
   vertical-align: middle;
 }

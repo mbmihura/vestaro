@@ -3,12 +3,6 @@
 </div>
 
 <div class="row">
-	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
-	<div class="alert alert-dismissable alert-warning" ng-show="!friendHasRecommendations">
-		<button type="button" class="close" ng-click="friendHasRecommendations=true">×</button>
-		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
-		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
-	</div>
 	<!-- FILTERS -->
 	<div class="col-md-2">
 		<div class="well well-sm">
@@ -59,6 +53,11 @@
 			</div>
 		</div>
 	</div>
+	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
+	<div class="col-md-10 alert alert-dismissable alert-warning" ng-hide="friendHasRecommendations">
+		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
+		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
+	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
 		<ul masonry="true">
@@ -103,7 +102,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelPresent()">Close</button>
 				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="makePresent()">Regalar</button>
 			</div>
 
