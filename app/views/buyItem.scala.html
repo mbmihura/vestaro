@@ -4,23 +4,26 @@
 <div data-id="@item.id">
  
 	<div id="rootwizard">
+	@if(! sizeOptions.isEmpty()){	
 		<ul class="nav nav-pills">
-			<li class="active"><a href="#tab1" data-toggle="tab">Crear orden de compra</a></li>
+			<li class="active"><a style="cursor:pointer" id="modifyOrderButton" data-toggle="tab">Crear orden de compra</a></li>
 			<li class=""><a id="orderItemButton" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
+
 		</ul>
-		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
+		<div class="tab-content jumbotron container" style="margin-top: 5px; min;" >
 			
 				<div class="tab-pane active" id="tab1">
 						<div class="col-lg-5">
 
     				<img src="@item.imgUrl" alt="@item.title" class="img-responsive" >
 						
+
 						<div class="jumbotron " style="text-align: center;   background: #D9D9DB; margin-top:25px;">
   						<p style="font-size: 30px; font-weight: bold;">Talles Disponibles</p>
    						
 							<div class="btn-group" data-toggle="buttons">
 							@for((sizeOptionId , sizeOption) <- sizeOptions ){
- 								 <label class="btn btn-primary" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;">
+ 								 <label class="btn btn-primary options" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;margin-bottom: 6px;">
    								 <input type="radio" name="options"  > @sizeOption</input> 
 						  	</label>
 							}
@@ -28,6 +31,8 @@
 							</span>
 						</div>
 							</div>
+							
+							
   				<div class="col-lg-7">
 						<div class="control-group">
 				  		<p class="control-label" for="Title">Prenda: @item.title</p>
@@ -37,34 +42,86 @@
 
 						</div>
 						
+
 						<div class="jumbotron " style="text-align: center;   background: #D9D9DB;">
-						@if(item.seller.pointsEnabled){
+						@if(item.seller.pointsEnabled && buyerPoints>0){
 	  						<p style="font-size: 30px; font-weight: bold;">Puntos Disponibles</p>
 	   						<h1 style=" color: #428bca;  font-size: 120px;">@buyerPoints</h1>
 						    <p>Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor</p>
 								<p>Puntos a utilizar</p>
 	     					<input type="text" id="pointsToUse"   style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
 	  						<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
-						} else {
+						} @if(buyerPoints==0){
+							<p >No tenés puntos para usar. </p>
+							<p class= 'disabledPointsLegend'>Después de pagar esta prenda usá los puntos ganados en tus futuras compras!</p>
+							
+						}else{
 							<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>
 						}
 						</div>
+						
+
+					
 	    		</div>
 				</div>
 
 				<div class="tab-pane" id="tab2">
+					<label style="visibility:hidden; position:absolute;" class="buyOrderId" ></label>
 					@payOrder(item, "", 0,"")
 				</div>
 
+@loadingModal("Guardando órden de compra...", "loadingModal")
+		}
+					@if(sizeOptions.isEmpty()){
+					<div class="jumbotron container">
+						<div class="col-lg-5">
+	    				<img src="@item.imgUrl" alt="@item.title" class="img-responsive" >
+						</div>
+  				<div class="col-lg-7 ">
+						<div class="control-group">
+				  		<p class="control-label" for="Title">Prenda: @item.title</p>
+        			<p class="control-label" for="description">Descripción: @item.description</p>
+							<p class="control-label" for="price">Precio: $@item.price</p>
+							<p class="control-label" for="sellerName">Vendedor: <a href= @item.seller.webpageUrl>@item.seller.brandName</a></p>
+
+						</div>
 						
+
+						<div class="jumbotron " style="text-align: center;   background: #D9D9DB;">
+	  						<p style="padding:55px; font-size: 30px; font-weight: bold;">No hay stock disponible</p>
+						</div>
+
+	    		</div>
+
+				</div>
+					
+					}	
 		
+	<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Confirmar modificación</h4>
+      </div>
+			<div class="modal-body" style="text-align: center">
+				<p>Tu órden de compra ya había sido creada.</p> 
+				<span><i>¿Querés modificar tu órden o crear una nueva?</i></span>
+      </div>
+			<div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modify">Cambiar órden</button>
+        <button type="button"  class="btn btn-info" id="new"	>Crear nueva órden</button>
+				<button type="button" class="btn btn-success" id="discard">Eliminar cambios</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 	</div>	
 
 
-@loadingModal("Creando tu órden de compra...", "loadingModal")
 
 	
-</div>
 
 
 <!--App scrips TODO: take it to a separate file-->
@@ -100,27 +157,63 @@ jQuery.fn.onlyDigits = function() {
     });
 };
 	$( document ).ready(function() {
+	
 		$("#pointsToUse").onlyDigits();
-			$("#orderItemButton").click(function(){
-				$('.alert').fadeOut();
-					//Deleted validations (just in server for now)-> problem with selected tab
-					$('#loadingModal').modal('show');
-					orderItem();
-			});
+		
+		$("#new").click(function(){
+			createNewOrder();
+		});
+		$("#discard").click(function(){
+			discardChanges();
+		});
+		$("#modify").click(function(){
+			persistModifications();
 		});
 		
+		$("#orderItemButton").click(function(){
+			$('.alert').fadeOut();
+				orderItem();
+		});
+		
+		$("#modifyOrderButton").click(function(){
+			modifyOrder();
+		});
+		
+	});
+		
+	function discardChanges(){
+		$('#confirmModal').modal('hide');
+		loadFirstTab();
+		selectSecondTab();
+		
+	}
+	function firstTabSelected(){
+		return $('#tab1').attr('class') == "tab-pane active";
+	}
 	function selectFirstTab(){
 		var tabs =$('.nav-pills').find('li');
 		$(tabs.get(0)).attr("class", "active");
 		$(tabs.get(1)).attr("class","");
+		$('#tab2').attr('class','tab-pane');
+		$('#tab1').attr('class','tab-pane active');
+	}
+	
+	function selectSecondTab(){
+		var tabs =$('.nav-pills').find('li');
+		$(tabs.get(1)).attr("class", "active");
+		$(tabs.get(0)).attr("class","");
+		
+		$('#tab1').attr('class','tab-pane');
+		$('#tab2').attr('class','tab-pane active');
 	
 	}
+	
 	function validateOK(){
 		var ok= true;
 		var message= "";
 		var points =$("#pointsToUse").val();
 		
-		if(! $.isNumeric(points)){
+		if(! $.isNumeric(points) && points !="" && points !=undefined){
 			ok = false;
 			message = "<p>Ingresá un valor numérico de puntos</p>" ;
 		}
@@ -157,50 +250,142 @@ jQuery.fn.onlyDigits = function() {
 		}
 		return ok;
 		
-		
 	}
-	function orderItem(){
+	
+	function persistModifications(){
+	
+		$('#confirmModal').modal('hide');
+		$('#loadingModal').modal('show');
 		var selectedLabel = $('label.active').get(0);
 		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
 		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
 		
 		var points =$("#pointsToUse").val();
-		if(points== "" || !@item.seller.pointsEnabled){
+		if(points == undefined || points== "" || !@item.seller.pointsEnabled){
+			points = 0;
+		}
+		var orderId= buyOrderId();
+		
+		jsRoutes.controllers.BuyerController.modifyOrder(orderId, selectedSizeId, points).ajax(
+			{
+				success:function(json){
+					orderSavedSuccess(points, selectedSize, json);
+				},
+				
+				error:function(xhr, status, error){
+					orderCreationError(xhr);
+				}
+			}
+			);
+			
+			
+	} 	
+
+	function modifyOrder(){
+		if(!firstTabSelected()){
+			selectFirstTab();
+		}
+	}
+	
+	function loadFirstTab(){
+		if(@item.seller.pointsEnabled){
+			var usedPoints= $("#usedPoints").html();
+			$("#pointsToUse").val(usedPoints);
+		}
+		var selectedSize=	$("#selectedSize").html();
+		
+		$('.options').each(function(){
+			if(this.innerText == selectedSize){
+				$(this).addClass('active');
+			}else{
+				$(this).removeClass('active');
+			}	
+		
+		});
+		
+		var selectedLabel = $('label.active').get(0);
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+		
+	}
+	
+	function orderCreated(){
+		return buyOrderId() != undefined;
+	}
+	
+	function buyOrderId(){
+		return $('.buyOrderId').attr('id');
+	}	
+
+	function confirmModifyOrder(){
+		$('#confirmModal').modal('show');
+	}
+	
+	function orderSavedSuccess(points, selectedSize, json){
+		var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+		if(@item.seller.pointsEnabled){
+			$("#earnedPoints").html(pending);
+		}
+		else{
+			$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
+		
+		}
+		$("#mpButton").attr("href", json.checkoutUrl);
+		$("#usedPoints").html(points);
+		
+		$("#pendingAmount").html("$"+ pending);
+		$("#selectedSize").html(selectedSize);
+		$(".buyOrderId").attr("id", json.buyOrderId);
+		selectSecondTab();
+		$('#loadingModal').modal('hide');
+	
+	}
+	
+	function orderCreationError(xhr){
+		$('#loadingModal').modal('hide');
+	
+		if(xhr.status == 422 || xhr.status==400){
+			validateOK();					
+		}	
+	}	
+
+	function createNewOrder(){
+		$('#confirmModal').modal('hide');
+		$('#loadingModal').modal('show');
+		var selectedLabel = $('label.active').get(0);
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+		
+		var points =$("#pointsToUse").val();
+		if(points == undefined || points== "" || !@item.seller.pointsEnabled){
 			points = 0;
 		}
 		
 		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
 			{
 				success:function(json){
-						var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
-					if(@item.seller.pointsEnabled){
-						$("#earnedPoints").html(pending);
-					}
-					else{
-						$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
-					
-					}
-					$("#mpButton").attr("href", json);
-					$("#usedPoints").html(points);
-					
-					$("#pendingAmount").html("$"+ pending);
-					$("#selectedSize").html(selectedSize);
-					$('#tab1').attr('class','tab-pane');
-					$('#tab2').attr('class','tab-pane active');
-					$('#loadingModal').modal('hide');
-					
+					orderSavedSuccess(points,selectedSize, json);
 				},
-				
 				error: function(xhr, status, error){
-						$('#loadingModal').modal('hide');
-				
-					if(xhr.status == 422 || xhr.status==400){
-						validateOK();					
-						
-					}
+						orderCreationError(xhr);
 				}
 			}
 		);
+	
+	}
+	
+	function orderItem(){
+		if(!firstTabSelected()){
+			return;
+		}
+			 
+		
+		if(orderCreated()){
+			confirmModifyOrder();
+		}
+		else{
+			createNewOrder();
+		}
 	}
 	
 	</script>

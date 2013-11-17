@@ -465,34 +465,7 @@ stocks:
         item:        !!models.Item
                         id: MV
 
-    - !!models.StockPerSize
-        id:          13
-        size:        XS
-        quantity:       3
-        item:        !!models.Item
-                        id: MM
-
-    - !!models.StockPerSize
-        id:          14
-        size:        M
-        quantity:       1
-        item:        !!models.Item
-                        id: MM
-
-    - !!models.StockPerSize
-        id:          15
-        size:        S
-        quantity:       5
-        item:        !!models.Item
-                        id: MV
-
-    - !!models.StockPerSize
-        id:          16
-        size:        L
-        quantity:       10
-        item:        !!models.Item
-                        id: MV
-
+    
 # Actions
 
 actions:

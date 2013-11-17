@@ -75,6 +75,7 @@ public class Application extends BaseController {
 				// Routes for Buyers
 				controllers.routes.javascript.BuyerController.openDispute(),
 				controllers.routes.javascript.BuyerController.confirmReception(),
+				controllers.routes.javascript.BuyerController.modifyOrder(),
 
 				// Routes for Notifications
 				controllers.routes.javascript.NotificationController.markAsSeen()));
