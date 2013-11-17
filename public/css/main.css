@@ -1,8 +1,3 @@
-@font-face {
-    font-family: VivaldiF;
-    src: url('../fonts/vivaldi.ttf');
-}
-
 body {
   /* 60px to make the container go all the way to the bottom of the topbar */
   padding-top: 45px;
@@ -12,7 +7,7 @@ body {
   cursor: default;
 }
 
-.vestaro-logo {
+.vestaro-logo, .navbar-brand.vestaro-logo {
 	font-family: vivaldi;
 	color: rgba(41, 116, 185, 1);
 	letter-spacing: 3px;
@@ -235,11 +230,8 @@ border-top-right-radius: 30px;
 
 /* Item */
 .item-container {
-  display: inline-block;
-  width: 25%;
   margin-bottom: 15px;
   padding: 0px 15px;
-
 }
 
 .item-thumb {
@@ -294,28 +286,26 @@ border-top-right-radius: 30px;
   padding: 4px;
   /*Hack to center verically the img.*/
   height: 85%;
-  margin-bottom: 2px;
-  /*line-height: 160px;*/
+  line-height: 155px;
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
-  max-height: 80%;
+  max-height: 82%;
   max-width: 100%;
   vertical-align: middle;
 }
 
 .item-thumb .item-main .item-title {
-  margin-top: 10px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 2px;
   cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
- .item-thumb .item-details {
-  height: 15%;
- }
 
 .item-thumb .item-details .price {
   font-color: #2974B9;
@@ -328,6 +318,7 @@ border-top-right-radius: 30px;
 .list-group-item-heading {
   padding-top: 12px;
   cursor: default;
+  overflow: hidden;
 }
 
 .list-group-item {
@@ -344,25 +335,18 @@ border-top-right-radius: 30px;
 }
 
 /* Wishlist */
-.item-container.wishlist {
-  width: 33.33333333333333%;
-}
-
 .item-thumb.wishlist {
   height: 400px;
   /*line-height: 345px;*/
 }
 
 .item-thumb.wishlist .item-main {
-  height: 90%;
+  height: 88%;
+  line-height: 300px;
 }
 
 .item-thumb.wishlist .item-main .item-img{
   max-height: 85%;
-}
-
-.item-thumb.wishlist .item-details {
-  height: 10%;
 }
 
 /* To fill the container and nothing else */

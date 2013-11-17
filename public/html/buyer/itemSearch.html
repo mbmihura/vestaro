@@ -3,22 +3,18 @@
 </div>
 
 <div class="row">
-	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
-	<div class="alert alert-dismissable alert-warning" ng-show="!friendHasRecommendations">
-		<button type="button" class="close" ng-click="friendHasRecommendations=true">×</button>
-		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
-		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
-	</div>
 	<!-- FILTERS -->
 	<div class="col-md-2">
 		<div class="well well-sm">
-			
 			<div class="form-group">
 				<label>Filtrar:</label>
-				<input type="search" ng-model="search.title" class="form-control" placeholder="Buscar...">
+				<div class="input-group" style="width:100%">
+					<input type="text" class="form-control" id="search-item" placeholder="Buscar..." ng-model="search.title">
+					<span class="input-group-addon glyphicon glyphicon-search"></span>
+				</div>
 			</div>
 			<hr>
-			<button type="button" title="Haz click para elegir un amigo." class="btn btn-primary btn-block" ng-click="getFriends()">Regalar</button>
+			<button ng-class="{disabled: !isLogged}" type="button" title="Haz click para elegir un amigo." class="btn btn-primary btn-block" ng-click="getFriends()">Regalar</button>
 			<div style="padding-top:5px" class="list-group" ng-show="selectedFriend">
 				<a style="padding-left:2px" class="list-group-item active">
 					<img class="pull-left fb-img" ng-src="{{selectedFriend.pic_square}}">
@@ -30,9 +26,9 @@
 			<div class="form-group">
 				<div class="btn-group-vertical" style ="width:100%">
 					<label>Ordenar por:</label>
-					<button type="button" class="btn btn-default" ng-click="order='title'">Nombre</button>
-					<button type="button" class="btn btn-default" ng-click="order='price'">Precio</button>
-					<button type="button" class="btn btn-default" ng-click="order='category.title'">Categoría</button>
+					<button type="button" class="btn btn-sm btn-default" ng-click="order='title'">Nombre</button>
+					<button type="button" class="btn btn-sm btn-default" ng-click="order='price'">Precio</button>
+					<button type="button" class="btn btn-sm btn-default" ng-click="order='category.title'">Categoría</button>
 				</div>
 			</div>
 			<hr>
@@ -57,10 +53,15 @@
 			</div>
 		</div>
 	</div>
+	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
+	<div class="col-md-10 alert alert-dismissable alert-warning" ng-hide="friendHasRecommendations">
+		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
+		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
+	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
 		<ul masonry="true">
-			<li class="item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
+			<li class="col-md-3 item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
 				<div class="item-thumb">
 					<div class="item-actions">
 						<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
@@ -101,7 +102,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelPresent()">Close</button>
 				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="makePresent()">Regalar</button>
 			</div>
 

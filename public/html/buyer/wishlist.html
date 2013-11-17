@@ -14,15 +14,15 @@
 <div class="row">
 	<div class="col-md-12" ng-hide="!wishlistItems.length">
 		<div class="col-md-offset-2 col-md-8" style="margin-bottom:20px">
-			<div class="input-group">
+			<div class="input-group" style="width:100%">
 				<input type="text" class="form-control" id="search-item" placeholder="Buscar..." ng-model="search.$">
 				<span class="input-group-addon glyphicon glyphicon-search"></span>
 			</div>
 		</div>
 	</div>
 	<!-- <div masonry="false"> -->
-		<div class="item-container wishlist" ng-repeat="wishItem in wishlistItems | filter:search">
-			<div class="item-thumb wishlist">
+		<div class="col-md-4" ng-repeat="wishItem in wishlistItems | filter:search">
+			<div class="item-thumb item-container wishlist">
 				<div class="item-actions">
 					<li ng-click="removeFromWishlist(wishItem.item, $index)" class="action" title="Eliminar de Wishlist"><span class="glyphicon glyphicon-trash"></span></li>
 					<div ng-click="shareItem(wishItem.item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
