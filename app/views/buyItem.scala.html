@@ -69,7 +69,7 @@
 					@payOrder(item, "", 0,"")
 				</div>
 
-@loadingModal("Creando tu órden de compra...", "loadingModal")
+@loadingModal("Guardando órden de compra...", "loadingModal")
 		}
 					@if(sizeOptions.isEmpty()){
 					<div class="jumbotron container">
@@ -197,6 +197,7 @@ jQuery.fn.onlyDigits = function() {
 		$('#tab2').attr('class','tab-pane active');
 	
 	}
+	
 	function validateOK(){
 		var ok= true;
 		var message= "";
@@ -239,19 +240,41 @@ jQuery.fn.onlyDigits = function() {
 		}
 		return ok;
 		
-		
 	}
 	
 	function persistModifications(){
+		$('#confirmModal').modal('hide');
 		$('#loadingModal').modal('show');
+		var selectedLabel = $('label.active').get(0);
+		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+		
+		var points =$("#pointsToUse").val();
+		if(points == undefined || points== "" || !@item.seller.pointsEnabled){
+			points = 0;
+		}
+		var orderId= buyOrderId();
+		
+		jsRoutes.controllers.BuyerController.modifyOrder(orderId, selectedSizeId, points).ajax(
+			{
+				success:function(json){
+					orderSavedSuccess(points, selectedSize, json);
+				},
+				
+				error:function(xhr, status, error){
+					orderCreationError(xhr);
+				}
+			}
+			);
+			
 	} 	
 
 	function modifyOrder(){
 		if(!firstTabSelected()){
 			selectFirstTab();
 		}
-	
 	}
+	
 	function orderCreated(){
 		return buyOrderId() != undefined;
 	}
@@ -264,23 +287,23 @@ jQuery.fn.onlyDigits = function() {
 		$('#confirmModal').modal('show');
 	}
 	
-	function orderCreationSuccess(points, selectedSize, json){
-						var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
-					if(@item.seller.pointsEnabled){
-						$("#earnedPoints").html(pending);
-					}
-					else{
-						$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
-					
-					}
-					$("#mpButton").attr("href", json.checkoutUrl);
-					$("#usedPoints").html(points);
-					
-					$("#pendingAmount").html("$"+ pending);
-					$("#selectedSize").html(selectedSize);
-					$(".buyOrderId").attr("id", json.buyOrderId);
-					selectSecondTab();
-					$('#loadingModal').modal('hide');
+	function orderSavedSuccess(points, selectedSize, json){
+		var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+		if(@item.seller.pointsEnabled){
+			$("#earnedPoints").html(pending);
+		}
+		else{
+			$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
+		
+		}
+		$("#mpButton").attr("href", json.checkoutUrl);
+		$("#usedPoints").html(points);
+		
+		$("#pendingAmount").html("$"+ pending);
+		$("#selectedSize").html(selectedSize);
+		$(".buyOrderId").attr("id", json.buyOrderId);
+		selectSecondTab();
+		$('#loadingModal').modal('hide');
 	
 	}
 	
@@ -307,7 +330,7 @@ jQuery.fn.onlyDigits = function() {
 		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
 			{
 				success:function(json){
-					orderCreationSuccess(points,selectedSize, json);
+					orderSavedSuccess(points,selectedSize, json);
 				},
 				error: function(xhr, status, error){
 						orderCreationError(xhr);
@@ -322,7 +345,6 @@ jQuery.fn.onlyDigits = function() {
 			confirmModifyOrder();
 		}
 		else{
-			
 			createNewOrder();
 		}
 	}
