@@ -16,7 +16,7 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
   		BuyerSession.getItemsByList(data.recommendeditems.item).
   			success(function(data){
   				$scope.mostViewedItems = data;
-  			});
+  		});
   	}).
   	error(function(data){
   		console.log(data);
@@ -39,10 +39,10 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 	  		} else {
 	  			$scope.userHasRecommendations = true;
 	  			BuyerSession.getItemsByList(data.recommendeditems.item).
-	  			success(function(data){
-	  				console.log(data);
-	  				$scope.recommendedItems = data;
-	  				$scope.$on('isotope', isotopeHandling);
+		  			success(function(data){
+		  				console.log(data);
+		  				$scope.recommendedItems = data;
+		  				$scope.$on('isotope', isotopeHandling);
 	  			});
 	  		}
 	  	}).
@@ -100,6 +100,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 	function ($scope, BuyerSession, Easyrec) {
 
 		$scope.friendHasRecommendations = true;
+		$scope.isLogged = authData.fbUser !== undefined;
 		
 		BuyerSession.getCategories().success(function(data){
 			$scope.categories = data;
@@ -136,11 +137,11 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 
 		$scope.viewItem = function(item){
 			Easyrec.sendAction('view', item).
-			success(function(data) {
-				console.log(data);
-			}).
-			error(function(data) {
-				console.log(data);
+				success(function(data) {
+					console.log(data);
+				}).
+				error(function(data) {
+					console.log(data);
 			});;
 		}
 
@@ -166,7 +167,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 				}).
 				error(function(data){
 					console.log(data);
-				});
+			});
 		}
 
 		$scope.cancelPresent = function(){
