@@ -186,8 +186,8 @@ $(document).ready(function(){
 	$('#confirmUpdate').click(function(){
 		jsRoutes.controllers.CollectionController.update(
 														$('#edit').val(),
-														$("#iframe_edit").contents().find("#title").val(),
-														$("#iframe_edit").contents().find("#description").val()
+														$("#edit_title").val(),
+														$("#edit_description").val()
 												  ).ajax();
 
 		listAlbums();
