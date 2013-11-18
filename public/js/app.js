@@ -43,7 +43,7 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 /* Data Factory */
-vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function ($http, $rootScope, facebook){
+vestaroMain.factory('BuyerSession', ['$http', '$rootScope', 'Facebook', function ($http, $rootScope, Facebook){
     return {
         getWishlist: function(){
             return $http.get('/wishlist');
@@ -51,15 +51,25 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
         getItems: function(){
             return $http.get('/garment');
         },
-        // TODO: replace with easyrec request.
-        getPopularItems: function(){
-            return $http.get('/garment');
+        getItemsByList: function(recommendeditems){
+            var itemsIds = "";
+            var first = true;
+            angular.forEach(recommendeditems, function(item){
+              if (first){
+                itemsIds += item.id;
+                first = false;
+              } else {
+                itemsIds += "," + item.id;
+              }
+            });
+            var itemsList = {};
+            itemsList.items = itemsIds;
+            console.log(itemsList);
+            return $http.post('/getItemsByList', itemsList);
         },
         // TODO: replace with server request for categories.
         getCategories: function(){
-            return [ {id: 0, name: 'Todas', sexo: 'Todos'},
-                     {id: 1, name: 'Camisa', sexo: 'Mujer'},
-                     {id: 2, name: 'Campera', sexo: 'Hombre'}];
+            return $http.get('/categories');
         },
         addToWishlist: function(item){
           return $http.post('/wishlist', {'itemId': item.id})
@@ -67,16 +77,16 @@ vestaroMain.factory('buyerSession', ['$http', '$rootScope', 'facebook', function
               console.log(data);
               $rootScope.alert =
                 {title:'Prenda agregada a Wishlist',
-                  type:'info',
+                  type:'success',
                   body: 'La prenda ' + item.title + ' fue agregada a tu wishlist.',
                   btns: {
-                    primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+                    primary: {order: 1, title: 'Continuar', type: 'success', href: ''}
                     // ,'default': {order: 2, title: 'Ir a Wishlist', type: 'default', href: ''}
                   }
                 };
               $('#alertModal').modal('show');
               // TODO: check status
-              // facebook.likeItem(item, null);
+              // Facebook.likeItem(item, null);
             })
             .error(function(data, status, headers, config){
               console.log(status);
@@ -129,7 +139,7 @@ vestaroMain.factory('garmentsApi', ['$resource', function($resource) {
     });
 }]);
 
-vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location, $rootScope){
+vestaroMain.factory('Facebook', ['$location', '$rootScope', function ($location, $rootScope){
   return {
     feedDialog: function(item){
       FB.ui(
@@ -144,9 +154,6 @@ vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location,
         function(response) {
           if (response && response.post_id) {
             console.log('Facebook: Publicación exitosa. Post id:' + response.post_id);
-          } else if (response.error) {
-            alert('Facebook: Error occurred.');
-            console.log('Error: ' + response.error.message);
            } else {
             console.log('Facebook: Error occurred.');
            }
@@ -173,6 +180,179 @@ vestaroMain.factory('facebook', ['$location', '$rootScope', function ($location,
            privacy: {'value': 'SELF'} }, // TODO: remove when in production.
          callback
       );
+    },
+    // Returns fbid, name and picture of friends that are using the application
+    getFriendsUsingApp: function(){
+      var friends = [];
+      FB.api(
+        {
+            method: 'fql.query',
+            query: 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user=1'
+        },
+        function(users) {
+          angular.forEach(users, function(user){
+            var friend = {};
+            friend.id = user.uid;
+            friend.name = user.name;
+            FB.api('/' + user.uid + '?fields=picture',
+              function(userPic){
+                friend.picture = userPic.picture.data.url;
+            });
+            friends.push(friend);
+          });
+          console.log(friends);
+          return friends;
+        }
+      );
     }
   };
 }]);
+
+vestaroMain.factory('Easyrec', ['$http', function($http){
+  var easyrec = {};
+  easyrec.extend = function (options, defaults) {
+    var target = options;
+
+    for (var propertyName in defaults) {
+      var src = target[ propertyName ];
+      var copy = defaults[ propertyName ];
+
+      if (src != null) {
+        continue;
+      } else if (copy !== undefined) {
+        target[ propertyName ] = copy;
+      }
+    }
+    // Return the modified object
+    return target;
+  }
+
+  //Session functions
+  easyrec.createSessionId = function () {
+    var name = "easyrec_sessionVar";
+    var value = easyrec.generateSessionId(15);
+    String((new Date()).getTime()).replace(/\D/gi, '');
+    document.cookie = name + "=" + value + "; path=/";
+    return value;
+  }
+
+  easyrec.generateSessionId = function (length) {
+    var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    var returnValue = "";
+
+    for (x = 0; x < length; x++) {
+      var i = Math.floor(Math.random() * 62);
+      returnValue += chars.charAt(i);
+    }
+
+    return "JS_" + returnValue;
+  }
+
+  easyrec.getSessionId = function() {
+    var nameEQ = "easyrec_sessionVar=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return easyrec.createSessionId();
+  }
+
+  var defaults = {
+    userId:null,
+    itemId:"-1",
+    sessionId:easyrec.getSessionId(),
+    itemUrl:"",
+    itemDescription:"",
+    itemImageUrl:"",
+    timeRange:"ALL",
+    numberOfResults:10,
+    actionTime:null,
+    strategy:"NEWEST",
+    useFallback:false,
+    itemType:"ITEM",
+    requestedItemType:"ITEM",
+    clusterId:null,
+    basedOnActionType:"VIEW"
+  };
+
+  /* Easyrec API */
+  return {
+    /* recommendationType = { 'otherusersalsoviewed',
+        'otherusersalsobought',
+        'itemsratedgoodbyotherusers',
+        'recommendationsforuser',
+        'relateditems',
+        'actionhistoryforuser',
+        'mostvieweditems',
+        'mostboughtitems'
+      }
+      options = {
+        userId: authData.currentUser.id,
+        requesteditemtype = { 'male', 'female', 'unisex' }
+      }
+      */
+      getRecommendations: function(recommendationType, fbUser){
+        var options = {};
+        if(fbUser){
+          options.userId = fbUser.id;
+          options.requestedItemType = fbUser.gender;
+        } else {
+          options.requestedItemType = 'unisex';
+        };
+
+        var o = easyrec.extend(options, defaults);
+
+        var easyrecUrl = easyrecApiUrl + recommendationType + "?" +
+        "tenantid=" + tenantId +
+        "&apikey=" + apiKey +
+        ((o.userId) ? ("&userid=" + o.userId ) : "") +
+        "&itemid=" + o.itemId +
+        "&itemtype=" + o.itemType +
+        "&requesteditemtype=" + o.requestedItemType +
+        "&actiontype=" + o.basedOnActionType +
+        "&callback=JSON_CALLBACK" +
+        "&numberOfResults=" + o.numberOfResults +
+        ((o.assocType) ? ("&assoctype=" + o.assocType ) : "");
+
+        return $http.jsonp(easyrecUrl);
+      },
+      /* actionType = { 'buy', 'view', '...' } */
+      sendAction: function(actionType, item){
+        var options = {};
+        if(authData.fbUser){
+          options.userId = authData.fbUser.id;
+        } else {
+          options.userId = 0;
+        }
+        options.itemId = item.id;
+        options.itemUrl = '/#/garment/' + item.id;
+        options.itemDescription = item.title;
+        options.itemImageUrl = item.imgUrl;
+        options.itemType = item.sex=='m'?'male':(item.sex=='f'?'female':'unisex');
+        options.actionType = actionType;
+
+        var o = easyrec.extend(options, defaults);
+
+        var easyrecUrl = easyrecApiUrl + actionType + "?" +
+        "tenantid=" + tenantId +
+        "&apikey=" + apiKey +
+        ((o.userId) ? ("&userid=" + o.userId ) : "") +
+        "&itemid=" + o.itemId +
+        "&sessionid=" + o.sessionId +
+        "&itemurl=" + encodeURIComponent(o.itemUrl) +
+        "&itemdescription=" + encodeURIComponent(o.itemDescription) +
+        "&itemimageurl=" + encodeURIComponent(o.itemImageUrl) +
+        "&ratingvalue=" + o.ratingValue +
+        "&itemtype=" + o.itemType +
+        "&callback=JSON_CALLBACK" +
+        ((o.actionType) ? ("&actiontype=" + o.actionType ) : "") +
+        ((o.actionValue) ? ("&actionvalue=" + o.actionValue ) : "") +
+        ((o.actionTime) ? ("&actiontime=" + o.actionTime ) : "");
+
+        return $http.jsonp(easyrecUrl);
+      }
+  }
+}]);
+

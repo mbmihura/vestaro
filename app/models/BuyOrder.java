@@ -20,12 +20,9 @@ public class BuyOrder extends Model {
 	private static final double COMMISSION_PERCENT = 0.04;
 
 	public enum State {
-		PAYMENT_PENDING("Pendiente de pago", "Pagar",
-				"window.location.href = '/#/buyer/pay?id="), RECEPTION_PENDING(
-				"Pendiente de recepción", "Confirmar recepción",
-				"confirmReception"), RECEPTION_CONFIRMED(
-				"Recepción confirmada", "", ""), IN_DISPUTE("En disputa",
-				"Confirmar recepción", "confirmReception");
+		PAYMENT_PENDING("Pendiente de pago", "Pagar", "window.location.href = '/#/buyer/pay?id="), RECEPTION_PENDING(
+				"Pendiente de recepción", "Confirmar recepción", "confirmReception"), RECEPTION_CONFIRMED(
+				"Recepción confirmada", "", ""), IN_DISPUTE("En disputa", "Confirmar recepción", "confirmReception");
 
 		private String description;
 		private String actionMessage;
@@ -76,8 +73,8 @@ public class BuyOrder extends Model {
 	@OneToOne
 	public StockPerSize size;
 	public Integer pointsUsed = 0;
-	public Integer pointsEarned= 0;
-	public State state =State.PAYMENT_PENDING;
+	public Integer pointsEarned = 0;
+	public State state = State.PAYMENT_PENDING;
 	public String disputeMessage;
 	public boolean commissionPayed = false;
 
@@ -94,11 +91,10 @@ public class BuyOrder extends Model {
 
 	}
 
-	public static Finder<Long, BuyOrder> find = new Finder<Long, BuyOrder>(
-			Long.class, BuyOrder.class);
+	public static Finder<Long, BuyOrder> find = new Finder<Long, BuyOrder>(Long.class, BuyOrder.class);
 
-	public BuyOrder create(BuyOrder order, Item item, Buyer buyer, String size,
-			Integer pointsUsed) throws InvalidBuyOrderException {
+	public BuyOrder create(BuyOrder order, Item item, Buyer buyer, String size, Integer pointsUsed)
+			throws InvalidBuyOrderException {
 		this.validateOk(item, buyer, size, pointsUsed);
 
 		order.item = item;
@@ -115,12 +111,9 @@ public class BuyOrder extends Model {
 		return order;
 	}
 
-	private void validateOk(Item item, Buyer buyer, String size,
-			Integer pointsUsed) throws InvalidBuyOrderException {
+	private void validateOk(Item item, Buyer buyer, String size, Integer pointsUsed) throws InvalidBuyOrderException {
 
-		if (notEnoughPoints(buyer, pointsUsed)
-				|| excededMaxPercentPermitted(item, pointsUsed)
-				|| notSelectedSize(size)) {
+		if (notEnoughPoints(buyer, pointsUsed) || excededMaxPercentPermitted(item, pointsUsed) || notSelectedSize(size)) {
 			throw new InvalidBuyOrderException();
 		}
 
@@ -157,8 +150,7 @@ public class BuyOrder extends Model {
 	}
 
 	public void registerPurchase() {
-		Action newAction = new Action("BUY", buyer.user.userId, item.id,
-				new Date());
+		Action newAction = new Action("BUY", buyer.user.userId, item.id, new Date());
 		newAction.save();
 
 	}
@@ -172,7 +164,7 @@ public class BuyOrder extends Model {
 	}
 
 	public static List<BuyOrder> findBuyerOrders(Long buyerId) {
-		return BuyOrder.find.where().eq("buyer.id", buyerId).findList();
+		return BuyOrder.find.where().eq("buyer.id", buyerId).orderBy("create_time DESC").findList();
 	}
 
 	public void openDispute(String disputeMessage) {
@@ -198,19 +190,16 @@ public class BuyOrder extends Model {
 	}
 
 	public static List<BuyOrder> getCommissionsDetail(Long sellerId) {
-		return getCommissionsNotPayed(sellerId,
-				"item.id, commission, item.title, create_time, pay_time");
+		return getCommissionsNotPayed(sellerId, "item.id, commission, item.title, create_time, pay_time");
 
 	}
 
 	private double getCommision() {
-		return (price - (pointsUsed * item.seller.pointMoneyRelation))
-				* COMMISSION_PERCENT;
+		return (price - (pointsUsed * item.seller.pointMoneyRelation)) * COMMISSION_PERCENT;
 	}
 
 	public void markCommissionsAsPayed(Long sellerId) {
-		List<BuyOrder> orders = getCommissionsNotPayed(sellerId,
-				"id, commissionPayed");
+		List<BuyOrder> orders = getCommissionsNotPayed(sellerId, "id, commissionPayed");
 
 		for (BuyOrder buyOrder : orders) {
 			buyOrder.commissionPayed = true;
@@ -218,13 +207,33 @@ public class BuyOrder extends Model {
 		}
 	}
 
-	private static List<BuyOrder> getCommissionsNotPayed(Long sellerId,
-			String select) {
-		List<BuyOrder> orders = BuyOrder.find.select(select).where()
-				.eq("item.seller.id", sellerId)
-				.ne("state", State.PAYMENT_PENDING)
-				.eq("commissionPayed", false).findList();
+	private static List<BuyOrder> getCommissionsNotPayed(Long sellerId, String select) {
+		List<BuyOrder> orders = BuyOrder.find.select(select).where().eq("item.seller.id", sellerId)
+				.ne("state", State.PAYMENT_PENDING).eq("commissionPayed", false).findList();
 		return orders;
+	}
+
+	public static BuyOrder findBuyerOrder(Long orderId, Long buyerId) {
+		return BuyOrder.find.where().eq("id", orderId).eq("buyer.id", buyerId).findUnique();
+
+	}
+
+	public void modify(String selectedSizeId, Integer pointsToUse) throws InvalidBuyOrderException {
+		if (this.pointsUsed != pointsToUse) {
+			this.buyer.points += this.pointsUsed;
+		}
+		this.validateOk(this.item, this.buyer, selectedSizeId, pointsToUse);
+
+		this.size = StockPerSize.find.byId(selectedSizeId);
+
+		if (this.pointsUsed != pointsToUse) {
+			this.pointsUsed = pointsToUse;
+			this.buyer.points -= this.pointsUsed;
+			this.commission = this.getCommision();
+		}
+		this.buyer.save();
+		this.save();
+
 	}
 
 }

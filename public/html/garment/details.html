@@ -1,0 +1,72 @@
+<link rel="stylesheet" media="screen" href="/assets/css/garmentDetail.css">
+<div id="garmentDetail_boxContainer">
+	<div class="innerContainer">
+		<div class="imageContainer">
+			
+				<h1 class="title item" id="H1_10" style="margin-bottom: 20px;">
+					<a class="brand" id="A_11">{{garment.title}}</a>
+				</h1>
+				<div id="DIV_46" class="curtains-up">
+					<div id="DIV_47">
+						<img src="{{garment.imgUrl}}" id="garmentDetailImg" alt='garment image' />
+					</div>
+				</div>					
+			
+		</div>
+		<div id="garmentDetail_brandLogo">
+			<a href="">
+				<img src="assets/img/users-data/levisBrandLogo.jpg" alt="brand logo" id="" />
+			</a>
+		</div>
+		<div id="garmentDetail_detailsContainer">
+			<div id="DIV_346">
+				<form id="garmentDetail_form">
+					<div>
+						<span class="sale" id="SPAN_352">Now on SALE!</span>
+						<span class="oldPrice" id="SPAN_353" ng-show="garment.oldprice">$50.00</span>
+						<span class="price salePrice" id="SPAN_354" ng-show="garment.price">${{garment.price}}</span>
+					</div>
+					<div style="padding-right: 10px;padding-left: 10px;font-size: 24px;font-weight:bolder;margin-bottom: 10px;">{{garment.seller.brandName}}</div>
+					<div style="padding-right: 10px;padding-left: 10px;padding-bottom: 15px;}">{{garment.description}}</div>
+					<div id="garmentDetail_stockSize_container">
+						<span id="garmentDetail_stockSizes">Talles Disponibles: {{garment.availableStocks}}</span>
+					</div>
+					<div style="padding: 10px;">
+						<button data-toggle="modal"  data-target="sdf" class="btn btn-lg btn-success" style="width: 208px;">Comprar</button>
+					</div>
+					<div style="padding: 10px;">
+						<button type="button" class="btn btn-lg btn-warning" style="width: 208px;">Agregar a favoritos</button>
+					</div>
+				</form>
+
+				<div id="share">
+					<span id="sharePrefix">Share:</span>
+					<div class="share-box custom-style" id="share-facebook" data-link-url="http://facebook.com/sharer.php?u=" data-add-class="popup-995-500-center gae-click*Product-Page*Social-Sharing*Facebook">
+						<div class="inner">
+						<div class="fb-like" data-href="" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div>
+							<span class="spinner"></span>
+							<!-- TODO: when alan's fb service ready, check if it cna be use. -->
+							<div class="fake-button" onclick="FB.ui({  method: 'feed',  caption: 'Compartir {{garment.title}}'}, function(response){});"></div>
+						</div>
+					</div>
+					<div class="share-box custom-style" id="share-twitter" data-add-class="popup-600-400-center gae-click*Product-Page*Social-Sharing*Twitter">
+						<div class="inner">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-text="" data-via="zappos" data-count="none">Tweet</a>
+							<span class="spinner"></span>
+							<div class="fake-button" onclick="window.open('https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fvestaro.com%2F&text=prenda%20%7C%20EncodeDesc&via=vestaro&tw_p=tweetbutton&url=https%3A%2F%2Fvestaro.com%2F#%2Fgarments%2FCB1','compartir en twitter', 'height=260, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');"></div>
+
+						</div>
+					</div>
+					<div class="share-box custom-style" id="share-pinterest" data-add-class="popup-600-300-center gae-click*Product-Page*Social-Sharing*Pinterest">
+						<div class="inner">
+							<span class="spinner"></span>
+							<div class="fake-button" onclick="window.open('http://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.vestaro.com%2F%23%2Fgarments%2FCB1&media=http%3A%2F%2Fa3.zassets.com%2Fimages%2Fz%2F2%2F5%2F9%2F8%2F0%2F3%2F2598035-p-MULTIVIEW.jpg&description=aaaAAAAAAAaaas','compartir en pinterest', 'height=270, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');"></div>
+						</div>
+					</div>
+					<div class="share-box custom-style" id="share-email">
+						<a title="Tell a friend" href="javascript:void(0)" onclick="FB.ui({  method: 'send',  link: 'http://www.vestaro.com/#/garments/CB1',});" >Email</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
