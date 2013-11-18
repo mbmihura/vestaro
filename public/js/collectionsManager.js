@@ -99,13 +99,13 @@ $(document).ready(function(){
 					$("#" + json[i].id).val(json[i].id);
 					
 					$(".button_delete").click(function(){
-						$('#delete').val($(this).parent().parent().parent().val());
+						$('#delete').val($(this).parent().parent().parent().parent().val());
 					});
 					
 					$(".button_edit").click(function(){
-						$('#edit').val($(this).parent().parent().parent().val());
-						$("#edit_title").val($(this).parent().parent().find('.title').text());
-						$("#edit_description").text($(this).parent().parent().find('.description').text());
+						$('#edit').val($(this).parent().parent().parent().parent().val());
+						$("#edit_title").val($(this).parent().parent().parent().find('.title').text());
+						$("#edit_description").text($(this).parent().parent().parent().find('.description').text());
 					});
 					
 					$(".album").click(function(){
@@ -114,6 +114,12 @@ $(document).ready(function(){
 						listItems($(this).parent().parent().val());
 					});
 				}
+				
+				$("#albums").append(
+					"<div id='newAlbum' title='Haz click para crear un nuevo álbum' class='col-lg-4' style='width: 390px; margin-top: 30px;'>" +
+					"<img href='#create' data-toggle='modal' style='cursor: pointer;' class='img-responsive media-object' src='/assets/img/new_album.png' alt='...'>" +
+					"</div>"
+				);
 			}
 		});
 	}
@@ -169,12 +175,6 @@ $(document).ready(function(){
 	
 	$('#confirmDelete').click(function(){
 		jsRoutes.controllers.CollectionController.delete($('#delete').val()).ajax();
-		
-//		$("#albums").children().each(function() {
-//			if($(this).val() == $("#delete").val()){
-//				$(this).remove();
-//			}
-//		});
 	});
 		
 	$('#confirmCreate').click(function(){		

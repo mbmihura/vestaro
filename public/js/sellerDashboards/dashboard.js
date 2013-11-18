@@ -221,7 +221,7 @@ jsRoutes.controllers.ActionController.getAllTimeActions("BUY").ajax({success:
 	    chart.addListener("dataUpdated", zoomChart);
 	    var categoryAxis = chart.categoryAxis;
 	    categoryAxis.parseDates = true;
-	    categoryAxis.minPeriod = "DD";		 
+	    categoryAxis.minPeriod = "DD";	 
 	    categoryAxis.gridAlpha = 0.07;
 	    categoryAxis.axisColor = "#DADADA";
 	    var valueAxis = new AmCharts.ValueAxis();
