@@ -175,12 +175,14 @@ $(document).ready(function(){
 	
 	$('#confirmDelete').click(function(){
 		jsRoutes.controllers.CollectionController.delete($('#delete').val()).ajax();
+
+		location.reload();
 	});
 		
 	$('#confirmCreate').click(function(){		
 		$.post('/collection', {title: $("#create_title").val(), description: $("#create_description").val()});
 		
-		listAlbums();
+		location.reload();
 	});
 	
 	$('#confirmUpdate').click(function(){
@@ -190,7 +192,7 @@ $(document).ready(function(){
 														$("#edit_description").val()
 												  ).ajax();
 
-		listAlbums();
+		location.reload();
 	});
 	
 	$('#add_items').click(function(){
@@ -202,6 +204,7 @@ $(document).ready(function(){
 		$("#button_cancel_items").show();
 		
 		listItemsWithNoCollection(1);
+		
 	});
 	
 	$('#button_cancel_items').click(function(){
@@ -240,5 +243,7 @@ $(document).ready(function(){
 				jsRoutes.controllers.CollectionController.deleteCollectionId($(this).val()).ajax();
 			}
 		});
+
+		location.reload();
 	});
 });

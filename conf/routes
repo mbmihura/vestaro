@@ -79,6 +79,7 @@ GET		/collection/:itemId/item			controllers.CollectionController.deleteCollectio
 GET		/collection/:collectionId/:collectionTitle/:collectionDescription		controllers.CollectionController.update(collectionId: Long, collectionTitle: String, collectionDescription: String)
 GET		/collection/:collectionId/collections									controllers.CollectionController.getItemsFromCollection(collectionId: Long)
 GET		/collection/:sellerId/items			controllers.CollectionController.getItemsWithNoCollection(sellerId: Long)
+GET		/collection/:collectionId/:itemId	controllers.ItemController.updateItem(collectionId: Long, itemId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file        				controllers.Assets.at(path="/public", file)

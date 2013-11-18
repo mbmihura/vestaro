@@ -122,7 +122,7 @@ public class ItemController extends BaseController {
 		}
 	}
 
-	// TODO shouldn't only be restricted to sellers?
+	@RestrictTo(Roles.SELLER)
 	public static Result updateItem(Long collectionId, String itemId) {
 		// validate item owner is current user, if not forbiden
 		Item item = Item.find.byId(itemId);
