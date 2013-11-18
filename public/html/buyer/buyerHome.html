@@ -104,7 +104,7 @@
 						<div class="item-actions">
 							<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
 							<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-							<div ng-href="#/garments/{{item.id}}" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></div>
+							<a ng-href="#/garments/{{item.id}}" class="action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></a>
 						</div>
 						<div class="item-main">
 							<h4 class="item-title">{{item.title}}</h4>
