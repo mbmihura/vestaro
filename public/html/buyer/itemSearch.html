@@ -94,6 +94,10 @@
 				<h4 class="modal-title" id="myModalLabel">Elige un amigo para hacerle un regalo.</h4>
 			</div>
 			<div class="modal-body">
+				<div class="alert alert-info" ng-show="friends.length == 0">
+					<h4>Parece que tus amigos no conocen Vestaro.</h4>
+					<p>No esperes más. Recomendales tu sitio favorito de compra de ropa y empezá a conocer los gustos de tus amigos.</p>
+				</div>
 				<div class="list-group">
 					<a style="cursor: pointer" class="list-group-item" ng-repeat="friend in friends" ng-click="setFriend(friend)" ng-class="{active: isSelected(friend)}">
 						<img class="pull-left fb-img" ng-src="{{friend.pic_square}}">
@@ -103,7 +107,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelPresent()">Close</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="makePresent()">Regalar</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="makePresent()" ng-class="{disabled: friends.length == 0}">Regalar</button>
 			</div>
 
 		</div>
