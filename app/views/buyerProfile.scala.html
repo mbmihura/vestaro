@@ -1,18 +1,21 @@
 @(orders : List[BuyOrder], buyer : Buyer) @import helper._
 
-<div class="panel panel-default" style="text-align: center;">
-	<h1>Mi perfil</h1>
-	<h1></h1>
+<div class="page-header" align="center">
+	<h1>Mi perfil.</h1>
 </div>
 <div class="col-lg-4">
-	<legend>
-		<h2>Mis puntos</h2>
-	</legend>
-	<div class="jumbotron" style="text-align: center;">
-		<h1 style="font-size: 100px; font-weight: bold; color: #428bca;">@buyer.points</h1>
-		<p style="font-size: 20px; text-transform: uppercase;">puntos disponibles</p>
-		<p style="margin-top: 65px; color: #428bca; font-style: italic; text-align: center; font-size: 15px;">Podés usarlos en cualquier compra!</p>
-	</div>
+	<div class="panel panel-info">
+		<div class="panel-heading" align="center">
+			<h2 style="margin:0px;">Mis Puntos<span class="glyphicon glyphicon-tag pull-right"></span></h2>
+		</div>
+		<div class="panel-body">
+			<div class="jumbotron" style="text-align:center; margin:0px;">
+				<h1 style="font-size: 100px; font-weight: bold; color: #428bca;">@buyer.points</h1>
+				<p style="font-size: 20px; text-transform: uppercase;">puntos disponibles</p>
+				<p style="margin-top: 65px; color: #428bca; font-style: italic; text-align: center; font-size: 15px;">Podés usarlos en cualquier compra!</p>
+			</div>
+		</div><!-- End Panel Body-->
+	</div><!-- End Panel-->
 </div>
 
-	@ordersHistory(orders)
+@ordersHistory(orders)
