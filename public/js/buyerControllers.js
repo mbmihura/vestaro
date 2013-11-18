@@ -206,7 +206,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 	}
 ]);
 
-vestaroMain.controller('WishlistCtrl', ['$scope', 'BuyerSession', '$rootScope', 'Facebook'
+vestaroMain.controller('WishlistCtrl', ['$scope', 'BuyerSession', '$rootScope', 'Facebook',
 	function ($scope, BuyerSession, $rootScope, Facebook) {
 
 	BuyerSession.getWishlist().success(function(data) {
