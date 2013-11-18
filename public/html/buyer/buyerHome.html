@@ -51,10 +51,15 @@
 <!-- Recommended Items -->
 <div align="center">
 	<h1 class="page-header">Sabemos qué te gusta. <small>Recomendaciones adaptadas a vos.</small></h1>
-	<div class="alert alert-dismissable alert-warning" ng-show="!userHasRecommendations">
+	<div class="alert alert-dismissable alert-warning" ng-init="userHasRecommendations = true" ng-show="!userHasRecommendations">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<h4>No tienes Recomendaciones!</h4>
-		<p>Dejanos conocerte un poco mejor, <a href="" onclick="register();" class="alert-link">logueate con Facebook</a> y empezá a disfrutar Vestaro. A medida que la uses, las recomendaciones van a ser más precisas.</p>
+		<p>Dejanos conocerte un poco mejor, <a onclick="register();" class="alert-link">logueate con Facebook</a> y empezá a disfrutar Vestaro. A medida que la uses, las recomendaciones van a ser más precisas.</p>
+	</div>
+	<div class="alert alert-dismissable alert-warning" ng-show="easyrecError">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<h4><strong>Ooops!</strong> Hubo un problema al obtener las Recomendaciones.</h4>
+		<p>Intentalo nuevamente <button class="btn btn-warning btn-sm" title="Actualizar"><span ng-click="getRecommendations()" class="glyphicon glyphicon-refresh"></span></button></p>
 	</div>
 	<div class="progress progress-striped active" style="width: 70%">
 		<div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
@@ -89,14 +94,14 @@
 <div class='row'>
 	<!-- Top Sold/Viewed Items -->
 	<div class="col-md-8">
-		<div class="well" style="padding: 5px">
-			<div class="page-header" align="center" style="margin-top: -15px">
+		<div class="well" style="padding: 5px" align="center">
+			<div class="page-header" style="margin-top: -15px">
 				<h3>Prendas Populares</h3>
 			</div>
-			<div class="alert alert-dismissable alert-warning" ng-show="!mostViewedItems">
+			<div class="alert alert-dismissable alert-warning" ng-show="easyrecError">
 				<button type="button" class="close" data-dismiss="alert">×</button>
-				<h4>No se pudieron obtener las prendas populares!</h4>
-				<p>Parece que hubo un problema al obtener las prendas populares. Por favor, intentalo más tarde.</p>
+				<h4><strong>Ooops!</strong> Hubo un problema al obtener las prendas populares.</h4>
+				<p>Intentalo nuevamente <button class="btn btn-warning btn-sm" title="Actualizar"><span ng-click="getMostViewedItems()" class="glyphicon glyphicon-refresh"></span></button></p>
 			</div>
 			<div class="row" style="margin:0">
 				<div class="col-md-3" style="padding-right:10px; padding-left:10px;" ng-repeat="item in mostViewedItems | limitTo:4">
@@ -125,8 +130,15 @@
 	<!-- Facebook Activity Plugin -->
 	<div class="col-md-4">
 		<div class="well" style="padding: 10px;" align="center">
-			<label>Tus amigos y Vestaro</label>
-			<div class="fb-activity" data-app-id="613594491995651" data-site="vestaro.herokuapp.com" data-colorscheme="light" data-header="true"></div>
+			<div ng-show="$('.fb-activity').is(':empty')">No hay actividad.</div>
+			<div class="panel panel-default" style="margin:0px auto">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Tus amigos y Vestaro</h3>
+			  </div>
+			  <div class="panel-body">
+			    <div class="fb-activity" data-app-id="613594491995651" data-site="vestaro.herokuapp.com" data-colorscheme="light" data-header="true"></div>
+			  </div>
+			</div>
 		</div>
 	</div>
 </div>

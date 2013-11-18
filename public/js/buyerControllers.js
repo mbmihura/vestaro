@@ -2,58 +2,61 @@
 vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'BuyerSession', 'Facebook', 'Easyrec',
 function ($scope, BuyerSession, Facebook, Easyrec) {
 
-	$scope.userHasRecommendations = true;
-	
+  $scope.easyrecError = false;
+  $scope.userHasRecommendations = true;
+
   // Get Most Viewed Items.
   // If user is not logged in the app, this will get unisex items only.
-  Easyrec.getRecommendations('mostvieweditems', authData.fbUser).
-  	success(function(data){
-  		console.log(data);
-  		if(!data.recommendeditems){
-  			$scope.mostViewedItems = null;
-  			return;
-  		}
-  		BuyerSession.getItemsByList(data.recommendeditems.item).
-  			success(function(data){
-  				$scope.mostViewedItems = data;
-  		});
-  	}).
-  	error(function(data){
-  		console.log(data);
-  		// TODO: alert Easyrec not working.
-  		$scope.mostViewedItems = null;
-  });
+  $scope.getMostViewedItems = function(){
+	  Easyrec.getRecommendations('mostvieweditems', authData.fbUser).
+	  	success(function(data){
+	  		if(!data.recommendeditems){
+	  			$scope.mostViewedItems = null;
+	  			return;
+	  		}
+	  		BuyerSession.getItemsByList(data.recommendeditems.item).
+	  			success(function(data){
+	  				$scope.mostViewedItems = data;
+	  		});
+	  	}).
+	  	error(function(data){
+	  		$scope.easyrecError = true;
+	  		$scope.mostViewedItems = null;
+	  });
+  }
   
   // Get Recommendations For User.
   // If user is not logged in the app, this will get all items.
-  Easyrec.getRecommendations('recommendationsforuser', authData.fbUser).
-	  success(function(data){
-	  	console.log(data);
-	  	if(!data.recommendeditems){
-	  			// User has no recommendations.
-	  			$scope.userHasRecommendations = false;
-	  			BuyerSession.getItems().success(function(data){
-	  				$scope.recommendedItems = data;
-	  				$scope.$on('isotope', isotopeHandling);
-	  			});
-	  		} else {
-	  			$scope.userHasRecommendations = true;
-	  			BuyerSession.getItemsByList(data.recommendeditems.item).
-		  			success(function(data){
-		  				console.log(data);
+  $scope.getRecommendations = function(){
+	  Easyrec.getRecommendations('recommendationsforuser', authData.fbUser).
+		  success(function(data){
+		  	if(!data.recommendeditems){
+		  			// User has no recommendations.
+		  			$scope.userHasRecommendations = false;
+		  			BuyerSession.getItems().success(function(data){
 		  				$scope.recommendedItems = data;
 		  				$scope.$on('isotope', isotopeHandling);
-	  			});
-	  		}
-	  	}).
-	  error(function(data){
-	  	console.log(data);
-	  	// TODO: alert Easyrec not working.
-		BuyerSession.getItems().success(function(data){
-			$scope.recommendedItems = data;
-			$scope.$on('isotope', isotopeHandling);
-		});
-  });
+		  			});
+		  		} else {
+		  			$scope.userHasRecommendations = true;
+		  			BuyerSession.getItemsByList(data.recommendeditems.item).
+			  			success(function(data){
+			  				$scope.recommendedItems = data;
+			  				$scope.$on('isotope', isotopeHandling);
+		  			});
+		  		}
+		  	}).
+		  error(function(data){
+		  	$scope.easyrecError = true;
+			BuyerSession.getItems().success(function(data){
+				$scope.recommendedItems = data;
+				$scope.$on('isotope', isotopeHandling);
+			});
+	  });
+  }
+
+  $scope.getMostViewedItems();
+  $scope.getRecommendations();
   
   $scope.addToWishlist = function(item){
 	  BuyerSession.addToWishlist(item);
