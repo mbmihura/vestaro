@@ -48,14 +48,3 @@
 <!--MP Script needed to give styles to payment button/modal-->
 <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
 
-<script type="text/javascript">
-function payItem(){
-	easyrec_buy({
-		itemId: '@item.id',
-		userId: authData.fbUser.id,
-		itemUrl: '#/garments/' + '@item.id',
-		itemDescription: '@item.description',
-		itemImageUrl: '@item.imgUrl'
-	});
-}
-</script>
