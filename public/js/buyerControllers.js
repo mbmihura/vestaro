@@ -11,17 +11,18 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 	  Easyrec.getRecommendations('mostvieweditems', authData.fbUser).
 	  	success(function(data){
 	  		if(!data.recommendeditems){
-	  			$scope.mostViewedItems = null;
-	  			return;
+	  			$scope.easyrecError = true;
+	  			$scope.mostViewedItems = {};
+	  		} else {
+		  		BuyerSession.getItemsByList(data.recommendeditems.item).
+		  			success(function(data){
+		  				$scope.mostViewedItems = data;
+		  		});
 	  		}
-	  		BuyerSession.getItemsByList(data.recommendeditems.item).
-	  			success(function(data){
-	  				$scope.mostViewedItems = data;
-	  		});
 	  	}).
 	  	error(function(data){
 	  		$scope.easyrecError = true;
-	  		$scope.mostViewedItems = null;
+	  		$scope.mostViewedItems = {};
 	  });
   }
   
@@ -105,11 +106,12 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 	function ($scope, BuyerSession, Easyrec) {
 
 		$scope.friendHasRecommendations = true;
+		$scope.easyrecError = false;
 		$scope.isLogged = authData.fbUser !== undefined;
 		
 		BuyerSession.getCategories().success(function(data){
+			$scope.selectedCategory = data[0];
 			$scope.categories = data;
-			$scope.selectedCategory = $scope.categories[0];
 		});
 
 		$scope.getFriends = function(){
@@ -121,7 +123,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 			},
 			function(result) {
 				if(result.error){
-					alert(result.error);
+					console.log(result.error);
 				} else {
 					$scope.$apply(function() {
 						$scope.friends = result;
@@ -142,44 +144,40 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 
 		$scope.viewItem = function(item){
 			Easyrec.sendAction('view', item).
-				success(function(data) {
-					console.log(data);
-				}).
 				error(function(data) {
 					console.log(data);
-			});;
+			});
 		}
 
-		$scope.makePresent = function(){
+		$scope.getFriendRecommendations = function(){
 			var fbUser = {};
 			fbUser.id = $scope.selectedFriend.uid;
 			fbUser.gender = $scope.selectedFriend.sex;
 
 			Easyrec.getRecommendations('recommendationsforuser', fbUser).
 				success(function(data){
-					console.log(data);
+					$scope.easyrecError = false;
 					if(!data.recommendeditems){
+						// Friend has no recommendations.
+			  			$scope.friendHasRecommendations = false;
 						// If last friend selected had recommendations.
 						if($scope.friendHasRecommendations){
 							BuyerSession.getItems().success(function(data) {
 								$scope.items = data;
 							});
 						}
-			  			// Friend has no recommendations.
-			  			$scope.friendHasRecommendations = false;
 			  		} else {
 			  			$scope.friendHasRecommendations = true;
 			  			BuyerSession.getItemsByList(data.recommendeditems.item).
 			  			success(function(data){
-			  				console.log(data);
 			  				$scope.items = data;
 			  			});
 			  		}
 				}).
 				error(function(data){
-					// Friend has no recommendations.
+					// Alert Easyrec not working.
+					$scope.easyrecError = true;
 			  		$scope.friendHasRecommendations = false;
-					console.log(data);
 			});
 		}
 
@@ -188,10 +186,6 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 			if($scope.friendHasRecommendations){
 				BuyerSession.getItems().success(function(data) {
 					$scope.items = data;
-				})
-				.error(function(data){
-					console.log(data);
-					// TODO: alert Easyrec not working.
 				});
 			} else {
 				$scope.friendHasRecommendations = true;
