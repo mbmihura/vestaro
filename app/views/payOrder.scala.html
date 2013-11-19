@@ -1,73 +1,62 @@
 @(item: Item, size: String, pointsUsed: Integer,  checkOutUrl: String)
-		<div class="control-group">
-						<h2 style="margin-bottom: 30px;">Detalle compra</h2>
-						<table class="table table-striped">
-  						<tr>
-								<td>Prenda</td>
-								<td>@item.title</td>
-							</tr>
-  						<tr>
-								<td>Descripción</td>
-								<td>@item.description</td>
-							</tr>
-  						<tr>
-								<td>Precio</td>
-								<td>@item.price</td>
-							</tr>
-							<tr>
-								<td>Talle</td>
-								<td id=selectedSize>@size</td>
-							</tr>
-  						<tr>
-								<td>Vendedor</td>
-								<td>@item.seller.brandName</td>
-							</tr>
-  						<tr>
-								<td>Puntos usados</td>
-								<td id="usedPoints">@pointsUsed</td>
-							</tr>
-  						<tr>
-								<td>Monto pendiente a pagar con MercadoPago</td>
-								<td id="pendingAmount">@(item.price - (pointsUsed * item.seller.pointMoneyRelation))</td>
-							</tr>
-  						<tr>
-								<td>Puntos que se ganarán con la compra</td>
-								<td id="earnedPoints">@(item.price - (pointsUsed * item.seller.pointMoneyRelation))</td>
-							</tr>
+<div class="control-group">
+	<h2 style="margin-bottom: 30px;">Detalle compra</h2>
+	<table class="table table-striped">
+		<tr>
+			<td>Prenda</td>
+			<td>@item.title</td>
+		</tr>
+		<tr>
+			<td>Descripción</td>
+			<td>@item.description</td>
+		</tr>
+		<tr>
+			<td>Precio</td>
+			<td>@item.price</td>
+		</tr>
+		<tr>
+			<td>Talle</td>
+			<td id=selectedSize>@size</td>
+		</tr>
+		<tr>
+			<td>Vendedor</td>
+			<td>@item.seller.brandName</td>
+		</tr>
+		<tr>
+			<td>Puntos usados</td>
+			<td id="usedPoints">@pointsUsed</td>
+		</tr>
+		<tr>
+			<td>Monto pendiente a pagar con MercadoPago</td>
+			<td id="pendingAmount">@(item.price - (pointsUsed * item.seller.pointMoneyRelation))</td>
+		</tr>
+		<tr>
+			<td>Puntos que se ganarán con la compra</td>
+			<td id="earnedPoints">@(item.price - (pointsUsed * item.seller.pointMoneyRelation))</td>
+		</tr>
+	</table>
 
-						</table>
-						
-						<div class="form-group">	
-<!--	    				<a id="mpButton" class="btn btn-primary btn-lg" name="MP-Checkout" href = @checkOutUrl class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Pagar</a>--A>	    				<a id="mpButton" class="btn btn-primary btn-lg" name="MP-Checkout" href = @checkOutUrl class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Pagar</a>-->
+	<div class="form-group">	
+		<button id="mpButton"  class="btn btn-primary btn-lg">Pagar</button>
+		<button class="btn btn-default btn-lg" onclick="window.location.href=/#/">Pagar más tarde</button>
+		<p id="mpUrl" style="visibility:hidden; position:absolute;">@checkOutUrl</p>
+		<p style="margin-top:20px;font-size: 15px;font-style: italic;">Podés seguir comprando y pagar esta órden más tarde entrando a tu <a href="/#/buyerProfile"><strong>Perfil</strong></a></p>
+	</div>
 
-	    				<button id="mpButton"  class="btn btn-primary btn-lg"  >Pagar</button>
-				    	<button class="btn btn-default btn-lg" onclick="window.location.href=/#/">Pagar más tarde</button>
-							<p id="mpUrl" style="visibility:hidden; position:absolute;">@checkOutUrl</p>
-							<p style="margin-top:20px;font-size: 15px;font-style: italic;">Podés seguir comprando y pagar esta órden más tarde entrando a tu <a href="/#/buyerProfile"><strong>Perfil</strong></a></p>
-						</div>
+</div>
 
-			 		</div>
-
-			 		
 <script type="text/javascript">
 $(document).ready(function(){
-		$('#mpButton').click(function(){
-			payOrder();
-		
-		});
-		
+	$('#mpButton').click(function(){
+		payOrder();
 	});
+});
 
-	function payOrder(){
-	
+function payOrder(){
 	var checkoutUrl = $('#mpUrl').text();
-		$MPC.openCheckout( {
-	    url: checkoutUrl,
-	    mode: "modal",
-	   } );
-	}
-	
-	
-
-	
+	$MPC.openCheckout( {
+		url: checkoutUrl,
+		mode: "modal",
+	} );
+}	
 </script>
