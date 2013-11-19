@@ -365,6 +365,7 @@ jQuery.fn.onlyDigits = function() {
 			{
 				success:function(json){
 					orderSavedSuccess(points,selectedSize, json);
+					registerPurchase();
 				},
 				error: function(xhr, status, error){
 						orderCreationError(xhr);
@@ -388,6 +389,15 @@ jQuery.fn.onlyDigits = function() {
 		}
 	}
 	
+function registerPurchase(){
+	easyrec_buy({
+		itemId: '@item.id',
+		userId: authData.fbUser.id,
+		itemUrl: '#/garments/' + '@item.id',
+		itemDescription: '@item.description',
+		itemImageUrl: '@item.imgUrl'
+	});
+}
 	</script>
 	
 
