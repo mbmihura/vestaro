@@ -9,29 +9,33 @@
 	</div>
 </div>
 
-<!-- MODALS -->
-<div class="modal fade well container-fluid" id="create">
-	<div class="row-fluid">
-		<div class="modal-header">
-			<a class="close" data-dismiss="modal">&times;</a>
-		    <h3>Crear Álbum</h3>
-		</div>
-		<div style="margin-left: 10px;" class="row">
-		  	<h4 class="control-label">Nombre</h4>
-		  	<input id="create_title" type="text" placeholder="Nombre de colección..." class="form-control">
-		</div>
-		<div style="margin-left: 10px;" class="row">
-		  	<h4 class="control-label">Descripción</h4>
-		  	<textarea id="create_description" name="description" class="form-control"></textarea>
-		</div>
-		<div class="modal-footer">
-		    <a id="confirmCreate" class="btn btn-primary" data-dismiss="modal">Crear</a>
-		    <a class="btn" data-dismiss="modal">Cancelar</a>
+<!-- CREATE COLLECTION MODAL -->
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">&times;</a>
+				<h3>Crear Álbum</h3>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="control-label" for="create_title">Nombre</label>
+					<input id="create_title" type="text" placeholder="Nombre de colección..." class="form-control">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="create_description">Descripción</label>
+					<textarea id="create_description" name="description" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a id="confirmCreate" class="btn btn-primary" data-dismiss="modal">Crear</a>
+				<a class="btn" data-dismiss="modal">Cancelar</a>
+			</div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade well container-fluid" id="delete">
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="row-fluid">
 		<div class="modal-header">
 			<a class="close" data-dismiss="modal">&times;</a>
@@ -48,7 +52,7 @@
 	</div>
 </div>
 
-<div class="modal fade well container-fluid" id="edit">
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="row-fluid">
 		<div class="modal-header">
 			<a class="close" data-dismiss="modal">&times;</a>
@@ -69,7 +73,7 @@
 	</div>
 </div>
 
-<div class="modal fade well container-fluid" id="collectionItems">
+<div class="modal fade" id="collectionItems" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="row-fluid">
 		<div style="height: 130px;" class="modal-header">
 			<a class="close" data-dismiss="modal">&times;</a>
