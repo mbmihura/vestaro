@@ -14,6 +14,7 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 	  			$scope.easyrecError = true;
 	  			$scope.mostViewedItems = {};
 	  		} else {
+	  			$scope.easyrecError = false;
 		  		BuyerSession.getItemsByList(data.recommendeditems.item).
 		  			success(function(data){
 		  				$scope.mostViewedItems = data;
