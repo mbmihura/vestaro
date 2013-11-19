@@ -54,6 +54,7 @@ public class Application extends BaseController {
 				controllers.routes.javascript.ItemController.createOrUpdate(),
 				controllers.routes.javascript.ItemController.delete(),
 				controllers.routes.javascript.ItemController.orderItem(),
+				controllers.routes.javascript.ItemController.updateItem(),
 
 				// Routes for Sellers
 				controllers.routes.javascript.SellerController.itemsOwnedBy(),

@@ -90,8 +90,8 @@ $(document).ready(function(){
 						"<br>" +
 						"<br>" +
 						"</div>" +
-						"<p><a href='#edit' data-toggle='modal' class='btn btn-primary button_edit'>Editar</a>" +
-						"<a class='btn btn-default button_delete' href='#delete' data-toggle='modal' style='float: right;'>Eliminar</a></p>" +
+						"<p><button class='btn btn-md btn-primary'><div href='#edit' data-toggle='modal' class='button_edit'>Editar</div></button>" +
+						"<button class='btn btn-md btn-default btn-primary' style='float: right;'><div class='button_delete' href='#delete' data-toggle='modal'>Eliminar</div></button></p>" +
 						"</div>" +
 						"</div>"
 					);
@@ -99,13 +99,13 @@ $(document).ready(function(){
 					$("#" + json[i].id).val(json[i].id);
 					
 					$(".button_delete").click(function(){
-						$('#delete').val($(this).parent().parent().parent().val());
+						$('#delete').val($(this).parent().parent().parent().parent().val());
 					});
 					
 					$(".button_edit").click(function(){
-						$('#edit').val($(this).parent().parent().parent().val());
-						$("#iframe_edit").contents().find("#title").val($(this).parent().parent().find('.title').text());
-						$("#iframe_edit").contents().find("#description").text($(this).parent().parent().find('.description').text());
+						$('#edit').val($(this).parent().parent().parent().parent().val());
+						$("#edit_title").val($(this).parent().parent().parent().find('.title').text());
+						$("#edit_description").text($(this).parent().parent().parent().find('.description').text());
 					});
 					
 					$(".album").click(function(){
@@ -114,6 +114,12 @@ $(document).ready(function(){
 						listItems($(this).parent().parent().val());
 					});
 				}
+				
+				$("#albums").append(
+					"<div id='newAlbum' title='Haz click para crear un nuevo álbum' class='col-lg-4' style='width: 390px; margin-top: 30px;'>" +
+					"<img href='#create' data-toggle='modal' style='cursor: pointer;' class='img-responsive media-object' src='/assets/img/new_album.png' alt='...'>" +
+					"</div>"
+				);
 			}
 		});
 	}
@@ -169,30 +175,24 @@ $(document).ready(function(){
 	
 	$('#confirmDelete').click(function(){
 		jsRoutes.controllers.CollectionController.delete($('#delete').val()).ajax();
-		
-//		$("#albums").children().each(function() {
-//			if($(this).val() == $("#delete").val()){
-//				$(this).remove();
-//			}
-//		});
+
+		location.reload();
 	});
 		
-	$('#confirmCreate').click(function(){
-		//$("#create_collection").contents().find("#button_create").click();
+	$('#confirmCreate').click(function(){		
+		$.post('/collection', {title: $("#create_title").val(), description: $("#create_description").val()});
 		
-		$.post('/collection', {title: $("#create_collection").contents().find("#title").val(), description: $("#create_collection").contents().find("#description").val()});
-		
-		listAlbums();
+		location.reload();
 	});
 	
 	$('#confirmUpdate').click(function(){
 		jsRoutes.controllers.CollectionController.update(
 														$('#edit').val(),
-														$("#iframe_edit").contents().find("#title").val(),
-														$("#iframe_edit").contents().find("#description").val()
+														$("#edit_title").val(),
+														$("#edit_description").val()
 												  ).ajax();
 
-		listAlbums();
+		location.reload();
 	});
 	
 	$('#add_items').click(function(){
@@ -204,6 +204,7 @@ $(document).ready(function(){
 		$("#button_cancel_items").show();
 		
 		listItemsWithNoCollection(1);
+		
 	});
 	
 	$('#button_cancel_items').click(function(){
@@ -242,5 +243,7 @@ $(document).ready(function(){
 				jsRoutes.controllers.CollectionController.deleteCollectionId($(this).val()).ajax();
 			}
 		});
+
+		location.reload();
 	});
 });
