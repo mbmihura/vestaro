@@ -55,13 +55,13 @@
 <div align="center">
 	<h1 class="page-header">Sabemos qué te gusta. <small>Recomendaciones adaptadas a vos.</small></h1>
 	<!-- USER HAS NO RECOMMENDATIONS WARNING -->
-	<div class="alert alert-dismissable alert-warning" ng-init="userHasRecommendations = true" ng-show="!userHasRecommendations">
+	<div class="alert alert-dismissable alert-warning" ng-init="userHasRecommendations = true" ng-show="!userHasRecommendations" align="center">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<h4>No tienes Recomendaciones!</h4>
 		<p>Dejanos conocerte un poco mejor, <a onclick="register();" class="alert-link">logueate con Facebook</a> y empezá a disfrutar Vestaro. A medida que la uses, las recomendaciones van a ser más precisas.</p>
 	</div>
 	<!-- EASYREC NOT WORKING WARNING -->
-	<div class="alert alert-dismissable alert-warning" ng-show="easyrecError">
+	<div class="alert alert-dismissable alert-warning" ng-show="easyrecError" align="center">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<h4><strong>Ooops!</strong> Hubo un problema al obtener las Recomendaciones.</h4>
 		<p>Intentalo nuevamente más tarde.</p>
@@ -107,8 +107,7 @@
 				<h3>Prendas Populares</h3>
 			</div>
 			<!-- EASYREC NOT WORKING WARNING -->
-			<div class="alert alert-dismissable alert-warning" ng-show="easyrecError">
-				<button type="button" class="close" data-dismiss="alert">×</button>
+			<div class="alert alert-dismissable alert-warning" ng-show="easyrecError" align="center">
 				<h4><strong>Ooops!</strong> Hubo un problema al obtener las prendas populares.</h4>
 				<p>Intentalo nuevamente <button class="btn btn-warning btn-sm" title="Actualizar"><span ng-click="getMostViewedItems()" class="glyphicon glyphicon-refresh"></span></button></p>
 			</div>

@@ -59,19 +59,18 @@
 			</div>
 		</div>
 	</div>
-	<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
-	<div class="col-md-10 alert alert-dismissable alert-warning" ng-hide="{{friendHasRecommendations && !easyrecError}}">
-		<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
-		<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
-	</div>
-	<!-- EASYREC NOT WORKING WARNING -->
-	<div class="alert alert-dismissable alert-warning" ng-show="easyrecError">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<h4><strong>Ooops!</strong> Hubo un problema al obtener las recomendaciones de {{selectedFriend.name}}.</h4>
-		<p>Intentalo nuevamente <button class="btn btn-warning btn-sm" title="Actualizar"><span ng-click="getFriendRecommendations()" class="glyphicon glyphicon-refresh"></span></button></p>
-	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
+		<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
+		<div class="col-md-10 alert alert-dismissable alert-warning" ng-hide="{{friendHasRecommendations && !easyrecError}}" align="center">
+			<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
+			<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
+		</div>
+		<!-- EASYREC NOT WORKING WARNING -->
+		<div class="alert alert-dismissable alert-warning" ng-show="easyrecError" align="center">
+			<h4><strong>Ooops!</strong> Hubo un problema al obtener las recomendaciones de {{selectedFriend.name}}.</h4>
+			<p>Intentalo nuevamente <button class="btn btn-warning btn-sm" title="Actualizar"><span ng-click="getFriendRecommendations()" class="glyphicon glyphicon-refresh"></span></button></p>
+		</div>
 		<ul masonry="true">
 			<li class="col-md-3 item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
 				<div class="item-thumb">
