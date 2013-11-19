@@ -9,6 +9,11 @@ function formatDate(date){
 }
 
 // ==================== Commission ====================
+
+$('#mpButton').click(function(){
+	confirmPayment();
+	
+});
 $('#payButton').click(function(){
 	
 	seeCommissionDetail();
@@ -25,6 +30,10 @@ function seeCommissionDetail(){
 			}
 			});
 		}
+	else{
+		$('#commissionDetailModal').modal('show');
+
+	}
 }
 jsRoutes.controllers.SellerController.sellerCommission().ajax({
 	success: 
@@ -32,13 +41,23 @@ jsRoutes.controllers.SellerController.sellerCommission().ajax({
 		$('#commission').text('$'+json.commissionValue.toFixed(2));
 		
 		if(json.commissionValue > 0){
-			$('#mpButton').attr('href',json.commissionCheckoutUrl);
+			$('#mpUrl').text(json.commissionCheckoutUrl);
 		}
 		else{
 			$('#payButton').attr('disabled',true);
 		}
 	}
 	});
+
+	function confirmPayment(){
+		$('#commissionDetailModal').modal('hide');
+
+		var checkoutUrl = $('#mpUrl').text();
+		$MPC.openCheckout( {
+	    url: checkoutUrl,
+	    mode: "modal",
+	   } );
+	}
 	
 
 function formatJsonDate(dateJson){
