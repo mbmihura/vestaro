@@ -59,10 +59,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
 		<!-- FRIEND HAS NO RECOMMENDATIONS WARNING -->
-		<div class="col-md-10 alert alert-dismissable alert-warning" ng-show="{{!friendHasRecommendations && !easyrecError}}" align="center">
+		<div class="alert alert-dismissable alert-warning" ng-show="!friendHasRecommendations" align="center">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			<h4>{{selectedFriend.name}} no tiene Recomendaciones!</h4>
 			<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
@@ -73,6 +72,9 @@
 			<h4><strong>Ooops!</strong> Hubo un problema al obtener las recomendaciones de {{selectedFriend.name}}.</h4>
 			<p>Intentalo nuevamente <button ng-click="getFriendRecommendations()" class="btn btn-warning btn-sm" title="Actualizar"><span class="glyphicon glyphicon-refresh"></span></button></p>
 		</div>
+	</div>
+	<!-- ITEMS CONTAINER -->
+	<div class="col-md-10">
 		<ul masonry="true">
 			<li class="col-md-3 item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
 				<div class="item-thumb">

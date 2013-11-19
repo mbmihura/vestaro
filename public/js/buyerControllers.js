@@ -102,8 +102,8 @@ var isotopeHandling = function(ngRepeatFinishedEvent) {
 	});
 }
 
-vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
-	function ($scope, BuyerSession, Easyrec) {
+vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec', 'Facebook',
+	function ($scope, BuyerSession, Easyrec, Facebook) {
 
 		$scope.friendHasRecommendations = true;
 		$scope.easyrecError = false;
@@ -199,6 +199,10 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 		$scope.addToWishlist = function(item){
 			BuyerSession.addToWishlist(item);
 		}
+
+		$scope.shareItem = function(item){
+	  		Facebook.feedDialog(item, $scope);
+	  	}
 
 	}
 ]);

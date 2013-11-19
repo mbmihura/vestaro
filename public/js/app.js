@@ -148,7 +148,7 @@ vestaroMain.factory('Facebook', ['$location', '$rootScope', function ($location,
          name: item.title,
          caption: item.seller.brandName,
          description: item.description,
-         link: $location.host() + '/garment/' + item.id,
+         link: $location.host() + '/#/garments/' + item.id,
          picture: $location.host() + item.imgUrl
         },
         function(response) {
