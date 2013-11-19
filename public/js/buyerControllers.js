@@ -107,7 +107,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec',
 
 		$scope.friendHasRecommendations = true;
 		$scope.easyrecError = false;
-		$scope.isLogged = !angular.isUndefined(authData.fbUser);
+		$scope.isLogged = angular.isDefined(authData.fbUser);
 		
 		BuyerSession.getCategories().success(function(data){
 			$scope.selectedCategory = data[0];
