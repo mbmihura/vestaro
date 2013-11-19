@@ -330,7 +330,7 @@ jQuery.fn.onlyDigits = function() {
 			$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
 		
 		}
-		$("#mpButton").attr("href", json.checkoutUrl);
+		$("#mpUrl").text( json.checkoutUrl);
 		$("#usedPoints").html(points);
 		
 		$("#pendingAmount").html("$"+ pending);

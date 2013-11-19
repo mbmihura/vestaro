@@ -1,6 +1,3 @@
-var chartData = [];
-var chart;
-   
 Number.prototype.padLeft =
 function(base, chr){
    var len = (String(base || 10).length - String(this).length) + 1;
@@ -12,6 +9,11 @@ function formatDate(date){
 }
 
 // ==================== Commission ====================
+
+$('#mpButton').click(function(){
+	confirmPayment();
+	
+});
 $('#payButton').click(function(){
 	
 	seeCommissionDetail();
@@ -28,6 +30,10 @@ function seeCommissionDetail(){
 			}
 			});
 		}
+	else{
+		$('#commissionDetailModal').modal('show');
+
+	}
 }
 jsRoutes.controllers.SellerController.sellerCommission().ajax({
 	success: 
@@ -35,13 +41,23 @@ jsRoutes.controllers.SellerController.sellerCommission().ajax({
 		$('#commission').text('$'+json.commissionValue.toFixed(2));
 		
 		if(json.commissionValue > 0){
-			$('#mpButton').attr('href',json.commissionCheckoutUrl);
+			$('#mpUrl').text(json.commissionCheckoutUrl);
 		}
 		else{
 			$('#payButton').attr('disabled',true);
 		}
 	}
 	});
+
+	function confirmPayment(){
+		$('#commissionDetailModal').modal('hide');
+
+		var checkoutUrl = $('#mpUrl').text();
+		$MPC.openCheckout( {
+	    url: checkoutUrl,
+	    mode: "modal",
+	   } );
+	}
 	
 
 function formatJsonDate(dateJson){
@@ -194,6 +210,9 @@ jsRoutes.controllers.DashboardController.littleItemsStock().ajax({success:
 	}
 });
 
+var chartData = [];
+var chart;
+
 function zoomChart() {
     chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
 }
@@ -205,49 +224,43 @@ function generateChartData(json) {
             actions_count: json[i].actions_count
         });
 	}
-    
-    return chartData;
+	
+	return chartData;
 }
     
 // ==================== History boughts ====================
 jsRoutes.controllers.ActionController.getAllTimeActions("BUY").ajax({success: 
 	function(json)
-	{
-	        chart = new AmCharts.AmSerialChart();
-	        chart.pathToImages = "/assets/img/";
-	        chart.dataProvider = generateChartData(json);
-	        chart.categoryField = "date";
-	
-	        chart.addListener("dataUpdated", zoomChart);
-	
-	        var categoryAxis = chart.categoryAxis;
-	        categoryAxis.parseDates = true;			 
-	        categoryAxis.gridAlpha = 0.07;
-	        categoryAxis.axisColor = "#DADADA";
-	
-	        var valueAxis = new AmCharts.ValueAxis();
-	        valueAxis.gridAlpha = 0.07;
-	        chart.addValueAxis(valueAxis);
-	
-	        var graph = new AmCharts.AmGraph();
-	        graph.type = "line";
-	        graph.title = "red line";
-	        graph.valueField = "actions_count";
-	        graph.lineAlpha = 1;
-	        graph.lineColor = "#d1cf2a";
-	        graph.fillAlphas = 0.3;
-	        chart.addGraph(graph);
-	
-	        // CURSOR
-	        var chartCursor = new AmCharts.ChartCursor();
-	        chartCursor.cursorPosition = "mouse";
-	        chartCursor.categoryBalloonDateFormat = "DD/MM/YYYY";
-	        chart.addChartCursor(chartCursor);
-	
-	        // SCROLLBAR
-	        var chartScrollbar = new AmCharts.ChartScrollbar();
-	        chart.addChartScrollbar(chartScrollbar);
-	
-	        chart.write("chartdiv_history");
+	{	
+	    // SERIAL CHART
+	    chart = new AmCharts.AmSerialChart();
+	    chart.pathToImages = "/assets/img/";
+	    chart.dataProvider = generateChartData(json);
+	    chart.categoryField = "date";
+	    chart.addListener("dataUpdated", zoomChart);
+	    var categoryAxis = chart.categoryAxis;
+	    categoryAxis.parseDates = true;
+	    categoryAxis.minPeriod = "DD";	 
+	    categoryAxis.gridAlpha = 0.07;
+	    categoryAxis.axisColor = "#DADADA";
+	    var valueAxis = new AmCharts.ValueAxis();
+	    valueAxis.gridAlpha = 0.07;
+	    chart.addValueAxis(valueAxis);
+	    var graph = new AmCharts.AmGraph();
+	    graph.type = "line";
+	    graph.title = "red line";
+	    graph.valueField = "actions_count";
+	    graph.lineAlpha = 1;
+	    graph.lineColor = "#d1cf2a";
+	    graph.fillAlphas = 0.3;
+	    chart.addGraph(graph);
+	    var chartCursor = new AmCharts.ChartCursor();
+	    chartCursor.cursorPosition = "mouse";
+	    chartCursor.categoryBalloonDateFormat = "DD/MM/YYYY";
+	    chart.addChartCursor(chartCursor);
+	    var chartScrollbar = new AmCharts.ChartScrollbar();
+	    chart.addChartScrollbar(chartScrollbar);
+	    
+	    chart.write("chartdiv_history");
 	}
 });

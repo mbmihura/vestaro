@@ -12,3 +12,13 @@
 	<a class="btn btn-info" href="/#/buyerProfile">Ver órdenes de compra</a> <a class="btn btn-default" href="/">Seguir comprando</a>
 	</p>
 </div>
+
+<!--Hack for closing MP modal-->
+<script>
+	$(document).ready(function(){
+		var dialog = $('#MP-Checkout-dialog');
+		if(!dialog)return;//there is no dialog
+		dialog.find('div').get(0).click();//simulate click in close button
+		
+	});
+</script>

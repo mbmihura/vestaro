@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
 import models.Action;
 import models.DateActions;
 import models.Item;
@@ -72,6 +70,8 @@ public class ActionController extends BaseController {
 				}
 			}
     	}
+		
+		Collections.sort(actions_history, DateActions.Comparators.date);
 		
     	return ok(Json.toJson(actions_history));
 	}

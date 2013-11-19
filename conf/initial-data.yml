@@ -127,7 +127,7 @@ collections:
         seller:  *ropaTop
 
     - &mallas !!models.Collection
-        title:          "Trajes de Baño"
+        title:          Trajes de Baño
         description:    Verano 2014
         seller:  *ropaTop
 
@@ -661,3 +661,13 @@ actions:
         date:        20131115
         userId:      1335414847
         itemId:      CL1
+    - !!models.Action
+        action_type: BUY
+        date:        20131115
+        userId:      1335414847
+        itemId:      CR1
+    - !!models.Action
+        action_type: BUY
+        date:        20131115
+        userId:      1335414847
+        itemId:      CR1

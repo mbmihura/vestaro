@@ -7,7 +7,8 @@
     <span id="commission" style="padding-top:40px; font-family: 'vivaldi'; font-size: 80px;color: #2974B9; letter-spacing: 3px;"></span>
 	<div style="padding-top:40px;" align="right">
     	<p><a id="payButton" style="text-indent: 0cm;" class="btn btn-primary btn-large">Pagar ahora »</a></p>
-    </div>
+  
+</div>
   </div>
   <div class="col-md-9 well">
     <h1>Dashboard</h1>
@@ -20,7 +21,7 @@
 	</div>
     <div class="col-md-6">
       	<h3>Historial de ventas</h3>
-		<div id="chartdiv_history" class="col-md-5" style="width:400px; height:300px;"></div>
+		<div id="chartdiv_history" class="col-md-5" style="width:100%; height:300px;"></div>
 		<br>
 		<div style="padding-left: 300px" class="col-md-9" align="right">
 			<div style="padding-bottom: 14px"></div>
@@ -42,8 +43,10 @@
 	    </div>
  			<div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  			<a id="mpButton" class="btn btn-primary " name="MP-Checkout" class="blue-rn-m" name="MP-Checkout" mp-mode="modal">Confirmar pago</a>
-      </div>
+	    	<button id="mpButton"  class="btn btn-primary "  >Confirmar pago</button>
+				<p id="mpUrl" style="visibility:hidden; position:absolute;"></p>
+
+			</div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
