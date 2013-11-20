@@ -4,11 +4,18 @@
 <div class="page-header ng-scope" align="center">
 	<h1>Notificaciones. <small>Tus ventas y disputas.</small></h1>
 </div>
-
+@if(groupedNotifications.isEmpty()){
+<div class="alert alert-block alert-info" ng-hide="wishlistItems.length">
+	<h4>No tienes notificaciones.</h4>
+	<p style="margin-bottom:10px">Podés continuar con las siguientes acciones.</p>
+	<a type="button" class="btn btn-info" href="#/garments">Publicar Prendas</a>
+	<a type="button" class="btn btn-default" href="#/dashboard">Dashboard</a>
+</div>
+}
 
 	@for((date , notificationList) <- groupedNotifications ){
  								
-	<li = class= "list-group-item" style="width:55%;">
+	<li = class= "list-group-item col-md-6">
 	<strong >@date </strong>
 	<ul class="media-list " style="margin-left:40px; margin-top:5px;">
 
