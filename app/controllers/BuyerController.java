@@ -14,7 +14,10 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
 import security.SubjectPresent;
+import security.RestrictTo;
+import security.Roles;
 
+@RestrictTo(Roles.BUYER)
 public class BuyerController extends BaseController {
 
 	private static final int UNPROCESSABLE_ENTITY = 422;
@@ -55,12 +58,10 @@ public class BuyerController extends BaseController {
 		}
 	}
 
-	@SubjectPresent
 	public static Result readCurrent() {
 		return ok(Json.toJson(Buyer.findBuyerByUser(currentUserId())));
 	}
 
-	@SubjectPresent
 	public static Result createOrUpdateCurrent() {
 		// TODO: check if buyer was already created to avoid losing points if
 		// method is call twice [low priority]

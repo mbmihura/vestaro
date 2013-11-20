@@ -5,7 +5,9 @@ import models.BuyOrder.State;
 import models.Notification;
 import models.Seller;
 import play.mvc.Result;
+import security.SubjectPresent;
 
+@SubjectPresent
 public class PaymentController extends BaseController {
 
 	public static Result success(Long orderId) {
