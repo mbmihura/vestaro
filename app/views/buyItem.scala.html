@@ -13,16 +13,17 @@
 				<div class="well row">
 					<!-- ITEM IMG & SIZE SELECTION-->
 					<div class="col-md-5" align="center">
+						<h2 class="page-header" style="margin:0px">@item.title</h2>
 						<img src="@item.imgUrl" alt="@item.title" class="img-responsive" style="height: 400px; margin: 20px auto; border-radius:15px;" >
 						@if(!sizeOptions.isEmpty()){
 							<div class="panel panel-info">
 								<div class="panel-heading">
 									<h3 style="margin:0px;">Talles Disponibles</h3>
 								</div>
-								<div class="btn-group" data-toggle="buttons">
+								<div class="btn-group" data-toggle="buttons" style="margin:10px">
 									@for((sizeOptionId , sizeOption) <- sizeOptions ){
-										<label class="btn btn-primary options" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;margin-bottom: 6px;">
-											<input type="radio" name="options"  > @sizeOption</input> 
+										<label class="btn btn-primary btn-lg options" for="@sizeOptionId">
+											<input type="radio" name="options"> @sizeOption</input> 
 										</label>
 									}
 								</div>
@@ -32,10 +33,31 @@
 					<!-- ITEM INFO -->
 					<div class="col-md-7">
 						<div class="control-group">
-							<p class="control-label" for="Title">Prenda: @item.title</p>
-							<p class="control-label" for="description">Descripción: @item.description</p>
-							<p class="control-label" for="price">Precio: $@item.price</p>
-							<p class="control-label" for="sellerName">Vendedor: <a href="@item.seller.webpageUrl">@item.seller.brandName</a></p>
+							<table class="table table-striped">
+						        <thead>
+						          <tr>
+						            <th><label>Nombre</label></th>
+						            <th>@item.title</th>
+						          </tr>
+						        </thead>
+						        <tbody>
+						          <tr>
+						            <th><label>Descripción</label></th>
+						            <th>@item.description</th>
+						          </tr>
+						          <tr>
+						            <td><label>Precio</label></td>
+						            <td>$@item.price</td>
+						          </tr>
+						          <tr>
+						            <td><label>Vendedor</label></td>
+						            <td><a href="@item.seller.webpageUrl">@item.seller.brandName</a></td>
+						          </tr>
+						        </tbody>
+						      </table>
+							<!-- <div><label>Descripción:</label> @item.description</div>
+							<div><label>Precio:</label> @item.description</div>
+							<div><label>Vendedor:</label> <a href="@item.seller.webpageUrl">@item.seller.brandName</a></div> -->
 						</div>
 						@if(sizeOptions.isEmpty()){
 							<div class="alert alert-warning" align="center">
@@ -43,23 +65,36 @@
 								<p>Intentalo más tarde.</p>
 							</div>
 						} else {
-						<div class="well" align="center">
+						<div class="panel panel-default" align="center">
 							@if(item.seller.pointsEnabled && buyerPoints>0){
-								<p style="font-size: 30px; font-weight: bold;">Puntos Disponibles</p>
-								<h1 style=" color: #428bca;  font-size: 120px;">@buyerPoints</h1>
-								<p>Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor</p>
-								<p>Puntos a utilizar</p>
-								<input type="text" id="pointsToUse"   style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
-								<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
+								<div class="panel-heading">
+									<h3 style="font-size: 30px; font-weight: bold;">Puntos Disponibles</h3>
+								</div>
+								<div class="panel-body">
+									<h1 style=" color: #428bca;font-size: 120px;margin:0px;">@buyerPoints</h1>
+									<span class="label label-success">Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor.</span>
+									<div class="input-group input-group-lg" style="margin:10px; width:50%;">
+										<span class="input-group-addon">Puntos a utilizar</span>
+	  									<input type="text" id="pointsToUse" class="form-control" placeholder="#">
+									</div>
+									<div class="alert alert-info" align="center" style="margin:10px">
+										<p>Recordá que no podés pagar más del 75% de tu compra con puntos.</p>
+									</div>
+								</div>
+								}else{
+									if(!item.seller.pointsEnabled){
+									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:10px">
+										<h4>El vendedor no posee el sistema de puntos habilitado.</h4>
+									</div>
+									}else{
+									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:10px">
+										<h4>No tenés puntos para usar.</h4>
+										<p class= 'disabledPointsLegend'>Después de pagar esta prenda usá los puntos ganados en tus futuras compras!</p>
+									</div>
+									}
+								}
+							</div>
 							}
-							@if(buyerPoints==0){
-								<p >No tenés puntos para usar. </p>
-								<p class= 'disabledPointsLegend'>Después de pagar esta prenda usá los puntos ganados en tus futuras compras!</p>
-							}else{
-								<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>
-							}
-						</div>
-						}
 					</div>
 				</div>
 			</div>
