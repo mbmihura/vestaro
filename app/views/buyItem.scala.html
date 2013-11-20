@@ -6,6 +6,7 @@
 		<ul class="nav nav-pills">
 			<li class="active"><a style="cursor:pointer" id="modifyOrderButton" data-toggle="tab">Crear orden de compra</a></li>
 			<li class=""><a id="orderItemButton" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
+			<h3><span class="glyphicon glyphicon-usd pull-right" style="height: 95%; width: auto;"></span></h3>
 		</ul>
 		<div class="tab-content" style="margin-top: 5px;" >
 			<!-- CREATE ORDER -->
@@ -18,7 +19,7 @@
 						@if(!sizeOptions.isEmpty()){
 							<div class="panel panel-info">
 								<div class="panel-heading">
-									<h3 style="margin:0px;">Talles Disponibles</h3>
+									<h3 style="margin:0px;font-weight:bold;">Elegí un Talle<span class="glyphicon glyphicon-text-width pull-right"></span></h3>
 								</div>
 								<div class="btn-group" data-toggle="buttons" style="margin:10px">
 									@for((sizeOptionId , sizeOption) <- sizeOptions ){
@@ -68,26 +69,26 @@
 						<div class="panel panel-default" align="center">
 							@if(item.seller.pointsEnabled && buyerPoints>0){
 								<div class="panel-heading">
-									<h3 style="font-size: 30px; font-weight: bold;">Puntos Disponibles</h3>
+									<h3 style="margin:0px; font-weight:bold;">Puntos Disponibles<span class="glyphicon glyphicon-tag pull-right"></span></h3>
 								</div>
 								<div class="panel-body">
-									<h1 style=" color: #428bca;font-size: 120px;margin:0px;">@buyerPoints</h1>
+									<h1 style=" color:#428bca;font-size:100px;margin:0px;font-weight:bold;">@buyerPoints</h1>
 									<span class="label label-success">Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor.</span>
-									<div class="input-group input-group-lg" style="margin:10px; width:50%;">
+									<div class="input-group input-group-lg" style="margin:15px; width:50%;">
 										<span class="input-group-addon">Puntos a utilizar</span>
-	  									<input type="text" id="pointsToUse" class="form-control" placeholder="#">
+	  									<input type="text" id="pointsToUse" class="form-control" placeholder="###">
 									</div>
-									<div class="alert alert-info" align="center" style="margin:10px">
+									<div class="alert alert-info" align="center" style="margin:15px">
 										<p>Recordá que no podés pagar más del 75% de tu compra con puntos.</p>
 									</div>
 								</div>
 								}else{
 									@if(!item.seller.pointsEnabled){
-									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:10px">
+									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:15px">
 										<h4>El vendedor no posee el sistema de puntos habilitado.</h4>
 									</div>
 									}else{
-									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:10px">
+									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:15px">
 										<h4>No tenés puntos para usar.</h4>
 										<p class= 'disabledPointsLegend'>Después de pagar esta prenda usá los puntos ganados en tus futuras compras!</p>
 									</div>
