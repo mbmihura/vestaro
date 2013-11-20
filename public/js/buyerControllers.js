@@ -137,17 +137,12 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec', 'Fa
 
 		$scope.setFriend = function(friend) {
 			$scope.selectedFriend = friend;
+			$scope.friendHasRecommendations = true;
+			$scope.easyrecError = false;
 		}
 
 		$scope.isSelected = function(friend) {
 			return $scope.selectedFriend === friend;
-		}
-
-		$scope.viewItem = function(item){
-			Easyrec.sendAction('view', item).
-				error(function(data) {
-					console.log(data);
-			});
 		}
 
 		$scope.getFriendRecommendations = function(){
@@ -190,6 +185,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec', 'Fa
 				});
 			} else {
 				$scope.friendHasRecommendations = true;
+				$scope.easyrecError = false;
 			}
 		}
 
