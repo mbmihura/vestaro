@@ -12,6 +12,10 @@ import models.StockPerSize;
 import play.libs.Json;
 import play.mvc.Result;
 
+import security.RestrictTo;
+import security.Roles;
+
+@RestrictTo(Roles.SELLER)
 public class DashboardController extends BaseController {
 
 	public static Result biggestCollections() {

@@ -176,8 +176,7 @@ vestaroMain.factory('Facebook', ['$location', '$rootScope', function ($location,
       FB.api(
          'https://graph.facebook.com/me/og.likes',
          'post',
-         { object: item.imgUrl, // TODO: replace with item preview page.
-           privacy: {'value': 'SELF'} }, // TODO: remove when in production.
+         { object: $location.host() + '/#/garments/' + item.id},
          callback
       );
     },
@@ -309,7 +308,7 @@ vestaroMain.factory('Easyrec', ['$http', function($http){
         "&apikey=" + apiKey +
         ((o.userId) ? ("&userid=" + o.userId ) : "") +
         "&itemid=" + o.itemId +
-        "&itemtype=" + o.itemType +
+        "&itemtype=" + o.requestedItemType +
         "&requesteditemtype=" + o.requestedItemType +
         "&actiontype=" + o.basedOnActionType +
         "&callback=JSON_CALLBACK" +

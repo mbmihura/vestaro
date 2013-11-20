@@ -7,6 +7,10 @@ import models.Notification;
 import models.Seller;
 import play.mvc.Result;
 
+import security.RestrictTo;
+import security.Roles;
+
+@RestrictTo(Roles.SELLER)
 public class NotificationController extends BaseController {
 	public static Result getNotifications() {
 		Map<String, List<Notification>> notifications = Notification
