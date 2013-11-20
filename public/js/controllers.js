@@ -70,13 +70,8 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
     $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
     $http.post('/garment/' + $routeParams.id + '/actions', {type:'VIEW'});
     $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2);
-    Easyrec.sendAction('view', $scope.garment).
-      success(function(data) {
-          console.log(data);
-        }).
-        error(function(data) {
-          console.log(data);
-    });;
+    
+    Easyrec.sendAction('view', $scope.garment);
 });
 
 
