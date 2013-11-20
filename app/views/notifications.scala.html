@@ -1,9 +1,9 @@
 @(groupedNotifications: Map[String, List[Notification]])
 
-
 <div class="page-header ng-scope" align="center">
 	<h1>Notificaciones. <small>Tus ventas y disputas.</small></h1>
 </div>
+<!-- SELLER HAS NO NOTIFICATIONS INFO -->
 @if(groupedNotifications.isEmpty()){
 <div class="alert alert-block alert-info" ng-hide="wishlistItems.length">
 	<h4>No tienes notificaciones.</h4>
@@ -12,90 +12,78 @@
 	<a type="button" class="btn btn-default" href="#/dashboard">Dashboard</a>
 </div>
 }
+<!-- NOTIFICATIONS-->
+@for((date , notificationList) <- groupedNotifications ){
+<!-- NOTIFICATION CONTAINER -->
+<div class="col-md-6" style="padding:10px;">
+	<!-- GROUPED NOTIFICATION PANEL -->
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h4 style="margin:0px">@date</h4>
+		</div>
+		<div class="panel-body">
+			<ul class="media-list " style="margin-left:40px; margin-top:5px;">
+				@for(notification <- notificationList){
+				<li id=@notification.buyerFBId class="media @notification.id " >
+					<a class="pull-left " href="javascript:seeNotification(@notification.id);" >
+						<div @if(notification.seen){id="seen"}else{id="notSeen"} class="circle" style=" margin-top: 14px;"></div>
+						<img style="height:50px; margin-left: 25px;margin-top: -40px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
+					</a>			
 
-	@for((date , notificationList) <- groupedNotifications ){
- 								
-	<li = class= "list-group-item col-md-6">
-	<strong >@date </strong>
-	<ul class="media-list " style="margin-left:40px; margin-top:5px;">
-
-		@for(notification <- notificationList){
-			<li id=@notification.buyerFBId class="media @notification.id " >
-    		<a class="pull-left " href="javascript:seeNotification(@notification.id);" >
-					<div 
-							@if(notification.seen){
-								id="seen" 
+					<div class="media-body">
+						<div class="modalText" style="visibility: hidden; position:absolute;">
+							@if(notification.notificationType.getMessage() == "Venta en Disputa"){
+								<p><strong>@notification.buyerName</strong> abrió una disputa en la órden de compra de id 
+									<strong>#@notification.buyOrderId</strong> correspondiente al item <strong>@notification.itemTitle.</strong></p>
+									@if(notification.disputeMessage != ""){
+									<p>El comprador dejó el siguiente mensaje:</p>
+									<blockquote><i>"@notification.disputeMessage"</i></blockquote> 
+								}
+								<p>Por favor comunicate con <strong>@notification.buyerName</strong>.</p>
 							}
-							@if(!notification.seen){
-								id="notSeen" 							
-							}class="circle" style=" margin-top: 14px;"></div>
-					<img style="height:50px; margin-left: 25px;margin-top: -40px;" class="media-object" src="http://media.salon.com/2013/01/Facebook-no-profile-picture-icon-620x389.jpg">
-    		</a>			
-    	
-			<div class="media-body">
-				<div class="modalText" style="visibility: hidden; position:absolute;">
-					@if(notification.notificationType.getMessage() == "Venta en Disputa"){
-						<p><strong>@notification.buyerName</strong> abrió una disputa en la órden de compra de id 
-						<strong>#@notification.buyOrderId</strong> correspondiente al item <strong>@notification.itemTitle.</strong></p>
-						@if(notification.disputeMessage != ""){
-								<p>El comprador dejó el siguiente mensaje:</p>
-								<blockquote><i>"@notification.disputeMessage"</i></blockquote> 
-						}
-						<p>Por favor comunicate con <strong>@notification.buyerName</strong>.</p>
-						}
-					
-					@if(notification.notificationType.getMessage() == "Nueva Venta"){
-						<p><strong>@notification.buyerName</strong> compró tu item <strong>@notification.itemTitle.</strong>
-						La órden de compra correspondiente es la número <strong>#@notification.buyOrderId</strong>.</p>
-						<p>El comprador pagó <strong>$@notification.ammountPayed</strong>
-							@if(notification.pointsUsed > 0){
-								y usó <strong> @notification.pointsUsed </strong> puntos
+
+							@if(notification.notificationType.getMessage() == "Nueva Venta"){
+								<p><strong>@notification.buyerName</strong> compró tu item <strong>@notification.itemTitle.</strong>
+								La órden de compra correspondiente es la número <strong>#@notification.buyOrderId</strong>.</p>
+								<p>El comprador pagó <strong>$@notification.ammountPayed</strong>
+									@if(notification.pointsUsed > 0){
+									y usó <strong> @notification.pointsUsed </strong> puntos
+								}
+								.</p>
+								<i>Recordá que el 4% del monto recibido por esta venta deberá ser pagado en 
+									concepto de comisión a <strong><a onClick="return closeModal();" href="/">Vestaro</a></strong> desde tu <strong><a onClick="return closeModal();" href="/#/dashboard">Dashboard</a></strong>.</i>
 							}
-							.</p>
-							<i>Recordá que el 4% del monto recibido por esta venta deberá ser pagado en 
-								concepto de comisión a <strong><a onClick="return closeModal();" href="/">Vestaro</a></strong> desde tu <strong><a onClick="return closeModal();" href="/#/dashboard">Dashboard</a></strong>.</i>
-					}
-								
-
-				</div>
-      	<h4 class="media-heading"> @notification.notificationType.getMessage()</h4>
-	    <p ><strong>@notification.buyerName</strong> @notification.notificationType.getAction()<strong>@notification.itemTitle</strong></p>
-    </div>
-	</li>
-			
-		}
-
-	</ul>
-	</li>
-	
-	}
+						</div>
+						<h4 class="media-heading"> @notification.notificationType.getMessage()</h4>
+						<p ><strong>@notification.buyerName</strong> @notification.notificationType.getAction()<strong>@notification.itemTitle</strong></p>
+					</div>
+				</li>
+				}
+			</ul>
+		</div><!-- END PANEL BODY -->
+	</div><!-- END PANEL -->
+</div><!-- GROUPED NOTIFICATION END CONTAINER -->
+}
 
 <!-- Modal -->
 <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel"></h4>
-      </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel"></h4>
+			</div>
 			<div class="modal-body" style="text-align: left;font-size:15px;">
 				
-      </div>
+			</div>
 			<div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
-
-
-
-
-
-
+<!-- STYLES -->
 <style>
-
 #notSeen {
 	width: 15px;
 	height: 15px;
@@ -110,7 +98,7 @@
 	height: 15px;
 	position: relative;
 	background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, lightgreen 0%, green 100%, blue 5%);
-background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rgba(132, 122, 148, 1));	box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+	background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rgba(132, 122, 148, 1));	box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
 }
 
 .circle {
@@ -120,67 +108,64 @@ background-image: -webkit-radial-gradient(45px 45px, circle cover, lightgray, rg
 }
 </style>
 
+<!-- SCRIPTS -->
 <script>
-	
+$( document ).ready(function() {
+	showUsersPhotos();
 
-	
+});
 
-		$( document ).ready(function() {
-			showUsersPhotos();
-				
-		});
+function showUsersPhotos(){
+	var notifications =$('.media');
 
-	function showUsersPhotos(){
-    var notifications =$('.media');
-		
-		 var len = notifications.length;
+	var len = notifications.length;
 
-    for (var i = 0; i < len; i++) {
-        (function() {
-            var j = i;             
-            FB.api($(notifications[i]).attr("id")+'/picture', function(response) {
-									var photo= $(notifications[j]).find('img');
-									$(photo).attr('src',response.data.url);
-                
-            });
-        })();
-    }
-	
+	for (var i = 0; i < len; i++) {
+		(function() {
+			var j = i;             
+			FB.api($(notifications[i]).attr("id")+'/picture', function(response) {
+				var photo= $(notifications[j]).find('img');
+				$(photo).attr('src',response.data.url);
+
+			});
+		})();
 	}
+	
+}
 
-	function seeNotification(nclass){
+function seeNotification(nclass){
 
-		var notification = $('.'+nclass);
-		var title = $(notification).find('h4').get(0).innerText;
-		var text = $(notification).find('.modalText').html();
-		
-		var modal=$('#notificationModal');
-		$(modal).find('h4').text( title);
-		$(modal).find('.modal-body').html( text);
-		modal.modal('show');
-		
-		
-		if(notification.find('circle').attr('id') != 'seen'){
-			markAsSeen(nclass);
+	var notification = $('.'+nclass);
+	var title = $(notification).find('h4').get(0).innerText;
+	var text = $(notification).find('.modalText').html();
+
+	var modal=$('#notificationModal');
+	$(modal).find('h4').text( title);
+	$(modal).find('.modal-body').html( text);
+	modal.modal('show');
+
+
+	if(notification.find('circle').attr('id') != 'seen'){
+		markAsSeen(nclass);
+	}
+}
+
+function closeModal(){
+	$('#notificationModal').modal('hide');
+	return true;
+}
+
+function markAsSeen(id){
+	
+	jsRoutes.controllers.NotificationController.markAsSeen(id).ajax(
+	{
+		success:function(json){
+			var notification = $('.'+id);
+			$(notification).find('.circle').attr('id','seen')
 		}
 	}
-	
-	function closeModal(){
-		$('#notificationModal').modal('hide');
-		return true;
-	}
-	
-	function markAsSeen(id){
-	
-		jsRoutes.controllers.NotificationController.markAsSeen(id).ajax(
-			{
-				success:function(json){
-				var notification = $('.'+id);
-				$(notification).find('.circle').attr('id','seen')
-				}
-			}
-		);
-		
-	}
+	);
+
+}
 
 </script>
