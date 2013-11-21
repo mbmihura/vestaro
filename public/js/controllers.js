@@ -101,4 +101,15 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
     
 }])
 
+.controller('SellerDetailsCtrl', ['$scope', '$http', '$routeParams',
+  function($scope, $http, $routeParams) {
+    $http.get('/seller/' + $routeParams.id)
+      .success(function(response){
+        $scope.seller = response;
+      })
+      .error(function(response){
+        console.log(response);
+      });
+}])
+
 .controller('NullCtrl', [function (){}]);

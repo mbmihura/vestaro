@@ -296,9 +296,9 @@ vestaroMain.factory('Easyrec', ['$http', function($http){
         var options = {};
         if(fbUser){
           options.userId = fbUser.id;
-          options.requestedItemType = fbUser.gender;
+          options.itemtype = fbUser.gender;
         } else {
-          options.requestedItemType = 'unisex';
+          options.itemtype = 'unisex';
         };
 
         var o = easyrec.extend(options, defaults);
@@ -308,8 +308,7 @@ vestaroMain.factory('Easyrec', ['$http', function($http){
         "&apikey=" + apiKey +
         ((o.userId) ? ("&userid=" + o.userId ) : "") +
         "&itemid=" + o.itemId +
-        "&itemtype=" + o.requestedItemType +
-        "&requesteditemtype=" + o.requestedItemType +
+        "&itemtype=" + o.itemtype +
         "&actiontype=" + o.basedOnActionType +
         "&callback=JSON_CALLBACK" +
         "&numberOfResults=" + o.numberOfResults +
