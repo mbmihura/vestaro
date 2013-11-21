@@ -11,6 +11,7 @@ vestaroMain.config(function($routeProvider) {
 	  when('/dashboardFull', {controller:'NullCtrl', templateUrl:'assets/html/dashboardFull.html'}).
 	  when('/collections', {controller:'NullCtrl', templateUrl:'assets/html/collectionForm.html'}).
 	  when('/sellerSettings', {controller:'NullCtrl', templateUrl:'assets/html/sellerSettings.html'}).
+	  when('/seller/:id', {controller:'SellerDetailsCtrl', templateUrl:'assets/html/sellerDetails.html'}).
 	  when('/garments', {controller:'GarmentListCtrl', templateUrl:'assets/html/garment/listCompact.html'}).
 	  when('/garmentsComplete', {controller:'GarmentListCCtrl', templateUrl:'assets/html/garment/listDetailed.html'}).
 	  when('/garments/new', {controller:'GarmentNewCtrl', templateUrl:'assets/html/garment/form.html'}).

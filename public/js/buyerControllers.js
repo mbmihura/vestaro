@@ -4,6 +4,7 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 
   $scope.easyrecError = false;
   $scope.userHasRecommendations = true;
+  $scope.mostViewedItems = {};
 
   // Get Most Viewed Items.
   // If user is not logged in the app, this will get unisex items only.
@@ -12,7 +13,6 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 	  	success(function(data){
 	  		if(!data.recommendeditems){
 	  			$scope.easyrecError = true;
-	  			$scope.mostViewedItems = {};
 	  		} else {
 	  			$scope.easyrecError = false;
 		  		BuyerSession.getItemsByList(data.recommendeditems.item).
@@ -23,7 +23,6 @@ function ($scope, BuyerSession, Facebook, Easyrec) {
 	  	}).
 	  	error(function(data){
 	  		$scope.easyrecError = true;
-	  		$scope.mostViewedItems = {};
 	  });
   }
   
@@ -109,6 +108,7 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec', 'Fa
 		$scope.friendHasRecommendations = true;
 		$scope.easyrecError = false;
 		$scope.isLogged = angular.isDefined(authData.fbUser);
+		$scope.friends = {};
 		
 		BuyerSession.getCategories().success(function(data){
 			$scope.selectedCategory = data[0];
@@ -207,6 +207,8 @@ vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec', 'Fa
 vestaroMain.controller('WishlistCtrl', ['$scope', 'BuyerSession', '$rootScope', 'Facebook',
 	function ($scope, BuyerSession, $rootScope, Facebook) {
 
+	$scope.wishlistItems = {};
+	
 	BuyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
