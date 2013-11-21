@@ -1,6 +1,6 @@
-@font-face {
-    font-family: VivaldiF;
-    src: url('../fonts/vivaldi.ttf');
+body {
+  /* 60px to make the container go all the way to the bottom of the topbar */
+  padding-top: 55px;
 }
 
 .page-header {
@@ -8,9 +8,6 @@
 }
 
 .vestaro-logo {
-	font-family: vivaldi;
-	color: rgba(41, 116, 185, 1);
-	letter-spacing: 3px;
   cursor: default;
 }
 
@@ -92,7 +89,7 @@ margin-bottom: 10px;
 .items .item {
 margin: 2px;
 float: left;
-width: 220px;
+width: 222px;
 position: relative;
 }
 
@@ -230,11 +227,8 @@ border-top-right-radius: 30px;
 
 /* Item */
 .item-container {
-  display: inline-block;
-  width: 25%;
   margin-bottom: 15px;
   padding: 0px 15px;
-
 }
 
 .item-thumb {
@@ -289,28 +283,26 @@ border-top-right-radius: 30px;
   padding: 4px;
   /*Hack to center verically the img.*/
   height: 85%;
-  margin-bottom: 2px;
-  /*line-height: 160px;*/
+  line-height: 155px;
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
-  max-height: 80%;
+  max-height: 82%;
   max-width: 100%;
   vertical-align: middle;
 }
 
 .item-thumb .item-main .item-title {
-  margin-top: 10px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 2px;
   cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
- .item-thumb .item-details {
-  height: 15%;
- }
 
 .item-thumb .item-details .price {
   font-color: #2974B9;
@@ -318,26 +310,40 @@ border-top-right-radius: 30px;
   font-size: 14px;
 }
 
-/* Wishlist */
-.item-container.wishlist {
-  width: 33.33333333333333%;
+/* Friends List */
+
+.list-group-item-heading {
+  padding-top: 12px;
+  cursor: default;
+  overflow: hidden;
 }
 
+.list-group-item {
+  height: 50px;
+  padding-top: 2px;
+  padding-bottom: 3px;
+}
+
+.fb-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+/* Wishlist */
 .item-thumb.wishlist {
   height: 400px;
   /*line-height: 345px;*/
 }
 
 .item-thumb.wishlist .item-main {
-  height: 90%;
+  height: 88%;
+  line-height: 300px;
 }
 
 .item-thumb.wishlist .item-main .item-img{
   max-height: 85%;
-}
-
-.item-thumb.wishlist .item-details {
-  height: 10%;
 }
 
 /* To fill the container and nothing else */
@@ -403,4 +409,87 @@ height: 100%;
 .dialog-header-confirm span, .dialog-header-confirm h4 { 
     color: #ffffff; 
 }
-/**** END Custom dialog/modal headers ****/
+
+/**** Garments Details ****/
+#garmentDetail_boxContainer {
+    border-color: rgb(204, 204, 204);
+    border-radius: 8px 8px 8px 8px;
+    border-style: solid;
+    border-width: 1px;
+    color: rgb(85, 85, 85);
+    font: normal normal normal 12px/normal Verdana, Arial, sans;
+    font-family: Verdana, Arial, sans;
+    font-size: 12px;
+    margin-bottom: 15px;
+    width: 1003px;
+}/*#garmentDetail_boxContainer*/
+
+#garmentDetail_boxContainer .innerContainer:after {
+    clear: both;
+    content: '';
+    display: table;
+}/*#garmentDetail_boxContainer .innerContainer:after*/
+
+#garmentDetail_boxContainer .imageContainer {
+    float: left;
+    padding-top: 10px;
+}/*#garmentDetail_boxContainer .imageContainer*/
+
+#garmentDetail_brandLogo {
+    border-left-color: rgb(221, 221, 221);
+    border-left-style: solid;
+    border-left-width: 1px;
+    float: right;
+    height: 52px;
+    text-align: center;
+    width: 239px;
+}/*#garmentDetail_brandLogo*/
+
+#garmentDetail_brandLogo a {
+    display: block;
+    margin-left: 13px;
+    margin-right: 13px;
+    padding-bottom: 4px;
+    padding-top: 7px;
+    text-align: center;
+}/*#garmentDetail_brandLogo a */
+
+#garmentDetail_brandLogo img {
+    width: 184px;
+}/*#garmentDetail_brandLogo img */
+
+#garmentDetail_detailsContainer {
+    background-color: rgb(241, 241, 241);
+
+    border-bottom-color: rgb(221, 221, 221);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(221, 221, 221);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-top-color: rgb(221, 221, 221);
+    border-top-style: solid;
+    border-top-width: 1px;
+    float: right;
+    position: relative;
+    width: 239px;
+}/*#garmentDetail_detailsContainer*/
+
+#garmentDetail_form {
+    height: 340px;
+    padding: 10px 0px 0px;
+    padding-top: 10px;
+    text-align: center; /* se deberia ir */
+}/*#garmentDetail_form*/
+
+#garmentDetail_stockSize_container {
+    margin-top: 17px;
+    margin-bottom: 30px;
+}/*#garmentDetail_stockSize_container*/
+
+#garmentDetail_stockSizes {
+    color: rgb(44, 89, 135);
+    font-family: Verdana, Arial, sans;
+    font-size: 12px;
+}/*#garmentDetail_stockSizes*/
+

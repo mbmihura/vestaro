@@ -1,31 +1,89 @@
 /* Buyer Controllers */
-vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
-	function ($scope, buyerSession, facebook) {
+vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'BuyerSession', 'Facebook', 'Easyrec',
+function ($scope, BuyerSession, Facebook, Easyrec) {
 
-  buyerSession.getItems().success(function(data){
-	  $scope.items = data;
-  });
-  
-  buyerSession.getPopularItems().success(function(data){
-	  $scope.popularItems = data;
-  });
-  
-  $scope.$on('isotope', isotopeHandling);
-  
-  $scope.showBuyItemModal = function(item){
-	  $scope.item = item;
-	  $('#buyItemModal').modal('show');
+  $scope.easyrecError = false;
+  $scope.userHasRecommendations = true;
+  $scope.mostViewedItems = {};
+
+  // Get Most Viewed Items.
+  // If user is not logged in the app, this will get unisex items only.
+  $scope.getMostViewedItems = function(){
+	  Easyrec.getRecommendations('mostvieweditems', authData.fbUser).
+	  	success(function(data){
+	  		if(!data.recommendeditems){
+	  			$scope.easyrecError = true;
+	  		} else {
+	  			$scope.easyrecError = false;
+		  		BuyerSession.getItemsByList(data.recommendeditems.item).
+		  			success(function(data){
+		  				$scope.mostViewedItems = data;
+		  		});
+	  		}
+	  	}).
+	  	error(function(data){
+	  		$scope.easyrecError = true;
+	  });
   }
   
+  // Get Recommendations For User.
+  // If user is not logged in the app, this will get all items.
+  $scope.getRecommendations = function(){
+	  Easyrec.getRecommendations('recommendationsforuser', authData.fbUser).
+		  success(function(data){
+		  	if(!data.recommendeditems){
+		  			// User has no recommendations.
+		  			$scope.userHasRecommendations = false;
+		  			BuyerSession.getItems().success(function(data){
+		  				$scope.recommendedItems = data;
+		  				$scope.$on('isotope', isotopeHandling);
+		  			});
+		  		} else {
+		  			$scope.userHasRecommendations = true;
+		  			BuyerSession.getItemsByList(data.recommendeditems.item).
+			  			success(function(data){
+			  				$scope.recommendedItems = data;
+			  				$scope.$on('isotope', isotopeHandling);
+		  			});
+		  		}
+		  	}).
+		  error(function(data){
+		  	$scope.easyrecError = true;
+			BuyerSession.getItems().success(function(data){
+				$scope.recommendedItems = data;
+				$scope.$on('isotope', isotopeHandling);
+			});
+	  });
+  }
+
+  $scope.getMostViewedItems();
+  $scope.getRecommendations();
+  
   $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item);
+	  BuyerSession.addToWishlist(item);
   }
 
   $scope.shareItem = function(item){
-  	facebook.feedDialog(item, $scope);
+  	Facebook.feedDialog(item, $scope);
   }
-  
-  var $container = $('#itemsContainer');
+
+}]);
+
+var isotopeHandling = function(ngRepeatFinishedEvent) {
+
+	var $container = $('#itemsContainer');
+	var $loadContainer = $('#itemsLoadContainer');
+	var options = {
+		itemSelector : '.item'
+	};
+	
+	// Wait until all images are loaded
+	$loadContainer.imagesLoaded(function() {
+		$container.isotope(options)
+			.isotope('insert', $loadContainer.find('.item'));
+		$('.progress.progress-striped.active').fadeOut();
+	});
+
 	// Toggles item size
 	$container.on('click', '.item-img', function() {
 		var $item = $(this).closest('.item'); 
@@ -42,102 +100,136 @@ vestaroMain.controller('BuyerHomeCtrl', ['$scope', 'buyerSession', 'facebook',
 	$('#knowMoreBtn').click(function(){
 		$('#knowMore').slideToggle()
 	});
-  
-}]);
-
-var isotopeHandling = function(ngRepeatFinishedEvent) {
-
-	var $container = $('#itemsContainer');
-	var options = {
-		itemSelector : '.item',
-		getSortData : {
-			price : function($elem) {
-				return parseFloat($elem.find('.price').text().replace('$', ''));
-			},
-			title : function($elem) {
-				return $elem.find('.title').text();
-			}
-		}
-	};
-	
-	// Wait until all images are loaded
-	$container.imagesLoaded(function() {
-		$container.isotope(options);
-		$('.progress.progress-striped.active').fadeOut();
-	});
-	
-	var $optionSets = $('#itemsControls .option-set'),
-	$optionLinks = $optionSets.find('.option');
-	
-	// Filters and ordering
-	$optionLinks.click(function(){
-		var $this = $(this);
-		// don't proceed if already selected
-		if ( $this.hasClass('selected') ) {
-		  return false;
-		}
-		var $optionSet = $this.parents('.option-set');
-		$optionSet.find('.selected').removeClass('selected').removeClass('active');
-		$this.addClass('selected').addClass('active');
-		
-		// make option object dynamically, i.e. { filter: '.my-filter-class' }
-		var options = {},
-		    key = $optionSet.attr('data-option-key'),
-		    value = $this.attr('data-option-value');
-		// parse 'false' as false boolean
-		value = value === 'false' ? false : value;
-		options[ key ] = value;
-		if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
-		  // changes in layout modes need extra logic
-		  changeLayoutMode( $this, options )
-		} else {
-		  // otherwise, apply new options
-		  $container.isotope( options );
-		}
-		
-		return false;
-	});	
 }
 
-vestaroMain.controller('ItemSearchCtrl', ['$scope','buyerSession',
-	function ($scope, buyerSession) {
+vestaroMain.controller('ItemSearchCtrl', ['$scope','BuyerSession','Easyrec', 'Facebook',
+	function ($scope, BuyerSession, Easyrec, Facebook) {
 
-  $scope.categories = buyerSession.getCategories();
-  
-  buyerSession.getItems().success(function(data) {
-	  $scope.items = data;
-  });
-  
-  $scope.showBuyItemModal = function(item){
-	  $scope.item = item;
-	  $('#buyItemModal').modal('show');
-  }
-  
-  $scope.addToWishlist = function(item){
-	  buyerSession.addToWishlist(item);
-  }
-  
-}]);
+		$scope.friendHasRecommendations = true;
+		$scope.easyrecError = false;
+		$scope.isLogged = angular.isDefined(authData.fbUser);
+		$scope.friends = {};
+		
+		BuyerSession.getCategories().success(function(data){
+			$scope.selectedCategory = data[0];
+			$scope.categories = data;
+		});
 
-vestaroMain.controller('WishlistCtrl', ['$scope', 'buyerSession', '$rootScope',
-	function ($scope, buyerSession, $rootScope) {
+		$scope.getFriends = function(){
+			FB.api(
+			{
+				method: 'fql.query',
+				query: 'SELECT uid, name, pic_square, sex FROM user WHERE is_app_user=1' +
+				'AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
+			},
+			function(result) {
+				if(result.error){
+					console.log(result.error);
+				} else {
+					$scope.$apply(function() {
+						$scope.friends = result;
+						$('#friendsListModal').modal('show');
+					});
+				}
+			}
+			);
+		};
 
-	buyerSession.getWishlist().success(function(data) {
+		$scope.setFriend = function(friend) {
+			$scope.selectedFriend = friend;
+			$scope.friendHasRecommendations = true;
+			$scope.easyrecError = false;
+		}
+
+		$scope.isSelected = function(friend) {
+			return $scope.selectedFriend === friend;
+		}
+
+		$scope.getFriendRecommendations = function(){
+			var fbUser = {};
+			fbUser.id = $scope.selectedFriend.uid;
+			fbUser.gender = $scope.selectedFriend.sex;
+
+			Easyrec.getRecommendations('recommendationsforuser', fbUser).
+				success(function(data){
+					$scope.easyrecError = false;
+					if(!data.recommendeditems){
+						// Friend has no recommendations.
+			  			$scope.friendHasRecommendations = false;
+						// If last friend selected had recommendations.
+						if($scope.friendHasRecommendations){
+							BuyerSession.getItems().success(function(data) {
+								$scope.items = data;
+							});
+						}
+			  		} else {
+			  			$scope.friendHasRecommendations = true;
+			  			BuyerSession.getItemsByList(data.recommendeditems.item).
+			  			success(function(data){
+			  				$scope.items = data;
+			  			});
+			  		}
+				}).
+				error(function(data){
+					// Alert Easyrec not working.
+					$scope.easyrecError = true;
+			  		$scope.friendHasRecommendations = false;
+			});
+		}
+
+		$scope.cancelPresent = function(){
+			$scope.selectedFriend = null;
+			if($scope.friendHasRecommendations){
+				BuyerSession.getItems().success(function(data) {
+					$scope.items = data;
+				});
+			} else {
+				$scope.friendHasRecommendations = true;
+				$scope.easyrecError = false;
+			}
+		}
+
+		BuyerSession.getItems().success(function(data) {
+			$scope.items = data;
+		});
+
+		$scope.addToWishlist = function(item){
+			BuyerSession.addToWishlist(item);
+		}
+
+		$scope.shareItem = function(item){
+	  		Facebook.feedDialog(item, $scope);
+	  	}
+
+	}
+]);
+
+vestaroMain.controller('WishlistCtrl', ['$scope', 'BuyerSession', '$rootScope', 'Facebook',
+	function ($scope, BuyerSession, $rootScope, Facebook) {
+
+	$scope.wishlistItems = {};
+	
+	BuyerSession.getWishlist().success(function(data) {
 		$scope.wishlistItems = data;
 	});
+
+	$scope.shareItem = function(item){
+  		Facebook.feedDialog(item, $scope);
+  	}
 	
 	$scope.removeFromWishlist = function(item, idx) {
-		buyerSession.removeFromWishlist(item.id).success(function(data) {
+		BuyerSession.removeFromWishlist(item.id).success(function(data) {
 			console.log(data);
 			$scope.wishlistItems.splice(idx, 1);
 			$rootScope.alert = {title:'Prenda eliminada de Wishlist',
-				type:'info',
+				type:'success',
 				body: 'La prenda ' + item.title + ' fue eliminada de tu wishlist.',
 				btns: {
-					primary: {order: 1, title: 'Continuar', type: 'info', href: ''}
+					primary: {order: 1, title: 'Continuar', type: 'success', href: ''}
 				}
 			};
 			$('#alertModal').modal('show');
 		});
+		}
 	}
-}]);
+]);

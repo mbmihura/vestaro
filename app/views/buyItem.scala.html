@@ -1,209 +1,410 @@
 @(item: Item, sizeOptions: Map[String, String], buyerPoints: Integer)
 @import helper._
-			
+
 <div data-id="@item.id">
- 
 	<div id="rootwizard">
 		<ul class="nav nav-pills">
-			<li class="active"><a href="#tab1" data-toggle="tab">Crear orden de compra</a></li>
-			<li class=""><a id="orderItemButton" data-toggle="tab" >Pagar orden de compra</a></li>
+			<li class="active"><a style="cursor:pointer" id="modifyOrder1Button" data-toggle="tab">Crear orden de compra</a></li>
+			<li><a id="orderItemButton" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
+			<h3><span class="glyphicon glyphicon-usd pull-right" style="height: 95%; width: auto;"></span></h3>
 		</ul>
-		<div class="tab-content jumbotron" style="margin-top: 5px; min-height: 900px;" >
-			
-				<div class="tab-pane active" id="tab1">
-						<div class="col-lg-5">
-
-    				<img src="@item.imgUrl" alt="@item.title" class="img-responsive" >
-						
-						<div class="jumbotron " style="text-align: center;   background: #D9D9DB; margin-top:25px;">
-  						<p style="font-size: 30px; font-weight: bold;">Talles Disponibles</p>
-   						
-							<div class="btn-group" data-toggle="buttons">
-							@for((sizeOptionId , sizeOption) <- sizeOptions ){
- 								 <label class="btn btn-primary" for="@sizeOptionId" style="padding: 15px 25px;margin-left: 6px;">
-   								 <input type="radio" name="options"  > @sizeOption</input> 
-						  	</label>
-							}
- 							</div>
-							</span>
-						</div>
+		<div class="tab-content" style="margin-top: 5px;" >
+			<!-- CREATE ORDER -->
+			<div class="tab-pane active" id="tab1">
+				<div class="well row">
+					<!-- ITEM IMG & SIZE SELECTION-->
+					<div class="col-md-5" align="center">
+						<h2 class="page-header" style="margin:0px">@item.title</h2>
+						<img src="@item.imgUrl" alt="@item.title" class="img-responsive" style="height: 400px; margin: 20px auto; border-radius:15px;" >
+						@if(!sizeOptions.isEmpty()){
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 style="margin:0px;font-weight:bold;">Elige un Talle<span class="glyphicon glyphicon-text-width pull-right"></span></h3>
+								</div>
+								<div class="btn-group" data-toggle="buttons" style="margin:10px">
+									@for((sizeOptionId , sizeOption) <- sizeOptions ){
+										<label class="btn btn-primary btn-lg options" for="@sizeOptionId">
+											<input type="radio" name="options"> @sizeOption</input> 
+										</label>
+									}
+								</div>
 							</div>
-  				<div class="col-lg-7">
-						<div class="control-group">
-				  		<p class="control-label" for="Title">Prenda: @item.title</p>
-        			<p class="control-label" for="description">Descripción: @item.description</p>
-							<p class="control-label" for="price">Precio: $@item.price</p>
-							<p class="control-label" for="sellerName">Vendedor: <a href= @item.seller.webpageUrl>@item.seller.brandName</a></p>
-
-						</div>
-						
-						<div class="jumbotron " style="text-align: center;   background: #D9D9DB;">
-						@if(item.seller.pointsEnabled){
-	  						<p style="font-size: 30px; font-weight: bold;">Puntos Disponibles</p>
-	   						<h1 style=" color: #428bca;  font-size: 120px;">@buyerPoints</h1>
-						    <p>Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor</p>
-								<p>Puntos a utilizar</p>
-	     					<input type="text" id="pointsToUse"   style="   text-align: center; font-size: xx-large; background: none;   width: 20%; "></input>
-	  						<p style=" color: #428bca;font-style: oblique;font-size: 18px; margin-top: 15px;">Recordá que no podés pagar más del 75% de tu compra con puntos</p>
-						} else {
-							<p class= 'disabledPointsLegend'>El vendedor no posee el sistema de puntos habilitado</p>
 						}
+					</div>
+					<!-- ITEM INFO -->
+					<div class="col-md-7">
+						<div class="control-group">
+							<table class="table table-striped">
+						        <thead>
+						          <tr>
+						            <th><label>Nombre</label></th>
+						            <th>@item.title</th>
+						          </tr>
+						        </thead>
+						        <tbody>
+						          <tr>
+						            <th><label>Descripción</label></th>
+						            <th>@item.description</th>
+						          </tr>
+						          <tr>
+						            <td><label>Precio</label></td>
+						            <td>$@item.price</td>
+						          </tr>
+						          <tr>
+						            <td><label>Vendedor</label></td>
+						            <td><a href="@item.seller.webpageUrl">@item.seller.brandName</a></td>
+						          </tr>
+						        </tbody>
+						      </table>
 						</div>
-	    		</div>
+						@if(sizeOptions.isEmpty()){
+							<div class="alert alert-warning" align="center">
+								<h4>No hay stock disponible.</h4>
+								<p>Intentalo más tarde.</p>
+							</div>
+						} else {
+						<div class="panel panel-default" align="center">
+							@if(item.seller.pointsEnabled && buyerPoints>0){
+								<div class="panel-heading">
+									<h3 style="margin:0px; font-weight:bold;">Puntos Disponibles<span class="glyphicon glyphicon-tag pull-right"></span></h3>
+								</div>
+								<div class="panel-body">
+									<h1 style=" color:#428bca;font-size:100px;margin:0px;font-weight:bold;">@buyerPoints</h1>
+									<span class="label label-success">Equivale a $@(item.seller.pointMoneyRelation *  buyerPoints) para dicho vendedor.</span>
+									<div class="input-group input-group-lg" style="margin:15px; width:50%;">
+										<span class="input-group-addon">Puntos a utilizar</span>
+	  									<input type="text" id="pointsToUse" class="form-control" placeholder="###">
+									</div>
+									<div class="alert alert-info" align="center" style="margin:15px">
+										<p>Recordá que no podés pagar más del 75% de tu compra con puntos.</p>
+									</div>
+								</div>
+								}else{
+									@if(!item.seller.pointsEnabled){
+									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:15px">
+										<h4>El vendedor no posee el sistema de puntos habilitado.</h4>
+									</div>
+									}else{
+									<div class="alert alert-info disabledPointsLegend" align="center" style="margin:15px">
+										<h4>No tenés puntos para usar.</h4>
+										<p class= 'disabledPointsLegend'>Después de pagar esta prenda usá los puntos ganados en tus futuras compras!</p>
+									</div>
+									}
+								}
+							</div>
+							<button id= "orderItem2Button" type="button" style="  margin-left: auto; margin-right: auto; padding: 15px; display: block; font-size: 20px;"class="btn btn-success"> Crear orden de compra</button>
+							}
+
+					</div>
 				</div>
+			</div>
 
-				<div class="tab-pane" id="tab2">
-					@payOrder(item, "", 0,"")
-				</div>
-
-						
-		
-	</div>	
-
-
-@loadingModal("Creando tu órden de compra...", "loadingModal")
-
-	
+			<!-- PAY ORDER -->
+			<div class="tab-pane well" id="tab2">
+				<label style="visibility:hidden; position:absolute;" class="buyOrderId" ></label>
+				@payOrder(item, "", 0,"", true)
+			</div>
+		</div>
+	</div>
 </div>
 
+@loadingModal("Guardando orden de compra...", "loadingModal")
 
-<!--App scrips TODO: take it to a separate file-->
-	<script>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Confirmar modificación</h4>
+			</div>
+			<div class="modal-body" style="text-align: center">
+				<p>Tu orden de compra ya había sido creada.</p> 
+				<span><i>¿Querés modificar tu orden o crear una nueva?</i></span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="modify">Cambiar orden</button>
+				<button type="button"  class="btn btn-info" id="new"	>Crear nueva orden</button>
+				<button type="button" class="btn btn-success" id="discard">Eliminar cambios</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->	
+
+<!-- SCRIPTS -->
+<script>
 jQuery.fn.onlyDigits = function() {
-    var k;
+	var k;
     // little trick just in case you want use this:
     $('<span></span>').insertAfter(this);
     var $dText = $(this).next('span').hide();
     // Really cross-browser key event handler
     function Key(e) {
-        if (!e.which && ((e.charCode ||
-        e.charCode === 0) ? e.charCode: e.keyCode)) {
-        e.which = e.charCode || e.keyCode;
-        } return e.which; }
+    	if (!e.which && ((e.charCode ||
+    		e.charCode === 0) ? e.charCode: e.keyCode)) {
+    		e.which = e.charCode || e.keyCode;
+    } return e.which; }
     return $(this).each(function() {
-        $(this).keydown(function(e) {
-            k = Key(e);
-            return (
+    	$(this).keydown(function(e) {
+    		k = Key(e);
+    		return (
             // Allow CTRL+V , backspace, tab, delete, arrows,
             // numbers and keypad numbers ONLY
             ( k == 86 && e.ctrlKey ) || (k == 224 && e.metaKey) || k == 8 || k == 9 || k == 46 || (k >= 37 && k <= 40 && k !== 32 ) || (k >= 48 && k <= 57) || (k >= 96 && k <= 105));
-        }).keyup(function(e) {
-            var value = this.value.replace(/\s+/,'-');
+    	}).keyup(function(e) {
+    		var value = this.value.replace(/\s+/,'-');
             // Check if pasted content is Number
             if (isNaN(value)) {
                 // re-add stored digits if CTRL+V have non digits chars
                 $(this).val($dText.text());
             } else { // store digits only of easy access
-                $dText.empty().append(value);
+            	$dText.empty().append(value);
             }
         });
     });
 };
-	$( document ).ready(function() {
-		$("#pointsToUse").onlyDigits();
-			$("#orderItemButton").click(function(){
-				$('.alert').fadeOut();
-					//Deleted validations (just in server for now)-> problem with selected tab
-					$('#loadingModal').modal('show');
-					orderItem();
-			});
-		});
-		
-	function selectFirstTab(){
-		var tabs =$('.nav-pills').find('li');
-		$(tabs.get(0)).attr("class", "active");
-		$(tabs.get(1)).attr("class","");
+$( document ).ready(function() {
 	
+	$("#pointsToUse").onlyDigits();
+
+	$("#new").click(function(){
+		createNewOrder();
+	});
+	$("#discard").click(function(){
+		discardChanges();
+	});
+	$("#modify").click(function(){
+		persistModifications();
+	});
+
+	$("#orderItem1Button").click(function(){
+		$('#validationAlert').fadeOut();
+		orderItem();
+	});
+	$("#orderItem2Button").click(function(){
+		$('#validationAlert').fadeOut();
+		orderItem();
+	});
+
+	$("#modifyOrder1Button").click(function(){
+		modifyOrder();
+	});
+	$("#modifyOrder2Button").click(function(){
+		modifyOrder();
+	});
+
+});
+
+function discardChanges(){
+	$('#confirmModal').modal('hide');
+	loadFirstTab();
+	selectSecondTab();
+
+}
+function firstTabSelected(){
+	return $('#tab1').attr('class') == "tab-pane active";
+}
+function selectFirstTab(){
+	var tabs =$('.nav-pills').find('li');
+	$(tabs.get(0)).attr("class", "active");
+	$(tabs.get(1)).attr("class","");
+	$('#tab2').attr('class','tab-pane');
+	$('#tab1').attr('class','tab-pane active');
+}
+
+function selectSecondTab(){
+	var tabs =$('.nav-pills').find('li');
+	$(tabs.get(1)).attr("class", "active");
+	$(tabs.get(0)).attr("class","");
+
+	$('#tab1').attr('class','tab-pane');
+	$('#tab2').attr('class','tab-pane active');
+	
+}
+
+function validateOK(){
+	var ok= true;
+	var message= "";
+	var points =$("#pointsToUse").val();
+
+	if(! $.isNumeric(points) && points !="" && points !=undefined){
+		ok = false;
+		message = "<p>Ingresá un valor numérico de puntos</p>" ;
 	}
-	function validateOK(){
-		var ok= true;
-		var message= "";
-		var points =$("#pointsToUse").val();
-		
-		if(! $.isNumeric(points)){
-			ok = false;
-			message = "<p>Ingresá un valor numérico de puntos</p>" ;
-		}
-		else{
-		
+	else{
 		//Validate not using more points than available
-			if(points > @buyerPoints){
-				ok = false;
-				if(@buyerPoints == 0){
-					message = "<p>No tenés puntos disponibles</p>" ;
-				}
-				else{
-					message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
-				}
+		if(points > @buyerPoints){
+			ok = false;
+			if(@buyerPoints == 0){
+				message = "<p>No tenés puntos disponibles</p>" ;
 			}
-			
-			//Validate max 75% of item price
-			var maxPermitted = @item.price * 0.75;
-			if(points * @item.seller.pointMoneyRelation > maxPermitted){
-				ok = false;
-				message += "<p>Sólo podés pagar el 75% del precio con puntos!</p>";
+			else{
+				message = "<p>Solo tenés " +@buyerPoints +" puntos disponibles</p>" ;
 			}
-		
-		
 		}
+		//Validate max 75% of item price
+		var maxPermitted = @item.price * 0.75;
+		if(points * @item.seller.pointMoneyRelation > maxPermitted){
+			ok = false;
+			message += "<p>Sólo podés pagar el 75% del precio con puntos!</p>";
+		}
+	}
 		
 		if(! $('label.active').get(0)){
 			ok = false;
 			message +="<p>Por favor elegí tu talle</p>";
 		}
 		if(!ok){
-			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+			$('#rootwizard').before("<div id='validationAlert' class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
 			selectFirstTab();
 		}
-		return ok;
-		
-		
+		return ok;		
+}
+	
+function persistModifications(){
+
+	$('#confirmModal').modal('hide');
+	$('#loadingModal').modal('show');
+	var selectedLabel = $('label.active').get(0);
+	var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+	var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+	
+	var points =$("#pointsToUse").val();
+	if(points == undefined || points== "" || !@item.seller.pointsEnabled){
+		points = 0;
 	}
-	function orderItem(){
-		var selectedLabel = $('label.active').get(0);
-		var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
-		var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
-		
-		var points =$("#pointsToUse").val();
-		if(points== "" || !@item.seller.pointsEnabled){
-			points = 0;
+	var orderId= buyOrderId();
+	
+	jsRoutes.controllers.BuyerController.modifyOrder(orderId, selectedSizeId, points).ajax(
+	{
+		success:function(json){
+			orderSavedSuccess(points, selectedSize, json);
+		},
+
+		error:function(xhr, status, error){
+			orderCreationError(xhr);
 		}
-		
-		jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
-			{
-				success:function(json){
-						var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
-					if(@item.seller.pointsEnabled){
-						$("#earnedPoints").html(pending);
-					}
-					else{
-						$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
-					
-					}
-					$("#mpButton").attr("href", json);
-					$("#usedPoints").html(points);
-					
-					$("#pendingAmount").html("$"+ pending);
-					$("#selectedSize").html(selectedSize);
-					$('#tab1').attr('class','tab-pane');
-					$('#tab2').attr('class','tab-pane active');
-					$('#loadingModal').modal('hide');
-					
-				},
-				
-				error: function(xhr, status, error){
-						$('#loadingModal').modal('hide');
-				
-					if(xhr.status == 422 || xhr.status==400){
-						validateOK();					
-						
-					}
-				}
-			}
-		);
+	}
+	);
+
+
+} 	
+
+function modifyOrder(){
+	if(!firstTabSelected()){
+		selectFirstTab();
+	}
+}
+
+function loadFirstTab(){
+	if(@item.seller.pointsEnabled){
+		var usedPoints= $("#usedPoints").html();
+		$("#pointsToUse").val(usedPoints);
+	}
+	var selectedSize=	$("#selectedSize").html();
+	
+	$('.options').each(function(){
+		if(this.innerText == selectedSize){
+			$(this).addClass('active');
+		}else{
+			$(this).removeClass('active');
+		}	
+
+	});
+	
+	var selectedLabel = $('label.active').get(0);
+	var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+	var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+	
+}
+
+function orderCreated(){
+	return buyOrderId() != undefined;
+}
+
+function buyOrderId(){
+	return $('.buyOrderId').attr('id');
+}	
+
+function confirmModifyOrder(){
+	$('#confirmModal').modal('show');
+}
+
+function orderSavedSuccess(points, selectedSize, json){
+	var pending = (@item.price - (@item.seller.pointMoneyRelation *  points));
+	if(@item.seller.pointsEnabled){
+		$("#earnedPoints").html(pending);
+	}
+	else{
+		$("#earnedPoints").html("0 (sistema de puntos no habilitado)");
+
+	}
+	$("#mpUrl").text( json.checkoutUrl);
+	$("#usedPoints").html(points);
+	
+	$("#pendingAmount").html("$"+ pending);
+	$("#selectedSize").html(selectedSize);
+	$(".buyOrderId").attr("id", json.buyOrderId);
+	selectSecondTab();
+	$('#loadingModal').modal('hide');
+
+}
+
+function orderCreationError(xhr){
+	$('#loadingModal').modal('hide');
+
+	if(xhr.status == 422 || xhr.status==400){
+		validateOK();					
+	}	
+}	
+
+function createNewOrder(){
+	$('#confirmModal').modal('hide');
+	$('#loadingModal').modal('show');
+	var selectedLabel = $('label.active').get(0);
+	var selectedSize= ((!selectedLabel) ? null : selectedLabel.innerText);
+	var selectedSizeId=((! selectedLabel) ? null : selectedLabel.htmlFor);
+	
+	var points =$("#pointsToUse").val();
+	if(points == undefined || points== "" || !@item.seller.pointsEnabled){
+		points = 0;
 	}
 	
-	</script>
+	jsRoutes.controllers.ItemController.orderItem("@item.id", selectedSizeId, points).ajax(
+	{
+		success:function(json){
+			orderSavedSuccess(points,selectedSize, json);
+			registerPurchase();
+		},
+		error: function(xhr, status, error){
+			orderCreationError(xhr);
+		}
+	}
+	);
+
+}
+
+function orderItem(){
+	if(!firstTabSelected()){
+		return;
+	}
+
 	
+	if(orderCreated()){
+		confirmModifyOrder();
+	}
+	else{
+		createNewOrder();
+	}
+}
 
-
+function registerPurchase(){
+	easyrec_buy({
+		itemId: '@item.id',
+		userId: authData.fbUser.id,
+		itemUrl: '#/garments/' + '@item.id',
+		itemDescription: '@item.description',
+		itemImageUrl: '@item.imgUrl'
+	});
+}
+</script>

@@ -17,6 +17,8 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
+import security.RestrictTo;
+import security.Roles;
 import security.SubjectPresent;
 
 public class SellerController extends BaseController {
@@ -41,11 +43,12 @@ public class SellerController extends BaseController {
     	return ok(Json.toJson(Seller.find.byId(sellerId)));
     }
         
-    @SubjectPresent
+    @RestrictTo(Roles.SELLER)
 	public static Result readCurrent(){
         return ok(Json.toJson(Seller.findSellerByUser(currentUserId()))); 
     }
-    @SubjectPresent
+    
+    @RestrictTo(Roles.SELLER)
     public static Result createOrUpdateCurrent() {
     	Long currentUserId = currentUserId();
     	Seller currentSeller = Seller.findSellerByUser(currentUserId());
@@ -87,6 +90,7 @@ public class SellerController extends BaseController {
         return ok(Json.toJson(currentSeller));
     }
     
+    @RestrictTo(Roles.SELLER)
     public static Result sellerCommission() {
     	
     	HashMap<String, Object> responseMap = new LinkedHashMap<String, Object>();
@@ -113,7 +117,8 @@ public class SellerController extends BaseController {
     	
     	return ok(Json.toJson(responseMap));
     }
-
+    
+    @RestrictTo(Roles.SELLER)
     public static Result commissionDetail(){
     	Seller seller = Seller.findSellerByUser(currentUserId());
     	return ok(Json.toJson(BuyOrder.getCommissionsDetail(seller.id)) );

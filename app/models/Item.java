@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -43,6 +45,8 @@ public class Item extends Model {
     public Seller seller;
     @OneToOne
     public Collection collection;
+    @OneToOne
+    public Category category;
     
     public Item(String id) //TODO Diff entre id y Title?
     {
@@ -53,6 +57,7 @@ public class Item extends Model {
     	return StockPerSize.findStockForItem(id);
     }
     
+    @JsonIgnore
     public List<StockPerSize> getAvailableStock(){
     	return StockPerSize.findAvailableStockForItem(id);
     }

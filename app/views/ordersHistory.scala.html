@@ -1,130 +1,129 @@
 @(orders : List[BuyOrder]) @import helper._
 
-<div >
 <div class="col-lg-8">
-	<legend>
-		<h2>Órdenes de compra</h2>
-	</legend>
-
-	<div class="panel-group" id="accordion">
-		@for(buyOrder <- orders ){
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" data-target="#@buyOrder.id" style="cursor:pointer"> <strong>
-							@buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state.getDescription()</span>
-					</a>
-				</h4>
-			</div>
-			<div id=@buyOrder.id class="panel-collapse collapse in">
-				<div class="panel-body">
-					<div class="col-lg-3">
-						<img src=@buyOrder.item.imgUrl style="border-radius: 4px; max-height: 140px; max-width: 100%;">
-					</div>
-					<div class="col-lg-6">
-						<div><label>Descripción:</label> @buyOrder.item.description</div>
-						<div><label>Talle:</label> @buyOrder.size.size</div>
-						<div><label>Precio:</label> $@buyOrder.price</div>
-						<div><label>Fecha compra:</label> @buyOrder.create_time</div>
-					</div>
-					<div class="col-lg-3">
-						@if(buyOrder.state.getDescription() != "Recepción confirmada"){
-						<button type="button" id="actionButton"  data-loading-text="Cambiando estado..." onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
-						@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
-						<button type="button"  id="disputeButton"	 onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
-
-						} }
-					</div>
-				</div>
-			</div>
+	<div class="panel panel-info">
+		<div class="panel-heading" align="center">
+			<h2 style="margin:0px;">Órdenes de Compra<span class="glyphicon glyphicon-shopping-cart pull-right"></span></h2>
 		</div>
-		}
-
-	</div>
-	
-	
-	
-	
-	
-	
+		<div class="panel-body">
+			<div class="panel-group" id="accordion">
+				@if(orders.length == 0){
+				<!-- USER HAS NO ORDERS INFO -->
+				<div class="alert alert-dismissable alert-info" align="center">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<h4>No tienes ordenes de compra.</h4>
+					<p>No esperes más, conseguí la prenda que tanto buscás.</p>
+				</div>
+				}
+				@for(buyOrder <- orders ){
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a class="accordion-toggle collapsed" data-toggle="collapse"  data-parent="#accordion" data-target="#@buyOrder.id" style="cursor:pointer"> <strong>
+								@buyOrder.item.title</strong> <span class="badge active pull-right @buyOrder.state">@buyOrder.state.getDescription()</span>
+							</a>
+						</h4>
+					</div>
+					<div id=@buyOrder.id class="panel-collapse collapse in">
+						<div class="panel-body">
+							<div class="col-lg-3">
+								<img src=@buyOrder.item.imgUrl style="border-radius: 4px; max-height: 140px; max-width: 100%;">
+							</div>
+							<div class="col-lg-6">
+								<div><label>Descripción:</label> @buyOrder.item.description</div>
+								<div><label>Talle:</label> @buyOrder.size.size</div>
+								<div><label>Precio:</label> $@buyOrder.price</div>
+								<div><label>Fecha compra:</label> @buyOrder.create_time</div>
+								<div><label>Vendedor:</label><a href="/#/seller/@buyOrder.item.seller.id"> @buyOrder.item.seller.brandName</a></div>
+								
+							</div>
+							<div class="col-lg-3">
+								@if(buyOrder.state.getDescription() != "Recepción confirmada"){
+								<button type="button" id="actionButton"  data-loading-text="Cambiando estado..." onClick= "@buyOrder.state.getAction(buyOrder.id);" class="btn btn-primary">@buyOrder.state.getActionMessage()</button>
+								@if(buyOrder.state.getDescription() == "Pendiente de recepción"){
+								<button type="button"  id="disputeButton"	 onclick="showDisputeModal(@buyOrder.id);" class="btn btn-default" style="margin-top: 15px;">Abrir disputa</button>
+								} }
+							</div>
+						</div>
+					</div>
+				</div><!--End Buy Order Panel-->
+				}
+			</div><!--End Panel Group-->
+		</div><!--End Main Panel Body-->
+	</div><!--End Main Panel-->
 </div>	
 
 @disputeModal()
 
-</div>
-<script>
-	$(document).ready(function() {
-	
-		$('.collapse').collapse('hide');
-	
-	});
+<script type="text/javascript">
 
+$('.collapse').collapse('hide');
 
-	function showDisputeModal(buyOrder){
-	 	$('#save').click(
-	 		function(){
-	 				openDispute(buyOrder);
-	 				}
-	 				);
-		$('#disputeModal').modal('show');
-	}
+function showDisputeModal(buyOrder){
+	$('#save').click(
+		function(){
+			openDispute(buyOrder);
+		}
+		);
+	$('#disputeModal').modal('show');
+}
 
-	function openDispute(buyOrder){
+function openDispute(buyOrder){
 	$('#save').button('loading');
 	var disputeMessage = $('#disputeMessage').get(0).value;
 	jsRoutes.controllers.BuyerController.openDispute(buyOrder, disputeMessage).ajax(
-			{
-				success:function(json){
-						changeToInDispute(buyOrder);
-						$('#save').button('reset');
-						$('#disputeModal').modal('hide');
-					
-				}
-			}
-		);
-	}
+	{
+		success:function(json){
+			changeToInDispute(buyOrder);
+			$('#save').button('reset');
+			$('#disputeModal').modal('hide');
 
-	function confirmReception(buyOrder){
-		$(actionButton(buyOrder)).button('loading');
-		jsRoutes.controllers.BuyerController.confirmReception(buyOrder).ajax(
-			{
-				success:function(){
-					changeToReceptionConfirmed(buyOrder);
-				}
-			}
-		);
+		}
 	}
-	function changeToInDispute(buyOrder){
+	);
+}
+
+function confirmReception(buyOrder){
+	$(actionButton(buyOrder)).button('loading');
+	jsRoutes.controllers.BuyerController.confirmReception(buyOrder).ajax(
+	{
+		success:function(){
+			changeToReceptionConfirmed(buyOrder);
+		}
+	}
+	);
+}
+function changeToInDispute(buyOrder){
 					//Change state text and colo r+ delete open dispute button
 					changeState(buyOrder, 'En disputa', 'IN_DISPUTE','disputeButton' );
-									
-	}
-	
-	function changeToReceptionConfirmed(buyOrder){
+
+				}
+
+				function changeToReceptionConfirmed(buyOrder){
 		//Change state text and colo r+ delete button
 		changeState(buyOrder, 'Recepción confirmada','RECEPTION_CONFIRMED' , 'actionButton');
 		deleteButton(buyOrder,'disputeButton');
-					
+
 	}
 	
 	function changeState(buyOrder, stateMessage, stateClass, deletedButton){
-			var title=$($('#'+buyOrder).parent()).find('span');
-			$(title).text(stateMessage)
-			$(title).attr('class', 'badge active pull-right '+ stateClass)
-			deleteButton(buyOrder, deletedButton);
-	
+		var title=$($('#'+buyOrder).parent()).find('span');
+		$(title).text(stateMessage)
+		$(title).attr('class', 'badge active pull-right '+ stateClass)
+		deleteButton(buyOrder, deletedButton);
+
 	}	
 	
 	function deleteButton(buyOrder, buttonId){
 		var button = $('#' + buyOrder).find('#'+ buttonId);
 		if(!button)return;//was already deleted
 		$(button).fadeOut('normal', function(){
-									$(this).remove();
+			$(this).remove();
 		});
 	}
 
 	function actionButton(buyOrder){
-		 return orderButton(buyOrder,'actionButton');
+		return orderButton(buyOrder,'actionButton');
 	}
 	
 
@@ -136,22 +135,22 @@
 		return $('#' + buyOrder).find('#'+buttonId);
 	}
 	
-</script>
+	</script>
 
-<style>
-.PAYMENT_PENDING {
-	background-color: rgb(153, 134, 202);
-}
+	<style>
+	.PAYMENT_PENDING {
+		background-color: rgb(153, 134, 202);
+	}
 
-.RECEPTION_PENDING {
-	background-color: rgb(100, 164, 233);
-}
+	.RECEPTION_PENDING {
+		background-color: rgb(100, 164, 233);
+	}
 
-.RECEPTION_CONFIRMED {
-	background-color: rgb(55, 197, 72);
-}
+	.RECEPTION_CONFIRMED {
+		background-color: rgb(55, 197, 72);
+	}
 
-.IN_DISPUTE {
-	background-color: rgb(240, 77, 77);;
-}
-</style>
+	.IN_DISPUTE {
+		background-color: rgb(240, 77, 77);;
+	}
+	</style>
