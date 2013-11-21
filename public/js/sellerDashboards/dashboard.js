@@ -21,10 +21,12 @@ $('#payButton').click(function(){
 
 function seeCommissionDetail(){
 	if( $('#commissionDetailModal').find('table').size() == 0 ) {
+		$("#payButton").button('loading');
 		jsRoutes.controllers.SellerController.commissionDetail().ajax({
  			success: 
 			function(details){
 				addDetailTable(details);
+				$("#payButton").button('reset');
 				$('#commissionDetailModal').modal('show');
 				
 			}
