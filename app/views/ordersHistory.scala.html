@@ -34,6 +34,8 @@
 								<div><label>Talle:</label> @buyOrder.size.size</div>
 								<div><label>Precio:</label> $@buyOrder.price</div>
 								<div><label>Fecha compra:</label> @buyOrder.create_time</div>
+								<div><label>Vendedor:</label><a href="/#/seller/@buyOrder.item.seller.id"> @buyOrder.item.seller.brandName</a></div>
+								
 							</div>
 							<div class="col-lg-3">
 								@if(buyOrder.state.getDescription() != "Recepción confirmada"){
