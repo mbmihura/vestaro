@@ -145,6 +145,7 @@ public class ItemController extends BaseController {
 		}
 	}
 
+	@Deprecated
 	public static Result itemSearch() {
 		DynamicForm form = Form.form().bindFromRequest();
 		String textSearch = form.get("textSearch");
@@ -155,6 +156,7 @@ public class ItemController extends BaseController {
 		return ok(Json.toJson(items));
 	}
 
+	@RestrictTo(Roles.BUYER)
 	public static Result buy() {
 		String itemId = Form.form().bindFromRequest().get("id");
 		Item item = Item.find.byId(itemId);
@@ -171,6 +173,7 @@ public class ItemController extends BaseController {
 		}
 	}
 
+	@RestrictTo(Roles.BUYER)
 	public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception {
 		Item item = Item.find.byId(itemId);
 

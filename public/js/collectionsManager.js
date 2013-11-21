@@ -12,7 +12,7 @@ $(document).ready(function(){
 		});
 		
 		for (var i = 0; i < 4; i++) {
-			images += "<img style='width:87px; height:100px;' src='" +
+			images += "<img style='width:84px; height:90px;' src='" +
 						(i < album.items.length ? album.items[ar.pop()].imgUrl : "") +
 						"' alt='...'>";
 		}
@@ -77,8 +77,8 @@ $(document).ready(function(){
 					$("#albums").append(
 						"<div id='" +
 						json[i].id +
-						"' class='col-lg-4' style='width: 390px; margin-top: 30px;'>" +
-						"<div class='thumbnail'>" +
+						"' class='col-md-4'>" +
+						"<div class='thumbnail' style='height:300px'>" +
 						getAlbumImages(json[i]) +
 						"<div title='Haz click para ver su contenido' href='#collectionItems' data-toggle='modal' class='album caption' style='cursor: pointer;'>" +
 						"<h3 class='title'>" +
@@ -87,7 +87,6 @@ $(document).ready(function(){
 						"<p class='description'>" +
 						json[i].description +
 						"</p>" +
-						"<br>" +
 						"<br>" +
 						"</div>" +
 						"<p><button class='btn btn-md btn-primary'><div href='#edit' data-toggle='modal' class='button_edit'>Editar</div></button>" +
@@ -116,8 +115,8 @@ $(document).ready(function(){
 				}
 				
 				$("#albums").append(
-					"<div id='newAlbum' title='Haz click para crear un nuevo álbum' class='col-lg-4' style='width: 390px; margin-top: 30px;'>" +
-					"<img href='#create' data-toggle='modal' style='cursor: pointer;' class='img-responsive media-object' src='/assets/img/new_album.png' alt='...'>" +
+					"<div id='newAlbum' style='height:300px' align='center' title='Haz click para crear un nuevo álbum' class='col-md-4 thumbnail'>" +
+					"<img href='#create' data-toggle='modal' style='cursor: pointer; margin: 50px 0px auto;' class='img-responsive media-object' src='/assets/img/new_album.png' alt='...'>" +
 					"</div>"
 				);
 			}

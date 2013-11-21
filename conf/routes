@@ -68,9 +68,6 @@ GET		/actions/:order/:actionDateBegin/:actionDateEnd/:actionType				controllers.
 # Buyer Profile
 GET		/buyerProfile						controllers.BuyerController.profile()
 
-# Recommendations
-GET     /reco	           					controllers.RecommendationEngine.recoExample()
-
 # Collections
 GET		/collection							controllers.CollectionController.form()
 POST	/collection							controllers.CollectionController.submit()
