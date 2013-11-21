@@ -180,11 +180,11 @@ $( document ).ready(function() {
 	});
 
 	$("#orderItem1Button").click(function(){
-		$('.alert').fadeOut();
+		$('#validationAlert').fadeOut();
 		orderItem();
 	});
 	$("#orderItem2Button").click(function(){
-		$('.alert').fadeOut();
+		$('#validationAlert').fadeOut();
 		orderItem();
 	});
 
@@ -257,7 +257,7 @@ function validateOK(){
 			message +="<p>Por favor elegí tu talle</p>";
 		}
 		if(!ok){
-			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+			$('#rootwizard').before("<div id='validationAlert' class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
 			selectFirstTab();
 		}
 		return ok;		
