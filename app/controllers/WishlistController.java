@@ -9,14 +9,13 @@ import play.mvc.Result;
 import security.RestrictTo;
 import security.Roles;
 
+@RestrictTo(Roles.BUYER)
 public class WishlistController extends BaseController {
 	
-	@RestrictTo(Roles.BUYER)
 	public static Result userWishlistItems() {
 		return ok(Json.toJson(WishlistItem.findItemsOwnedBy(currentUserId())));
 	}
 	
-	@RestrictTo(Roles.BUYER)
 	public static Result addItemToWishlist() {
 		try {
 			DynamicForm data = Form.form().bindFromRequest();
@@ -26,7 +25,8 @@ public class WishlistController extends BaseController {
 					.eq("owner.userId", currentUserId())
 					.eq("item.id", itemId).findUnique();
 			// Cannot have duplicates.
-			if(wishItem != null) return badRequest();
+			if(wishItem != null)
+				return status(409,"Duplicate wishlist item.");
 			
 			WishlistItem wish = new WishlistItem(Item.find.byId(itemId), currentUser());
 			wish.save();
@@ -37,7 +37,6 @@ public class WishlistController extends BaseController {
 		}
 	}
 	
-	@RestrictTo(Roles.BUYER)
 	public static Result removeItemFromWishlist(String itemId) {
 		try {	
 			WishlistItem wish = WishlistItem.find.where()

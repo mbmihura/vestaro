@@ -16,10 +16,10 @@ filter('priceBetween', function () {
     
 }).filter('inCategory', function(){
     return function(items, category){
-        if(category.id == 0) return items;
+        if(angular.isUndefined(category) || category.id == 1) return items;
         var filteredItems = [];
         angular.forEach(items, function ( item ) {
-            if ( item.title.toLowerCase().search(category.name.toLowerCase()) != -1 ) {
+            if (item.category.id == category.id) {
                 filteredItems.push(item);
             }
         });

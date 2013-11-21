@@ -3,8 +3,12 @@
 /* Controllers */
 vestaroMain.
 
-controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',function($scope, $routeParams, $location){
-  $scope.templateUrl = $location.$$url;
+controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$route', '$compile', '$http',
+  function($scope, $routeParams, $location, $route, $compile, $http){
+  $route.current.templateUrl = $location.$$url;
+  $http.get($route.current.templateUrl).then(function (msg) {
+    $('#views').html($compile(msg.data)($scope));
+  });
 }])
 
 .controller('GarmentListCtrl', ['$scope','garmentsApi', function($scope, garmentsApi){
@@ -81,6 +85,33 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
   };
 }])
 
+.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', '$http','Easyrec', 'Facebook', 'BuyerSession',
+  function($scope, garmentsApi, $routeParams, $location, $http, Easyrec, Facebook, BuyerSession){
+  $scope.garment = garmentsApi.get({id: $routeParams.id}, function() {
+    $scope.garment.availableStocks = "";
+    $scope.garment.stock.forEach(function(s) {
+      if(s.quantity > 0)
+        $scope.garment.availableStocks += s.size + ", ";
+    });
+
+    $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
+    $http.post('/garment/' + $routeParams.id + '/actions', {type:'VIEW'});
+    $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2);
+    
+    Easyrec.sendAction('view', $scope.garment);
+
+    $scope.shareItem = function(){
+      Facebook.feedDialog($scope.garment);
+    }
+
+    $scope.addToWishlist = function(){
+      BuyerSession.addToWishlist($scope.garment);
+    }
+});
+
+
+}])
+
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.views = [
       {path: '/', title: 'Inicio', icon: 'home'},
@@ -95,8 +126,17 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location',funct
       return false;
     };
     
-}]);
+}])
 
-function SellerDashboardCtrl($scope){}
-function CollectionsCtrl(){}
-function SelletSettingsCtrl(){}
+.controller('SellerDetailsCtrl', ['$scope', '$http', '$routeParams',
+  function($scope, $http, $routeParams) {
+    $http.get('/seller/' + $routeParams.id)
+      .success(function(response){
+        $scope.seller = response;
+      })
+      .error(function(response){
+        console.log(response);
+      });
+}])
+
+.controller('NullCtrl', [function (){}]);

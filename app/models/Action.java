@@ -54,6 +54,19 @@ public class Action extends Model {
 		        .findList();
     }
     
-    
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		DateActions other = (DateActions) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		return true;
+	}
     
 }

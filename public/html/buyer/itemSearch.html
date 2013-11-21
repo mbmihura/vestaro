@@ -1,68 +1,136 @@
+<!-- HEADER -->
 <div class="page-header" align="center">
-<h1>Encontrá la mejor ropa. <small>En un solo lugar.</small></h1>
+	<h1>Encontrá la mejor ropa. <small>En un solo lugar.</small><span class="pull-right glyphicon glyphicon-th"></span></h1>
 </div>
 
 <div class="row">
 	<!-- FILTERS -->
 	<div class="col-md-2">
 		<div class="well well-sm">
-			
+			<!-- SEARCH -->
 			<div class="form-group">
-				<label>Filtrar</label>
-				<input type="search" ng-model="search.title" class="form-control" placeholder="Search">
-				<!-- <input type="text" ng-model="order" class="form-control" placeholder="Order"> -->
+				<label>Filtrar:</label>
+				<div class="input-group" style="width:100%">
+					<input type="text" class="form-control" id="search-item" placeholder="Buscar..." ng-model="search.title">
+					<span class="input-group-addon glyphicon glyphicon-search"></span>
+				</div>
 			</div>
-			
+			<hr>
+			<!-- MAKE PRESENT -->
+			<button ng-class="{disabled: !isLogged}" type="button" title="Haz click para elegir un amigo." class="btn btn-primary btn-block" ng-click="getFriends()">Regalar -&nbsp;<span class="glyphicon glyphicon-gift"></span></button>
+			<div style="padding-top:5px" class="list-group" ng-show="selectedFriend">
+				<a style="padding-left:2px" class="list-group-item active">
+					<img class="pull-left fb-img" ng-src="{{selectedFriend.pic_square}}">
+					<div style="padding-top:2px" class="list-group-item-heading">{{selectedFriend.name}}</div>
+					<button style="position: absolute;right: 8px;top: 16px;" type="button" class="close" ng-click="cancelPresent()">×</button>
+				</a>
+			</div>
+			<hr>
+			<!-- ORDER BY -->
+			<div class="form-group">
+				<div class="btn-group-vertical" style ="width:100%">
+					<label>Ordenar por:</label>
+					<button type="button" class="btn btn-sm btn-default" ng-click="order='title'">Nombre</button>
+					<button type="button" class="btn btn-sm btn-default" ng-click="order='price'">Precio</button>
+					<button type="button" class="btn btn-sm btn-default" ng-click="order='category.title'">Categoría</button>
+				</div>
+			</div>
+			<hr>
+			<!-- FILTER BY PRICE -->
 			<div class="form-group">
 				<label>Precio entre:</label>
 				<input type="number" min="1" ng-model="minPrice" ng-init="minPrice = 1" class="form-control" placeholder="Precio mínimo...">
 				<input type="number" min="1" ng-model="maxPrice" ng-init="maxPrice = 100000000" class="form-control" placeholder="Precio máximo...">
 			</div>
-			
+			<hr>
+			<!-- FILTER BY CATEGORY -->
 			<div class="form-group">
-				<label>Categoría</label>
-				<select class="selectpicker" ng-model="selectedCategory" ng-init="selectedCategory = categories[0]"
-					ng-options="category.name for category in categories"></select>
+				<label>Categoría:</label>
+				<select class="form-control" ng-model="selectedCategory" 
+				ng-options="category.title for category in categories | orderBy:'title'" style ="width:100%">
+				</select>
 			</div>
-
+			<hr>
+			<!-- LIMIT SHOWED ITEMS -->
 			<div class="form-inline">
 				<div class="form-group">
 					<label for="numItems">Cantidad de items:</label>
 					<input id="numItems" type="number" min="8" ng-model="numItems" ng-init="numItems = 20" class="form-control">
 				</div>
 			</div>
-			
+		</div>
+	</div>
+	<div class="col-md-10">
+		<!-- FRIEND HAS NO RECOMMENDATIONS INFO -->
+		<div class="alert alert-dismissable alert-info" ng-show="!friendHasRecommendations" align="center">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<h4>{{selectedFriend.name}} no tiene Recomendaciones.</h4>
+			<p>De todas formas podés buscar prendas en todo el catálogo Vestaro.</p>
+		</div>
+		<!-- EASYREC NOT WORKING WARNING -->
+		<div class="alert alert-dismissable alert-warning" ng-show="easyrecError" align="center">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<h4><strong>Ooops!</strong> Hubo un problema al obtener las recomendaciones de {{selectedFriend.name}}.</h4>
+			<p>Intentalo nuevamente <button ng-click="getFriendRecommendations()" class="btn btn-warning btn-sm" title="Actualizar"><span class="glyphicon glyphicon-refresh"></span></button></p>
 		</div>
 	</div>
 	<!-- ITEMS CONTAINER -->
 	<div class="col-md-10">
-		<div ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems"
-			class="item-container col-md-3" ng-animate="'animate'">
-			<div class="thumbnail item-thumb">
-				<div class="item-actions">
-					<ol class="breadcrumb">
-						<li ng-click="addToWishlist(item)" class="has-tooltip action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></li>
-						<li class="has-tooltip action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></li>
-						<li ng-click="showBuyItemModal(item)" class="has-tooltip action" title="Ver más"><span class="glyphicon glyphicon-zoom-in"></span></li>
-					</ol>
-				</div>
-				<div class="item-main">
-					<h4 class="item-title">{{item.title}}</h4>
-					<img class="item-img" src="{{item.imgUrl}}" alt="{{item.description}}">
-				</div>
-				<div class="item-details" align="center">
-					<div class="btn-group">
-						<div class="btn btn-default disabled price">${{item.price}}</div>
-						<a type="button" href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+		<ul masonry="true">
+			<li class="col-md-3 item-container" ng-repeat="item in items | priceBetween:minPrice:maxPrice | filter:search | orderBy:order | inCategory:selectedCategory | limitTo:numItems">
+				<div class="item-thumb">
+					<div class="item-actions">
+						<div ng-click="addToWishlist(item)" class="action" title="Agregar a Wishlist"><span class="glyphicon glyphicon-star-empty"></span></div>
+						<div ng-click="shareItem(item)" class="action" title="Compartir en Facebook"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+						<a ng-href="#/garments/{{item.id}}" class="action" title="Ver más..."><span class="glyphicon glyphicon-zoom-in"></span></a>
+					</div>
+					<div class="item-main">
+						<h4 class="item-title">{{item.title}}</h4>
+						<img class="item-img" ng-src="{{item.imgUrl}}" alt="{{item.description}}">
+					</div>
+					<div class="item-details" align="center">
+						<div class="btn-group">
+							<div class="btn btn-default disabled price">${{item.price}}</div>
+							<a type="button" ng-href="#/buy?id={{item.id}}" class="btn btn-primary">Comprar</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</li>
+		</ul>
 	</div>
 </div>
 
-<!-- BUY MODAL -->
-<div ng-include="'/assets/html/buyItemModal.html'"></div>
+<!-- FRIENDS LIST -->
+<div id="friendsListModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Elige un amigo para hacerle un regalo.</h4>
+			</div>
+			<!-- NO FRIENDS USING VESTARO INFO -->
+			<div class="modal-body">
+				<div class="alert alert-info" ng-show="friends.length == 0">
+					<h4>Parece que tus amigos no conocen Vestaro.</h4>
+					<p>No esperes más. Recomendales tu sitio favorito de compra de ropa y empezá a conocer los gustos de tus amigos.</p>
+				</div>
+				<div class="list-group">
+					<a style="cursor: pointer" class="list-group-item" ng-repeat="friend in friends" ng-click="setFriend(friend)" ng-class="{active: isSelected(friend)}">
+						<img class="pull-left fb-img" ng-src="{{friend.pic_square}}">
+						<h4 class="list-group-item-heading">{{friend.name}}</h4>
+					</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelPresent()">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="getFriendRecommendations()" ng-class="{disabled: friends.length == 0}">Regalar</button>
+			</div>
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
 
 <!-- Alert Modal -->
 <div ng-include="'/assets/html/alertModal.html'"></div>

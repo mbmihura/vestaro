@@ -60,7 +60,11 @@ public class CollectionController extends BaseController {
         return ok(collection.render(Collection.update(new Collection(collectionId, collectionTitle, collectionDescription))));
     }
     
-    public static Result delete(Long collectionId) {
+	public static Result delete(Long collectionId) {
+    	for(Item item : Item.findItemsFromCollection(collectionId)){
+    		item.deleteCascade();
+    	}
+    	
     	return ok(collection.render(Collection.delete(collectionId)));
     }
     

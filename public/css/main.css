@@ -1,6 +1,6 @@
-@font-face {
-    font-family: VivaldiF;
-    src: url('../fonts/vivaldi.ttf');
+body {
+  /* 60px to make the container go all the way to the bottom of the topbar */
+  padding-top: 55px;
 }
 
 .page-header {
@@ -8,9 +8,6 @@
 }
 
 .vestaro-logo {
-	font-family: vivaldi;
-	color: rgba(41, 116, 185, 1);
-	letter-spacing: 3px;
   cursor: default;
 }
 
@@ -92,7 +89,7 @@ margin-bottom: 10px;
 .items .item {
 margin: 2px;
 float: left;
-width: 220px;
+width: 222px;
 position: relative;
 }
 
@@ -111,7 +108,7 @@ cursor: pointer;
 border-top-right-radius: 15px;
 }
 
-.item .item-container {
+.item .item-isotope {
 position: relative;
 }
 
@@ -192,10 +189,57 @@ border-top-right-radius: 30px;
 }
 
 /* Search Item style */
+/* Masonry */
+.masonry {
+    position: absolute; /* important to add it before enter animation start */
+    padding: 0px;
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+.masonry .item-container { /* apply before masonry add class */
+    position: absolute; /* important to add it before enter animation start */
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+
+.masonry .masonry-enter { /* limit animated properties for entering elements */
+    -webkit-transition-property: -webkit-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.masonry-enter,
+.masonry-leave.masonry-leave-active {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+}
+
+.masonry-leave,
+.masonry-enter.masonry-enter-active {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+/* Item */
+.item-container {
+  margin-bottom: 15px;
+  padding: 0px 15px;
+}
+
 .item-thumb {
+  border-radius: 4px;
+  display: block;
+  height: 250px;
+  max-width: 100%;
+  background-color: white;
+  border: 1.5px solid #ddd;
 	position: relative;
-  margin-bottom: 10px;
-	padding-top: 0px;
+	padding: 4px;
 	-webkit-transition: 200ms ease-in-out all;
     -moz-transition: 200ms ease-in-out all;
     -ms-transition: 200ms ease-in-out all;
@@ -216,6 +260,10 @@ border-top-right-radius: 30px;
 	top: 0px;
 	right: 0px;
 	opacity: 0;
+  background-color: rgba(66, 139, 202, 0.9);
+	/* Breadcrumb */
+	border-bottom-left-radius: 4px;
+  padding: 5px 10px;
   -webkit-transition: 200ms ease-in-out all;
   -moz-transition: 200ms ease-in-out all;
   -ms-transition: 200ms ease-in-out all;
@@ -223,37 +271,32 @@ border-top-right-radius: 30px;
   transition: 200ms ease-in-out all;
 }
 
-.item-thumb .item-actions .breadcrumb {
-  background-color: rgba(66, 139, 202, 0.9);
-	border-radius: 0px;
-	border-bottom-left-radius: 4px;
-	border-top-right-radius: 4px;
-  margin: 0px;
-}
-
-.item-thumb .item-actions .breadcrumb .action {
+.item-thumb .item-actions .action {
+  display: inline-block;
+  position: relative;
   color: white;
+  margin: 4px;
 }
 
 .item-thumb .item-main {
   text-align: center;
   padding: 4px;
-  height: 210px;
   /*Hack to center verically the img.*/
-  line-height: 160px;
+  height: 85%;
+  line-height: 155px;
 }
 
 .item-thumb .item-main .item-img {
 	border-radius: 4px;
-  max-height: 160px;
+  max-height: 82%;
   max-width: 100%;
   vertical-align: middle;
 }
 
 .item-thumb .item-main .item-title {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 20px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 2px;
   cursor: default;
   /* To make the title fit. */
   text-overflow: ellipsis;
@@ -261,23 +304,46 @@ border-top-right-radius: 30px;
   white-space: nowrap;
 }
 
-.item-thumb .item-main.wishlist {
-  height: 400px;
-  line-height: 345px;
-}
-
-.item-thumb .item-main .item-img.wishlist {
-  max-height: 345px;
-}
-
-.item-thumb .item-main .item-title.wishlist {
-  height: 25px;
-}
-
 .item-thumb .item-details .price {
-font-color: #2974B9;
-font-weight: bold;
-font-size: 14px;
+  font-color: #2974B9;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Friends List */
+
+.list-group-item-heading {
+  padding-top: 12px;
+  cursor: default;
+  overflow: hidden;
+}
+
+.list-group-item {
+  height: 50px;
+  padding-top: 2px;
+  padding-bottom: 3px;
+}
+
+.fb-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+/* Wishlist */
+.item-thumb.wishlist {
+  height: 400px;
+  /*line-height: 345px;*/
+}
+
+.item-thumb.wishlist .item-main {
+  height: 88%;
+  line-height: 300px;
+}
+
+.item-thumb.wishlist .item-main .item-img{
+  max-height: 85%;
 }
 
 /* To fill the container and nothing else */
@@ -303,15 +369,14 @@ height: 100%;
 }
 /* end of facebook responsive */
 
-
 .animate-enter, 
 .animate-leave
 { 
-    -webkit-transition: 600ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 600ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 600ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 600ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 600ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -webkit-transition: 300ms ease-in-out all;
+    -moz-transition: 300ms ease-in-out all;
+    -ms-transition: 300ms ease-in-out all;
+    -o-transition: 300ms ease-in-out all;
+    transition: 300ms ease-in-out all;
     position: relative;
     display: block;
 } 
@@ -319,15 +384,11 @@ height: 100%;
 .animate-enter.animate-enter-active, 
 .animate-leave {
     opacity: 1;
-    top: 0;
-    height: 30px;
 }
 
 .animate-leave.animate-leave-active,
 .animate-enter {
     opacity: 0;
-    top: -50px;
-    height: 0px;
 }
 
 /**** Custom dialog/modal headers ****/
@@ -350,4 +411,86 @@ height: 100%;
     color: #ffffff; 
 }
 
-/**** End of Custom dialog/modal headers ****/
+/**** Garments Details ****/
+#garmentDetail_boxContainer {
+    border-color: rgb(204, 204, 204);
+    border-radius: 8px 8px 8px 8px;
+    border-style: solid;
+    border-width: 1px;
+    color: rgb(85, 85, 85);
+    font: normal normal normal 12px/normal Verdana, Arial, sans;
+    font-family: Verdana, Arial, sans;
+    font-size: 12px;
+    margin-bottom: 15px;
+    width: 1003px;
+}/*#garmentDetail_boxContainer*/
+
+#garmentDetail_boxContainer .innerContainer:after {
+    clear: both;
+    content: '';
+    display: table;
+}/*#garmentDetail_boxContainer .innerContainer:after*/
+
+#garmentDetail_boxContainer .imageContainer {
+    float: left;
+    padding-top: 10px;
+}/*#garmentDetail_boxContainer .imageContainer*/
+
+#garmentDetail_brandLogo {
+    border-left-color: rgb(221, 221, 221);
+    border-left-style: solid;
+    border-left-width: 1px;
+    float: right;
+    height: 52px;
+    text-align: center;
+    width: 239px;
+}/*#garmentDetail_brandLogo*/
+
+#garmentDetail_brandLogo a {
+    display: block;
+    margin-left: 13px;
+    margin-right: 13px;
+    padding-bottom: 4px;
+    padding-top: 7px;
+    text-align: center;
+}/*#garmentDetail_brandLogo a */
+
+#garmentDetail_brandLogo img {
+    width: 184px;
+}/*#garmentDetail_brandLogo img */
+
+#garmentDetail_detailsContainer {
+    background-color: rgb(241, 241, 241);
+
+    border-bottom-color: rgb(221, 221, 221);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(221, 221, 221);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-top-color: rgb(221, 221, 221);
+    border-top-style: solid;
+    border-top-width: 1px;
+    float: right;
+    position: relative;
+    width: 239px;
+}/*#garmentDetail_detailsContainer*/
+
+#garmentDetail_form {
+    height: 340px;
+    padding: 10px 0px 0px;
+    padding-top: 10px;
+    text-align: center; /* se deberia ir */
+}/*#garmentDetail_form*/
+
+#garmentDetail_stockSize_container {
+    margin-top: 17px;
+    margin-bottom: 30px;
+}/*#garmentDetail_stockSize_container*/
+
+
+#garmentDetail_stockSizes {
+    color: rgb(44, 89, 135);
+    font-family: Verdana, Arial, sans;
+    font-size: 12px;
+}/*#garmentDetail_stockSizes*/

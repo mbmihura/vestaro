@@ -1,7 +1,6 @@
 package models;
 
 import java.sql.Timestamp;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,24 +16,23 @@ import play.db.ebean.Model;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @SuppressWarnings("serial")
-	
 @Entity
 public class StockPerSize extends Model {
-    @Id
-    public Long id;
-    @Constraints.Required
-    @Constraints.MaxLength(30)
-    public String size;
-    @Constraints.Required
-    public Integer quantity;
-    @Constraints.Required
-    @OneToOne
-    @JsonIgnore    
-    public Item item;
-    @CreatedTimestamp
-    Timestamp create_time;
-    @Version
-    Timestamp update_time;
+	@Id
+	public Long id;
+	@Constraints.Required
+	@Constraints.MaxLength(30)
+	public String size;
+	@Constraints.Required
+	public Integer quantity;
+	@Constraints.Required
+	@OneToOne
+	@JsonIgnore
+	public Item item;
+	@CreatedTimestamp
+	Timestamp create_time;
+	@Version
+	Timestamp update_time;
 
 	public StockPerSize(Long id, String size, Integer quantity) {
 		this.id = id;
@@ -75,11 +73,11 @@ public class StockPerSize extends Model {
                 .findList();
     }
 
-	public static StockPerSize findBySize(String itemId, String size) {
+	public static StockPerSize findBySize(String itemId, Long size) {
 		return StockPerSize.find
                 .where()
                 	.eq("item.id", itemId)
-                	.eq("size", size)
+                	.eq("id", size)
                 .findUnique();
 	}
 }
