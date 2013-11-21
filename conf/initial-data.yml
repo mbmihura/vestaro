@@ -382,84 +382,72 @@ items:
 stocks:
 
     - !!models.StockPerSize
-        id:          1
         size:        XS
         quantity:       1
         item:        !!models.Item
                         id: CB3
 
     - !!models.StockPerSize
-        id:          2
         size:        S
         quantity:       2
         item:        !!models.Item
                         id: CB3
 
     - !!models.StockPerSize
-        id:          3
         size:        M
         quantity:       22
         item:        !!models.Item
                         id: CB3    
 
     - !!models.StockPerSize
-        id:          4
         size:        L
         quantity:       5
         item:        !!models.Item
                         id: CB1
 
     - !!models.StockPerSize
-        id:          5
         size:        M
         quantity:       4
         item:        !!models.Item
                         id: CB1
 
     - !!models.StockPerSize
-        id:          6
         size:        S
         quantity:       1
         item:        !!models.Item
                         id: CB2
 
     - !!models.StockPerSize
-        id:          7
         size:        M
         quantity:       0
         item:        !!models.Item
                         id: CAB1
 
     - !!models.StockPerSize
-        id:          8
         size:        L
         quantity:       7
         item:        !!models.Item
                         id: CAB1
 
     - !!models.StockPerSize
-        id:          9
         size:        XS
         quantity:       3
         item:        !!models.Item
                         id: MM
 
     - !!models.StockPerSize
-        id:          10
         size:        M
         quantity:       1
         item:        !!models.Item
                         id: MM
 
     - !!models.StockPerSize
-        id:          11
         size:        S
         quantity:       5
         item:        !!models.Item
                         id: MV
 
     - !!models.StockPerSize
-        id:          12
         size:        L
         quantity:       10
         item:        !!models.Item
