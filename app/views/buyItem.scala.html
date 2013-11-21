@@ -4,8 +4,8 @@
 <div data-id="@item.id">
 	<div id="rootwizard">
 		<ul class="nav nav-pills">
-			<li class="active"><a style="cursor:pointer" id="modifyOrderButton" data-toggle="tab">Crear orden de compra</a></li>
-			<li class=""><a id="orderItemButton" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
+			<li class="active"><a style="cursor:pointer" id="modifyOrder1Button" data-toggle="tab">Crear orden de compra</a></li>
+			<li class=""><a id="orderItem1Button" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
 		</ul>
 		<div class="tab-content" style="margin-top: 5px;" >
 			<!-- CREATE ORDER -->
@@ -94,7 +94,9 @@
 									}
 								}
 							</div>
+							<button id= "orderItem2Button" type="button" style="  margin-left: auto; margin-right: auto; padding: 15px; display: block; font-size: 20px;"class="btn btn-success"> Crear orden de compra</button>
 							}
+
 					</div>
 				</div>
 			</div>
@@ -102,7 +104,7 @@
 			<!-- PAY ORDER -->
 			<div class="tab-pane well" id="tab2">
 				<label style="visibility:hidden; position:absolute;" class="buyOrderId" ></label>
-				@payOrder(item, "", 0,"")
+				@payOrder(item, "", 0,"", true)
 			</div>
 		</div>
 	</div>
@@ -177,12 +179,19 @@ $( document ).ready(function() {
 		persistModifications();
 	});
 
-	$("#orderItemButton").click(function(){
-		$('.alert').fadeOut();
+	$("#orderItem1Button").click(function(){
+		$('#validationAlert').fadeOut();
+		orderItem();
+	});
+	$("#orderItem2Button").click(function(){
+		$('#validationAlert').fadeOut();
 		orderItem();
 	});
 
-	$("#modifyOrderButton").click(function(){
+	$("#modifyOrder1Button").click(function(){
+		modifyOrder();
+	});
+	$("#modifyOrder2Button").click(function(){
 		modifyOrder();
 	});
 
@@ -248,7 +257,7 @@ function validateOK(){
 			message +="<p>Por favor elegí tu talle</p>";
 		}
 		if(!ok){
-			$('#rootwizard').before("<div class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
+			$('#rootwizard').before("<div id='validationAlert' class='alert alert-warning'>"+message+"</div>").prev().hide().fadeIn(1000);
 			selectFirstTab();
 		}
 		return ok;		

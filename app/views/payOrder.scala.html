@@ -1,4 +1,4 @@
-@(item: Item, size: String, pointsUsed: Integer,  checkOutUrl: String)
+@(item: Item, size: String, pointsUsed: Integer,  checkOutUrl: String, editable: Boolean)
 <div class="control-group">
 	<h2 style="margin-bottom: 30px;">Detalle compra</h2>
 	<table class="table table-striped">
@@ -37,7 +37,10 @@
 	</table>
 
 	<div class="form-group">	
-		<button id="mpButton"  class="btn btn-primary btn-lg">Pagar</button>
+		<button id="mpButton"  class="btn btn-success btn-lg">Pagar</button>
+		@if(editable){
+			<button id="modifyOrder2Button" class="btn btn-primary btn-lg" >Modificar</button>
+		}
 		<button class="btn btn-default btn-lg" onclick="window.location.href=/#/">Pagar más tarde</button>
 		<p id="mpUrl" style="visibility:hidden; position:absolute;">@checkOutUrl</p>
 		<p style="margin-top:20px;font-size: 15px;font-style: italic;">Podés seguir comprando y pagar esta órden más tarde entrando a tu <a href="/#/buyerProfile"><strong>Perfil</strong></a></p>
