@@ -1,0 +1,37 @@
+<div class="well container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<img src="{{seller.logoUrl}}" class="img-responsive media-object" alt="No tiene ningún logo seleccionado.">
+		</div>
+		<div class="col-md-10">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<div class="col-md-10">
+						<label for="name" class="col-md-4 control-label">Nombre de Marca</label>
+						<div class="col-md-8">
+							<div type="text" class="form-control" id="name">{{seller.brandName}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-10">
+						<label for="webpageUrl" class="col-md-4 control-label">Página Web</label>
+						<div class="col-md-8">
+							<a type="text" ng-href="{{seller.webpageUrl}}" class="form-control" id="webpageUrl">{{seller.webpageUrl}}</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10" align="center" style="margin:10px auto;">
+					<a class="btn btn-lg btn-success" ng-href="http://www.facebook.com/{{seller.user.userId}}" style="width:50%">Contacto</a>
+				</div>
+				<div ng-hide="seller.pointsEnabled" class="alert alert-dismissable alert-info col-md-10" align="center">
+					<h3>El vendedor no tiene el sistema de puntos habilitado.</h3>
+				</div>
+				<div ng-show="seller.pointsEnabled" class="alert alert-dismissable alert-info col-md-10" align="center">
+					<h4>El vendedor tiene el sistema de puntos habilitado.</h5>
+					<h5>La relación es de <span class="label label-success">${{seller.pointMoneyRelation}}</span> por punto.</h5>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -13,7 +13,6 @@ import org.codehaus.jettison.json.JSONException;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
-import security.SubjectPresent;
 import security.RestrictTo;
 import security.Roles;
 
@@ -50,7 +49,7 @@ public class BuyerController extends BaseController {
 
 		try {
 			return ok(views.html.payOrder.render(buyOrder.item, buyOrder.size.size, buyOrder.pointsUsed,
-					manager.checkout(buyOrder)));
+					manager.checkout(buyOrder), false));
 		} catch (JSONException e) {
 			return badRequest();// TODO: think what to do when it fails
 		} catch (Exception e) {

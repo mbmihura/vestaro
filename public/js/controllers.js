@@ -58,8 +58,8 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
 
 }])
 
-.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', '$http','Easyrec',
-  function($scope, garmentsApi, $routeParams, $location, $http, Easyrec){
+.controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', '$http','Easyrec', 'Facebook', 'BuyerSession',
+  function($scope, garmentsApi, $routeParams, $location, $http, Easyrec, Facebook, BuyerSession){
   $scope.garment = garmentsApi.get({id: $routeParams.id}, function() {
     $scope.garment.availableStocks = "";
     $scope.garment.stock.forEach(function(s) {
@@ -72,6 +72,14 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
     $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2);
     
     Easyrec.sendAction('view', $scope.garment);
+
+    $scope.shareItem = function(){
+      Facebook.feedDialog($scope.garment);
+    }
+
+    $scope.addToWishlist = function(){
+      BuyerSession.addToWishlist($scope.garment);
+    }
 });
 
 
@@ -91,6 +99,17 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
       return false;
     };
     
+}])
+
+.controller('SellerDetailsCtrl', ['$scope', '$http', '$routeParams',
+  function($scope, $http, $routeParams) {
+    $http.get('/seller/' + $routeParams.id)
+      .success(function(response){
+        $scope.seller = response;
+      })
+      .error(function(response){
+        console.log(response);
+      });
 }])
 
 .controller('NullCtrl', [function (){}]);

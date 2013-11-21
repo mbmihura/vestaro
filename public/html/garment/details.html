@@ -2,16 +2,14 @@
 <div id="garmentDetail_boxContainer">
 	<div class="innerContainer">
 		<div class="imageContainer">
-			
-				<h1 class="title item" id="H1_10" style="margin-bottom: 20px;">
-					<a class="brand" id="A_11">{{garment.title}}</a>
-				</h1>
-				<div id="DIV_46" class="curtains-up">
-					<div id="DIV_47">
-						<img src="{{garment.imgUrl}}" id="garmentDetailImg" alt='garment image' />
-					</div>
-				</div>					
-			
+			<h1 class="title item" id="H1_10" style="margin-bottom: 20px;">
+				<a class="brand" id="A_11">{{garment.title}}</a>
+			</h1>
+			<div id="DIV_46" class="curtains-up">
+				<div id="DIV_47">
+					<img src="{{garment.imgUrl}}" id="garmentDetailImg" alt='garment image' style="width:auto;border-radius:15px;">
+				</div>
+			</div>					
 		</div>
 		<div id="garmentDetail_brandLogo">
 			<a href="">
@@ -32,10 +30,10 @@
 						<span id="garmentDetail_stockSizes">Talles Disponibles: {{garment.availableStocks}}</span>
 					</div>
 					<div style="padding: 10px;">
-						<button data-toggle="modal"  data-target="sdf" class="btn btn-lg btn-success" style="width: 208px;">Comprar</button>
+						<a data-toggle="modal" ng-href="#/buy?id={{garment.id}}" data-target="sdf" class="btn btn-lg btn-success" style="width: 208px;">Comprar</a>
 					</div>
 					<div style="padding: 10px;">
-						<button type="button" class="btn btn-lg btn-warning" style="width: 208px;">Agregar a favoritos</button>
+						<button type="button" class="btn btn-lg btn-warning" style="width: 208px;" ng-click="addToWishlist()">Agregar a Wishlist</button>
 					</div>
 				</form>
 
@@ -43,10 +41,10 @@
 					<span id="sharePrefix">Share:</span>
 					<div class="share-box custom-style" id="share-facebook" data-link-url="http://facebook.com/sharer.php?u=" data-add-class="popup-995-500-center gae-click*Product-Page*Social-Sharing*Facebook">
 						<div class="inner">
-						<div class="fb-like" data-href="" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div>
+							<div class="fb-like" data-href="" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div>
 							<span class="spinner"></span>
 							<!-- TODO: when alan's fb service ready, check if it cna be use. -->
-							<div class="fake-button" onclick="FB.ui({  method: 'feed',  caption: 'Compartir {{garment.title}}'}, function(response){});"></div>
+							<div class="fake-button" ng-click="shareItem()"></div>
 						</div>
 					</div>
 					<div class="share-box custom-style" id="share-twitter" data-add-class="popup-600-400-center gae-click*Product-Page*Social-Sharing*Twitter">
@@ -69,4 +67,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
 
+<!-- Alert Modal -->
+<div ng-include="'/assets/html/alertModal.html'"></div>

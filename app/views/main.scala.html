@@ -54,7 +54,7 @@
     <script>
         /* EasyRec */
         /* Si es servicio de Koding... */ var easyrecApiUrl="http://vestaro.kd.io:8080/easyrec-web/api/1.0/json/";
-        /* Si es instancia local...    */ //var easyrecApiUrl="http://localhost:8080/easyrec-web/api/1.0/json/";
+        /* Si es instancia local...    */ //var easyrecApiUrl="http://192.168.0.9:8080/easyrec-web/api/1.0/json/";
 
         var tenantId = "VestaroPROD";
         var apiKey = "2df1c6d670c4ca40b6ee160e3d74e8b6";
@@ -93,7 +93,7 @@
                 $('#remoteModal').modal({remote: '/assets/html/authentication/registrationModalBuyerSelleChoice.html'})
               } else {
                 // ...skip to vestaro login directly.
-                AuthenticateVestaro();
+                AuthenticateOnVestaro();
               }
 
               // Load user's profile picture
@@ -120,9 +120,9 @@
               });      
 
               // display ui
-              $('#fbSignIn').hide();
+              $('#loginNavBar').hide();
               $('.navbar .connectingWithFbLabel').hide();
-              $('.navbar .loggedUserOptions').fadeIn();
+              $('.navbar .accountOptions').fadeIn();
 
               //If app is not allow, aparently callbackfunction is never call. 
               //} else if (response.status === 'not_authorized') {
@@ -169,13 +169,18 @@
          ref.parentNode.insertBefore(js, ref);
        }(document));
 
-      function AuthenticateVestaro(selectedAccountUsage){
+      function AuthenticateOnVestaro(selectedAccountUsage){
         $.post("@routes.Authentication.login()", 
           {signedRequest: authData.signedRequest, accountUsage: selectedAccountUsage})
           .done(function(data) {
             console.log("Auth to vestaro successful. Data: " + JSON.stringify(data));
             FB.VestaroData.registrationMode = false;
-            if (data.userRoles.length == 0)
+            if (data.userRoles.indexOf('BUYER') != -1)
+            {
+              navBar.showAsBuyer();   
+            } else if (data.userRoles.indexOf('SELLER') != -1) {
+              navBar.showAsSeller();
+            } else 
             {
               $('#remoteModal').modal({remote: '/assets/html/authentication/registrationModalBuyerSelleChoice.html'})
             } 
@@ -193,16 +198,32 @@
                   });
               };
             }
-          });
-
-              //TODO: Load nav's user opts
+          }); 
         };
 
       function SendUserName(username){
         $.post("@routes.Authentication.()", {fbName: username})
       };
+
+      var navBar = {
+        showAsBuyer: function () {
+          $(".navOptions").hide();
+          $("#noUserNavOptions").hide();
+          $("#buyerNavOptions").show();
+          $("#roles").html('Comprador <b class="caret"></b>');
+          $(".rolCheck").hide();
+          $("#buyerRol .rolCheck").show();
+        }, showAsSeller: function () {
+          $(".navOptions").hide();
+          $("#noUserNavOptions").hide();
+          $("#sellerNavOptions").show();
+          $("#roles").html('Vendedor <b class="caret"></b>');
+          $(".rolCheck").hide();
+          $("#sellerRol .rolCheck").show();
+        }
+      }
     </script>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="min-height: 0px; z-index:100">
+    <nav  ng-controller="NavCtrl" class="navbar navbar-default navbar-fixed-top" role="navigation" style="min-height: 0px; z-index:100">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -217,20 +238,23 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul ng-controller="NavCtrl" class="nav navbar-nav">
-            <li ng-repeat="view in views" ng-class="{active: isActive(view)}">
-              <a style="padding-bottom: 10px; padding-top: 10px;" ng-href="#{{view.path}}">
-                <span class="glyphicon glyphicon-{{view.icon}}"></span> {{view.title}}
-              </a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right loggedUserOptions" style="display: none;">
+
+          <!-- Site navigation options -->
+          <div id="noUserNavOptions" class="navOptions" ng-include="'@routes.Assets.at("html/server/noUserNavbar.html")'"></div>
+          <div id="buyerNavOptions" class="navOptions" style="display:none" ng-include="'@routes.Assets.at("html/server/buyerNavbar.html")'"></div>
+          <div id="sellerNavOptions" class="navOptions" style="display:none" ng-include="'@routes.Assets.at("html/server/sellerNavbar.html")'"></div>
+          
+          <!-- Account's options -->
+          <ul class="nav navbar-nav navbar-right accountOptions" style="display: none;">
+            <!-- User's fb profile data -->
             <li>
               <a style="padding: 7px 15px;">
                 <img src="" class="currentUserImg" style="display: none; height: 26px; width: 26px; border-radius: 6px; margin-right: 5px;"> 
                 <span class="currentUsername" style="display: none;"></span>
               </a>
             </li>
+
+            <!-- Buyer/seller choice -->
             <li class="dropdown">
               <a style="padding-bottom: 10px; padding-top: 10px;" class="dropdown-toggle" data-toggle="dropdown" id="roles">Comprador 
                 <b class="caret"></b>
@@ -238,28 +262,31 @@
               <ul class="dropdown-menu" aria-labelledby="roles">
                 <li class="dropdown-header">Usar Vestaro como:</li>
                 <li class="divider"></li>
-                <li>
-                  <a>
-                    <span class="glyphicon glyphicon-ok pull-right"></span>Comprador
+                <li id="buyerRol">
+                  <a onClick="navBar.showAsBuyer();" href="#/">
+                    <span class="rolCheck glyphicon glyphicon-ok pull-right" style="display:none"></span>Comprador
                   </a>
                 </li>
-                <li>
-                  <a>Vendedor</a>
+                <li id="sellerRol">
+                  <a onClick="navBar.showAsSeller();" href="#/dashboard">
+                    <span class="rolCheck glyphicon glyphicon-ok pull-right" style="display:none"></span>Vendedor</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a onclick="FB.logout(function(response) {$('.navbar .loggedUserOptions').fadeOut();});">Salir</a>
+                  <a onclick="FB.logout(function(response) {$('.navbar .accountOptions').fadeOut();});">Salir</a>
                 </li>
               </ul>
             </li>
+
+            <!-- Link contacto -->
             <li>
               <a style="padding: 10px 15px;" href="#/contact" title="Contacto Vestaro"><span class="glyphicon glyphicon-envelope"></span></a>
             </li>
           </ul>
 
-          <div ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
+          <!-- Fb's registration options -->
+          <div id="loginNavBar" ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
         </div>
-        <!-- /.navbar-collapse -->
       </div>
     </nav>
 

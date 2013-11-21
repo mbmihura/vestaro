@@ -8,7 +8,9 @@
 		Tu pago se realizó correctamente. @if(hasEarnedPoints){ <strong>Ganaste </strong><span class="badge active">
 			@buyOrder.pointsEarned </span><strong> puntos.</strong> }
 	</p>
-	<p style="margin-bottom: 15px;">Recordá modificar el estado de tu compra al recibir tu prenda.</p>
+	<p style="margin-top:15px;"> Contactate con el vendedor para coordinar la entrega.</p>
+	<p> Encontrá la información de contacto en la página de <strong><a href="/#/seller/@buyOrder.item.seller.id">@buyOrder.item.seller.brandName</a></strong></p>
+	<p style="margin-bottom: 15px; margin-top: 15px;font-style: italic;">Recordá modificar el estado de tu compra al recibir tu prenda.</p>
 	<a class="btn btn-info" href="/#/buyerProfile">Ver órdenes de compra</a> <a class="btn btn-default" href="/">Seguir comprando</a>
 	</p>
 </div>
