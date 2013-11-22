@@ -93,14 +93,14 @@ public class BuyOrder extends Model {
 
 	public static Finder<Long, BuyOrder> find = new Finder<Long, BuyOrder>(Long.class, BuyOrder.class);
 
-	public BuyOrder create(BuyOrder order, Item item, Buyer buyer, String size, Integer pointsUsed)
+	public BuyOrder create(BuyOrder order, Item item, Buyer buyer, Long sizeId, Integer pointsUsed)
 			throws InvalidBuyOrderException {
-		this.validateOk(item, buyer, size, pointsUsed);
-
+		this.validateOk(item, buyer, pointsUsed);
+		
 		order.item = item;
 		order.price = item.price;
 		order.buyer = buyer;
-		order.size = StockPerSize.find.byId(size);
+		order.size = StockPerSize.findBySize(item.id, sizeId);
 		order.pointsUsed = pointsUsed;
 		order.buyer.points -= pointsUsed;
 		order.commission = order.getCommision();
@@ -111,16 +111,12 @@ public class BuyOrder extends Model {
 		return order;
 	}
 
-	private void validateOk(Item item, Buyer buyer, String size, Integer pointsUsed) throws InvalidBuyOrderException {
+	private void validateOk(Item item, Buyer buyer, Integer pointsUsed) throws InvalidBuyOrderException {
 
-		if (notEnoughPoints(buyer, pointsUsed) || excededMaxPercentPermitted(item, pointsUsed) || notSelectedSize(size)) {
+		if (notEnoughPoints(buyer, pointsUsed) || excededMaxPercentPermitted(item, pointsUsed)) {
 			throw new InvalidBuyOrderException();
 		}
 
-	}
-
-	private boolean notSelectedSize(String size) {
-		return size.equals("null");
 	}
 
 	private boolean excededMaxPercentPermitted(Item item, Integer pointsUsed) {
@@ -218,11 +214,11 @@ public class BuyOrder extends Model {
 
 	}
 
-	public void modify(String selectedSizeId, Integer pointsToUse) throws InvalidBuyOrderException {
+	public void modify(Long selectedSizeId, Integer pointsToUse) throws InvalidBuyOrderException {
 		if (this.pointsUsed != pointsToUse) {
 			this.buyer.points += this.pointsUsed;
 		}
-		this.validateOk(this.item, this.buyer, selectedSizeId, pointsToUse);
+		this.validateOk(this.item, this.buyer, pointsToUse);
 
 		this.size = StockPerSize.find.byId(selectedSizeId);
 

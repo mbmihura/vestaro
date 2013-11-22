@@ -33,7 +33,7 @@
 					<div class="media-body">
 						<div class="modalText" style="visibility: hidden; position:absolute;">
 							@if(notification.notificationType.getMessage() == "Venta en Disputa"){
-								<p><strong>@notification.buyerName</strong> abrió una disputa en la órden de compra de id 
+								<p><strong>@notification.buyerName</strong> abrió una disputa en la orden de compra de id 
 									<strong>#@notification.buyOrderId</strong> correspondiente al item <strong>@notification.itemTitle.</strong></p>
 									@if(notification.disputeMessage != ""){
 									<p>El comprador dejó el siguiente mensaje:</p>
@@ -44,7 +44,7 @@
 
 							@if(notification.notificationType.getMessage() == "Nueva Venta"){
 								<p><strong>@notification.buyerName</strong> compró tu item <strong>@notification.itemTitle.</strong>
-								La órden de compra correspondiente es la número <strong>#@notification.buyOrderId</strong>.</p>
+								La orden de compra correspondiente es la número <strong>#@notification.buyOrderId</strong>.</p>
 								<p>El comprador pagó <strong>$@notification.ammountPayed</strong>
 									@if(notification.pointsUsed > 0){
 									y usó <strong> @notification.pointsUsed </strong> puntos
