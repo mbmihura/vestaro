@@ -24,7 +24,7 @@
 							</a>
 						</h4>
 					</div>
-					<div id=@buyOrder.id class="panel-collapse collapse in">
+					<div id=@buyOrder.id class="panel-collapse collapse">
 						<div class="panel-body">
 							<div class="col-lg-3">
 								<img src=@buyOrder.item.imgUrl style="border-radius: 4px; max-height: 140px; max-width: 100%;">
@@ -56,8 +56,6 @@
 @disputeModal()
 
 <script type="text/javascript">
-
-$('.collapse').collapse('hide');
 
 function showDisputeModal(buyOrder){
 	$('#save').click(
