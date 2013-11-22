@@ -180,9 +180,9 @@ items:
 
     - !!models.Item
         id:           CB1
-        title:        Camisa Blanca
-        description:  Camisa blanca a cuadros manga larga
-        imgUrl:       /assets/img/items/camisa_a_cuadros_blanca.jpg
+        title:        Camisa Hawaiana
+        description:  Camisa original de hawai para usar este verano.
+        imgUrl:       /assets/img/items/camisaHawaiana.jpg
         price:        200
         sex:        m
         seller:        *ropaTop
