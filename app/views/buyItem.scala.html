@@ -5,7 +5,7 @@
 	<div id="rootwizard">
 		<ul class="nav nav-pills">
 			<li class="active"><a style="cursor:pointer" id="modifyOrder1Button" data-toggle="tab">Crear orden de compra</a></li>
-			<li><a id="orderItemButton" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
+			<li><a id="orderItem1Button" style="cursor:pointer" data-toggle="tab" >Pagar orden de compra</a></li>
 			<h3><span class="glyphicon glyphicon-usd pull-right" style="height: 95%; width: auto;"></span></h3>
 		</ul>
 		<div class="tab-content" style="margin-top: 5px;" >
@@ -52,7 +52,7 @@
 						          </tr>
 						          <tr>
 						            <td><label>Vendedor</label></td>
-						            <td><a href="@item.seller.webpageUrl">@item.seller.brandName</a></td>
+						            <td><a href="/#/seller/@item.seller.id">@item.seller.brandName</a></td>
 						          </tr>
 						        </tbody>
 						      </table>
