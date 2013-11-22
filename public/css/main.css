@@ -391,8 +391,7 @@ height: 100%;
     opacity: 0;
 }
 
-/**** Custom dialog/modal headers ****/
-
+/****    Custom dialog/modal headers  ****/
 .dialog-header-error {
     background-color: #d2322d; 
 }
@@ -488,9 +487,9 @@ height: 100%;
     margin-bottom: 30px;
 }/*#garmentDetail_stockSize_container*/
 
-
 #garmentDetail_stockSizes {
     color: rgb(44, 89, 135);
     font-family: Verdana, Arial, sans;
     font-size: 12px;
 }/*#garmentDetail_stockSizes*/
+

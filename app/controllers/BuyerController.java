@@ -77,7 +77,15 @@ public class BuyerController extends BaseController {
 				return badRequest();
 				// Trying to modify another user order
 			}
-			order.modify(selectedSizeId, pointsToUse);
+			
+			Long sizeId;
+			try {
+				sizeId = Long.parseLong(selectedSizeId);
+			} catch (NumberFormatException ex)
+			{
+				return badRequest();
+			}
+			order.modify(sizeId, pointsToUse);
 			PaymentManager manager = new PaymentManager();
 			HashMap<String, Object> jsonResult = new LinkedHashMap<String, Object>();
 			jsonResult.put("checkoutUrl", manager.checkout(order));

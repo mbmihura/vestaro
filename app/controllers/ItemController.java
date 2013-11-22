@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,9 +15,11 @@ import models.Item;
 import models.PaymentManager;
 import models.StockPerSize;
 
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jettison.json.JSONException;
 
 import play.data.DynamicForm;
+import play.data.DynamicForm.Dynamic;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
@@ -111,10 +114,36 @@ public class ItemController extends BaseController {
 		String sex = data.get("sex");
 		if (sex != null && !sex.isEmpty())
 			item.sex = sex;
-
-		// TODO if .save fails return correct http status code: return
-		// badRequest();
+		
+		// TODO if .save fails return correct http status code: return badRequest();
 		item.save();
+				
+		JsonNode stocksJson = request().body().asJson().get("stock");
+		if (stocksJson != null){				
+		    Form<StockPerSize> stock = Form.form(StockPerSize.class);
+		    Iterator<JsonNode> it = stocksJson.iterator();
+		    List<StockPerSize> newStocks = new ArrayList<StockPerSize>();
+		    while (it.hasNext()) {
+		    	JsonNode jn = it.next();
+		    	Form<Dynamic> s = Form.form().bind(jn);
+		    	String i = s.data().get("id");
+		    	Long stockId = (i.isEmpty())? null : Long.parseLong(i);
+		    	String z = s.data().get("size");
+		    	String q = s.data().get("quantity");
+		    	Integer quantity = Integer.parseInt(q);
+		    	newStocks.add(new StockPerSize(stockId, z, quantity));
+		    }
+		    List<StockPerSize> oldStocks = StockPerSize.findStockForItem(id);
+		    for(StockPerSize s : oldStocks)
+		    	s.delete();
+		    for(StockPerSize s : newStocks)
+		    {	s.item = item;
+		    	s.save();
+		    }
+		}
+		   
+		
+        
 		if (created) {
 			return created(Json.toJson(item));
 		} else {
@@ -177,10 +206,18 @@ public class ItemController extends BaseController {
 	public static Result orderItem(String itemId, String size, Integer pointsUsed) throws Exception {
 		Item item = Item.find.byId(itemId);
 
+		Long sizeId;
+		try {
+			sizeId = Long.parseLong(size);
+		} catch (NumberFormatException ex)
+		{
+			return badRequest();
+		}
+		
 		BuyOrder buyOrder = new BuyOrder();
 
 		try {
-			buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), size, pointsUsed);
+			buyOrder.create(buyOrder, item, Buyer.findBuyerByUser(currentUser().userId), sizeId, pointsUsed);
 
 		} catch (InvalidBuyOrderException exception) {
 			return status(UNPROCESSABLE_ENTITY);
