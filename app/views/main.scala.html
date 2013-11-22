@@ -138,6 +138,7 @@
               // Person is not logged into Facebook. At this stage there is no indication
               // of whether they are logged into the app. If they aren't then they'll see the Login
               // dialog right after they log in to Facebook. 
+              navBar.showAsNoUser();
               console.log('Event detected: User not logged to FB.');
             }
           });
@@ -207,19 +208,23 @@
 
       var navBar = {
         showAsBuyer: function () {
-          $(".navOptions").hide();
-          $("#noUserNavOptions").hide();
+          this.clearNavBar();
           $("#buyerNavOptions").show();
           $("#roles").html('Comprador <b class="caret"></b>');
-          $(".rolCheck").hide();
           $("#buyerRol .rolCheck").show();
         }, showAsSeller: function () {
-          $(".navOptions").hide();
-          $("#noUserNavOptions").hide();
+          this.clearNavBar();
           $("#sellerNavOptions").show();
           $("#roles").html('Vendedor <b class="caret"></b>');
-          $(".rolCheck").hide();
           $("#sellerRol .rolCheck").show();
+        }, showAsNoUser: function () {
+          this.clearNavBar();
+          $("#noUserNavOptions").show();
+          $("#loginNavBar").show();
+        }, clearNavBar: function(){
+          $("#loadingNavOptions").hide();
+          $(".navOptions").hide();
+          $(".rolCheck").hide();
         }
       }
     </script>
@@ -240,7 +245,17 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
 
           <!-- Site navigation options -->
-          <div id="noUserNavOptions" class="navOptions" ng-include="'@routes.Assets.at("html/server/noUserNavbar.html")'"></div>
+          <div id="loadingNavOptions" class="navOptions">
+          <ul class="nav navbar-nav">
+            <li>
+              <a style="padding-bottom: 10px; padding-top: 10px;" href="#/">
+                <img src="assets/img/loading_animation.gif" style="width: 15px;">
+                <span style="font-size: 10px;color: #B2B2B2;font-style: italic;">Connecting with facebook</span>
+              </a>
+            </li>
+          </ul>
+          </div>
+          <div id="noUserNavOptions" class="navOptions" style="display:none" ng-include="'@routes.Assets.at("html/server/noUserNavbar.html")'"></div>
           <div id="buyerNavOptions" class="navOptions" style="display:none" ng-include="'@routes.Assets.at("html/server/buyerNavbar.html")'"></div>
           <div id="sellerNavOptions" class="navOptions" style="display:none" ng-include="'@routes.Assets.at("html/server/sellerNavbar.html")'"></div>
           
@@ -285,7 +300,7 @@
           </ul>
 
           <!-- Fb's registration options -->
-          <div id="loginNavBar" ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
+          <div id="loginNavBar" style="display: none;" ng-include="'@routes.Assets.at("html/loginNavbar.html")'"></div>
         </div>
       </div>
     </nav>
