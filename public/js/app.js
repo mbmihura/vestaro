@@ -113,7 +113,6 @@ vestaroMain.factory('BuyerSession', ['$http', '$rootScope', 'Facebook', function
             console.log(itemsList);
             return $http.post('/getItemsByList', itemsList);
         },
-        // TODO: replace with server request for categories.
         getCategories: function(){
             return $http.get('/categories');
         },
@@ -131,17 +130,11 @@ vestaroMain.factory('BuyerSession', ['$http', '$rootScope', 'Facebook', function
                   }
                 };
               $('#alertModal').modal('show');
-              // TODO: check status
-              // Facebook.likeItem(item, null);
+              //Facebook.likeItem(item, null);
             })
             .error(function(data, status, headers, config){
               console.log(status);
               switch(status) {
-                // TODO: centralize error handling.
-                case 401: // Unauthorized
-                  $('#registerAsBuyerBtn').popover('show');
-                  break;
-
                 case 409: // Confilct: duplicate item
                   $rootScope.alert =
                     {title:'La prenda ya está en tu Wishlist',
@@ -154,7 +147,6 @@ vestaroMain.factory('BuyerSession', ['$http', '$rootScope', 'Facebook', function
                     };
                   $('#alertModal').modal('show');
                   break;
-
                 default:
                   $rootScope.alert =
                     {title:'Oops, parece que hubo un problema',
