@@ -101,29 +101,31 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
 
 .controller('GarmentViewCtrl', ['$scope', 'garmentsApi', '$routeParams', '$location', '$http','Easyrec', 'Facebook', 'BuyerSession',
   function($scope, garmentsApi, $routeParams, $location, $http, Easyrec, Facebook, BuyerSession){
-  $scope.garment = garmentsApi.get({id: $routeParams.id}, function() {
-    $scope.garment.availableStocks = "";
-    $scope.garment.stock.forEach(function(s) {
-      if(s.quantity > 0)
-        $scope.garment.availableStocks += s.size + ", ";
-    });
-
-    $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
-    $http.post('/garment/' + $routeParams.id + '/actions', {type:'VIEW'});
-    $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2);
+  
+    $scope.garment = garmentsApi.get({id: $routeParams.id}, function(data) {
+      if($scope.garment.stock) {
+        $scope.garment.availableStocks = "";
+        $scope.garment.stock.forEach(function(s) {
+          if(s.quantity > 0)
+            $scope.garment.availableStocks += s.size + ", ";
+        });
+        $scope.garment.availableStocks = $scope.garment.availableStocks.substring(0, $scope.garment.availableStocks.length - 2); 
+        
+        $http.post('/garment/' + $routeParams.id + '/actions', {type:'VIEW'});
+        
+        Easyrec.sendAction('view', $scope.garment);
+      } else {
+        $location.path('/GarmentNotFound')
+      }
+  });
     
-    Easyrec.sendAction('view', $scope.garment);
+  $scope.shareItem = function(){
+    Facebook.feedDialog($scope.garment);
+  }
 
-    $scope.shareItem = function(){
-      Facebook.feedDialog($scope.garment);
-    }
-
-    $scope.addToWishlist = function(){
-      BuyerSession.addToWishlist($scope.garment);
-    }
-});
-
-
+  $scope.addToWishlist = function(){
+    BuyerSession.addToWishlist($scope.garment);
+  }
 }])
 
 .controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
