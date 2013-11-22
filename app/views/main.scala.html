@@ -125,7 +125,7 @@
               $('.navbar .accountOptions').fadeIn();
 
               //If app is not allow, aparently callbackfunction is never call. 
-              //} else if (response.status === 'not_authorized') {
+            //} else if (response.status === 'not_authorized') {
               //  // In this case, the person is logged into Facebook, but not into the app, so we call
               //  // FB.login() to prompt them to do so. 
               //  // In real-life usage, you wouldn't want to immediately prompt someone to login 
@@ -153,7 +153,7 @@
               console.log('getLoginStatus answered not logged. Loading logIn optionsd...');
                 // FB.login();
                 // Show Ui to log in.
-                $('#fbSignIn').show();
+              navBar.showAsNoUser();
             }
           },function(error){
             console.log("FB's LoginStatus answered with an error: " + error);
