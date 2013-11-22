@@ -12,11 +12,26 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
 }])
 
 .controller('GarmentListCtrl', ['$scope','garmentsApi', function($scope, garmentsApi){
-  $scope.list = garmentsApi.query({ownerUser: 'currentUser'});
+  $scope.list = garmentsApi.query({ownerUser: 'currentUser'}, function(data){
+    $scope.list.forEach(function(i){
+      i.totalStock = $scope.totalSizeSum(i.stock)
+    });
+  });
+
+
 
   $scope.setToDelete = function(id, title){
     // TODO: retrieve from list;
     $scope.toDelete = { id: id, title: title};
+  };
+
+  $scope.totalSizeSum = function(stocks)
+  {
+    var total = 0;
+    stocks.forEach(function(s){
+      total = total + s.quantity;
+    });
+    return total;
   };
 
   $scope.destroy = function(id)
@@ -24,7 +39,6 @@ controller('serverPageRoutingCtrl', ['$scope', '$routeParams', '$location', '$ro
     garmentsApi.delete({id: id});
     $scope.list = $.grep($scope.list,function(g){ return g.id != id;});
   };
-	
 }])
 
 .controller('GarmentListCCtrl', ['$scope','$http', function($scope, $http){

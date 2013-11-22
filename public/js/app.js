@@ -14,12 +14,57 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
             }
 
             function error(response) {
-                if (response.status === 404 && response.config.url.indexOf(".html")) {
-
+              //TODO: replace with angular new pattern
+              switch (response.status) {
+                case 401:
+                    // TODO: replace 
+                    $('#loginBtn').popover('show');
+                    return $q.reject(response);
+                    break;
+                case 403:
+                    if (response.config.url.indexOf(".html"))
+                    {
+                      // get $http via $injector because of circular dependency problem
+                      $http = $http || $injector.get('$http');
+                      var defer = $q.defer();
+                      $http.get('/assets/html/server/403Forbidden.html')
+                        .then(function (result) {
+                          response.status = 200;
+                          response.data = result.data;
+                          defer.resolve(response);
+                        }, function () {
+                          defer.reject(response);
+                          });
+                      return defer.promise;// response;
+                    } else {
+                      //TODO; show remote modal with 403 page.
+                      return $q.reject(response);
+                    }
+                    break;
+                case 404:
+                    if (response.config.url.indexOf(".html"))
+                    {
+                      // get $http via $injector because of circular dependency problem
+                      $http = $http || $injector.get('$http');
+                      var defer = $q.defer();
+                      $http.get('/assets/html/server/404NotFound.html')
+                        .then(function (result) {
+                          response.status = 200;
+                          response.data = result.data;
+                          defer.resolve(response);
+                        }, function () {
+                          defer.reject(response);
+                          });
+                      return defer.promise;// response;
+                    } else {
+                      return $q.reject(response);
+                    }
+                    break;
+                case 500:
                     // get $http via $injector because of circular dependency problem
                     $http = $http || $injector.get('$http');
                     var defer = $q.defer();
-                    $http.get('/assets/html/server/404NotFound.html')
+                    $http.get('/assets/html/server/500InternalError.html')
                         .then(function (result) {
                             response.status = 200;
                             response.data = result.data;
@@ -29,9 +74,10 @@ vestaroMain.config(['$httpProvider', function ($httpProvider) {
                         });
 
                     return defer.promise;// response;
-                } else {
+                    break;
+                default:
                     return $q.reject(response);
-                }
+              }
             }
 
             return function (promise) {
@@ -93,7 +139,7 @@ vestaroMain.factory('BuyerSession', ['$http', '$rootScope', 'Facebook', function
               switch(status) {
                 // TODO: centralize error handling.
                 case 401: // Unauthorized
-                  $('#loginBtn').popover('show');
+                  $('#registerAsBuyerBtn').popover('show');
                   break;
 
                 case 409: // Confilct: duplicate item
