@@ -1,6 +1,6 @@
 body {
   /* 60px to make the container go all the way to the bottom of the topbar */
-  padding-top: 55px;
+padding-top: 55px;
 }
 
 .page-header {
@@ -8,11 +8,12 @@ body {
 }
 
 .vestaro-logo {
+  max-width: 100%;
+  height: auto;
   cursor: default;
 }
 
 /**** Isotope Filtering ****/
-
 .isotope-item {
   z-index: 2;
 }
@@ -23,105 +24,104 @@ body {
 }
 
 /**** Isotope CSS3 transitions ****/
-
-.isotope,
-.isotope .isotope-item {
+.isotope,.isotope .isotope-item {
   -webkit-transition-duration: 0.8s;
-     -moz-transition-duration: 0.8s;
-      -ms-transition-duration: 0.8s;
-       -o-transition-duration: 0.8s;
-          transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  -ms-transition-duration: 0.8s;
+  transition-duration: 0.8s;
 }
 
 .isotope {
   -webkit-transition-property: height, width;
-     -moz-transition-property: height, width;
-      -ms-transition-property: height, width;
-       -o-transition-property: height, width;
-          transition-property: height, width;
+  -moz-transition-property: height, width;
+  -o-transition-property: height, width;
+  -ms-transition-property: height, width;
+  transition-property: height, width;
 }
 
 .isotope .isotope-item {
+
   -webkit-transition-property: -webkit-transform, opacity, box-shadow;
-     -moz-transition-property:    -moz-transform, opacity, box-shadow;
-      -ms-transition-property:     -ms-transform, opacity, box-shadow;
-       -o-transition-property:      -o-transform, opacity, box-shadow;
-          transition-property:         transform, opacity, box-shadow;
+  -moz-transition-property: -moz-transform, opacity, box-shadow;
+  -o-transition-property: -o-transform, opacity, box-shadow;
+  -ms-transition-property: -ms-transform, opacity, box-shadow;
+  transition-property: transform, opacity, box-shadow;
 }
 
 /**** disabling Isotope CSS3 transitions ****/
-
-.isotope.no-transition,
-.isotope.no-transition .isotope-item,
-.isotope .isotope-item.no-transition {
+.isotope.no-transition,.isotope.no-transition .isotope-item,.isotope .isotope-item.no-transition {
   -webkit-transition-duration: 0s;
-     -moz-transition-duration: 0s;
-      -ms-transition-duration: 0s;
-       -o-transition-duration: 0s;
-          transition-duration: 0s;
+  -moz-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  -ms-transition-duration: 0s;
+  transition-duration: 0s;
 }
 
-/* End: Recommended Isotope styles */
-
-
-
+/* End:  Recommended Isotope styles */
 /* disable CSS transitions for containers with infinite scrolling*/
 .isotope.infinite-scrolling {
   -webkit-transition: none;
-     -moz-transition: none;
-      -ms-transition: none;
-       -o-transition: none;
-          transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -ms-transition: none;
+  transition: none;
 }
 
 /* Overrides bootstrap's page-header margin. */
 .page-header {
-margin: 20px 0 20px;
+  margin: 20px 0 20px;
 }
 
 /* Items Home Buyer style */
 .items {
-padding-left: 20px;
-padding-right: 20px;
-margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 10px;
 }
 
 .items .item {
-margin: 2px;
-float: left;
-width: 222px;
-position: relative;
+  margin: 2px;
+  float: left;
+  width: 222px;
+  position: relative;
 }
 
 .items .item:HOVER .item-actions {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
   opacity: 1;
 }
 
 .items .item:HOVER .item-info-container {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
   opacity: 1;
 }
 
 .items .item-img {
-cursor: pointer;
--webkit-border-top-right-radius: 15px;
--moz-border-radius-topright: 15px;
-border-top-right-radius: 15px;
+  cursor: pointer;
+  -webkit-border-top-right-radius: 15px;
+  border-radius-topright: 15px;
+  border-top-right-radius: 15px;
 }
 
 .item .item-isotope {
-position: relative;
+  position: relative;
 }
 
 .item .item-actions {
--webkit-transition: 200ms ease-in-out all;
--moz-transition: 200ms ease-in-out all;
--ms-transition: 200ms ease-in-out all;
--o-transition: 200ms ease-in-out all;
-transition: 200ms ease-in-out all;
-position: absolute;
-right: 0px;
-top: 0px;
-opacity: 0;
+  -webkit-transition: 200ms ease-in-out all;
+  -moz-transition: 200ms ease-in-out all;
+  -o-transition: 200ms ease-in-out all;
+  -ms-transition: 200ms ease-in-out all;
+  transition: 200ms ease-in-out all;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
 }
 
 .item .item-actions .breadcrumb {
@@ -129,100 +129,137 @@ opacity: 0;
 }
 
 .item .item-info-container {
--webkit-transition: 200ms ease-in-out all;
--moz-transition: 200ms ease-in-out all;
--ms-transition: 200ms ease-in-out all;
--o-transition: 200ms ease-in-out all;
-transition: 200ms ease-in-out all;
-position: absolute;
-padding: 4px;
-bottom: 0px;
-width: 100%;
-opacity: 0;
+  -webkit-transition: 200ms ease-in-out all;
+  -moz-transition: 200ms ease-in-out all;
+  -o-transition: 200ms ease-in-out all;
+  -ms-transition: 200ms ease-in-out all;
+  transition: 200ms ease-in-out all;
+  position: absolute;
+  padding: 4px;
+  bottom: 0px;
+  width: 100%;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
 }
 
 .item .item-info {
-background-color: rgba(255, 255, 255, 0.85);
-padding: 4px;
--webkit-border-top-left-radius: 10px;
--moz-border-radius-topleft: 10px;
-border-top-left-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 4px;
+  -webkit-border-top-left-radius: 10px;
+  border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
 }
 
 .item .item-info .price {
-font-color: #2974B9;
-font-weight: bold;
-font-size: 14px;
+  font-color: #2974B9;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .item .item-info .title {
-	margin-top:0px;
-	cursor: default;
+  margin-top: 0px;
+  cursor: default;
 }
 
 .item.large {
-width: 350px;
--webkit-border-top-right-radius: 30px;
--moz-border-radius-topright: 30px;
-border-top-right-radius: 30px;
+  width: 350px;
+  -webkit-border-top-right-radius: 30px;
+  border-radius-topright: 30px;
+  border-top-right-radius: 30px;
 }
 
 .action {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 /* Responsive Videos */
 .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
 }
- 
-.video-container iframe,
-.video-container object,
-.video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+
+.video-container iframe,.video-container object,.video-container embed {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  height: 100%;
 }
 
 /* Search Item style */
 /* Masonry */
 .masonry {
-    position: absolute; /* important to add it before enter animation start */
-    padding: 0px;
-    -webkit-transition-duration: .7s;
-    transition-duration: .7s;
-    -webkit-transition-property: all;
-    transition-property: all;
-}
-.masonry .item-container { /* apply before masonry add class */
-    position: absolute; /* important to add it before enter animation start */
-    -webkit-transition-duration: .7s;
-    transition-duration: .7s;
-    -webkit-transition-property: all;
-    transition-property: all;
+  position: absolute; /* important to add it before enter animation start */
+padding: 0px;
+
+  -webkit-transition-duration: .7s;
+  -moz-transition-duration: .7s;
+  -o-transition-duration: .7s;
+  -ms-transition-duration: .7s;
+  transition-duration: .7s;
+
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -ms-transition-property: all;
+  transition-property: all;
 }
 
-.masonry .masonry-enter { /* limit animated properties for entering elements */
-    -webkit-transition-property: -webkit-transform, opacity;
-    transition-property: transform, opacity;
+.masonry .item-container {
+  /* apply before masonry add class */
+position: absolute; /* important to add it before enter animation start */
+
+-webkit-transition-duration: .7s;
+  -moz-transition-duration: .7s;
+  -o-transition-duration: .7s;
+  -ms-transition-duration: .7s;
+  transition-duration: .7s;
+
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -ms-transition-property: all;
+  transition-property: all;
 }
 
-.masonry-enter,
-.masonry-leave.masonry-leave-active {
-    opacity: 0;
-    -webkit-transform: scale(0.1);
-    transform: scale(0.1);
+.masonry .masonry-enter {
+  /* limit animated properties for entering elements */
+
+-webkit-transition-property: -webkit-transform, opacity;
+  -moz-transition-property: -moz-transform, opacity;
+  -o-transition-property: -o-transform, opacity;
+  -ms-transition-property: -ms-transform, opacity;
+  transition-property: transform, opacity;
 }
 
-.masonry-leave,
-.masonry-enter.masonry-enter-active {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
+.masonry-enter,.masonry-leave.masonry-leave-active {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+
+  -webkit-transform: scale(0.1);
+  -moz-transform: scale(0.1);
+  -o-transform: scale(0.1);
+  -ms-transform: scale(0.1);
+  transform: scale(0.1);
+}
+
+.masonry-leave,.masonry-enter.masonry-enter-active {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
 }
 
 /* Item */
@@ -238,36 +275,41 @@ border-top-right-radius: 30px;
   max-width: 100%;
   background-color: white;
   border: 1.5px solid #ddd;
-	position: relative;
-	padding: 4px;
-	-webkit-transition: 200ms ease-in-out all;
-    -moz-transition: 200ms ease-in-out all;
-    -ms-transition: 200ms ease-in-out all;
-    -o-transition: 200ms ease-in-out all;
-    transition: 200ms ease-in-out all;
+  position: relative;
+  padding: 4px;
+
+  -webkit-transition: 200ms ease-in-out all;
+  -moz-transition: 200ms ease-in-out all;
+  -o-transition: 200ms ease-in-out all;
+  -ms-transition: 200ms ease-in-out all;
+  transition: 200ms ease-in-out all;
 }
 
 .item-thumb:HOVER {
-	border: 1.5px solid rgba(66, 139, 202, 0.9);
+  border: 1.5px solid rgba(66, 139, 202, 0.9);
 }
 
 .item-thumb:HOVER .item-actions {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
   opacity: 1;
 }
 
 .item-thumb .item-actions {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	opacity: 0;
-  background-color: rgba(66, 139, 202, 0.9);
-	/* Breadcrumb */
-	border-bottom-left-radius: 4px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background-color: rgba(66, 139, 202, 0.9); /* Breadcrumb */
+border-bottom-left-radius: 4px;
   padding: 5px 10px;
+
   -webkit-transition: 200ms ease-in-out all;
   -moz-transition: 200ms ease-in-out all;
-  -ms-transition: 200ms ease-in-out all;
   -o-transition: 200ms ease-in-out all;
+  -ms-transition: 200ms ease-in-out all;
   transition: 200ms ease-in-out all;
 }
 
@@ -280,14 +322,13 @@ border-top-right-radius: 30px;
 
 .item-thumb .item-main {
   text-align: center;
-  padding: 4px;
-  /*Hack to center verically the img.*/
-  height: 85%;
+  padding: 4px; /*Hack to center verically the img.*/
+height: 85%;
   line-height: 155px;
 }
 
 .item-thumb .item-main .item-img {
-	border-radius: 4px;
+  border-radius: 4px;
   max-height: 82%;
   max-width: 100%;
   vertical-align: middle;
@@ -297,8 +338,10 @@ border-top-right-radius: 30px;
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 2px;
-  cursor: default;
-  /* To make the title fit. */
+  cursor: default; /* To make the title fit. */
+
+-o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -311,7 +354,6 @@ border-top-right-radius: 30px;
 }
 
 /* Friends List */
-
 .list-group-item-heading {
   padding-top: 12px;
   cursor: default;
@@ -333,8 +375,8 @@ border-top-right-radius: 30px;
 
 /* Wishlist */
 .item-thumb.wishlist {
-  height: 400px;
-  /*line-height: 345px;*/
+  height: 400px; /*line-height:  345px;
+  */
 }
 
 .item-thumb.wishlist .item-main {
@@ -342,154 +384,163 @@ border-top-right-radius: 30px;
   line-height: 300px;
 }
 
-.item-thumb.wishlist .item-main .item-img{
+.item-thumb.wishlist .item-main .item-img {
   max-height: 85%;
 }
 
 /* To fill the container and nothing else */
-.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
-width: 100% !important;
+.fb_iframe_widget,.fb_iframe_widget span,.fb_iframe_widget span iframe[style] {
+  width: 100% !important;
 }
- 
+
 .embed-container {
-position: relative;
-padding-bottom: 56.25%; /* 16/9 ratio */ 
+  position: relative;
+  padding-bottom: 56.25%; /* 16/9 ratio */
 height: 100px;
-overflow: hidden;
+  overflow: hidden;
 }
- 
-.embed-container iframe,
-.embed-container object,
-.embed-container embed {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
+
+.embed-container iframe,.embed-container object,.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
+
 /* end of facebook responsive */
-
-.animate-enter, 
-.animate-leave
-{ 
-    -webkit-transition: 300ms ease-in-out all;
-    -moz-transition: 300ms ease-in-out all;
-    -ms-transition: 300ms ease-in-out all;
-    -o-transition: 300ms ease-in-out all;
-    transition: 300ms ease-in-out all;
-    position: relative;
-    display: block;
-} 
-
-.animate-enter.animate-enter-active, 
-.animate-leave {
-    opacity: 1;
+.animate-enter,.animate-leave {
+  -webkit-transition: 300ms ease-in-out all;
+  -moz-transition: 300ms ease-in-out all;
+  -o-transition: 300ms ease-in-out all;
+  -ms-transition: 300ms ease-in-out all;
+  transition: 300ms ease-in-out all;
+  position: relative;
+  display: block;
 }
 
-.animate-leave.animate-leave-active,
-.animate-enter {
-    opacity: 0;
+.animate-enter.animate-enter-active,.animate-leave {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+.animate-leave.animate-leave-active,.animate-enter {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
 }
 
 /****    Custom dialog/modal headers  ****/
 .dialog-header-error {
-    background-color: #d2322d; 
+  background-color: #d2322d;
 }
-.dialog-header-wait { 
-    background-color: #428bca; 
+
+.dialog-header-wait {
+  background-color: #428bca;
 }
-.dialog-header-notify { 
-    background-color: #eeeeee; 
+
+.dialog-header-notify {
+  background-color: #eeeeee;
 }
-.dialog-header-confirm { 
-    background-color: #333333; 
+
+.dialog-header-confirm {
+  background-color: #333333;
 }
-.dialog-header-error span, .dialog-header-error h4,
-.dialog-header-wait span, .dialog-header-wait h4,
-.dialog-header-confirm span, .dialog-header-confirm h4 { 
-    color: #ffffff; 
+
+.dialog-header-error span,.dialog-header-error h4,.dialog-header-wait span,.dialog-header-wait h4,.dialog-header-confirm span,.dialog-header-confirm h4 {
+  color: #ffffff;
 }
 
 /**** Garments Details ****/
 #garmentDetail_boxContainer {
-    border-color: rgb(204, 204, 204);
-    border-radius: 8px 8px 8px 8px;
-    border-style: solid;
-    border-width: 1px;
-    color: rgb(85, 85, 85);
-    font: normal normal normal 12px/normal Verdana, Arial, sans;
-    font-family: Verdana, Arial, sans;
-    font-size: 12px;
-    margin-bottom: 15px;
-    width: 1003px;
-}/*#garmentDetail_boxContainer*/
+  border-color: rgb(204, 204, 204);
+  border-radius: 8px 8px 8px 8px;
+  border-style: solid;
+  border-width: 1px;
+  color: rgb(85, 85, 85);
+  font: normal normal normal 12px/normal Verdana, Arial, sans;
+  font-family: Verdana, Arial, sans;
+  font-size: 12px;
+  margin-bottom: 15px;
+  width: 1003px;
+}
 
+/*#garmentDetail_boxContainer*/
 #garmentDetail_boxContainer .innerContainer:after {
-    clear: both;
-    content: '';
-    display: table;
-}/*#garmentDetail_boxContainer .innerContainer:after*/
+  clear: both;
+  content: '';
+  display: table;
+}
 
+/*#garmentDetail_boxContainer .innerContainer: after*/
 #garmentDetail_boxContainer .imageContainer {
-    float: left;
-    padding-top: 10px;
-}/*#garmentDetail_boxContainer .imageContainer*/
+  float: left;
+  padding-top: 10px;
+}
 
+/*#garmentDetail_boxContainer .imageContainer*/
 #garmentDetail_brandLogo {
-    border-left-color: rgb(221, 221, 221);
-    border-left-style: solid;
-    border-left-width: 1px;
-    float: right;
-    height: 52px;
-    text-align: center;
-    width: 239px;
-}/*#garmentDetail_brandLogo*/
+  border-left-color: rgb(221, 221, 221);
+  border-left-style: solid;
+  border-left-width: 1px;
+  float: right;
+  height: 52px;
+  text-align: center;
+  width: 239px;
+}
 
+/*#garmentDetail_brandLogo*/
 #garmentDetail_brandLogo a {
-    display: block;
-    margin-left: 13px;
-    margin-right: 13px;
-    padding-bottom: 4px;
-    padding-top: 7px;
-    text-align: center;
-}/*#garmentDetail_brandLogo a */
+  display: block;
+  margin-left: 13px;
+  margin-right: 13px;
+  padding-bottom: 4px;
+  padding-top: 7px;
+  text-align: center;
+}
 
+/*#garmentDetail_brandLogo a */
 #garmentDetail_brandLogo img {
-    width: 184px;
-}/*#garmentDetail_brandLogo img */
+  width: 184px;
+}
 
+/*#garmentDetail_brandLogo img */
 #garmentDetail_detailsContainer {
-    background-color: rgb(241, 241, 241);
+  background-color: rgb(241, 241, 241);
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: rgb(221, 221, 221);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-top-color: rgb(221, 221, 221);
+  border-top-style: solid;
+  border-top-width: 1px;
+  float: right;
+  position: relative;
+  width: 239px;
+}
 
-    border-bottom-color: rgb(221, 221, 221);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-left-color: rgb(221, 221, 221);
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-top-color: rgb(221, 221, 221);
-    border-top-style: solid;
-    border-top-width: 1px;
-    float: right;
-    position: relative;
-    width: 239px;
-}/*#garmentDetail_detailsContainer*/
-
+/*#garmentDetail_detailsContainer*/
 #garmentDetail_form {
-    height: 340px;
-    padding: 10px 0px 0px;
-    padding-top: 10px;
-    text-align: center; /* se deberia ir */
-}/*#garmentDetail_form*/
+  height: 340px;
+  padding: 10px 0px 0px;
+  padding-top: 10px;
+  text-align: center; /* se deberia ir */
+}
 
+/*#garmentDetail_form*/
 #garmentDetail_stockSize_container {
-    margin-top: 17px;
-    margin-bottom: 30px;
-}/*#garmentDetail_stockSize_container*/
+  margin-top: 17px;
+  margin-bottom: 30px;
+}
 
+/*#garmentDetail_stockSize_container*/
 #garmentDetail_stockSizes {
-    color: rgb(44, 89, 135);
-    font-family: Verdana, Arial, sans;
-    font-size: 12px;
-}/*#garmentDetail_stockSizes*/
+  color: rgb(44, 89, 135);
+  font-family: Verdana, Arial, sans;
+  font-size: 12px;
+}
 
+/*#garmentDetail_stockSizes*/
