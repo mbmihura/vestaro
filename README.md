@@ -1,9 +1,10 @@
-This is your new Play 2.1 application
-=====================================
+# Vestaro
 
-This file will be packaged with your application, when using `play dist`.
+> Aplicación web para comprar y vender indumentaria.
 
-###Repos Status:###
+[Vestaro](vestaro.herokuapp.com) es una aplicación web desarrollada en Play! (para Java), Bootstrap y AngularJS, entre otras tecnologías, que hace las veces de una plataforma e-commerce para la compraventa de indumentaria. La misma está integrada con un motor de recomendación open source (EasyRec), con Facebook y con MercadoPago.
+
+### Build Status
 develop: [![Build Status](https://travis-ci.org/mbmihura/vestaro.png?branch=DEV)](https://travis-ci.org/mbmihura/vestaro) 
 
 master: [![Build Status](https://travis-ci.org/mbmihura/vestaro.png?branch=master)](https://travis-ci.org/mbmihura/vestaro)
